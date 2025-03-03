@@ -3,49 +3,46 @@
 @section('auth-content')
     <div class="auth-content">
         <div class="auth-header">
-            <h2 class="auth-heading">Створіть обліковий запис</h2>
-            <p class="auth-subheading">Заповніть дані або оберіть метод:</p>
+            <h2 class="auth-heading">{{ __('auth.register.heading') }}</h2>
+            <p class="auth-subheading">{{ __('auth.register.subheading') }}</p>
         </div>
 
-        <!-- Step 1 -->
         <form id="registration-form" method="POST" action="{{ route('register') }}">
             @csrf
             <div class="step step-1 active">
                 <div class="form-group">
-                    <x-input type="email" name="email" label="Електронна пошта" placeholder="Email"/>
-                    <x-input type="password" name="password" label="Пароль" placeholder="********"/>
-                    <x-input type="password" name="password_confirmation" label="Повторіть пароль"
-                             placeholder="********"/>
+                    <x-input type="email" name="email" label="{{ __('auth.register.email') }}" placeholder="Email"/>
+                    <x-input type="password" name="password" label="{{ __('auth.register.password') }}" placeholder="********"/>
+                    <x-input type="password" name="password_confirmation" label="{{ __('auth.register.password_confirmation') }}" placeholder="********"/>
                 </div>
 
                 <div class="auth-buttons">
-                    <button type="button" class="button next-step">{{ __('Далі') }}</button>
+                    <button type="button" class="button next-step">{{ __('auth.register.next') }}</button>
                     @include('components.social-buttons')
                 </div>
 
                 <div class="auth-link">
-                    <p>{{ __('Вже маєте обліковий запис?') }}
-                        <a href="{{ route('login') }}">{{ __('Увійдіть тут') }}</a></p>
+                    <p>{{ __('auth.register.login_text') }}
+                        <a href="{{ route('login') }}">{{ __('auth.register.login_link') }}</a>
+                    </p>
                 </div>
             </div>
 
-            <!-- Step 2 -->
             <div class="step step-2">
                 <div class="photo-upload">
                     <div class="photo-background" onclick="document.getElementById('profile-photo').click();">
-                        <img id="preview-image" src="{{ asset('images/auth/upload-photo.svg') }}"
-                             alt="Завантажити фото">
+                        <img id="preview-image" src="{{ asset('images/auth/upload-photo.svg') }}" alt="Завантажити фото">
                     </div>
                     <input id="profile-photo" type="file" name="profile_photo" accept="image/*" hidden>
                 </div>
 
                 <div class="form-group">
-                    <x-input type="text" name="first_name" label="Ім'я" placeholder="Введіть ім’я"/>
-                    <x-input type="text" name="last_name" label="Прізвище" placeholder="Введіть прізвище"/>
-                    <x-input type="tel" name="phone_number" label="Номер телефону" placeholder="Введіть номер"/>
+                    <x-input type="text" name="first_name" label="{{ __('auth.register.first_name') }}" placeholder="Enter first name"/>
+                    <x-input type="text" name="last_name" label="{{ __('auth.register.last_name') }}" placeholder="Enter last name"/>
+                    <x-input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}" placeholder="Enter phone number"/>
                 </div>
 
-                <button type="submit" class="button register">Підтвердити</button>
+                <button type="submit" class="button register">{{ __('auth.register.confirm_button') }}</button>
             </div>
         </form>
     </div>

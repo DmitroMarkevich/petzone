@@ -3,43 +3,43 @@
 @section('auth-content')
     <div class="auth-content">
         <div class="auth-header">
-            <h2 class="auth-heading">Вхід в обліковий запис</h2>
-            <p class="auth-subheading">З поверненням! Оберіть метод входу:</p>
+            <h2 class="auth-heading">{{ __('auth.login.heading') }}</h2>
+            <p class="auth-subheading">{{ __('auth.login.subheading') }}</p>
         </div>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
-                <x-input type="email" name="email" label="Електронна пошта" placeholder="Email" autofocus/>
+                <x-input type="email" name="email" label="{{ __('auth.login.email') }}" placeholder="Email" autofocus/>
                 @error('email')
-                    <span class="error-message">*{{ $message }}</span>
+                <span class="error-message">*{{ $message }}</span>
                 @enderror
 
-                <x-input type="password" name="password" label="Пароль" placeholder="********"/>
+                <x-input type="password" name="password" label="{{ __('auth.login.password') }}" placeholder="********"/>
                 @error('password')
-                    <span class="error-message">*{{ $message }}</span>
+                <span class="error-message">*{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="form-options">
                 <label>
                     <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                    <span class="remember-text">{{ __('Запам’ятати мене') }}</span>
+                    <span class="remember-text">{{ __('auth.login.remember') }}</span>
                 </label>
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="forgot-password">{{ __('Забули пароль?') }}</a>
+                    <a href="{{ route('password.request') }}" class="forgot-password">{{ __('auth.login.forgot_password') }}</a>
                 @endif
             </div>
 
             <div class="auth-buttons">
-                <button type="submit" class="button login">{{ __('Увійти') }}</button>
+                <button type="submit" class="button login">{{ __('auth.login.login_button') }}</button>
                 @include('components.social-buttons')
             </div>
         </form>
 
         <div class="auth-link">
-            <p>{{ __('Немає облікового запису?') }}
-                <a href="{{ route('register') }}">{{ __('Зареєструватися') }}</a>
+            <p>{{ __('auth.login.register_text') }}
+                <a href="{{ route('register') }}">{{ __('auth.login.register_link') }}</a>
             </p>
         </div>
     </div>
