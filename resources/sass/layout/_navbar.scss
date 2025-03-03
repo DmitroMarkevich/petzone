@@ -1,0 +1,113 @@
+@use '../mixins';
+@use '../variables';
+
+.navbar, .input-group, .search-form, .nav-icons, .category-btn, .badge, .nav-link {
+    @include mixins.flex-center;
+}
+
+header {
+    box-shadow: 0 2px 4px 0 #0000001A;
+}
+
+.navbar {
+    justify-content: space-between;
+    height: 88px;
+}
+
+.input-group, .search-input {
+    border-radius: 40px;
+}
+
+.input-group {
+    padding: 4px;
+    width: 615px;
+    border: 1px solid variables.$dark-gray;
+    position: relative;
+}
+
+.search-input {
+    @include mixins.font-style(16px, variables.$dark-gray);
+    flex: 1;
+}
+
+.category-btn {
+    @include mixins.font-style(16px, variables.$carbon);
+    border-right: 1px solid variables.$carbon;
+    border-radius: 0;
+    padding: 0 20px;
+}
+
+.category-menu {
+    display: none;
+    position: absolute;
+    background: variables.$light-background;
+    width: 230px;
+    top: 55px;
+    left: 0;
+    z-index: 100;
+
+    li {
+        cursor: pointer;
+        padding: 8px 16px;
+
+        &:hover {
+            background-color: variables.$orange;
+        }
+    }
+
+    a {
+        @include mixins.flex-center-vertical;
+        @include mixins.font-style(18px, variables.$carbon);
+        font-family: variables.$font-family-alt;
+        gap: 10px;
+
+        &::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background-image: url('/public/images/right-arrow.svg');
+            margin-left: auto;
+        }
+    }
+}
+
+.category-menu.active {
+    display: block;
+}
+
+.search-btn {
+    position: absolute;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: variables.$orange;
+}
+
+.navbar-right {
+    @include mixins.flex-center-vertical;
+    gap: 24px;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.badge {
+    @include mixins.font-style(14px, variables.$carbon);
+    background-color: variables.$orange;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+}
+
+.nav-avatar-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+
+    &:hover {
+        border: 1.5px solid variables.$orange;
+    }
+}

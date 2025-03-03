@@ -1,0 +1,28 @@
+@use '../mixins';
+@use '../variables';
+
+.button {
+    @include mixins.flex-center;
+    @include mixins.font-style(1rem, variables.$light-background, variables.$font-weight-medium);
+    width: 100%;
+    padding: 15px 0;
+    border-radius: 100px;
+    font-family: variables.$font-family-alt;
+    gap: 8px;
+
+    &.login,
+    &.register,
+    &.next-step,
+    &.prev-step {
+        background-color: variables.$dark-blue;
+    }
+
+    &.google, &.facebook {
+        color: variables.$muted-gray;
+        border: 1px solid #E6E1E2;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 32px;
+    }
+}

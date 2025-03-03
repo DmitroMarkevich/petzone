@@ -1,0 +1,24 @@
+@use '../mixins';
+@use '../variables';
+
+.footer {
+    @include mixins.flex-center(column);
+    background-color: variables.$sky-blue;
+    font-family: variables.$font-family-alt;
+    height: 280px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 60px;
+    margin-top: 35px;
+    margin-bottom: 60px;
+}
+
+.footer-link-item a {
+    @include mixins.font-style(16px, variables.$light-background, variables.$font-weight-semibold);
+}
+
+.footer-copy {
+    @include mixins.font-style(14px, #E6E1E2);
+}

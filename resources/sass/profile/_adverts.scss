@@ -1,0 +1,82 @@
+@use '../mixins';
+@use '../variables';
+
+.adverts-container {
+    // todo
+}
+
+.page-title {
+    @include mixins.font-style(36px, variables.$carbon, variables.$font-weight-medium);
+    font-family: variables.$font-family;
+}
+
+.advert-item {
+    @include mixins.flex-center-vertical;
+    justify-content: space-between;
+    padding: 16px 32px;
+    border-radius: 32px;
+    box-shadow: 0 4px 32px 0 #00000033;
+    font-family: variables.$font-family-alt;
+    transition: background-color 0.3s;
+    gap: 16px;
+
+    &:hover {
+        background-color: variables.$pale-blue;
+    }
+
+    .advert-image {
+        width: 100px;
+        border-radius: 8px;
+    }
+
+    .advert-price {
+        @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-medium);
+        font-family: variables.$font-family-alt;
+    }
+}
+
+.advert-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.advert-description {
+    @include mixins.font-style(14px, variables.$carbon, variables.$font-weight-medium);
+    margin: 0;
+}
+
+.advert-date {
+    @include mixins.font-style(12px, #797677);
+}
+
+.advert-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 22px;
+}
+
+.advert-actions {
+    display: flex;
+    gap: 10px;
+
+    button {
+        @include mixins.font-style(16px, variables.$carbon);
+        padding: 12px 20px;
+    }
+
+    .edit-btn {
+        background-color: variables.$orange;
+    }
+
+    .delete-btn {
+        border: 1px solid variables.$orange;
+        background-color: variables.$light-background;
+    }
+}
+
+.advert-date-wrapper {
+    @include mixins.flex-center-vertical;
+    gap: 6px;
+}

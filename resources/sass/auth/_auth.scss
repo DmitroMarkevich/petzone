@@ -1,0 +1,140 @@
+@use '../mixins';
+@use '../variables';
+@use 'buttons';
+
+.auth-container {
+    display: flex;
+    height: 100vh;
+    font-family: variables.$font-family-alt;
+}
+
+.auth-left, .auth-right {
+    @include mixins.flex-center(column);
+    flex: 1;
+}
+
+.auth-left {
+    border-radius: 0 24px 24px 0;
+    color: variables.$light-background;
+    background-color: variables.$dark-blue;
+}
+
+.auth-right {
+    .auth-content {
+        width: 40vh;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .form-group {
+        input {
+            position: relative;
+            width: 100%;
+            padding: 12px 43px;
+            background-repeat: no-repeat;
+            background-position: 15px center;
+        }
+
+        #email {
+            background-image: url('/public/images/auth/email.svg');
+        }
+
+        #password {
+            background-image: url('/public/images/auth/lock.svg');
+        }
+
+        #password_confirmation {
+            background-image: url('/public/images/auth/lock-confirmation.svg');
+        }
+
+        #phone_number {
+            background-image: url('/public/images/auth/phone.svg');
+        }
+
+        #first_name {
+            background-image: url('/public/images/auth/profile.svg');
+        }
+
+        #last_name {
+            background-image: url('/public/images/auth/profile-add.svg');
+        }
+    }
+}
+
+.auth-header {
+    margin-bottom: 40px;
+}
+
+.auth-heading,
+.form-group-label {
+    @include mixins.font-style(24px, variables.$dark-gray, variables.$font-weight-bold);
+    font-size: 24px;
+}
+
+.auth-subheading, .remember-text, .form-options {
+    @include mixins.font-style(14px, variables.$muted-gray, variables.$font-weight-medium);
+}
+
+.forgot-password {
+    @include mixins.font-style(13px, variables.$dark-blue, variables.$font-weight-semibold);
+}
+
+.form-options {
+    @include mixins.flex-center-vertical;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.auth-link {
+    @include mixins.flex-center;
+    @include mixins.font-style(16px, variables.$muted-gray, variables.$font-weight-medium);
+    margin-top: 5vh;
+
+    a {
+        font-weight: variables.$font-weight-semibold;
+    }
+}
+
+.toggle-visibility {
+    @include mixins.flex-center;
+    position: absolute;
+    right: 10px;
+    top: 15%;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.photo-upload, .photo-background {
+    @include mixins.flex-center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.photo-background {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #EFEFF2;
+}
+
+@include mixins.mobile {
+    .auth-left {
+        display: none;
+    }
+
+    .auth-right {
+        padding: 20px;
+
+        .auth-content {
+            width: 100%;
+        }
+    }
+}

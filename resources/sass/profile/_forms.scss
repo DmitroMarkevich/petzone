@@ -1,0 +1,50 @@
+@use '../mixins';
+@use '../variables';
+
+.form-row {
+    gap: 20px;
+
+    .form-group {
+        flex: 1;
+
+        input {
+            width: 100%;
+
+            &[type="email"],
+            &[type="tel"] {
+                border: 1px solid #ccc;
+                background-color: transparent;
+            }
+
+            &:not([readonly]) {
+                background-color: variables.$light-background;
+            }
+        }
+
+        &.apartment input {
+            width: 20%;
+        }
+    }
+}
+
+#address-suggestions {
+    position: absolute;
+    top: 98%;
+    width: 347px;
+    border: 1px solid #E6E1E2;
+    background: variables.$light-background;
+    z-index: 1000;
+
+    li {
+        padding: 6px;
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$light-gray;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+    }
+}

@@ -1,0 +1,101 @@
+@use '../base';
+@use '../mixins';
+@use '../variables';
+
+.hero-container, .why-us-item, .category-item, .delivery-step-item {
+    text-align: center;
+}
+
+.hero-container {
+    position: relative;
+}
+
+.hero-text {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    color: variables.$light-background;
+    transform: translate(-50%, -50%);
+}
+
+.hero-title {
+    font-size: 64px;
+}
+
+.hero-subtitle {
+    font-size: 24px;
+}
+
+.hero-image img {
+    width: 100%;
+}
+
+.hero-button {
+    @extend .button-link;
+    display: inline-block;
+    background-color: variables.$orange;
+}
+
+.view-all-button {
+    @extend .button-link;
+    border: 1px solid variables.$orange;
+}
+
+.content-section {
+    margin-bottom: 100px;
+}
+
+.section-container {
+    display: flex;
+    gap: 28px;
+}
+
+.section-title {
+    @include mixins.font-style(36px, variables.$dark-graphite, variables.$font-weight-medium);
+}
+
+.category-title {
+    width: 100px;
+}
+
+.category-item, .why-us-item {
+    @include mixins.flex-grow-1;
+    @include mixins.flex-center(column);
+    @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+}
+
+.delivery-step-item {
+    @include mixins.flex-center(column);
+    @include mixins.flex-grow-1;
+    padding: 16px;
+    margin: auto;
+    gap: 32px;
+}
+
+.delivery-step-title, .delivery-step-description {
+    margin: auto;
+    max-width: 280px;
+}
+
+.delivery-step-title {
+    @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+}
+
+.delivery-step-description {
+    @include mixins.font-style(16px, variables.$dark-graphite);
+    font-family: variables.$font-family-alt;
+}
+
+.why-us-item {
+    padding: 36px 8px;
+    border-radius: 16px;
+    background-color: variables.$pale-blue;
+
+    &:nth-child(even) {
+        background-color: transparent;
+    }
+}
+
+.why-us-title {
+    width: 200px;
+}

@@ -1,0 +1,7 @@
+@use 'mixins';
+@use 'variables';
+
+.advert-grid {
+    display: flex;
+    gap: 24px;
+}

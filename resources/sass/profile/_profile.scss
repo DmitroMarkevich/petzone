@@ -1,0 +1,115 @@
+@use 'forms';
+@use 'adverts';
+@use '../mixins';
+@use '../variables';
+
+.profile-template {
+    display: flex;
+    margin-top: 50px;
+
+    .profile-sidebar {
+        width: 320px;
+    }
+
+    .profile-content {
+        @include mixins.flex-center;
+        width: 100%;
+    }
+
+    .profile-container {
+        width: 787px;
+    }
+}
+
+// Sidebar Navigation
+.profile-navigation-item {
+    margin-bottom: 15px;
+}
+
+.profile-navigation-link {
+    @include mixins.flex-center-vertical;
+    @include mixins.font-style(18px, variables.$carbon);
+    padding: 12px 20px;
+    border-radius: 32px;
+    gap: 8px;
+    font-family: variables.$font-family-alt;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover,
+    &.active {
+        color: variables.$light-background;
+        background-color: variables.$sky-blue;
+
+        .profile-icon {
+            filter: brightness(0) invert(1);
+        }
+    }
+}
+
+// Profile Header
+.profile-header {
+    @include mixins.flex-center-vertical;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.profile-greeting {
+    @include mixins.font-style(28px, black, variables.$font-weight-medium);
+}
+
+.profile-avatar {
+    width: 98px;
+    border-radius: 50%;
+}
+
+// Photo Actions
+.profile-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.profile-actions.photo button {
+    width: 200px;
+}
+
+.btn-delete, .btn-change, .btn-cancel {
+    width: 160px;
+    padding: 16px 20px;
+    font-size: 18px;
+}
+
+.btn-delete {
+    border: 1px solid variables.$orange;
+}
+
+.btn-change {
+    background-color: variables.$orange;
+}
+
+.btn-cancel {
+    color: variables.$carbon;
+    background-color: variables.$light-background;
+    border: 1px solid variables.$orange;
+}
+
+// Profile Sections
+.profile-section {
+    margin-bottom: 20px;
+    padding: 32px 36px;
+    border-radius: 32px;
+    background-color: variables.$pale-blue;
+
+    .section-title {
+        @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+        display: flex;
+        margin: 5px 0 30px 0;
+        gap: 8px;
+    }
+}
+
+.link-edit {
+    @include mixins.flex-center-vertical;
+    font-family: variables.$font-family-alt;
+    font-weight: variables.$font-weight-normal;
+    gap: 8px;
+}

@@ -1,0 +1,33 @@
+@mixin flex-center($direction: row) {
+    @include flex-center-vertical;
+    flex-direction: $direction;
+    justify-content: center;
+}
+
+@mixin flex-center-vertical {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flex-grow-1 {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+@mixin font-style($size, $color, $weight: normal) {
+    color: $color;
+    font-size: $size;
+    font-weight: $weight;
+}
+
+@mixin text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin mobile {
+    @media (max-width: 768px) {
+        @content;
+    }
+}

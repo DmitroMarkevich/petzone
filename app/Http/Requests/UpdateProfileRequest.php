@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\ValidationRule;
+
+class UpdateProfileRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): true
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'first_name' => 'sometimes|string|max:50',
+            'last_name' => 'sometimes|string|max:50',
+            'phone_number' => 'sometimes|nullable|string|max:15',
+            'city' => 'sometimes|string|max:100',
+            'street' => 'sometimes|string|max:255',
+            'apartment' => 'sometimes|string|max:50',
+        ];
+    }
+}
