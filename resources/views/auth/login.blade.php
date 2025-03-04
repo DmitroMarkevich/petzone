@@ -10,14 +10,16 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
-                <x-input type="email" name="email" label="{{ __('auth.login.email') }}" placeholder="Email" autofocus/>
+                <x-input type="email" name="email" label="{{ __('auth.login.email') }}" placeholder="Email" autofocus
+                         data-validation="email"/>
                 @error('email')
-                <span class="error-message">*{{ $message }}</span>
+                    <span class="error-message">*{{ $message }}</span>
                 @enderror
 
-                <x-input type="password" name="password" label="{{ __('auth.login.password') }}" placeholder="********"/>
+                <x-input type="password" name="password" label="{{ __('auth.login.password') }}" placeholder="********"
+                         data-validation="password"/>
                 @error('password')
-                <span class="error-message">*{{ $message }}</span>
+                    <span class="error-message">*{{ $message }}</span>
                 @enderror
             </div>
 
@@ -27,7 +29,9 @@
                     <span class="remember-text">{{ __('auth.login.remember') }}</span>
                 </label>
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="forgot-password">{{ __('auth.login.forgot_password') }}</a>
+                    <a href="{{ route('password.request') }}"
+                       class="forgot-password">{{ __('auth.login.forgot_password') }}
+                    </a>
                 @endif
             </div>
 
@@ -44,12 +48,3 @@
         </div>
     </div>
 @endsection
-
-<style>
-    .error-message {
-        display: block;
-        color: #FE3535;
-        font-size: 12px;
-        font-family: 'Inter', sans-serif;
-    }
-</style>

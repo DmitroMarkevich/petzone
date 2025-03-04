@@ -1,41 +1,37 @@
 $(document).ready(function () {
-    const $fileInput = $("#logo");
-    const $changePhotoBtn = $("#change-photo-btn");
-    const $confirmPhotoBtn = $("#confirm-photo-btn");
-    const $cancelPhotoBtn = $("#cancel-photo-btn");
-    const $profileAvatar = $("#profile-avatar");
-    const $deletePhotoBtn = $("#delete-photo-btn");
-    let previousImage = $profileAvatar.attr("src");
+    const $avatar = $("#profile-avatar"),
+        $fileInput = $("#profile-photo"),
+        $changeBtn = $("#change-photo-btn"),
+        $confirmBtn = $("#confirm-photo-btn"),
+        $cancelBtn = $("#cancel-photo-btn"),
+        $deleteBtn = $("#delete-photo-btn"),
+        $photoForm = $("#photo-form");
 
-    $changePhotoBtn.on("click", function () {
-        $fileInput.click();
+    let prevImage = $avatar.attr("src");
+
+    $changeBtn.click(() => $fileInput.click());
+
+    $fileInput.change(e => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = e => {
+            $avatar.attr("src", e.target.result);
+            toggleButtons(true);
+        };
+        reader.readAsDataURL(file);
     });
 
-    $fileInput.on("change", function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            let reader = new FileReader();
+    $confirmBtn.click(() => $photoForm.submit());
 
-            reader.onload = function (e) {
-                $profileAvatar.attr("src", e.target.result);
-                $changePhotoBtn.hide();
-                $confirmPhotoBtn.show();
-                $cancelPhotoBtn.show();
-                $deletePhotoBtn.hide();
-            };
-            reader.readAsDataURL(file);
-        }
+    $cancelBtn.click(() => {
+        $avatar.attr("src", prevImage);
+        toggleButtons(false);
     });
 
-    $confirmPhotoBtn.on("click", function () {
-        $("#photo-form").submit();
-    });
-
-    $cancelPhotoBtn.on("click", function () {
-        $profileAvatar.attr("src", previousImage);
-        $changePhotoBtn.show();
-        $confirmPhotoBtn.hide();
-        $cancelPhotoBtn.hide();
-        $deletePhotoBtn.show();
-    })
+    function toggleButtons(editing) {
+        $changeBtn.add($deleteBtn).toggle(!editing);
+        $confirmBtn.add($cancelBtn).toggle(editing);
+    }
 });

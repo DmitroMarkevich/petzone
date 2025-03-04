@@ -1,53 +1,39 @@
 $(document).ready(function () {
-    function toggleEditForm(buttonEdit, buttonSave, buttonCancel, formInputs, excludedFields = []) {
-        buttonEdit.on('click', function (e) {
+    const toggleFormInputs = (inputs, excluded, readonly) => {
+        inputs.each(function () {
+            const $input = $(this);
+
+            if (!excluded.includes($input.attr('name'))) {
+                $input.prop('readonly', readonly).toggleClass('readonly', readonly);
+
+                if (readonly) {
+                    $input.val($input.data('original-value'));
+                }
+            }
+        });
+    };
+
+    const toggleButtons = (edit, save, cancel, editing) => {
+        edit.toggle(!editing);
+        save.add(cancel).toggle(editing);
+    };
+
+    const toggleEditForm = (edit, save, cancel, inputs, excluded) => {
+        edit.on('click', (e) => {
             e.preventDefault();
-
-            formInputs.each(function () {
-                const fieldName = $(this).attr('name');
-                if (!excludedFields.includes(fieldName)) {
-                    $(this).prop('readonly', false).removeClass('readonly');
-                }
-            });
-
-            buttonSave.add(buttonCancel).show();
-            buttonEdit.hide();
+            toggleFormInputs(inputs, excluded, false);
+            toggleButtons(edit, save, cancel, true);
         });
-
-        buttonCancel.on('click', function () {
-            formInputs.each(function () {
-                const fieldName = $(this).attr('name');
-                if (!excludedFields.includes(fieldName)) {
-                    $(this).val($(this).data('original-value')).prop('readonly', true).addClass('readonly');
-                }
-            });
-
-            buttonSave.add(buttonCancel).hide();
-            buttonEdit.show();
+        cancel.on('click', () => {
+            toggleFormInputs(inputs, excluded, true);
+            toggleButtons(edit, save, cancel, false);
         });
-    }
+    };
 
-    function saveCurrentValues(selector) {
-        $(selector).each(function () {
-            $(this).data('original-value', $(this).val());
-        });
-    }
+    $('.my-data input, .delivery-address input').each(function () {
+        $(this).data('original-value', $(this).val());
+    });
 
-    saveCurrentValues('.my-data input');
-    saveCurrentValues('.delivery-address input');
-
-    toggleEditForm(
-        $('#edit-profile'),
-        $('#save-profile'),
-        $('#cancel-profile'),
-        $('.my-data input'),
-        ['email']
-    );
-
-    toggleEditForm(
-        $('#edit-address'),
-        $('#save-address'),
-        $('#cancel-address'),
-        $('.delivery-address input')
-    );
+    toggleEditForm($('#edit-profile'), $('#save-profile'), $('#cancel-profile'), $('.my-data input'), ['email']);
+    toggleEditForm($('#edit-address'), $('#save-address'), $('#cancel-address'), $('.delivery-address input'));
 });

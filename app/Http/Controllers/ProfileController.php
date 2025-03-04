@@ -51,8 +51,11 @@ class ProfileController extends Controller
      */
     public function uploadLogo(Request $request): RedirectResponse
     {
-        $request->validate(['logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048']);
-        $this->profileService->uploadLogo(auth()->user(), $request->file('logo'));
+        $request->validate([
+            'profile-photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+
+        $this->profileService->uploadLogo(auth()->user(), $request->file('profile-photo'));
 
         return redirect()->route('profile.index');
     }

@@ -2,12 +2,20 @@
 
 <label for="{{ $name }}">{{ __($label) }}</label>
 <div class="input-wrapper">
-    <input id="{{ $name }}" type="{{ $type }}" name="{{ $name }}" value="{{ $value }}"
-           {{ $attributes->merge(['required']) }} placeholder="{{ $placeholder }}">
+    <input
+        id="{{ $name }}"
+        type="{{ $type }}"
+        name="{{ $name }}"
+        value="{{ $value }}"
+        class="input-field {{ $errors->has($name) ? 'invalid' : '' }}"
+        {{ $attributes->merge(['required']) }}
+        placeholder="{{ $placeholder }}"
+        data-validation="{{ $type }}"
+    >
 
     @if ($type === 'password')
         <button type="button" class="toggle-visibility">
-            <img id="eye-icon" src="{{ asset('images/auth/eye-closed.svg') }}" alt="Toggle Password">
+            <img id="eye-icon" src="{{ asset('images/auth/eye-closed.svg') }}" alt="Toggle Visibility">
         </button>
     @endif
 </div>

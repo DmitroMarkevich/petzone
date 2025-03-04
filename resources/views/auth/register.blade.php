@@ -11,9 +11,17 @@
             @csrf
             <div class="step step-1 active">
                 <div class="form-group">
-                    <x-input type="email" name="email" label="{{ __('auth.register.email') }}" placeholder="Email"/>
-                    <x-input type="password" name="password" label="{{ __('auth.register.password') }}" placeholder="********"/>
-                    <x-input type="password" name="password_confirmation" label="{{ __('auth.register.password_confirmation') }}" placeholder="********"/>
+                    <x-input type="email" name="email"
+                             label="{{ __('auth.register.email') }}" placeholder="Email"
+                             data-validation="email"/>
+
+                    <x-input type="password" name="password"
+                             label="{{ __('auth.register.password') }}" placeholder="********"
+                             data-validation="password"/>
+
+                    <x-input type="password" name="password_confirmation"
+                             label="{{ __('auth.register.password_confirmation') }}" placeholder="********"
+                             data-validation="password"/>
                 </div>
 
                 <div class="auth-buttons">
@@ -30,16 +38,21 @@
 
             <div class="step step-2">
                 <div class="photo-upload">
-                    <div class="photo-background" onclick="document.getElementById('profile-photo').click();">
-                        <img id="preview-image" src="{{ asset('images/auth/upload-photo.svg') }}" alt="Завантажити фото">
+                    <div id="photo-background" class="photo-background">
+                        <img id="preview-image" src="{{ asset('images/auth/upload-photo.svg') }}" alt="Upload photo">
                     </div>
-                    <input id="profile-photo" type="file" name="profile_photo" accept="image/*" hidden>
+                    <input id="profile-photo" type="file" name="profile-photo" accept=".jpeg,.png,.jpg,.svg" hidden>
                 </div>
 
                 <div class="form-group">
-                    <x-input type="text" name="first_name" label="{{ __('auth.register.first_name') }}" placeholder="Enter first name"/>
-                    <x-input type="text" name="last_name" label="{{ __('auth.register.last_name') }}" placeholder="Enter last name"/>
-                    <x-input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}" placeholder="Enter phone number"/>
+                    <x-input type="text" name="first_name" label="{{ __('auth.register.first_name') }}"
+                             placeholder="{{ __('auth.register.first_name_placeholder') }}"/>
+
+                    <x-input type="text" name="last_name" label="{{ __('auth.register.last_name') }}"
+                             placeholder="{{ __('auth.register.last_name_placeholder') }}"/>
+
+                    <x-input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}"
+                             placeholder="{{ __('auth.register.phone_number_placeholder') }}"/>
                 </div>
 
                 <button type="submit" class="button register">{{ __('auth.register.confirm_button') }}</button>
@@ -47,42 +60,3 @@
         </form>
     </div>
 @endsection
-
-<script>
-    $(document).ready(function () {
-        $(".next-step").on("click", function () {
-            $(".step-1").removeClass("active");
-            $(".step-2").addClass("active");
-        });
-
-        $("#profile-photo").on("change", function (event) {
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $(".photo-background").css({
-                        "background-image": `url(${e.target.result})`,
-                        "background-position": "center",
-                        "background-size": "cover"
-                    });
-                    $("#preview-image").hide();
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        $(".toggle-visibility").on("click", function () {
-            let input = $(this).prev("input");
-            let icon = $(this).find("img");
-
-            if (input.attr("type") === "password") {
-                input.attr("type", "text");
-                icon.attr("src", "{{ asset('images/auth/eye-open.svg') }}");
-            } else {
-                input.attr("type", "password");
-                icon.attr("src", "{{ asset('images/auth/eye-closed.svg') }}");
-            }
-        });
-    });
-</script>

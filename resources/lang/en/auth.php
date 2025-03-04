@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'google_login' => 'Sign in with Google',
+    'facebook_login' => 'Sign in with Facebook',
+
     'login' => [
         'heading' => 'Login to your account',
         'subheading' => 'Welcome back! Choose a login method:',
@@ -22,8 +25,11 @@ return [
         'login_text' => 'Already have an account?',
         'login_link' => 'Log in here',
         'first_name' => 'First Name',
+        'first_name_placeholder' => 'Enter first name',
         'last_name' => 'Last Name',
+        'last_name_placeholder' => 'Enter last name',
         'phone_number' => 'Phone Number',
+        'phone_number_placeholder' => 'Enter number',
         'confirm_button' => 'Confirm',
     ],
 ];

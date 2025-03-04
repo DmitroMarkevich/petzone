@@ -88,3 +88,18 @@ a {
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
+
+.error-message {
+    display: block;
+    color: #FE3535;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+.input-field.valid {
+    border-color: #2CC27C;
+}
+
+.input-field.invalid {
+    border-color: #FE3535;
+}

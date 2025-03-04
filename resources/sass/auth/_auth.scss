@@ -77,14 +77,19 @@
     @include mixins.font-style(14px, variables.$muted-gray, variables.$font-weight-medium);
 }
 
-.forgot-password {
-    @include mixins.font-style(13px, variables.$dark-blue, variables.$font-weight-semibold);
-}
-
 .form-options {
     @include mixins.flex-center-vertical;
     justify-content: space-between;
     margin-bottom: 50px;
+
+    label {
+        @include mixins.flex-center-vertical;
+        gap: 6px;
+    }
+}
+
+.forgot-password {
+    @include mixins.font-style(14px, variables.$dark-blue, variables.$font-weight-semibold);
 }
 
 .auth-link {
@@ -115,7 +120,8 @@
 .photo-upload, .photo-background {
     @include mixins.flex-center;
     margin-bottom: 20px;
-    cursor: pointer;
+    background-position: center;
+    background-size: cover;
 }
 
 .photo-background {
@@ -123,6 +129,7 @@
     height: 120px;
     border-radius: 50%;
     background-color: #EFEFF2;
+    cursor: pointer;
 }
 
 @include mixins.mobile {

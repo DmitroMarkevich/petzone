@@ -9,10 +9,9 @@
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, {{ $user->first_name }}!</h2>
                 <div class="profile-actions photo">
-                    <form id="photo-form" action="{{ route('profile.updateLogo') }}" method="POST"
-                          enctype="multipart/form-data">
+                    <form id="photo-form" action="{{ route('profile.updateLogo') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="file" name="logo" id="logo" style="display: none;" accept=".jpeg,.png,.jpg,.svg">
+                        <input type="file" name="profile-photo" id="profile-photo" style="display: none;" accept=".jpeg,.png,.jpg,.svg">
 
                         <div class="profile-actions">
                             <button type="button" class="btn-change" id="change-photo-btn">Змінити фото</button>
@@ -25,7 +24,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-delete" id="delete-photo-btn">
-                            <img src="{{asset('images/profile/bin.svg')}}" alt="123">
+                            <img src="{{ asset('images/profile/bin.svg') }}" alt="Bin Icon">
                             Видалити фото
                         </button>
                     </form>

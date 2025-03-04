@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'google_login' => 'Увійти через Google',
+    'facebook_login' => 'Увійти через Facebook',
+
     'login' => [
         'heading' => 'Вхід в обліковий запис',
         'subheading' => 'З поверненням! Оберіть метод входу:',
@@ -21,9 +24,12 @@ return [
         'next' => 'Далі',
         'login_text' => 'Вже маєте обліковий запис?',
         'login_link' => 'Увійдіть тут',
-        'first_name' => 'Ім\'я',
+        'first_name' => 'Ім’я',
+        'first_name_placeholder' => 'Введіть ім’я',
         'last_name' => 'Прізвище',
+        'last_name_placeholder' => 'Введіть прізвище',
         'phone_number' => 'Номер телефону',
+        'phone_number_placeholder' => 'Введіть номер',
         'confirm_button' => 'Підтвердити',
     ],
 ];
