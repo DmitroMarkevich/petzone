@@ -5,6 +5,7 @@
     @include mixins.flex-center(column);
     background-color: variables.$sky-blue;
     font-family: variables.$font-family-alt;
+    margin-top: 100px;
     height: 280px;
 }
 
