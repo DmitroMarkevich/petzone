@@ -97,7 +97,9 @@ class ProfileController extends Controller
      */
     public function orders(): Factory|View|Application
     {
-        return view('profile.orders');
+        $orders = auth()->user()->orders;
+
+        return view('profile.orders', compact('orders'));
     }
 
     /**
