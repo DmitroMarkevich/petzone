@@ -63,7 +63,15 @@ a {
 }
 
 .page-container {
-    padding: 0 40px;
+    padding: 0 30px;
+
+    @media (min-width: 1024px) {
+        padding: 0 40px;
+    }
+
+    @media (min-width: 1650px) {
+        padding: 0 80px;
+    }
 }
 
 .form-row {
