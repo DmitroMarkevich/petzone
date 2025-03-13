@@ -34,7 +34,7 @@
 
         <div class="profile-section my-data">
             <h4 class="section-title">
-                <img src="{{ asset('images/profile/profile-icon.svg') }}" alt="Профіль" class="icon">
+                <img src="{{ asset('images/profile/profile.svg') }}" alt="Profile" class="icon">
                 Мої дані
             </h4>
 

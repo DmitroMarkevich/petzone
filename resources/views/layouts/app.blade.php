@@ -21,13 +21,15 @@
                                 <ul>
                                     <li>
                                         <a href="#">
-                                            <img src="{{ asset('images/header/category/dog.svg') }}" alt="Собака" class="category-image">
+                                            <img src="{{ asset('images/header/category/dog.svg') }}" alt="Собака"
+                                                 class="category-image">
                                             Для Собак
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <img src="{{ asset('images/header/category/cat.svg') }}" alt="Кіт" class="category-image">
+                                            <img src="{{ asset('images/header/category/cat.svg') }}" alt="Кіт"
+                                                 class="category-image">
                                             Для Котів
                                         </a>
                                     </li>
@@ -50,7 +52,7 @@
                 </div>
 
                 <div class="navbar-right">
-                    <a class="nav-link" href="{{route('profile.wishlist')}}" aria-label="Favorites">
+                    <a class="nav-link" href="{{route('profile.wishlist')}}" aria-label="Wishlist">
                         <img src="{{ asset('images/header/heart.svg') }}" alt="Wishlist" class="icon-heart">
                         <span class="badge">{{ session('wishlist') ? count(session('wishlist')) : 0 }}</span>
                     </a>
@@ -77,19 +79,17 @@
         @yield('app-content')
     </main>
 
-    @if(Route::currentRouteName() == 'home')
-        <footer class="footer">
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('images/white-logo.svg') }}" alt="Logo">
-            </a>
-            <ul class="footer-links">
-                <li class="footer-link-item"><a href="">Про нас</a></li>
-                <li class="footer-link-item"><a href="">Правила та умови</a></li>
-                <li class="footer-link-item"><a href="">Політика конфіденційності</a></li>
-            </ul>
-            <p class="footer-copy">PetZone © 2024 Всі права захищені</p>
-        </footer>
-    @endif
+    <footer class="footer">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('images/white-logo.svg') }}" alt="Logo">
+        </a>
+        <ul class="footer-links">
+            <li class="footer-link-item"><a href="">Про нас</a></li>
+            <li class="footer-link-item"><a href="">Правила та умови</a></li>
+            <li class="footer-link-item"><a href="">Політика конфіденційності</a></li>
+        </ul>
+        <p class="footer-copy">PetZone © 2024 Всі права захищені</p>
+    </footer>
 
     <script>
         $(document).ready(function () {

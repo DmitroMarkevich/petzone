@@ -19,13 +19,14 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
-        Route::patch('/update', [ProfileController::class, 'update'])->name('update');
-
-        Route::post('/logo', [ProfileController::class, 'uploadLogo'])->name('updateLogo');
-        Route::delete('/logo', [ProfileController::class, 'removeLogo'])->name('deleteLogo');
-
+        Route::get('/orders', [ProfileController::class, 'orders'])->name('orders');
         Route::get('/adverts', [ProfileController::class, 'adverts'])->name('adverts');
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+        Route::get('/orders-history', [ProfileController::class, 'ordersHistory'])->name('orders-history');
+
+        Route::patch('/update', [ProfileController::class, 'update'])->name('update');
+        Route::post('/logo', [ProfileController::class, 'uploadLogo'])->name('updateLogo');
+        Route::delete('/logo', [ProfileController::class, 'removeLogo'])->name('deleteLogo');
     });
 
     Route::prefix('cart')->name('cart.')->group(function () {

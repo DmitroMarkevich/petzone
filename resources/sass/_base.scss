@@ -11,6 +11,10 @@ body {
     font-family: variables.$font-family;
 }
 
+main {
+    min-height: 100vh;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: variables.$font-weight-medium;
 }
@@ -91,9 +95,9 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .error-message {
     display: block;
-    color: #FE3535;
+    color: variables.$bright-red;
     font-size: 12px;
-    font-family: 'Inter', sans-serif;
+    font-family: variables.$font-family-alt;
 }
 
 .input-field.valid {
@@ -101,5 +105,5 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .input-field.invalid {
-    border-color: #FE3535;
+    border-color: variables.$bright-red;
 }

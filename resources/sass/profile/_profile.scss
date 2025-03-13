@@ -8,7 +8,7 @@
     margin-top: 50px;
 
     .profile-sidebar {
-        width: 320px;
+        width: 350px;
     }
 
     .profile-content {
@@ -17,7 +17,7 @@
     }
 
     .profile-container {
-        width: 787px;
+        width: 800px;
     }
 }
 
@@ -113,4 +113,11 @@
     font-family: variables.$font-family-alt;
     font-weight: variables.$font-weight-normal;
     gap: 8px;
+}
+
+.no-adverts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }

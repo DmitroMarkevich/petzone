@@ -98,7 +98,11 @@ class AdvertController extends Controller
     {
         $query = $request->input('query');
 
-        $adverts = Advert::search($query)->get();
+        if ($query) {
+            $adverts = Advert::search($query)->paginate(10, 'page', $request->page ?? 1);
+        } else {
+            $adverts = Advert::inRandomOrder()->paginate(10);
+        }
 
         return view('adverts.index', compact('adverts'));
     }

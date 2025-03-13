@@ -3,7 +3,9 @@
 @section('profile-content')
     <div class="page-container">
         @if($wishlist->isEmpty())
-            <p>No products found.</p>
+            <div class="no-adverts">
+                <p>No adverts found.</p>
+            </div>
         @else
             <div class="advert-grid">
                 @foreach($wishlist as $advert)

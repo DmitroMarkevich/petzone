@@ -2,12 +2,16 @@
 @use '../variables';
 
 .adverts-container {
-    // todo
+    width: 85%;
 }
 
 .page-title {
     @include mixins.font-style(36px, variables.$carbon, variables.$font-weight-medium);
-    font-family: variables.$font-family;
+}
+
+.adverts-list {
+    @include mixins.flex-center(column);
+    gap: 16px;
 }
 
 .advert-item {
@@ -18,14 +22,20 @@
     box-shadow: 0 4px 32px 0 #00000033;
     font-family: variables.$font-family-alt;
     transition: background-color 0.3s;
-    gap: 16px;
+    width: 100%;
 
     &:hover {
         background-color: variables.$pale-blue;
     }
 
+    .advert-image-wrapper {
+        width: 15%;
+        height: auto;
+    }
+
     .advert-image {
-        width: 100px;
+        width: 100%;
+        height: 100%;
         border-radius: 8px;
     }
 
@@ -38,23 +48,30 @@
 .advert-content {
     display: flex;
     flex-direction: column;
+    width: 60%;
     gap: 10px;
 }
 
 .advert-description {
+    @include mixins.text-ellipsis;
     @include mixins.font-style(14px, variables.$carbon, variables.$font-weight-medium);
     margin: 0;
 }
 
 .advert-date {
-    @include mixins.font-style(12px, #797677);
+    @include mixins.font-style(14px, #797677);
+}
+
+.advert-left {
+    display: flex;
+    gap: 16px;
 }
 
 .advert-right {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 22px;
+    gap: 25px;
 }
 
 .advert-actions {
@@ -79,4 +96,28 @@
 .advert-date-wrapper {
     @include mixins.flex-center-vertical;
     gap: 6px;
+}
+
+@media (min-width: 1200px) {
+    .advert-item .advert-price {
+        font-size: 16px;
+    }
+
+    .advert-description, .advert-date, .advert-tags {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1650px) {
+    .advert-item .advert-price {
+        font-size: 20px;
+    }
+
+    .advert-date-wrapper img {
+        width: 16px;
+    }
+
+    .advert-description, .advert-date {
+        font-size: 16px;
+    }
 }

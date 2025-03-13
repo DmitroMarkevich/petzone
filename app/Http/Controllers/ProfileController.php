@@ -35,6 +35,12 @@ class ProfileController extends Controller
         return view('profile.index', compact('user', 'address'));
     }
 
+    /**
+     * Update the profile of the authenticated user.
+     *
+     * @param UpdateProfileRequest $request
+     * @return RedirectResponse
+     */
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
@@ -82,5 +88,25 @@ class ProfileController extends Controller
         $adverts = auth()->user()->adverts;
 
         return view('profile.adverts', compact('adverts'));
+    }
+
+    /**
+     * Show the user's orders.
+     *
+     * @return Factory|View|Application
+     */
+    public function orders(): Factory|View|Application
+    {
+        return view('profile.orders');
+    }
+
+    /**
+     * Show the user's orders history.
+     *
+     * @return Factory|View|Application
+     */
+    public function ordersHistory(): Factory|View|Application
+    {
+        return view('profile.orders-history');
     }
 }
