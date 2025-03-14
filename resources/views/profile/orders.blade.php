@@ -2,7 +2,7 @@
 
 @section('profile-content')
     <div>
-        @if(false)
+        @if($orders->isEmpty())
             <div class="no-adverts">
                 <p>No orders found.</p>
             </div>
