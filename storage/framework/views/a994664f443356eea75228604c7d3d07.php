@@ -43,7 +43,7 @@
                             <input class="search-input" type="search" name="query" placeholder="Я шукаю..."
                                    aria-label="Search" value="<?php echo e(request('query')); ?>">
                             <button class="search-btn" type="submit" aria-label="Search">
-                                <img src="<?php echo e(asset('images/header/search.svg')); ?>" alt="Пошук">
+                                <img src="<?php echo e(asset('images/header/search.svg')); ?>" alt="Search">
                             </button>
                         </div>
                     </form>
@@ -54,9 +54,9 @@
                         <img src="<?php echo e(asset('images/header/heart.svg')); ?>" alt="Wishlist" class="icon-heart">
                         <span class="badge"><?php echo e(session('wishlist') ? count(session('wishlist')) : 0); ?></span>
                     </a>
-                    <a class="nav-link" href="#" aria-label="Cart">
+                    <a class="nav-link" href="<?php echo e(route('profile.orders')); ?>" aria-label="Cart">
                         <img src="<?php echo e(asset('images/header/cart.svg')); ?>" alt="Cart" class="icon-cart">
-                        <span class="badge"><?php echo e(auth()->user() ? auth()->user()->cart()->count() : 0); ?></span>
+                        <span class="badge"><?php echo e(auth()->user()->orders()->count()); ?></span>
                     </a>
                     <a class="nav-avatar" href="<?php echo e(route('profile.index')); ?>">
                         <?php if(auth()->user() && !empty(auth()->user()->image_path)): ?>

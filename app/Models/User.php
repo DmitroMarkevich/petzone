@@ -75,14 +75,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's shopping cart.
-     */
-    public function cart(): HasMany
-    {
-        return $this->hasMany(Cart::class);
-    }
-
-    /**
      * Get the delivery address for the user.
      */
     public function deliveryAddress(): HasOne

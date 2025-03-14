@@ -45,22 +45,22 @@
                             <input class="search-input" type="search" name="query" placeholder="Я шукаю..."
                                    aria-label="Search" value="{{ request('query') }}">
                             <button class="search-btn" type="submit" aria-label="Search">
-                                <img src="{{ asset('images/header/search.svg') }}" alt="Пошук">
+                                <img src="{{ asset('images/header/search.svg') }}" alt="Search">
                             </button>
                         </div>
                     </form>
                 </div>
 
                 <div class="navbar-right">
-                    <a class="nav-link" href="{{route('profile.wishlist')}}" aria-label="Wishlist">
+                    <a class="nav-link" href="{{ route('profile.wishlist') }}" aria-label="Wishlist">
                         <img src="{{ asset('images/header/heart.svg') }}" alt="Wishlist" class="icon-heart">
                         <span class="badge">{{ session('wishlist') ? count(session('wishlist')) : 0 }}</span>
                     </a>
-                    <a class="nav-link" href="#" aria-label="Cart">
+                    <a class="nav-link" href="{{ route('profile.orders') }}" aria-label="Cart">
                         <img src="{{ asset('images/header/cart.svg') }}" alt="Cart" class="icon-cart">
-                        <span class="badge">{{ auth()->user() ? auth()->user()->cart()->count() : 0 }}</span>
+                        <span class="badge">{{ auth()->user()->orders()->count() }}</span>
                     </a>
-                    <a class="nav-avatar" href="{{route('profile.index')}}">
+                    <a class="nav-avatar" href="{{ route('profile.index') }}">
                         @if (auth()->user() && !empty(auth()->user()->image_path))
                             <img src="{{ Storage::disk('s3')->url(auth()->user()->image_path) }}" alt="User Avatar"
                                  class="nav-avatar-image">
