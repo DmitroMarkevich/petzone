@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Ramsey\Uuid\Uuid;
+use App\Models\Advert\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -13,19 +13,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('categories')->insert([
-            [
-                'id' => Uuid::uuid4(),
-                'name' => 'Для собак',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'id' => Uuid::uuid4(),
-                'name' => 'Для котів',
-                'created_at' => now(),
-                'updated_at' => now()
-            ]
-        ]);
+        $categories = ['Собаки', 'Коти'];
+
+        foreach ($categories as $category) {
+            Category::create(['id' => Str::uuid(), 'name' => $category]);
+        }
     }
 }
