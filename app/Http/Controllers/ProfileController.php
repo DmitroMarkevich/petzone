@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -12,13 +13,17 @@ use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
+    private OrderService $orderService;
+
     private ProfileService $profileService;
 
     /**
+     * @param OrderService $orderService
      * @param ProfileService $profileService
      */
-    public function __construct(ProfileService $profileService)
+    public function __construct(ProfileService $profileService, OrderService $orderService)
     {
+        $this->orderService = $orderService;
         $this->profileService = $profileService;
     }
 
@@ -97,7 +102,7 @@ class ProfileController extends Controller
      */
     public function orders(): Factory|View|Application
     {
-        $orders = auth()->user()->orders;
+        $orders = $this->orderService->getUserOrders(true);
 
         return view('profile.orders', compact('orders'));
     }
@@ -109,6 +114,8 @@ class ProfileController extends Controller
      */
     public function ordersHistory(): Factory|View|Application
     {
-        return view('profile.orders-history');
+        $orders = $this->orderService->getUserOrders(false);
+
+        return view('profile.orders-history', compact('orders'));
     }
 }

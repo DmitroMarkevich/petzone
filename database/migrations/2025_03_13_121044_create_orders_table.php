@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('total_price', 10);
             $table->string('tracking_number')->nullable();
             $table->string('order_number')->unique();
+            $table->boolean('is_active')->default(true);
             $table->uuid('user_id');
             $table->timestamps();
 
