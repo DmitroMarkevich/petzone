@@ -42,12 +42,23 @@
 }
 
 .content-section {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 100px;
+    gap: 16px;
 }
 
 .section-container {
     display: flex;
     gap: 28px;
+}
+
+.home-adverts-list {
+    display: flex;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+    overflow-x: auto;
+    gap: 16px;
 }
 
 .section-title {
@@ -100,8 +111,41 @@
     width: 200px;
 }
 
-.fresh-adverts-list {
+.scroll-buttons {
     display: flex;
-    justify-content: center;
+    gap: 24px;
+}
+
+.scroll-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 32px;
+    box-shadow: 0 4px 24px 0 #0000000D;
+    background-color: #FFE6A5;
+}
+
+.scroll-btn.right {
+    background-color: variables.$orange;
+}
+
+.scroll-indicator {
+    @include mixins.flex-center();
     gap: 16px;
+}
+
+.scroll-indicator span {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    background-color: #FFE6A5;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.scroll-indicator span.active {
+    width: 36px;
+    background-color: variables.$orange;
+}
+
+.home-adverts-list::-webkit-scrollbar {
+    display: none;
 }

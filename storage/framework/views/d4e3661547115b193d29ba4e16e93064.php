@@ -1,8 +1,11 @@
 <a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
     <div class="advert-card">
         <div class="image-container">
-            <img src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>" alt="<?php echo e($advert->title); ?>"
-                 class="advert-image">
+            <?php if($advert->images->isNotEmpty()): ?>
+                <img src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>" alt="<?php echo e($advert->title); ?>">
+            <?php else: ?>
+                <img src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="<?php echo e($advert->title); ?>">
+            <?php endif; ?>
             <form class="add-to-cart-form" action="<?php echo e(route('wishlist.add', $advert->id)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <button type="submit" class="favorite-button">

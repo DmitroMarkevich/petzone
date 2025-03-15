@@ -37,10 +37,11 @@ class AdvertService
         $advert->images()->create(['image_path' => $imagePath]);
     }
 
-    public function getFreshAdverts(int $hours = 5)
+    public function getFreshAdverts(int $hours = 5, int $limit = 4)
     {
         return Advert::where('created_at', '>=', now()->subHours($hours))
             ->orderBy('created_at', 'desc')
+            ->take($limit)
             ->get();
     }
 }

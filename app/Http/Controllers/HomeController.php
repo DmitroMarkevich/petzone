@@ -24,8 +24,10 @@ class HomeController
      */
     public function index(): Factory|View|Application
     {
-        $freshAdverts = $this->advertService->getFreshAdverts(200);
+        $freshAdverts = $this->advertService->getFreshAdverts(200, 5);
+        $popularAdverts = $this->advertService->getFreshAdverts(200, 10);
+        $discountedAdverts = $this->advertService->getFreshAdverts(200, 5);
 
-        return view('home', compact('freshAdverts'));
+        return view('home', compact('freshAdverts', 'popularAdverts', 'discountedAdverts'));
     }
 }

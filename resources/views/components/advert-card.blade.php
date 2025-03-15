@@ -1,8 +1,11 @@
 <a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
     <div class="advert-card">
         <div class="image-container">
-            <img src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}" alt="{{ $advert->title }}"
-                 class="advert-image">
+            @if($advert->images->isNotEmpty())
+                <img src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}" alt="{{ $advert->title }}">
+            @else
+                <img src="{{ asset('images/advert-test.jpg') }}" alt="{{ $advert->title }}">
+            @endif
             <form class="add-to-cart-form" action="{{ route('wishlist.add', $advert->id) }}" method="POST">
                 @csrf
                 <button type="submit" class="favorite-button">

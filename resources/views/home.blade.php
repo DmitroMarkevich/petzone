@@ -52,9 +52,27 @@
         </section>
 
         <section class="content-section">
-            <h2 class="section-title">Популярні товари</h2>
-            <div class="section-container">
+            <div class="form-row">
+                <h2 class="section-title">Популярні товари</h2>
+                <div class="scroll-buttons">
+                    <button class="scroll-btn left">
+                        <img src="{{ asset('images/left-arrow.svg') }}" alt="<">
+                    </button>
+                    <button class="scroll-btn right">
+                        <img src="{{ asset('images/right-arrow.svg') }}" alt=">">
+                    </button>
+                </div>
+            </div>
+            <div class="home-adverts-list" id="popular-adverts">
+                @foreach($popularAdverts as $advert)
+                    @include('components.advert-card', ['adverts' => $advert])
+                @endforeach
+            </div>
 
+            <div class="scroll-indicator" id="scroll-indicator">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
             </div>
         </section>
 
@@ -65,8 +83,11 @@
                     <img src="{{ asset('images/right-arrow.svg') }}" alt=">">
                 </a>
             </div>
-            <ul class="promo-adverts">
-            </ul>
+            <div class="home-adverts-list">
+                @foreach($discountedAdverts as $advert)
+                    @include('components.advert-card', ['adverts' => $advert])
+                @endforeach
+            </div>
         </section>
 
         <section class="content-section">
@@ -76,13 +97,11 @@
                     <img src="{{ asset('images/right-arrow.svg') }}" alt=">">
                 </a>
             </div>
-            <ul class="fresh-adverts-list">
+            <div class="home-adverts-list">
                 @foreach($freshAdverts as $advert)
-                    <li>
                         @include('components.advert-card', ['adverts' => $advert])
-                    </li>
                 @endforeach
-            </ul>
+            </div>
         </section>
 
         <section class="content-section">

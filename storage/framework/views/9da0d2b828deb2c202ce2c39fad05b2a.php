@@ -50,9 +50,27 @@
         </section>
 
         <section class="content-section">
-            <h2 class="section-title">Популярні товари</h2>
-            <div class="section-container">
+            <div class="form-row">
+                <h2 class="section-title">Популярні товари</h2>
+                <div class="scroll-buttons">
+                    <button class="scroll-btn left">
+                        <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="<">
+                    </button>
+                    <button class="scroll-btn right">
+                        <img src="<?php echo e(asset('images/right-arrow.svg')); ?>" alt=">">
+                    </button>
+                </div>
+            </div>
+            <div class="home-adverts-list" id="popular-adverts">
+                <?php $__currentLoopData = $popularAdverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php echo $__env->make('components.advert-card', ['adverts' => $advert], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
 
+            <div class="scroll-indicator" id="scroll-indicator">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
             </div>
         </section>
 
@@ -63,8 +81,11 @@
                     <img src="<?php echo e(asset('images/right-arrow.svg')); ?>" alt=">">
                 </a>
             </div>
-            <ul class="promo-adverts">
-            </ul>
+            <div class="home-adverts-list">
+                <?php $__currentLoopData = $discountedAdverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php echo $__env->make('components.advert-card', ['adverts' => $advert], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
         </section>
 
         <section class="content-section">
@@ -74,13 +95,11 @@
                     <img src="<?php echo e(asset('images/right-arrow.svg')); ?>" alt=">">
                 </a>
             </div>
-            <ul class="fresh-adverts-list">
+            <div class="home-adverts-list">
                 <?php $__currentLoopData = $freshAdverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <li>
                         <?php echo $__env->make('components.advert-card', ['adverts' => $advert], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </ul>
+            </div>
         </section>
 
         <section class="content-section">

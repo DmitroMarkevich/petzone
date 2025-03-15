@@ -7,3 +7,5 @@ import './profile/profile-photo.js'
 import './profile/profile-edit.js'
 
 import './advert/photo-upload.js'
+
+import './home/scroll-navigation.js'
