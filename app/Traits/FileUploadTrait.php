@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +15,7 @@ trait FileUploadTrait
      */
     public function uploadFile(string $directory, $file): string
     {
-        return Storage::disk('s3')->putFile($directory, $file, 'public');
+        return Storage::disk('s3')->put($directory, $file, 'public');
     }
 
     /**
@@ -35,20 +33,13 @@ trait FileUploadTrait
             return null;
         }
 
-        $fileName = Str::uuid() . '.jpg';
-        $tempPath = sys_get_temp_dir() . '/' . $fileName;
+        $fileExtension = $this->getFileExtension($url);
+        $fileName = uniqid() . '.' . $fileExtension;
 
-        file_put_contents($tempPath, $response->body());
+        $filePath = "$directory/$fileName";
+        $this->uploadFile($filePath, $response->body());
 
-        $uploadedFile = new UploadedFile(
-            $tempPath,
-            $fileName,
-            'image/jpeg',
-            null,
-            true
-        );
-
-        return $this->uploadFile($directory, $uploadedFile);
+        return $filePath;
     }
 
     /**
@@ -62,5 +53,16 @@ trait FileUploadTrait
         if ($filePath && Storage::disk('s3')->exists($filePath)) {
             Storage::disk('s3')->delete($filePath);
         }
+    }
+
+    /**
+     * Get the file extension based on the URL.
+     *
+     * @param string $url
+     * @return string
+     */
+    private function getFileExtension(string $url): string
+    {
+        return pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
     }
 }
