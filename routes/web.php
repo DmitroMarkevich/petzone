@@ -25,12 +25,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders-history', [ProfileController::class, 'ordersHistory'])->name('orders-history');
 
         Route::patch('/update', [ProfileController::class, 'update'])->name('update');
-        Route::post('/logo', [ProfileController::class, 'uploadLogo'])->name('updateLogo');
-        Route::delete('/logo', [ProfileController::class, 'removeLogo'])->name('deleteLogo');
-    });
-
-    Route::prefix('cart')->name('cart.')->group(function () {
-        Route::post('/add/{id}', [CartController::class, 'addToCart'])->name('add');
+        Route::post('/logo', [ProfileController::class, 'uploadAvatar'])->name('uploadAvatar');
+        Route::delete('/logo', [ProfileController::class, 'deleteAvatar'])->name('deleteAvatar');
     });
 
     Route::prefix('wishlist')->name('wishlist.')->group(function () {

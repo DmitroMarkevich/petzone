@@ -37,13 +37,16 @@ class ProfileService
      * @param UploadedFile $file
      * @return string Path to the uploaded file
      */
-    public function uploadLogo(object $user, UploadedFile $file): string
+    public function updateAvatar(object $user, UploadedFile $file): string
     {
         $directory = "users/$user->id";
+
         $imagePath = $this->uploadFile($directory, $file);
 
-        $this->deleteFile($user->image_path);
-        $user->update(['image_path' => $imagePath]);
+        if ($imagePath) {
+            $this->deleteAvatar($user);
+            $user->update(['image_path' => $imagePath]);
+        }
 
         return $imagePath;
     }
@@ -54,10 +57,13 @@ class ProfileService
      * @param object $user The user whose logo will be removed.
      * @return void
      */
-    public function removeLogo(object $user): void
+    public function deleteAvatar(object $user): void
     {
-        $this->deleteFile($user->image_path);
+        if (!$user->image_path) {
+            return;
+        }
 
-        $user->update(['image_path' => null]);
+        $this->deleteFile($user->image_path);
+        $user->forceFill(['image_path' => null])->save();
     }
 }

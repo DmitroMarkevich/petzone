@@ -9,7 +9,7 @@
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, {{ $user->first_name }}!</h2>
                 <div class="profile-actions photo">
-                    <form id="photo-form" action="{{ route('profile.updateLogo') }}" method="POST" enctype="multipart/form-data">
+                    <form id="photo-form" action="{{ route('profile.uploadAvatar') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="file" name="profile-photo" id="profile-photo" style="display: none;" accept=".jpeg,.png,.jpg,.svg">
 
@@ -20,7 +20,7 @@
                         </div>
                     </form>
 
-                    <form id="delete-photo-form" action="{{ route('profile.deleteLogo') }}" method="POST">
+                    <form id="delete-photo-form" action="{{ route('profile.deleteAvatar') }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-delete" id="delete-photo-btn">

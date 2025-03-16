@@ -55,30 +55,32 @@ class ProfileController extends Controller
     }
 
     /**
-     * Upload a new profile logo for the authenticated user.
+     * Upload a new profile avatar for the authenticated user.
      *
      * @param Request $request
      * @return RedirectResponse
      */
-    public function uploadLogo(Request $request): RedirectResponse
+    public function uploadAvatar(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'profile-photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
-        $this->profileService->uploadLogo(auth()->user(), $request->file('profile-photo'));
+        $profilePhoto = $validatedData['profile-photo'];
+
+        $this->profileService->updateAvatar(auth()->user(), $profilePhoto);
 
         return redirect()->route('profile.index');
     }
 
     /**
-     * Remove the profile logo for the authenticated user.
+     * Remove the profile avatar for the authenticated user.
      *
      * @return RedirectResponse
      */
-    public function removeLogo(): RedirectResponse
+    public function deleteAvatar(): RedirectResponse
     {
-        $this->profileService->removeLogo(auth()->user());
+        $this->profileService->deleteAvatar(auth()->user());
 
         return redirect()->route('profile.index');
     }

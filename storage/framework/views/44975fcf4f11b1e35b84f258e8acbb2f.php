@@ -7,7 +7,7 @@
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, <?php echo e($user->first_name); ?>!</h2>
                 <div class="profile-actions photo">
-                    <form id="photo-form" action="<?php echo e(route('profile.updateLogo')); ?>" method="POST" enctype="multipart/form-data">
+                    <form id="photo-form" action="<?php echo e(route('profile.uploadAvatar')); ?>" method="POST" enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
                         <input type="file" name="profile-photo" id="profile-photo" style="display: none;" accept=".jpeg,.png,.jpg,.svg">
 
@@ -18,7 +18,7 @@
                         </div>
                     </form>
 
-                    <form id="delete-photo-form" action="<?php echo e(route('profile.deleteLogo')); ?>" method="POST">
+                    <form id="delete-photo-form" action="<?php echo e(route('profile.deleteAvatar')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button type="submit" class="btn-delete" id="delete-photo-btn">
