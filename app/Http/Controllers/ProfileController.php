@@ -51,7 +51,7 @@ class ProfileController extends Controller
         $validatedData = $request->validated();
         $this->profileService->updateProfile(auth()->user(), $validatedData);
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index')->with('success', 'Ви успішно змінили свої персональні дані');
     }
 
     /**

@@ -7,14 +7,20 @@
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, <?php echo e($user->first_name); ?>!</h2>
                 <div class="profile-actions photo">
-                    <form id="photo-form" action="<?php echo e(route('profile.uploadAvatar')); ?>" method="POST" enctype="multipart/form-data">
+                    <form id="photo-form" action="<?php echo e(route('profile.uploadAvatar')); ?>" method="POST"
+                          enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
-                        <input type="file" name="profile-photo" id="profile-photo" style="display: none;" accept=".jpeg,.png,.jpg,.svg">
+                        <input type="file" name="profile-photo" id="profile-photo" style="display: none;"
+                               accept=".jpeg,.png,.jpg,.svg">
 
                         <div class="profile-actions">
                             <button type="button" class="btn-change" id="change-photo-btn">Змінити фото</button>
-                            <button type="submit" class="btn-change" id="confirm-photo-btn" style="display: none;">Зберегти</button>
-                            <button type="button" class="btn-cancel" id="cancel-photo-btn" style="display: none;">Скасувати</button>
+                            <button type="submit" class="btn-change" id="confirm-photo-btn" style="display: none;">
+                                Зберегти
+                            </button>
+                            <button type="button" class="btn-cancel" id="cancel-photo-btn" style="display: none;">
+                                Скасувати
+                            </button>
                         </div>
                     </form>
 
@@ -140,7 +146,8 @@
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-change" id="save-profile" style="display: none;">Зберегти</button>
-                    <button type="button" class="btn-cancel" id="cancel-profile" style="display: none;">Скасувати</button>
+                    <button type="button" class="btn-cancel" id="cancel-profile" style="display: none;">Скасувати
+                    </button>
                 </div>
             </form>
         </div>
@@ -232,10 +239,35 @@
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-change" id="save-address" style="display: none;">Зберегти</button>
-                    <button type="button" class="btn-cancel" id="cancel-address" style="display: none;">Скасувати</button>
+                    <button type="button" class="btn-cancel" id="cancel-address" style="display: none;">Скасувати
+                    </button>
                 </div>
             </form>
         </div>
+    </div>
+
+    <?php if(session('success')): ?>
+        <?php if (isset($component)) { $__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.success-message','data' => ['message' => session('success')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('success-message'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(session('success'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8)): ?>
+<?php $attributes = $__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8; ?>
+<?php unset($__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8)): ?>
+<?php $component = $__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8; ?>
+<?php unset($__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8); ?>
+<?php endif; ?>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/index.blade.php ENDPATH**/ ?>

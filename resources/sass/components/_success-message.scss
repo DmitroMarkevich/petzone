@@ -1,0 +1,37 @@
+@use '../base';
+@use '../mixins';
+@use '../variables';
+
+.success-message {
+    @include mixins.flex-center-vertical;
+    @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-medium);
+    font-family: variables.$font-family-alt;
+    flex-direction: column;
+    text-align: center;
+    position: fixed;
+    width: 350px;
+    gap: 12px;
+    background-color: #C6F7E0;
+    padding: 24px 18px;
+    border-radius: 32px;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease-in-out;
+}
+
+.success-icon {
+    width: 30px;
+    height: 22px;
+}
+
+.message-title, .message-text {
+    margin: 0;
+}
+
+.message-title {
+    font-size: 24px;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}

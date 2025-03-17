@@ -9,14 +9,20 @@
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, {{ $user->first_name }}!</h2>
                 <div class="profile-actions photo">
-                    <form id="photo-form" action="{{ route('profile.uploadAvatar') }}" method="POST" enctype="multipart/form-data">
+                    <form id="photo-form" action="{{ route('profile.uploadAvatar') }}" method="POST"
+                          enctype="multipart/form-data">
                         @csrf
-                        <input type="file" name="profile-photo" id="profile-photo" style="display: none;" accept=".jpeg,.png,.jpg,.svg">
+                        <input type="file" name="profile-photo" id="profile-photo" style="display: none;"
+                               accept=".jpeg,.png,.jpg,.svg">
 
                         <div class="profile-actions">
                             <button type="button" class="btn-change" id="change-photo-btn">Змінити фото</button>
-                            <button type="submit" class="btn-change" id="confirm-photo-btn" style="display: none;">Зберегти</button>
-                            <button type="button" class="btn-cancel" id="cancel-photo-btn" style="display: none;">Скасувати</button>
+                            <button type="submit" class="btn-change" id="confirm-photo-btn" style="display: none;">
+                                Зберегти
+                            </button>
+                            <button type="button" class="btn-cancel" id="cancel-photo-btn" style="display: none;">
+                                Скасувати
+                            </button>
                         </div>
                     </form>
 
@@ -43,19 +49,23 @@
                 @method('PATCH')
                 <div class="form-row">
                     <div class="form-group">
-                        <x-input type="text" name="first_name" id="first-name" label="Ім'я" value="{{ $user->first_name }}" readonly/>
+                        <x-input type="text" name="first_name" id="first-name" label="Ім'я"
+                                 value="{{ $user->first_name }}" readonly/>
                     </div>
                     <div class="form-group">
-                        <x-input type="text" name="last_name" id="last-name" label="Прізвище" value="{{ $user->last_name }}" readonly/>
+                        <x-input type="text" name="last_name" id="last-name" label="Прізвище"
+                                 value="{{ $user->last_name }}" readonly/>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <x-input type="email" name="email" id="email" label="Електронна адреса" value="{{ $user->email }}" readonly/>
+                        <x-input type="email" name="email" id="email" label="Електронна адреса"
+                                 value="{{ $user->email }}" readonly/>
                     </div>
                     <div class="form-group">
-                        <x-input type="tel" name="phone_number" id="phone" label="Номер телефону" value="{{ $user->phone_number }}" readonly/>
+                        <x-input type="tel" name="phone_number" id="phone" label="Номер телефону"
+                                 value="{{ $user->phone_number }}" readonly/>
                     </div>
                 </div>
 
@@ -66,7 +76,8 @@
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-change" id="save-profile" style="display: none;">Зберегти</button>
-                    <button type="button" class="btn-cancel" id="cancel-profile" style="display: none;">Скасувати</button>
+                    <button type="button" class="btn-cancel" id="cancel-profile" style="display: none;">Скасувати
+                    </button>
                 </div>
             </form>
         </div>
@@ -86,12 +97,14 @@
                         <ul id="address-suggestions" style="display:none;"></ul>
                     </div>
                     <div class="form-group">
-                        <x-input type="text" name="street" label="Вулиця" value="{{ $address->street ?? '' }}" readonly/>
+                        <x-input type="text" name="street" label="Вулиця" value="{{ $address->street ?? '' }}"
+                                 readonly/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group apartment">
-                        <x-input type="text" name="apartment" label="Квартира" value="{{ $address->apartment ?? '' }}" readonly/>
+                        <x-input type="text" name="apartment" label="Квартира" value="{{ $address->apartment ?? '' }}"
+                                 readonly/>
                     </div>
                 </div>
                 <a href="#" class="link-edit" id="edit-address">
@@ -101,8 +114,14 @@
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-change" id="save-address" style="display: none;">Зберегти</button>
-                    <button type="button" class="btn-cancel" id="cancel-address" style="display: none;">Скасувати</button>
+                    <button type="button" class="btn-cancel" id="cancel-address" style="display: none;">Скасувати
+                    </button>
                 </div>
             </form>
         </div>
+    </div>
+
+    @if(session('success'))
+        <x-success-message :message="session('success')"/>
+    @endif
 @endsection
