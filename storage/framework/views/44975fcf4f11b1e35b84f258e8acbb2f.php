@@ -139,10 +139,12 @@
                     </div>
                 </div>
 
-                <a href="#" class="link-edit" id="edit-profile">
-                    <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
-                    Редагувати
-                </a>
+                <div class="link-edit-wrapper">
+                    <a href="#" class="link-edit" id="edit-profile">
+                        <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
+                        Редагувати
+                    </a>
+                </div>
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-change" id="save-profile" style="display: none;">Зберегти</button>
@@ -232,10 +234,13 @@
 <?php endif; ?>
                     </div>
                 </div>
-                <a href="#" class="link-edit" id="edit-address">
-                    <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
-                    Редагувати
-                </a>
+
+                <div class="link-edit-wrapper">
+                    <a href="#" class="link-edit" id="edit-address">
+                        <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
+                        Редагувати
+                    </a>
+                </div>
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-change" id="save-address" style="display: none;">Зберегти</button>

@@ -108,6 +108,10 @@
     }
 }
 
+.link-edit-wrapper {
+    display: flex;
+}
+
 .link-edit {
     @include mixins.flex-center-vertical;
     font-family: variables.$font-family-alt;
