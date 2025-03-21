@@ -2,9 +2,9 @@
     <div class="advert-card">
         <div class="image-container">
             @if($advert->images->isNotEmpty())
-                <img src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}" alt="{{ $advert->title }}">
+                <img class="advert-image" src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}" alt="{{ $advert->title }}">
             @else
-                <img src="{{ asset('images/advert-test.jpg') }}" alt="{{ $advert->title }}">
+                <img class="advert-image" src="{{ asset('images/advert-test.jpg') }}" alt="{{ $advert->title }}">
             @endif
             <form class="add-to-cart-form" action="{{ route('wishlist.add', $advert->id) }}" method="POST">
                 @csrf

@@ -2,9 +2,9 @@
     <div class="advert-card">
         <div class="image-container">
             <?php if($advert->images->isNotEmpty()): ?>
-                <img src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>" alt="<?php echo e($advert->title); ?>">
+                <img class="advert-image" src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>" alt="<?php echo e($advert->title); ?>">
             <?php else: ?>
-                <img src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="<?php echo e($advert->title); ?>">
+                <img class="advert-image" src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="<?php echo e($advert->title); ?>">
             <?php endif; ?>
             <form class="add-to-cart-form" action="<?php echo e(route('wishlist.add', $advert->id)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
