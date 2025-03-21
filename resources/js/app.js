@@ -10,3 +10,5 @@ import './profile/profile-edit.js'
 import './advert/photo-upload.js'
 
 import './home/scroll-navigation.js'
+
+import './base/visibility-toggle.js'
