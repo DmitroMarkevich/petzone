@@ -1,3 +1,4 @@
+import './auth/slider.js'
 import './auth/form-steps.js'
 import './auth/upload-photo.js'
 import './auth/form-validation.js'

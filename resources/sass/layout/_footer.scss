@@ -3,6 +3,8 @@
 
 .footer {
     @include mixins.flex-center(column);
+    background-size: cover;
+    background-image: url('/public/images/waves.png');
     background-color: variables.$sky-blue;
     font-family: variables.$font-family-alt;
     margin-top: 100px;

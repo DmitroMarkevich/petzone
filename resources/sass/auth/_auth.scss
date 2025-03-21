@@ -17,6 +17,8 @@
     border-radius: 0 24px 24px 0;
     color: variables.$light-background;
     background-color: variables.$dark-blue;
+    background-image: url('/public/images/auth/waves.svg');
+    background-size: cover;
 }
 
 .auth-right {
@@ -61,6 +63,53 @@
             background-image: url('/public/images/auth/profile-add.svg');
         }
     }
+}
+
+.navbar-brand {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
+
+.navbar-logo {
+    width: 230px;
+    height: auto;
+}
+
+.slider-frame {
+    @include mixins.flex-center(column);
+    position: relative;
+    height: 600px;
+}
+
+.image-slider {
+    position: relative;
+}
+
+.tagline {
+    @include mixins.flex-center();
+    @include mixins.font-style(20px, white, variables.$font-weight-semibold);
+    position: absolute;
+    white-space: nowrap;
+    bottom: 15px;
+}
+
+.slider-dots {
+    @include mixins.flex-center();
+    gap: 6px;
+}
+
+.slider-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 16px;
+    background-color: #B9DDFE;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.slider-dots span.active {
+    width: 14px;
+    background-color: #F0F7FF;
 }
 
 .auth-header {
