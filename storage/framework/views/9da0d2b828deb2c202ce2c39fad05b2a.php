@@ -54,10 +54,10 @@
                 <h2 class="section-title">Популярні товари</h2>
                 <div class="scroll-buttons">
                     <button class="scroll-btn left">
-                        <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="<">
+                        <img src="<?php echo e(asset('images/less-than.svg')); ?>" alt="<">
                     </button>
                     <button class="scroll-btn right">
-                        <img src="<?php echo e(asset('images/right-arrow.svg')); ?>" alt=">">
+                        <img src="<?php echo e(asset('images/greater-than.svg')); ?>" alt=">">
                     </button>
                 </div>
             </div>
@@ -78,7 +78,7 @@
             <div class="form-row">
                 <h2 class="section-title">Акційні товари</h2>
                 <a href="" class="view-all-button">Дивитись усе
-                    <img src="<?php echo e(asset('images/right-arrow.svg')); ?>" alt=">">
+                    <img src="<?php echo e(asset('images/greater-than.svg')); ?>" alt=">">
                 </a>
             </div>
             <div class="home-adverts-list">
@@ -92,7 +92,7 @@
             <div class="form-row">
                 <h2 class="section-title">Свіжі пропозиції</h2>
                 <a href="" class="view-all-button">Дивитись усе
-                    <img src="<?php echo e(asset('images/right-arrow.svg')); ?>" alt=">">
+                    <img src="<?php echo e(asset('images/greater-than.svg')); ?>" alt=">">
                 </a>
             </div>
             <div class="home-adverts-list">

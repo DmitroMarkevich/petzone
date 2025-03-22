@@ -122,8 +122,3 @@
 .no-adverts {
     @include mixins.flex-center();
 }
-
-.advert-grid {
-    display: flex;
-    gap: 16px;
-}

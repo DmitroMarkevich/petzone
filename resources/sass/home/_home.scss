@@ -55,9 +55,13 @@
 
 .home-adverts-list {
     display: flex;
+    justify-content: space-between;
     padding-bottom: 10px;
     scrollbar-width: none;
     overflow-x: auto;
+}
+
+#popular-adverts {
     gap: 16px;
 }
 

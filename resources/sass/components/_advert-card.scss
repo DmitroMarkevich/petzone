@@ -2,6 +2,13 @@
 @use '../mixins';
 @use '../variables';
 
+.advert-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 16px;
+}
+
 .advert-card {
     display: flex;
     flex-direction: column;
