@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Ramsey\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -21,7 +23,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, FileUploadTrait;
 
     /**
      * Where to redirect users after registration.
@@ -54,7 +56,7 @@ class RegisterController extends Controller
             'phone_number' => ['nullable', 'string', 'max:15'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'logo' => ['required|image|mimes:jpeg,png,jpg,svg|max:2048']
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,svg', 'max:2048'],
         ]);
     }
 
@@ -66,13 +68,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data): User
     {
+        $id = Uuid::uuid4();
+
+        $imagePath = null;
+
+        // Check if the logo is present and handle the file upload
+        if (isset($data['logo'])) {
+            $imagePath = $this->uploadFile("users/$id", $data['logo']);
+        }
+
         return User::create([
+            'id' => $id,
             'email' => $data['email'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
-            'image_path' => '123',
+            'image_path' => $imagePath,
         ]);
     }
 }

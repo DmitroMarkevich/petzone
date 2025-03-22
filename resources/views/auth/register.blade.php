@@ -7,7 +7,7 @@
             <p class="auth-subheading">{{ __('auth.register.subheading') }}</p>
         </div>
 
-        <form id="registration-form" method="POST" action="{{ route('register') }}">
+        <form id="registration-form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
             <div class="step step-1 active">
                 <div class="form-group">
@@ -41,7 +41,7 @@
                     <div id="photo-background" class="photo-background">
                         <img id="preview-image" src="{{ asset('images/auth/upload-photo.svg') }}" alt="Upload photo">
                     </div>
-                    <input id="profile-photo" type="file" name="profile-photo" accept=".jpeg,.png,.jpg,.svg" hidden>
+                    <input id="profile-photo" type="file" name="logo" accept=".jpeg,.png,.jpg,.svg" hidden>
                 </div>
 
                 <div class="form-group">

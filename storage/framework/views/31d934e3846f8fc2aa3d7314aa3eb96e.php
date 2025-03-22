@@ -5,7 +5,7 @@
             <p class="auth-subheading"><?php echo e(__('auth.register.subheading')); ?></p>
         </div>
 
-        <form id="registration-form" method="POST" action="<?php echo e(route('register')); ?>">
+        <form id="registration-form" method="POST" action="<?php echo e(route('register')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="step step-1 active">
                 <div class="form-group">
@@ -91,7 +91,7 @@
                     <div id="photo-background" class="photo-background">
                         <img id="preview-image" src="<?php echo e(asset('images/auth/upload-photo.svg')); ?>" alt="Upload photo">
                     </div>
-                    <input id="profile-photo" type="file" name="profile-photo" accept=".jpeg,.png,.jpg,.svg" hidden>
+                    <input id="profile-photo" type="file" name="logo" accept=".jpeg,.png,.jpg,.svg" hidden>
                 </div>
 
                 <div class="form-group">
@@ -163,6 +163,16 @@
             </div>
         </form>
     </div>
+
+    <?php if($errors->any()): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/auth/register.blade.php ENDPATH**/ ?>
