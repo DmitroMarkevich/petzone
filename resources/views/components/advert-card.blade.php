@@ -2,15 +2,20 @@
     <div class="advert-card">
         <div class="image-container">
             @if($advert->images->isNotEmpty())
-                <img class="advert-image" src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}" alt="{{ $advert->title }}">
+                <img class="advert-image" src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}"
+                     alt="{{ $advert->title }}">
             @else
                 <img class="advert-image" src="{{ asset('images/advert-test.jpg') }}" alt="{{ $advert->title }}">
             @endif
-            <form class="add-to-cart-form" action="{{ route('wishlist.add', $advert->id) }}" method="POST">
+            <form class="toggle-wishlist-form" action="{{ route('wishlist.toggle', $advert->id) }}" method="POST">
                 @csrf
                 <button type="submit" class="favorite-button">
                     <span>Додати до улюбленого</span>
-                    <img src="{{ asset('images/heart.svg') }}" alt="">
+                    @php
+                        $isInWishlist = in_array($advert->id, session('wishlist', []));
+                        $heartIcon = $isInWishlist ? 'images/heart-filled.svg' : 'images/heart.svg';
+                    @endphp
+                    <img src="{{ asset($heartIcon) }}" alt="Heart">
                 </button>
             </form>
         </div>
@@ -40,23 +45,3 @@
         </div>
     </div>
 </a>
-
-<script>
-    $(document).ready(function () {
-        $('.add-to-cart-form').on('submit', function (e) {
-            e.preventDefault();
-
-            let form = $(this);
-            let csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-            $.post({
-                url: form.attr('action'),
-                data: form.serialize(),
-                headers: {'X-CSRF-TOKEN': csrfToken},
-                success: function () {
-                    location.reload();
-                }
-            });
-        });
-    });
-</script>

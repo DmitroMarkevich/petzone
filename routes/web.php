@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('wishlist')->name('wishlist.')->group(function () {
-        Route::post('/add/{id}', [WishlistController::class, 'addToWishlist'])->name('add');
+        Route::post('/toggle/{id}', [WishlistController::class, 'toggleWishlist'])->name('toggle');
     });
 });
 

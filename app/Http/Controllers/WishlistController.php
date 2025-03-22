@@ -6,7 +6,7 @@ use App\Services\WishlistService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class   WishlistController extends Controller
+class WishlistController extends Controller
 {
     private WishlistService $wishlistService;
 
@@ -28,16 +28,13 @@ class   WishlistController extends Controller
         return view('profile.wishlist', compact('wishlist'));
     }
 
-    public function addToWishlist(string $advertId): RedirectResponse
+    public function toggleWishlist(string $advertId): RedirectResponse
     {
-        $this->wishlistService->addToWishlist($advertId);
-
-        return redirect()->back();
-    }
-
-    public function removeFromWishlist(string $advertId): RedirectResponse
-    {
-        $this->wishlistService->removeFromWishlist($advertId);
+        if ($this->wishlistService->isInWishlist($advertId)) {
+            $this->wishlistService->removeFromWishlist($advertId);
+        } else {
+            $this->wishlistService->addToWishlist($advertId);
+        }
 
         return redirect()->back();
     }

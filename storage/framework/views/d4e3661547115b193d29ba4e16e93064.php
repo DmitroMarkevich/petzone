@@ -2,15 +2,20 @@
     <div class="advert-card">
         <div class="image-container">
             <?php if($advert->images->isNotEmpty()): ?>
-                <img class="advert-image" src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>" alt="<?php echo e($advert->title); ?>">
+                <img class="advert-image" src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>"
+                     alt="<?php echo e($advert->title); ?>">
             <?php else: ?>
                 <img class="advert-image" src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="<?php echo e($advert->title); ?>">
             <?php endif; ?>
-            <form class="add-to-cart-form" action="<?php echo e(route('wishlist.add', $advert->id)); ?>" method="POST">
+            <form class="toggle-wishlist-form" action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <button type="submit" class="favorite-button">
                     <span>Додати до улюбленого</span>
-                    <img src="<?php echo e(asset('images/heart.svg')); ?>" alt="">
+                    <?php
+                        $isInWishlist = in_array($advert->id, session('wishlist', []));
+                        $heartIcon = $isInWishlist ? 'images/heart-filled.svg' : 'images/heart.svg';
+                    ?>
+                    <img src="<?php echo e(asset($heartIcon)); ?>" alt="Heart">
                 </button>
             </form>
         </div>
@@ -40,24 +45,4 @@
         </div>
     </div>
 </a>
-
-<script>
-    $(document).ready(function () {
-        $('.add-to-cart-form').on('submit', function (e) {
-            e.preventDefault();
-
-            let form = $(this);
-            let csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-            $.post({
-                url: form.attr('action'),
-                data: form.serialize(),
-                headers: {'X-CSRF-TOKEN': csrfToken},
-                success: function () {
-                    location.reload();
-                }
-            });
-        });
-    });
-</script>
 <?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/components/advert-card.blade.php ENDPATH**/ ?>

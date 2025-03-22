@@ -16,6 +16,7 @@ class WishlistService
     public function getWishlist(): Collection
     {
         $wishlistIds = Session::get('wishlist', []);
+
         return Advert::whereIn('id', $wishlistIds)->get();
     }
 
@@ -29,8 +30,9 @@ class WishlistService
     {
         $wishlist = Session::get('wishlist', []);
 
-        if (!in_array($advertId, $wishlist, true)) {
+        if (!$this->isInWishlist($advertId)) {
             $wishlist[] = $advertId;
+
             Session::put('wishlist', $wishlist);
         }
     }
@@ -43,7 +45,21 @@ class WishlistService
      */
     public function removeFromWishlist(string $advertId): void
     {
-        $wishlist = array_diff((array)$this->getWishlist(), [$advertId]);
-        session()->put('wishlist', array_values($wishlist));
+        $wishlist = Session::get('wishlist', []);
+
+        $wishlist = array_diff($wishlist, [$advertId]);
+
+        Session::put('wishlist', array_values($wishlist));
+    }
+
+    /**
+     * Check if an ad is in the wishlist.
+     *
+     * @param string $advertId ID of the advertisement
+     * @return bool
+     */
+    public function isInWishlist(string $advertId): bool
+    {
+        return in_array($advertId, Session::get('wishlist', []), true);
     }
 }
