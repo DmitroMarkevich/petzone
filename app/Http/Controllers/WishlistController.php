@@ -28,13 +28,12 @@ class WishlistController extends Controller
         return view('profile.wishlist', compact('wishlist'));
     }
 
+    /**
+     * Toggle the ad in the wishlist.
+     */
     public function toggleWishlist(string $advertId): RedirectResponse
     {
-        if ($this->wishlistService->isInWishlist($advertId)) {
-            $this->wishlistService->removeFromWishlist($advertId);
-        } else {
-            $this->wishlistService->addToWishlist($advertId);
-        }
+        $this->wishlistService->toggleWishlist($advertId);
 
         return redirect()->back();
     }
