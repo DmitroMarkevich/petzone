@@ -48,8 +48,6 @@ class AdvertController extends Controller
     public function store(StoreAdvertRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        $validated['user_id'] = auth()->id();
-
         $this->advertService->createAdvert($validated);
 
         return redirect()->route('profile.adverts');
@@ -94,6 +92,9 @@ class AdvertController extends Controller
         return redirect()->route('profile.adverts');
     }
 
+    /**
+     * Search for adverts based on the query input.
+     */
     public function search(Request $request): Factory|View|Application
     {
         $query = $request->input('query');

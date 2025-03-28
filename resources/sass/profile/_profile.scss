@@ -55,6 +55,7 @@
 
 .profile-greeting {
     @include mixins.font-style(28px, black, variables.$font-weight-medium);
+    margin-bottom: 20px;
 }
 
 .profile-avatar {

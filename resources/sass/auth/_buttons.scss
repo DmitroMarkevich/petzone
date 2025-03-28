@@ -19,7 +19,7 @@
 
     &.google, &.facebook {
         color: variables.$muted-gray;
-        border: 1px solid #E6E1E2;
+        border: 1px solid variables.$ash-rose;
     }
 
     &:not(:last-child) {

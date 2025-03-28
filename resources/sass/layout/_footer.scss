@@ -23,5 +23,5 @@
 }
 
 .footer-copy {
-    @include mixins.font-style(14px, #E6E1E2);
+    @include mixins.font-style(14px, variables.$ash-rose);
 }

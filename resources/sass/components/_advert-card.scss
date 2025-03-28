@@ -10,8 +10,7 @@
 }
 
 .advert-card {
-    display: flex;
-    flex-direction: column;
+    @include mixins.flex-column;
     justify-content: space-between;
     position: relative;
     width: 330px;
@@ -61,7 +60,6 @@
 .advert-title {
     @include mixins.text-ellipsis;
     @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-semibold);
-    margin: 0;
 }
 
 .advert-price {
@@ -70,7 +68,7 @@
 
 .advert-tags .tag {
     @include mixins.font-style(10px, variables.$muted-gray);
-    border: 1px solid #E6E1E2;
+    border: 1px solid variables.$ash-rose;
     border-radius: 32px;
     padding: 4px 8px;
 }
@@ -81,8 +79,7 @@
 }
 
 .advert-details {
-    display: flex;
-    flex-direction: column;
+    @include mixins.flex-column;
     gap: 8px;
 }
 

@@ -11,11 +11,17 @@
 }
 
 .hero-text {
+    @include mixins.flex-center(column);
     top: 50%;
     left: 50%;
+    gap: 36px;
     position: absolute;
     color: variables.$light-background;
     transform: translate(-50%, -50%);
+}
+
+.hero-text p {
+    width: 600px;
 }
 
 .hero-title {
@@ -41,11 +47,17 @@
     border: 1px solid variables.$orange;
 }
 
+.content-sections, .content-section{
+    @include mixins.flex-column;
+}
+
+.content-sections {
+    gap: 100px;
+    margin-top: 50px;
+}
+
 .content-section {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 100px;
-    gap: 16px;
+    gap: 24px;
 }
 
 .section-container {
@@ -67,6 +79,7 @@
 
 .section-title {
     @include mixins.font-style(36px, variables.$dark-graphite, variables.$font-weight-medium);
+    margin-bottom: 30px;
 }
 
 .category-title {
@@ -77,18 +90,17 @@
     @include mixins.flex-grow-1;
     @include mixins.flex-center(column);
     @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+    gap: 8px;
 }
 
 .delivery-step-item {
     @include mixins.flex-center(column);
     @include mixins.flex-grow-1;
     padding: 16px;
-    margin: auto;
     gap: 32px;
 }
 
 .delivery-step-title, .delivery-step-description {
-    margin: auto;
     max-width: 280px;
 }
 

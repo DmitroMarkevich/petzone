@@ -9,6 +9,11 @@
     align-items: center;
 }
 
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 @mixin flex-grow-1 {
     flex-grow: 1;
     flex-basis: 0;

@@ -17,7 +17,7 @@ class AdvertService
             'description' => $data['description'],
             'price' => $data['price'],
             'category_id' => $data['category_id'],
-            'user_id' => $data['user_id'],
+            'user_id' => auth()->id(),
         ]);
 
         if (isset($data['images']) && is_array($data['images'])) {

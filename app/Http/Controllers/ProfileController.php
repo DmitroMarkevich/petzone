@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use App\Services\OrderService;
 use App\Services\ProfileService;
 use App\Http\Requests\UpdateProfileRequest;
 

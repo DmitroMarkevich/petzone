@@ -13,15 +13,27 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('status');
-            $table->decimal('total_price', 10);
-            $table->string('tracking_number')->nullable();
+            $table->string('status')->nullable();
             $table->string('order_number')->unique();
             $table->boolean('is_active')->default(true);
-            $table->uuid('user_id');
+
+            $table->string('delivery_method');
+            $table->string('tracking_number')->nullable();
+            $table->decimal('delivery_cost', 10)->nullable();
+            $table->date('estimated_delivery_date')->nullable();
+            $table->timestamp('shipped_at')->nullable();
+            $table->timestamp('delivered_at')->nullable();
+
+            $table->timestamp('canceled_at')->nullable();
+            $table->text('cancellation_reason')->nullable();
+
+            $table->uuid('buyer_id');
+            $table->uuid('advert_id');
+
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('advert_id')->references('id')->on('adverts')->onDelete('cascade');
         });
     }
 
