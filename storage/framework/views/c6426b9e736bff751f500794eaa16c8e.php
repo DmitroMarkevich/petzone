@@ -33,4 +33,6 @@
     ];
 </script>
 
+<?php echo app('Illuminate\Foundation\Vite')(['resources/js/auth/auth-home-slider.js']); ?>
+
 <?php echo $__env->make('layouts.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/layouts/auth.blade.php ENDPATH**/ ?>

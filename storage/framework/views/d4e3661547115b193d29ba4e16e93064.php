@@ -7,7 +7,7 @@
             <?php else: ?>
                 <img class="advert-image" src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="<?php echo e($advert->title); ?>">
             <?php endif; ?>
-            <form class="toggle-wishlist-form" action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>" method="POST">
+            <form action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <button type="submit" class="favorite-button">
                     <span>Додати до улюбленого</span>

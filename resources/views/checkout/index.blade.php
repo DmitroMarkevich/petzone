@@ -118,21 +118,4 @@
     </div>
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        const $profileHeader = $('.profile-header');
-        const $profileSection = $('#contact-info');
-        const $cancelButton = $('#cancel-btn');
-
-        $profileHeader.on('click', function () {
-            $profileHeader.hide();
-            $profileSection.show();
-        });
-
-        $cancelButton.on('click', function () {
-            $profileHeader.show();
-            $profileSection.hide();
-        });
-    });
-</script>
+@vite(['resources/js/checkout/index.js'])

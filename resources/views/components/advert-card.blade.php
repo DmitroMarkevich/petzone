@@ -7,7 +7,7 @@
             @else
                 <img class="advert-image" src="{{ asset('images/advert-test.jpg') }}" alt="{{ $advert->title }}">
             @endif
-            <form class="toggle-wishlist-form" action="{{ route('wishlist.toggle', $advert->id) }}" method="POST">
+            <form action="{{ route('wishlist.toggle', $advert->id) }}" method="POST">
                 @csrf
                 <button type="submit" class="favorite-button">
                     <span>Додати до улюбленого</span>

@@ -73,7 +73,7 @@
 <?php endif; ?>
                 </div>
 
-                <div class="auth-buttons">
+                <div>
                     <button type="button" class="button next-step"><?php echo e(__('auth.register.next')); ?></button>
                     <?php echo $__env->make('components.social-buttons', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
@@ -164,5 +164,7 @@
         </form>
     </div>
 <?php $__env->stopSection(); ?>
+
+<?php echo app('Illuminate\Foundation\Vite')(['resources/js/auth/step-navigation.js', 'resources/js/auth/photo-upload.js']); ?>
 
 <?php echo $__env->make('layouts.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/auth/register.blade.php ENDPATH**/ ?>

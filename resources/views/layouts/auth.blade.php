@@ -34,3 +34,5 @@
         {src: "{{ asset('images/auth/receipt.png') }}", text: "Оплата по факту отримання"}
     ];
 </script>
+
+@vite(['resources/js/auth/auth-slider.js'])

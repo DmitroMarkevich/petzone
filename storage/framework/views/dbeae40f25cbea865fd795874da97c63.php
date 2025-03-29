@@ -107,4 +107,6 @@
     </style>
 <?php $__env->stopSection(); ?>
 
+<?php echo app('Illuminate\Foundation\Vite')(['resources/js/advert/photo-upload.js']); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/adverts/create.blade.php ENDPATH**/ ?>

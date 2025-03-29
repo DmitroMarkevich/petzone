@@ -8,6 +8,7 @@
             </div>
         @else
             <h2 class="page-title">Мої оголошення</h2>
+
             <div class="adverts-list">
                 @foreach($adverts as $advert)
                     <x-advert-item :advert="$advert">

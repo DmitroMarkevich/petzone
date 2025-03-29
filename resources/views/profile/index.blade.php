@@ -130,3 +130,5 @@
         <x-success-message :message="session('success')"/>
     @endif
 @endsection
+
+@vite(['resources/js/profile/index.js'])

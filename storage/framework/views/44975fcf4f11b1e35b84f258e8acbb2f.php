@@ -275,4 +275,6 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
+<?php echo app('Illuminate\Foundation\Vite')(['resources/js/profile/index.js']); ?>
+
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/index.blade.php ENDPATH**/ ?>

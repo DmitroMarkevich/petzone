@@ -24,7 +24,7 @@
                              data-validation="password"/>
                 </div>
 
-                <div class="auth-buttons">
+                <div>
                     <button type="button" class="button next-step">{{ __('auth.register.next') }}</button>
                     @include('components.social-buttons')
                 </div>
@@ -60,3 +60,5 @@
         </form>
     </div>
 @endsection
+
+@vite(['resources/js/auth/step-navigation.js', 'resources/js/auth/photo-upload.js'])

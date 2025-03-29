@@ -107,3 +107,5 @@
         }
     </style>
 @endsection
+
+@vite(['resources/js/advert/photo-upload.js'])
