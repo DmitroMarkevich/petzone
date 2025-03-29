@@ -12,7 +12,8 @@
     }
 
     .profile-content {
-        @include mixins.flex-center;
+        display: flex;
+        justify-content: center;
         width: 100%;
     }
 
@@ -109,14 +110,9 @@
     }
 }
 
-.link-edit-wrapper {
-    display: flex;
-}
-
 .link-edit {
     @include mixins.flex-center-vertical;
     font-family: variables.$font-family-alt;
-    font-weight: variables.$font-weight-normal;
     gap: 8px;
 }
 

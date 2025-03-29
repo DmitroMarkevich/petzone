@@ -118,3 +118,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .input-field.invalid {
     border-color: variables.$bright-red;
 }
+
+.hidden {
+    display: none;
+}

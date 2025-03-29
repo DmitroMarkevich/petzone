@@ -1,10 +1,10 @@
 <?php $__env->startSection('profile-content'); ?>
-    <div>
-        <?php if($orders->isEmpty()): ?>
-            <div class="no-adverts">
-                <p>No orders found.</p>
-            </div>
-        <?php else: ?>
+    <?php if($orders->isEmpty()): ?>
+        <div class="no-adverts">
+            <p>No orders found.</p>
+        </div>
+    <?php else: ?>
+        <div>
             <h2 class="page-title">Ваші замовлення</h2>
             <?php if (isset($component)) { $__componentOriginalc6be867d00e6e5fdd63b7716c605e040 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc6be867d00e6e5fdd63b7716c605e040 = $attributes; } ?>
@@ -26,8 +26,8 @@
 <?php $component = $__componentOriginalc6be867d00e6e5fdd63b7716c605e040; ?>
 <?php unset($__componentOriginalc6be867d00e6e5fdd63b7716c605e040); ?>
 <?php endif; ?>
-        <?php endif; ?>
-    </div>
+        </div>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/orders.blade.php ENDPATH**/ ?>

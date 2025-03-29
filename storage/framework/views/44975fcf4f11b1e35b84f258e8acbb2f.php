@@ -3,24 +3,22 @@
         <div class="profile-header">
             <img id="profile-avatar"
                  src="<?php echo e(!empty($user->image_path) ? Storage::disk('s3')->url($user->image_path) : asset('images/default-avatar.png')); ?>"
-                 alt="User Avatar" class="profile-avatar">
+                 alt="Avatar" class="profile-avatar">
+
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, <?php echo e($user->first_name); ?>!</h2>
+
                 <div class="profile-actions photo">
                     <form id="photo-form" action="<?php echo e(route('profile.uploadAvatar')); ?>" method="POST"
                           enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
-                        <input type="file" name="profile-photo" id="profile-photo" style="display: none;"
+                        <input type="file" name="profile-photo" id="profile-photo" class="hidden"
                                accept=".jpeg,.png,.jpg,.svg">
 
                         <div class="profile-actions">
                             <button type="button" class="btn-change" id="change-photo-btn">Змінити фото</button>
-                            <button type="submit" class="btn-change" id="confirm-photo-btn" style="display: none;">
-                                Зберегти
-                            </button>
-                            <button type="button" class="btn-cancel" id="cancel-photo-btn" style="display: none;">
-                                Скасувати
-                            </button>
+                            <button type="submit" class="btn-change hidden" id="confirm-photo-btn">Зберегти</button>
+                            <button type="button" class="btn-cancel hidden" id="cancel-photo-btn">Скасувати</button>
                         </div>
                     </form>
 
@@ -28,8 +26,7 @@
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button type="submit" class="btn-delete" id="delete-photo-btn">
-                            <img src="<?php echo e(asset('images/profile/bin.svg')); ?>" alt="Bin Icon">
-                            Видалити фото
+                            <img src="<?php echo e(asset('images/profile/bin.svg')); ?>" alt="Bin Icon">Видалити фото
                         </button>
                     </form>
                 </div>
@@ -38,8 +35,7 @@
 
         <div class="profile-section my-data">
             <h4 class="section-title">
-                <img src="<?php echo e(asset('images/profile/profile.svg')); ?>" alt="Profile" class="icon">
-                Мої дані
+                <img src="<?php echo e(asset('images/profile/profile.svg')); ?>" alt="Profile" class="icon">Мої дані
             </h4>
 
             <form method="POST" action="<?php echo e(route('profile.update')); ?>">
@@ -139,25 +135,21 @@
                     </div>
                 </div>
 
-                <div class="link-edit-wrapper">
-                    <a href="#" class="link-edit" id="edit-profile">
-                        <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
-                        Редагувати
-                    </a>
-                </div>
+                <a href="#" class="link-edit" id="edit-profile">
+                    <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
+                    Редагувати
+                </a>
 
                 <div class="profile-actions">
-                    <button type="submit" class="btn-change" id="save-profile" style="display: none;">Зберегти</button>
-                    <button type="button" class="btn-cancel" id="cancel-profile" style="display: none;">Скасувати
-                    </button>
+                    <button type="submit" class="btn-change hidden" id="save-profile">Зберегти</button>
+                    <button type="button" class="btn-cancel hidden" id="cancel-profile">Скасувати</button>
                 </div>
             </form>
         </div>
 
         <div class="profile-section delivery-address">
             <h4 class="section-title">
-                <img src="<?php echo e(asset('images/profile/address.svg')); ?>" alt="Адрес" class="icon">
-                Адреса доставки
+                <img src="<?php echo e(asset('images/profile/address.svg')); ?>" alt="Адрес" class="icon">Адреса доставки
             </h4>
 
             <form id="address-form" method="POST" action="<?php echo e(route('profile.update')); ?>">
@@ -185,7 +177,7 @@
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
-                        <ul id="address-suggestions" style="display:none;"></ul>
+                        <ul id="address-suggestions" class="hidden"></ul>
                     </div>
                     <div class="form-group">
                         <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
@@ -210,6 +202,7 @@
 <?php endif; ?>
                     </div>
                 </div>
+
                 <div class="form-row">
                     <div class="form-group apartment">
                         <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
@@ -235,17 +228,14 @@
                     </div>
                 </div>
 
-                <div class="link-edit-wrapper">
-                    <a href="#" class="link-edit" id="edit-address">
-                        <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
-                        Редагувати
-                    </a>
-                </div>
+                <a href="#" class="link-edit" id="edit-address">
+                    <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
+                    Редагувати
+                </a>
 
                 <div class="profile-actions">
-                    <button type="submit" class="btn-change" id="save-address" style="display: none;">Зберегти</button>
-                    <button type="button" class="btn-cancel" id="cancel-address" style="display: none;">Скасувати
-                    </button>
+                    <button type="submit" class="btn-change hidden" id="save-address">Зберегти</button>
+                    <button type="button" class="btn-cancel hidden" id="cancel-address">Скасувати</button>
                 </div>
             </form>
         </div>

@@ -7,6 +7,7 @@
 
 .page-title {
     @include mixins.font-style(36px, variables.$carbon, variables.$font-weight-medium);
+    margin-bottom: 30px;
 }
 
 .adverts-list {

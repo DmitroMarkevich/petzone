@@ -1,12 +1,12 @@
 @extends('layouts.profile')
 
 @section('profile-content')
-    <div class="adverts-container">
-        @if($adverts->isEmpty())
-            <div class="no-adverts">
-                <p>No adverts found.</p>
-            </div>
-        @else
+    @if($adverts->isEmpty())
+        <div class="no-adverts">
+            <p>No adverts found.</p>
+        </div>
+    @else
+        <div class="adverts-container">
             <h2 class="page-title">Мої оголошення</h2>
 
             <div class="adverts-list">
@@ -23,6 +23,6 @@
                     </x-advert-item>
                 @endforeach
             </div>
-        @endif
-    </div>
+        </div>
+    @endif
 @endsection

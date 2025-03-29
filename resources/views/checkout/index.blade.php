@@ -9,7 +9,7 @@
         <main class="checkout-container">
             <div class="checkout-details">
                 <div class="checkout-section">
-                    <h1 class="checkout-title">Оформлення замовлення</h1>
+                    <h1>Оформлення замовлення</h1>
 
                     <div class="container-item">
                         <h2>Замовлення</h2>
