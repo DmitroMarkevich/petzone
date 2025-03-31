@@ -9,47 +9,42 @@
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link {{ request()->is('profile') ? 'active' : '' }}"
                        href="{{ route('profile.index') }}">
-                        <img src="{{ asset('images/profile/profile.svg') }}" alt="Профіль" class="profile-icon">
-                        Профіль
+                        <img src="{{ asset('images/profile/profile.svg') }}" alt="Профіль">Профіль
                     </a>
                 </div>
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link {{ request()->is('profile/orders') ? 'active' : '' }}"
                        href="{{ route('profile.orders') }}">
-                        <img src="{{ asset('images/profile/cart.svg') }}" alt="Замовлення" class="profile-icon">
-                        Замовлення
+                        <img src="{{ asset('images/profile/cart.svg') }}" alt="Замовлення">Замовлення
                     </a>
                 </div>
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link {{ request()->is('profile/adverts') ? 'active' : '' }}"
                        href="{{ route('profile.adverts') }}">
-                        <img src="{{ asset('images/profile/folder.svg') }}" alt="Оголошення" class="profile-icon">
-                        Мої оголошення
+                        <img src="{{ asset('images/profile/folder.svg') }}" alt="Оголошення">Мої оголошення
                     </a>
                 </div>
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link {{ request()->is('profile/wishlist') ? 'active' : '' }}"
                        href="{{ route('profile.wishlist') }}">
-                        <img src="{{ asset('images/profile/heart.svg') }}" alt="Вподобання" class="profile-icon">
-                        Вподобання
+                        <img src="{{ asset('images/profile/heart.svg') }}" alt="Вподобання">Вподобання
                     </a>
                 </div>
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link {{ request()->is('profile/orders-history') ? 'active' : '' }}"
                        href="{{ route('profile.orders-history') }}">
-                        <img src="{{ asset('images/profile/notebook.svg') }}" alt="Історія" class="profile-icon">
-                        Історія замовлень
+                        <img src="{{ asset('images/profile/notebook.svg') }}" alt="Історія">Історія замовлень
                     </a>
                 </div>
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link" href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <img src="{{ asset('images/profile/logout.svg') }}" alt="Вийти" class="profile-icon">Вийти
+                        <img src="{{ asset('images/profile/logout.svg') }}" alt="Вийти">Вийти
                         <form action="{{ route('logout') }}" id="logout-form" method="POST">
                             @csrf
                         </form>
