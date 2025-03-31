@@ -25,6 +25,7 @@ class Order extends Model
         'delivery_cost',
         'delivery_method',
         'estimated_delivery_date',
+        'payment_method',
         'shipped_at',
         'delivered_at',
         'order_number',

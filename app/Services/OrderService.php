@@ -18,8 +18,8 @@ class OrderService
         return Order::create([
             'buyer_id' => auth()->id(),
             'advert_id' => $data['advert_id'],
+            'payment_method' => $data['payment_method'],
             'delivery_method' => $data['delivery_method'],
-            'payment_method' => $data['payment_method'] ?? null,
             'order_number' => $this->generateOrderNumber(),
         ]);
     }
