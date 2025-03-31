@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models\Advert;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AdvertImage extends Model
+class Address extends Model
 {
-    use HasFactory, HasUuids;
+    use HasUuids;
+
+    protected $table = 'delivery_addresses';
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +18,8 @@ class AdvertImage extends Model
      */
     protected $fillable = [
         'id',
-        'image_path',
+        'city',
+        'street',
+        'apartment',
     ];
 }

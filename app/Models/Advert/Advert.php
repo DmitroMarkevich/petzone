@@ -2,12 +2,13 @@
 
 namespace App\Models\Advert;
 
+use App\Models\Image;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 
 class Advert extends Model
@@ -35,7 +36,7 @@ class Advert extends Model
      */
     public function images(): HasMany
     {
-        return $this->hasMany(AdvertImage::class);
+        return $this->hasMany(Image::class);
     }
 
     /**

@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class DeliveryAddress extends Model
+class Image extends Model
 {
-    use HasUuids;
-
-    protected $table = 'delivery_addresses';
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -18,8 +17,6 @@ class DeliveryAddress extends Model
      */
     protected $fillable = [
         'id',
-        'city',
-        'street',
-        'apartment',
+        'image_path',
     ];
 }

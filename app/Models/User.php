@@ -79,6 +79,6 @@ class User extends Authenticatable
      */
     public function deliveryAddress(): HasOne
     {
-        return $this->hasOne(DeliveryAddress::class);
+        return $this->hasOne(Address::class);
     }
 }

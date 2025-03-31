@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\DeliveryAddress;
+use App\Models\Address;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
 
@@ -24,7 +24,7 @@ class ProfileService
             $user->update($userData);
         }
 
-        $addressData = array_intersect_key($data, array_flip((new DeliveryAddress())->getFillable()));
+        $addressData = array_intersect_key($data, array_flip((new Address())->getFillable()));
         if ($addressData) {
             $user->deliveryAddress()->updateOrCreate(['user_id' => $user->id], $addressData);
         }
