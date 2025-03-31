@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Advert\Advert;
 use App\Models\Order;
+use App\OrderStatus;
 use Illuminate\Support\Collection;
 
 class OrderService
@@ -15,9 +17,14 @@ class OrderService
      */
     public function createOrder(array $data): Order
     {
+        $advertId = $data['advert_id'];
+        $advert = Advert::findOrFail($advertId);
+
         return Order::create([
             'buyer_id' => auth()->id(),
-            'advert_id' => $data['advert_id'],
+            'advert_id' => $advertId,
+            'status' => OrderStatus::PENDING,
+            'total_price' => $advert->price,
             'payment_method' => $data['payment_method'],
             'delivery_method' => $data['delivery_method'],
             'order_number' => $this->generateOrderNumber(),

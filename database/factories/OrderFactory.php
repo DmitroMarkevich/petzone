@@ -24,22 +24,25 @@ class OrderFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'status' => $this->faker->randomElement(OrderStatus::values()),
             'order_number' => strtoupper(Str::random(8)),
+            'status' => $this->faker->randomElement(OrderStatus::values()),
             'is_active' => $this->faker->boolean(),
 
-            'tracking_number' => Str::random(10),
+            'buyer_id' => User::inRandomOrder()->first()->id,
+            'advert_id' => Advert::inRandomOrder()->first()->id,
+
             'payment_method' => $this->faker->randomElement(PaymentMethod::values()),
-            'delivery_cost' => $this->faker->randomFloat(2, 0, 150),
+
             'delivery_method' => $this->faker->randomElement(DeliveryMethod::values()),
+            'delivery_cost' => $this->faker->randomFloat(2, 0, 150),
+            'total_price' => $this->faker->numberBetween(10, 99999),
+            'tracking_number' => Str::random(10),
             'estimated_delivery_date' => $this->faker->dateTimeBetween('+1 day', '+1 weeks'),
+
             'shipped_at' => $this->faker->optional()->dateTime(),
             'delivered_at' => $this->faker->optional()->dateTime(),
             'canceled_at' => $this->faker->optional()->dateTime(),
             'cancellation_reason' => $this->faker->optional()->sentence(),
-
-            'buyer_id' => User::inRandomOrder()->first()->id,
-            'advert_id' => Advert::inRandomOrder()->first()->id,
         ];
     }
 }

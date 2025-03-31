@@ -30,15 +30,6 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::create('advert_images', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('image_path');
-            $table->uuid('advert_id');
-            $table->timestamps();
-
-            $table->foreign('advert_id')->references('id')->on('adverts')->onDelete('cascade');
-        });
-
         Schema::create('advert_comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->text('comment');
@@ -58,7 +49,6 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('advert_comments');
-        Schema::dropIfExists('advert_images');
         Schema::dropIfExists('adverts');
         Schema::dropIfExists('categories');
     }

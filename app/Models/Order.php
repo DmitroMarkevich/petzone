@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\OrderStatus;
-use App\DeliveryMethod;
 use App\Models\Advert\Advert;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -21,20 +20,25 @@ class Order extends Model
      */
     protected $fillable = [
         'status',
-        'tracking_number',
-        'delivery_cost',
-        'delivery_method',
-        'estimated_delivery_date',
-        'payment_method',
-        'shipped_at',
-        'delivered_at',
         'order_number',
         'is_active',
-        'accepted_at',
-        'canceled_at',
-        'cancellation_reason',
+
         'buyer_id',
         'advert_id',
+
+        'payment_method',
+
+        'delivery_method',
+        'tracking_number',
+        'delivery_cost',
+        'total_price',
+        'estimated_delivery_date',
+
+        'accepted_at',
+        'shipped_at',
+        'delivered_at',
+        'canceled_at',
+        'cancellation_reason',
     ];
 
     protected $casts = [

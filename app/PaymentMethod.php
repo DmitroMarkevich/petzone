@@ -2,6 +2,8 @@
 
 namespace App;
 
+use UnitEnum;
+
 enum PaymentMethod: string implements Translatable
 {
     case CREDIT_CARD = 'CREDIT_CARD';
@@ -12,7 +14,7 @@ enum PaymentMethod: string implements Translatable
         return array_map(fn ($method) => $method->value, self::cases());
     }
 
-    public static function getTranslation($method): string
+    public static function getTranslation(UnitEnum $method): string
     {
         return __('payment.' . $method->name);
     }

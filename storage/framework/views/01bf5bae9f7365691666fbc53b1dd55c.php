@@ -28,14 +28,18 @@ foreach ($attributes->all() as $__key => $__value) {
 
 unset($__defined_vars); ?>
 
-<div class="orders-container <?php echo e($short ? 'orders-container--short' : ''); ?>">
+<?php
+    $showDetailsColumn = !$short;
+?>
+
+<div class="<?php echo \Illuminate\Support\Arr::toCssClasses(['orders-container', 'orders-container--short' => $short]); ?>">
     <div class="orders-header">
         <span>Номер замовлення</span>
         <span>Дата і час</span>
         <span>Статус відправлення</span>
         <span>Номер відстеження</span>
         <span>Ціна</span>
-        <?php if (! ($short)): ?>
+        <?php if($showDetailsColumn): ?>
             <span>Більше</span>
         <?php endif; ?>
     </div>
@@ -44,10 +48,13 @@ unset($__defined_vars); ?>
         <div class="order-row">
             <span><?php echo e($order->order_number); ?></span>
             <span><?php echo e($order->created_at->format('d/m/Y H:i')); ?></span>
-            <div class="status waiting"><?php echo e($order->status); ?></div>
-            <span><?php echo e($order->tracking_number ?? '—'); ?></span>
-            <span>€<?php echo e($order->total_price); ?></span>
-            <?php if (! ($short)): ?>
+            <div class="status <?php echo e(strtolower($order->status->value)); ?>">
+                <?php echo e(App\OrderStatus::getTranslation($order->status)); ?>
+
+            </div>
+            <span><?php echo e($order->tracking_number ?: '—'); ?></span>
+            <span>₴<?php echo e($order->total_price ?? '—'); ?></span>
+            <?php if($showDetailsColumn): ?>
                 <a href="#">Подивитися</a>
             <?php endif; ?>
         </div>

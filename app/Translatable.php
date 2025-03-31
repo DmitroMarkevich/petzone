@@ -2,13 +2,15 @@
 
 namespace App;
 
+use UnitEnum;
+
 interface Translatable
 {
     /**
-     * Get the translated label for a method.
+     * Get the translated label for an enum case.
      *
-     * @param string $method The delivery method to translate.
-     * @return string The translated label for the method.
+     * @param UnitEnum $method The enum case to translate.
+     * @return string The translated label.
      */
-    public static function getTranslation(string $method): string;
+    public static function getTranslation(UnitEnum $method): string;
 }

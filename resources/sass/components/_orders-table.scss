@@ -34,8 +34,8 @@
     margin: 0 auto;
 }
 
-.status.waiting, .status.in-transit {
-    background-color: variables.$dark-blue;;
+.status.processing, .status.pending, .status.shipped {
+    background-color: variables.$dark-blue;
 }
 
 .status.arrived {
@@ -45,4 +45,9 @@
 .status.received {
     color: variables.$carbon;
     background-color: #9AE8C3;
+}
+
+.status.canceled {
+    color: variables.$carbon;
+    background-color: #FF6B6B;
 }

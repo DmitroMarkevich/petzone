@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
@@ -19,4 +20,9 @@ class Image extends Model
         'id',
         'image_path',
     ];
+
+    public function imageable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }

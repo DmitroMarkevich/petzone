@@ -77,7 +77,7 @@ class User extends Authenticatable
     /**
      * Get the delivery address for the user.
      */
-    public function deliveryAddress(): HasOne
+    public function address(): HasOne
     {
         return $this->hasOne(Address::class);
     }

@@ -1,27 +1,33 @@
 @props(['orders', 'short' => false])
 
-<div class="orders-container {{ $short ? 'orders-container--short' : '' }}">
+@php
+    $showDetailsColumn = !$short;
+@endphp
+
+<div @class(['orders-container', 'orders-container--short' => $short])>
     <div class="orders-header">
         <span>Номер замовлення</span>
         <span>Дата і час</span>
         <span>Статус відправлення</span>
         <span>Номер відстеження</span>
         <span>Ціна</span>
-        @unless($short)
+        @if ($showDetailsColumn)
             <span>Більше</span>
-        @endunless
+        @endif
     </div>
 
     @foreach ($orders as $order)
         <div class="order-row">
             <span>{{ $order->order_number }}</span>
             <span>{{ $order->created_at->format('d/m/Y H:i') }}</span>
-            <div class="status waiting">{{ $order->status }}</div>
-            <span>{{ $order->tracking_number ?? '—' }}</span>
-            <span>€{{ $order->total_price }}</span>
-            @unless($short)
+            <div class="status {{ strtolower($order->status->value) }}">
+                {{ App\OrderStatus::getTranslation($order->status) }}
+            </div>
+            <span>{{ $order->tracking_number ?: '—' }}</span>
+            <span>₴{{ $order->total_price ?? '—' }}</span>
+            @if ($showDetailsColumn)
                 <a href="#">Подивитися</a>
-            @endunless
+            @endif
         </div>
     @endforeach
 </div>

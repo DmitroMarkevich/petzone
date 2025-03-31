@@ -2,6 +2,8 @@
 
 namespace App;
 
+use UnitEnum;
+
 enum DeliveryMethod: string implements Translatable
 {
     case NOVA_POST_SELF_PICKUP = 'NOVA_POST_SELF_PICKUP';
@@ -15,7 +17,7 @@ enum DeliveryMethod: string implements Translatable
         return array_map(fn ($method) => $method->value, self::cases());
     }
 
-    public static function getTranslation($method): string
+    public static function getTranslation(UnitEnum $method): string
     {
         return __('delivery.' . $method->name);
     }
