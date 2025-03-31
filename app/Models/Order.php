@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\OrderStatus;
+use App\DeliveryMethod;
 use App\Models\Advert\Advert;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -28,6 +29,7 @@ class Order extends Model
         'delivered_at',
         'order_number',
         'is_active',
+        'accepted_at',
         'canceled_at',
         'cancellation_reason',
         'buyer_id',
@@ -36,10 +38,6 @@ class Order extends Model
 
     protected $casts = [
         'status' => OrderStatus::class,
-        'shipped_at' => 'datetime',
-        'delivered_at' => 'datetime',
-        'canceled_at' => 'datetime',
-        'estimated_delivery_date' => 'date',
     ];
 
     /**

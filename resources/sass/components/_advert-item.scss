@@ -10,32 +10,35 @@
     font-family: variables.$font-family-alt;
     transition: background-color 0.3s;
     width: 100%;
+    gap: 30px;
 
     &:hover {
         background-color: variables.$pale-blue;
     }
 
     .advert-image-wrapper {
-        width: 15%;
-        height: auto;
+        width: clamp(100px, 6vw, 200px);
+        height: clamp(100px, 6vw, 200px);
     }
 
     .advert-image {
         width: 100%;
         height: 100%;
+        object-fit: cover;
         border-radius: 8px;
+    }
+
+    .advert-content {
+        @include mixins.flex-column;
+        flex-grow: 1;
+        width: clamp(100px, 30vw, 500px);
+        gap: 10px;
     }
 
     .advert-price {
         @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-medium);
         font-family: variables.$font-family-alt;
     }
-}
-
-.advert-content {
-    @include mixins.flex-column;
-    width: 60%;
-    gap: 10px;
 }
 
 .advert-description {
@@ -49,6 +52,7 @@
 
 .advert-left {
     display: flex;
+    flex-grow: 1;
     gap: 16px;
 }
 
@@ -78,7 +82,7 @@
 }
 
 .advert-date-wrapper {
-    @include mixins.flex-center-vertical;
+    display: flex;
     gap: 6px;
 }
 

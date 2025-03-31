@@ -2,8 +2,11 @@
 
 namespace Database\Factories;
 
+use App\DeliveryMethod;
 use App\Models\Advert\Advert;
 use App\Models\User;
+use App\OrderStatus;
+use App\PaymentMethod;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,20 +24,14 @@ class OrderFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'status' => $this->faker->randomElement(
-                ['pending', 'processing', 'shipped', 'completed', 'canceled', 'delivered']
-            ),
+            'status' => $this->faker->randomElement(OrderStatus::values()),
             'order_number' => strtoupper(Str::random(8)),
             'is_active' => $this->faker->boolean(),
 
             'tracking_number' => Str::random(10),
+            'payment_method' => $this->faker->randomElement(PaymentMethod::values()),
             'delivery_cost' => $this->faker->randomFloat(2, 0, 150),
-            'delivery_method' => $this->faker->randomElement([
-                'Самовивіз з Нова Пошта',
-                'Самовивіз з Meest',
-                'Самовивіз з Meest ПОШТА',
-                'Самовивіз з Нова Пошта'
-            ]),
+            'delivery_method' => $this->faker->randomElement(DeliveryMethod::values()),
             'estimated_delivery_date' => $this->faker->dateTimeBetween('+1 day', '+1 weeks'),
             'shipped_at' => $this->faker->optional()->dateTime(),
             'delivered_at' => $this->faker->optional()->dateTime(),

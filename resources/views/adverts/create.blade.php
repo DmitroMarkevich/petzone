@@ -36,6 +36,23 @@
             </div>
 
             <div class="form-group">
+                <label for="condition">Стан товару</label>
+                <select id="condition" name="condition" required>
+                    <option value="new" {{ old('condition') == 'new' ? 'selected' : '' }}>Новий</option>
+                    <option value="used" {{ old('condition') == 'used' ? 'selected' : '' }}>Б/У</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="item_type">Тип оголошення</label>
+                <select id="item_type" name="item_type" required>
+                    <option value="product" {{ old('item_type') == 'product' ? 'selected' : '' }}>Товар</option>
+                    <option value="service" {{ old('item_type') == 'service' ? 'selected' : '' }}>Послуга</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
                 <x-input type="number" name="price" label="Ціна" value="{{ old('price') }}"/>
             </div>
 
@@ -45,6 +62,12 @@
 @endsection
 
 <style>
+    textarea {
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: 15px center;
+    }
+
     .photo-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

@@ -1,9 +1,8 @@
 @php
-    $checked = $checked ?? false;
+    $checked = old('delivery_method') == $value ? 'checked' : '';
 @endphp
 
-<label>
-    <input type="radio" name="{{ $name }}" {{ $checked ? 'checked' : '' }}>
-    <span class="custom-radio"></span>
+<label for="{{ $id }}">
+    <input type="radio" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}" {{ $checked }}>
     {{ $label }}
 </label>

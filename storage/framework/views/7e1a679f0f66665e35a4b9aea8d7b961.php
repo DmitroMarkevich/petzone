@@ -1,10 +1,9 @@
 <?php
-    $checked = $checked ?? false;
+    $checked = old('delivery_method') == $value ? 'checked' : '';
 ?>
 
-<label>
-    <input type="radio" name="<?php echo e($name); ?>" <?php echo e($checked ? 'checked' : ''); ?>>
-    <span class="custom-radio"></span>
+<label for="<?php echo e($id); ?>">
+    <input type="radio" id="<?php echo e($id); ?>" name="<?php echo e($name); ?>" value="<?php echo e($value); ?>" <?php echo e($checked); ?>>
     <?php echo e($label); ?>
 
 </label>

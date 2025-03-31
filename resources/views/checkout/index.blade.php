@@ -1,3 +1,8 @@
+@php
+    use App\PaymentMethod;
+    use App\DeliveryMethod;
+@endphp
+
 @extends('layouts.base')
 
 @section('content')
@@ -6,9 +11,12 @@
             <img src="{{ asset('images/blue-logo.svg') }}" alt="Logo">
         </header>
 
-        <main class="checkout-container">
-            <div class="checkout-details">
-                <div class="checkout-section">
+        <main>
+            <form action="{{ route('checkout.store') }}" method="POST" class="checkout-container">
+                @csrf
+                <input type="hidden" name="advert_id" value="{{ $advert->id }}">
+
+                <div class="checkout-details">
                     <h1>Оформлення замовлення</h1>
 
                     <div class="container-item">
@@ -20,17 +28,23 @@
                     <div class="container-item">
                         <h3>Доставка</h3>
 
-                        <x-radio-button name="delivery_method" label="Самовивіз з Нової Пошти" :checked="true"/>
-                        <x-radio-button name="delivery_method" label="Самовивіз з Meest"/>
-                        <x-radio-button name="delivery_method" label="Кур'єр з Нової Пошти"/>
-                        <x-radio-button name="delivery_method" label="Кур'єр з Meest"/>
+                        @foreach (DeliveryMethod::cases() as $method)
+                            <x-radio-button name="delivery_method"
+                                            id="{{ $method->value }}"
+                                            value="{{ $method->value }}"
+                                            label="{{ DeliveryMethod::getTranslation($method) }}"/>
+                        @endforeach
                     </div>
 
                     <div class="container-item">
                         <h3>Оплата</h3>
 
-                        <x-radio-button name="payment" label="Оплата під час отримання товару" :checked="true"/>
-                        <x-radio-button name="payment" label="Оплатити зараз"/>
+                        @foreach (PaymentMethod::cases() as $method)
+                            <x-radio-button name="payment_method"
+                                            id="{{ $method->value }}"
+                                            value="{{ $method->value }}"
+                                            label="{{ PaymentMethod::getTranslation($method) }}"/>
+                        @endforeach
                     </div>
 
                     <div class="container-item">
@@ -71,51 +85,51 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="checkout-summary">
-                <h4 class="summary-title">Разом</h4>
+                <div class="checkout-summary">
+                    <h4 class="summary-title">Разом</h4>
 
-                <div class="order-total">
-                    <div class="form-row">
-                        <p>Товар на суму</p>
-                        <span class="advert-price">{{ $advert->price }}₴</span>
+                    <div class="order-total">
+                        <div class="form-row">
+                            <p>Товар на суму</p>
+                            <span class="advert-price">{{ $advert->price }}₴</span>
+                        </div>
+
+                        <div class="form-row">
+                            <p>Вартість доставки</p>
+                            <span>Безкоштовно</span>
+                        </div>
                     </div>
-
-                    <div class="form-row">
-                        <p>Вартість доставки</p>
-                        <span>Безкоштовно</span>
-                    </div>
-                </div>
-
-                <form action="{{ route('checkout.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="advert_id" value="{{ $advert->id }}">
-                    <input type="hidden" name="delivery_method" id="delivery-method" value="Самовивіз з Нової Пошти">
 
                     <button type="submit" class="order-button">Замовлення підтверджую</button>
-                </form>
 
-                <p class="order-info">
-                    Отримання замовлення від 5 000 ₴ - 30 000 ₴ за наявності документів.
-                    При оплаті готівкою від 30 000 ₴ необхідно надати документи для верифікації
-                    згідно вимог Закону України від 06.12.2019 №361-IX
-                </p>
+                    <p class="order-info">
+                        Отримання замовлення від 5 000 ₴ - 30 000 ₴ за наявності документів.
+                        При оплаті готівкою від 30 000 ₴ необхідно надати документи для верифікації
+                        згідно вимог Закону України від 06.12.2019 №361-IX
+                    </p>
 
-                <div class="order-terms">
-                    <p class="terms-title">Підтверджуючи замовлення, я приймаю умови:</p>
-                    <ul class="terms-list">
-                        <li><a href="#" class="terms-link">положення про обробку персональних даних</a></li>
-                        <li><a href="#" class="terms-link">угоди користувача</a></li>
-                    </ul>
+                    <div class="order-terms">
+                        <p class="terms-title">Підтверджуючи замовлення, я приймаю умови:</p>
+                        <ul class="terms-list">
+                            <li><a href="#" class="terms-link">положення про обробку персональних даних</a></li>
+                            <li><a href="#" class="terms-link">угоди користувача</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </form>
         </main>
 
         <footer class="checkout-footer">
             <p>PetZone © 2024 Всі права захищені</p>
         </footer>
     </div>
+
+    @if ($errors->has('delivery_method'))
+        <div class="error-message">
+            {{ $errors->first('delivery_method') }}
+        </div>
+    @endif
 @endsection
 
 @vite(['resources/js/checkout/index.js'])

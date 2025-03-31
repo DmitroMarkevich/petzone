@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\DeliveryMethod;
+use App\PaymentMethod;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Rule;
 
 class StoreOrderRequest extends FormRequest
 {
@@ -24,7 +27,23 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'advert_id' => 'required|exists:adverts,id',
-            'delivery_method' => 'required|string',
+            'payment_method' => ['required', Rule::in(PaymentMethod::values())],
+            'delivery_method' => ['required', Rule::in(DeliveryMethod::values())],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * This method modifies the request data before validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'payment_method' => $this->input('payment_method'),
+            'delivery_method' => $this->input('delivery_method'),
+        ]);
     }
 }

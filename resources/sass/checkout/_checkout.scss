@@ -20,18 +20,13 @@
 
 .checkout-container {
     display: flex;
-    gap: 48px;
-    width: 100%;
     padding-top: 30px;
+    gap: 50px;
 }
 
 .checkout-details {
-    flex-grow: 1;
-}
-
-.checkout-section {
-    display: flex;
-    flex-direction: column;
+    @include mixins.flex-column;
+    width: 100%;
     gap: 50px;
 }
 
@@ -50,7 +45,7 @@
 
 .checkout-summary {
     gap: 25px;
-    width: 350px;
+    width: 500px;
     height: 500px;
     padding: 24px;
     border-radius: 32px;

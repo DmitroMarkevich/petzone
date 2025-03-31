@@ -54,6 +54,23 @@
             </div>
 
             <div class="form-group">
+                <label for="condition">Стан товару</label>
+                <select id="condition" name="condition" required>
+                    <option value="new" <?php echo e(old('condition') == 'new' ? 'selected' : ''); ?>>Новий</option>
+                    <option value="used" <?php echo e(old('condition') == 'used' ? 'selected' : ''); ?>>Б/У</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="item_type">Тип оголошення</label>
+                <select id="item_type" name="item_type" required>
+                    <option value="product" <?php echo e(old('item_type') == 'product' ? 'selected' : ''); ?>>Товар</option>
+                    <option value="service" <?php echo e(old('item_type') == 'service' ? 'selected' : ''); ?>>Послуга</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
                 <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','name' => 'price','label' => 'Ціна','value' => ''.e(old('price')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -82,6 +99,12 @@
 <?php $__env->stopSection(); ?>
 
 <style>
+    textarea {
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: 15px center;
+    }
+
     .photo-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

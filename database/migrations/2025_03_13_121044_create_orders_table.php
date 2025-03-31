@@ -17,13 +17,15 @@ return new class extends Migration
             $table->string('order_number')->unique();
             $table->boolean('is_active')->default(true);
 
+            $table->string('payment_method');
             $table->string('delivery_method');
             $table->string('tracking_number')->nullable();
             $table->decimal('delivery_cost', 10)->nullable();
             $table->date('estimated_delivery_date')->nullable();
+
+            $table->timestamp('accepted_at')->nullable();
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
-
             $table->timestamp('canceled_at')->nullable();
             $table->text('cancellation_reason')->nullable();
 
