@@ -26,7 +26,7 @@
             <span>{{ $order->tracking_number ?: '—' }}</span>
             <span>₴{{ $order->total_price ?? '—' }}</span>
             @if ($showDetailsColumn)
-                <a href="#">Подивитися</a>
+                <a href="{{ route('profile.orders.details', ['id' => $order->id]) }}">Подивитися</a>
             @endif
         </div>
     @endforeach

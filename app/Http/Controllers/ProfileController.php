@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use App\Models\Order;
 use App\Services\OrderService;
 use App\Services\ProfileService;
 use App\Http\Requests\UpdateProfileRequest;
@@ -107,6 +109,22 @@ class ProfileController extends Controller
         $orders = $this->orderService->getUserOrders(true);
 
         return view('profile.orders', compact('orders'));
+    }
+
+    /**
+     * Show the details of a specific order.
+     *
+     * @param string $id
+     * @return Factory|View|Application
+     * @throws AuthorizationException
+     */
+    public function orderDetails(string $id): Factory|View|Application
+    {
+        $order = Order::findOrFail($id);
+
+        $this->authorize('view', $order);
+
+        return view('profile.order-details', compact('order'));
     }
 
     /**

@@ -1,0 +1,69 @@
+@use '../mixins';
+@use '../variables';
+
+.order-details-container {
+    width: 90%;
+}
+
+.order-details {
+    @include mixins.flex-column;
+    gap: 36px;
+    font-family: variables.$font-family-alt;
+}
+
+.order-container {
+    padding: 12px;
+    border-radius: 32px;
+    background-color: variables.$pale-blue;
+
+    .order-header, .order-item-row {
+        display: grid;
+        align-items: center;
+        text-align: center;
+        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+
+        &.order-header {
+            font-weight: variables.$font-weight-semibold;
+        }
+
+        &.order-item-row {
+            font-weight: variables.$font-weight-medium;
+        }
+    }
+}
+
+.order-item-info {
+    @include mixins.flex-center-vertical;
+    padding: 16px 12px;
+    gap: 12px;
+}
+
+.order-image {
+    width: 110px;
+    height: 110px;
+}
+
+.order-item-details {
+    @include mixins.flex-column;
+    gap: 6px;
+
+    h4 {
+        font-weight: variables.$font-weight-semibold;
+        font-size: 16px;
+    }
+
+    p {
+        font-weight: variables.$font-weight-medium;
+        font-size: 14px;
+    }
+}
+
+.section-heading {
+    @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+    margin-bottom: 12px;
+}
+
+.contact-details {
+    @include mixins.flex-column;
+    gap: 12px;
+}

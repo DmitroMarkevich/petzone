@@ -55,7 +55,7 @@ unset($__defined_vars); ?>
             <span><?php echo e($order->tracking_number ?: '—'); ?></span>
             <span>₴<?php echo e($order->total_price ?? '—'); ?></span>
             <?php if($showDetailsColumn): ?>
-                <a href="#">Подивитися</a>
+                <a href="<?php echo e(route('profile.orders.details', ['id' => $order->id])); ?>">Подивитися</a>
             <?php endif; ?>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

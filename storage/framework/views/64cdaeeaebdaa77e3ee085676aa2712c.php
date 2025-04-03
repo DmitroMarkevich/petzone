@@ -34,7 +34,7 @@
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link <?php echo e(request()->is('profile/orders-history') ? 'active' : ''); ?>"
-                       href="<?php echo e(route('profile.orders-history')); ?>">
+                       href="<?php echo e(route('profile.orders.history')); ?>">
                         <img src="<?php echo e(asset('images/profile/notebook.svg')); ?>" alt="Історія">Історія замовлень
                     </a>
                 </div>

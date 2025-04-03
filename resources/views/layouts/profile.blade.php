@@ -36,7 +36,7 @@
 
                 <div class="profile-navigation-item">
                     <a class="profile-navigation-link {{ request()->is('profile/orders-history') ? 'active' : '' }}"
-                       href="{{ route('profile.orders-history') }}">
+                       href="{{ route('profile.orders.history') }}">
                         <img src="{{ asset('images/profile/notebook.svg') }}" alt="Історія">Історія замовлень
                     </a>
                 </div>

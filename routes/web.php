@@ -22,14 +22,16 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
-        Route::get('/orders', [ProfileController::class, 'orders'])->name('orders');
-        Route::get('/adverts', [ProfileController::class, 'adverts'])->name('adverts');
-        Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
-        Route::get('/orders-history', [ProfileController::class, 'ordersHistory'])->name('orders-history');
-
         Route::patch('/update', [ProfileController::class, 'update'])->name('update');
         Route::post('/logo', [ProfileController::class, 'uploadAvatar'])->name('uploadAvatar');
         Route::delete('/logo', [ProfileController::class, 'deleteAvatar'])->name('deleteAvatar');
+
+        Route::get('/orders', [ProfileController::class, 'orders'])->name('orders');
+        Route::get('/orders/{id}', [ProfileController::class, 'orderDetails'])->name('orders.details');
+        Route::get('/orders-history', [ProfileController::class, 'ordersHistory'])->name('orders.history');
+
+        Route::get('/adverts', [ProfileController::class, 'adverts'])->name('adverts');
+        Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
     });
 
     Route::prefix('wishlist')->name('wishlist.')->group(function () {

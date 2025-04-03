@@ -1,5 +1,6 @@
 @use 'forms';
 @use 'adverts';
+@use "order-details";
 @use '../mixins';
 @use '../variables';
 
@@ -118,8 +119,8 @@
     }
 }
 
-.link-edit {
-    @include mixins.flex-center-vertical;
+.link-icon {
+    display: flex;
     font-family: variables.$font-family-alt;
     gap: 8px;
 }

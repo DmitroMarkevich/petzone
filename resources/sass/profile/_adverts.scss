@@ -6,8 +6,10 @@
 }
 
 .page-title {
+    @include mixins.flex-center-vertical;
     @include mixins.font-style(36px, variables.$carbon, variables.$font-weight-medium);
     margin-bottom: 30px;
+    gap: 12px;
 }
 
 .adverts-list {

@@ -52,4 +52,14 @@ class Order extends Model
     {
         return $this->belongsTo(Advert::class);
     }
+
+    public function seller(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function buyer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'buyer_id');
+    }
 }
