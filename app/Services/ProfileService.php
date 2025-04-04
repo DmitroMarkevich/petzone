@@ -26,7 +26,7 @@ class ProfileService
 
         $addressData = array_intersect_key($data, array_flip((new Address())->getFillable()));
         if ($addressData) {
-            $user->deliveryAddress()->updateOrCreate(['user_id' => $user->id], $addressData);
+            $user->address()->updateOrCreate(['user_id' => $user->id], $addressData);
         }
     }
 

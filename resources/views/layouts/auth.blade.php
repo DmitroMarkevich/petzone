@@ -27,12 +27,4 @@
     </div>
 @endsection
 
-<script>
-    const sliderImages = [
-        {src: "{{ asset('images/auth/shopping-cart.png') }}", text: "Широкий вибір товарів"},
-        {src: "{{ asset('images/auth/carton.png') }}", text: "Швидка доставка"},
-        {src: "{{ asset('images/auth/receipt.png') }}", text: "Оплата по факту отримання"}
-    ];
-</script>
-
 @vite(['resources/js/auth/auth-slider.js'])

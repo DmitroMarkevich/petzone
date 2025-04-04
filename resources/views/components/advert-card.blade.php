@@ -1,4 +1,4 @@
-<a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
+<a href="{{ route('adverts.show', $advert->id) }}">
     <div class="advert-card">
         <div class="image-container">
             @if($advert->images->isNotEmpty())
@@ -7,6 +7,7 @@
             @else
                 <img class="advert-image" src="{{ asset('images/advert-test.jpg') }}" alt="{{ $advert->title }}">
             @endif
+
             <form action="{{ route('wishlist.toggle', $advert->id) }}" method="POST">
                 @csrf
                 <button type="submit" class="favorite-button">
@@ -39,6 +40,7 @@
 
         <div class="price-action">
             <p class="advert-price">{{ $advert->price }} ₴</p>
+
             <button class="buy-button">
                 Купити <img src="{{ asset('images/profile/cart.svg') }}" alt="Cart Icon">
             </button>

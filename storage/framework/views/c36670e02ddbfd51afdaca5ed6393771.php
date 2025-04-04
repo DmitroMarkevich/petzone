@@ -21,6 +21,7 @@
 <?php $component->withAttributes(['advert' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($advert)]); ?>
                          <?php $__env->slot('actions', null, []); ?> 
                             <button class="edit-btn">Редагувати</button>
+
                             <form action="<?php echo e(route('adverts.destroy', $advert->id)); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('DELETE'); ?>

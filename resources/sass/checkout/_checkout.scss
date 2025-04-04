@@ -81,3 +81,13 @@
         padding-left: 20px
     }
 }
+
+.delivery-method, .payment-method {
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:has(input[type="radio"]:checked) {
+        padding: 8px 12px;
+        border: 1px solid variables.$blue;
+    }
+}

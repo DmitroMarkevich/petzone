@@ -1,4 +1,4 @@
-<a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
+<a href="<?php echo e(route('adverts.show', $advert->id)); ?>">
     <div class="advert-card">
         <div class="image-container">
             <?php if($advert->images->isNotEmpty()): ?>
@@ -7,6 +7,7 @@
             <?php else: ?>
                 <img class="advert-image" src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="<?php echo e($advert->title); ?>">
             <?php endif; ?>
+
             <form action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <button type="submit" class="favorite-button">
@@ -39,6 +40,7 @@
 
         <div class="price-action">
             <p class="advert-price"><?php echo e($advert->price); ?> ₴</p>
+
             <button class="buy-button">
                 Купити <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Cart Icon">
             </button>

@@ -14,10 +14,7 @@
         </div>
 
         <div class="advert-content">
-            <a class="advert-title" href="<?php echo e(route('adverts.show', $advert->id)); ?>">
-                <?php echo e($advert->title); ?>
-
-            </a>
+            <a class="advert-title" href="<?php echo e(route('adverts.show', $advert->id)); ?>"><?php echo e($advert->title); ?></a>
             <p class="advert-description"><?php echo e($advert->description); ?></p>
 
             <div class="advert-date-wrapper">
@@ -34,9 +31,7 @@
     </div>
 
     <div class="advert-right">
-        <div class="advert-price-wrapper">
-            <span class="advert-price"><?php echo e($advert->price); ?>₴</span>
-        </div>
+        <p class="advert-price"><?php echo e($advert->price); ?>₴</p>
 
         <?php if(isset($actions)): ?>
             <div class="advert-actions">

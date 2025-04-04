@@ -14,9 +14,7 @@
         </div>
 
         <div class="advert-content">
-            <a class="advert-title" href="{{ route('adverts.show', $advert->id) }}">
-                {{ $advert->title }}
-            </a>
+            <a class="advert-title" href="{{ route('adverts.show', $advert->id) }}">{{ $advert->title }}</a>
             <p class="advert-description">{{ $advert->description }}</p>
 
             <div class="advert-date-wrapper">
@@ -33,9 +31,7 @@
     </div>
 
     <div class="advert-right">
-        <div class="advert-price-wrapper">
-            <span class="advert-price">{{ $advert->price }}₴</span>
-        </div>
+        <p class="advert-price">{{ $advert->price }}₴</p>
 
         @isset($actions)
             <div class="advert-actions">

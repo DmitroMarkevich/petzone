@@ -177,7 +177,8 @@
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
-                        <ul id="address-suggestions" class="hidden"></ul>
+                        <ul id="city-suggestions" class="address-suggestions hidden"></ul>
+                        <input type="hidden" id="city-ref" name="cityRef">
                     </div>
                     <div class="form-group">
                         <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
@@ -200,6 +201,7 @@
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
+                        <ul id="street-suggestions" class="address-suggestions hidden"></ul>
                     </div>
                 </div>
 

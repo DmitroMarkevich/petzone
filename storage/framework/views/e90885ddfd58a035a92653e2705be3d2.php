@@ -1,4 +1,4 @@
-<div class="social-buttons">
+<div>
     <a href="<?php echo e(route('social.login', ['provider' => 'google'])); ?>" class="button google">
         <img src="<?php echo e(asset('images/auth/google.svg')); ?>" alt="Google Icon">
         <?php echo e(__('auth.google_login')); ?>

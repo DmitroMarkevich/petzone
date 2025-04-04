@@ -1,6 +1,5 @@
 @php
     use App\PaymentMethod;
-    use App\DeliveryMethod;
 @endphp
 
 @extends('layouts.base')
@@ -28,12 +27,59 @@
                     <div class="container-item">
                         <h3>Доставка</h3>
 
-                        @foreach (DeliveryMethod::cases() as $method)
-                            <x-radio-button name="delivery_method"
-                                            id="{{ $method->value }}"
-                                            value="{{ $method->value }}"
-                                            label="{{ DeliveryMethod::getTranslation($method) }}"/>
-                        @endforeach
+                        <label for="NOVA_POST_SELF_PICKUP" class="delivery-method">
+                            <input type="radio" id="NOVA_POST_SELF_PICKUP" name="delivery_method"
+                                   value="NOVA_POST_SELF_PICKUP">
+                            {{ __('delivery.NOVA_POST_SELF_PICKUP') }}
+
+                            <div class="delivery-extra hidden">
+                                <select name="branch" class="form-control">
+                                    <option>Введіть адресу або номер відділення</option>
+                                </select>
+                                <input type="text" name="manual_branch" class="form-control"
+                                       placeholder="Введіть адресу або номер відділення" hidden>
+                            </div>
+                        </label>
+
+                        <label for="MEEST_SELF_PICKUP" class="delivery-method">
+                            <input type="radio" id="MEEST_SELF_PICKUP" name="delivery_method" value="MEEST_SELF_PICKUP">
+                            {{ __('delivery.MEEST_SELF_PICKUP') }}
+
+                            <div class="delivery-extra hidden">
+                                <select name="branch" class="form-control">
+                                    <option>Введіть адресу або номер відділення</option>
+                                </select>
+                                <input type="text" name="manual_branch" class="form-control"
+                                       placeholder="Введіть адресу або номер відділення" hidden>
+                            </div>
+                        </label>
+
+                        <label for="NOVA_POST_COURIER" class="delivery-method">
+                            <input type="radio" id="NOVA_POST_COURIER" name="delivery_method" value="NOVA_POST_COURIER">
+                            {{ __('delivery.NOVA_POST_COURIER') }}
+
+                            <div class="delivery-extra hidden">
+                                <input type="text" placeholder="Вулиця" value="Соборності">
+                                <input type="text" placeholder="Будинок" value="12">
+                                <input type="text" placeholder="Квартира" value="1">
+                            </div>
+                        </label>
+
+                        <label for="MEEST_COURIER" class="delivery-method">
+                            <input type="radio" id="MEEST_COURIER" name="delivery_method" value="MEEST_COURIER">
+                            {{ __('delivery.MEEST_COURIER') }}
+
+                            <div class="delivery-extra hidden">
+                                <input type="text" placeholder="Вулиця" value="Соборності">
+                                <input type="text" placeholder="Будинок" value="12">
+                                <input type="text" placeholder="Квартира" value="1">
+                            </div>
+                        </label>
+
+                        <label for="SELF_PICKUP" class="delivery-method">
+                            <input type="radio" id="SELF_PICKUP" name="delivery_method" value="SELF_PICKUP">
+                            {{ __('delivery.SELF_PICKUP') }}
+                        </label>
                     </div>
 
                     <div class="container-item">
@@ -43,7 +89,8 @@
                             <x-radio-button name="payment_method"
                                             id="{{ $method->value }}"
                                             value="{{ $method->value }}"
-                                            label="{{ PaymentMethod::getTranslation($method) }}"/>
+                                            label="{{ PaymentMethod::getTranslation($method) }}"
+                                            class="payment-method"/>
                         @endforeach
                     </div>
 
@@ -55,7 +102,7 @@
                             <a href="#" class="link-edit">Змінити</a>
                         </div>
 
-                        <div class="profile-section" id="contact-info" style="display: none">
+                        <div class="profile-section" id="contact-info" hidden>
                             <div class="form-row">
                                 <div class="form-group">
                                     <x-input type="text" name="first_name" label="Ім'я"
@@ -69,8 +116,7 @@
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <x-input type="email" name="email" label="Електронна адреса"
-                                             value="{{ $user->email }}"/>
+                                    <x-input type="text" name="patronymic" label="По батькові"/>
                                 </div>
                                 <div class="form-group">
                                     <x-input type="tel" name="phone_number" label="Номер телефону"
@@ -92,7 +138,7 @@
                     <div class="order-total">
                         <div class="form-row">
                             <p>Товар на суму</p>
-                            <span class="advert-price">{{ $advert->price }}₴</span>
+                            <p class="advert-price">{{ $advert->price }}₴</p>
                         </div>
 
                         <div class="form-row">

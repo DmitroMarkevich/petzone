@@ -6,12 +6,12 @@
 
     .form-group {
         flex: 1;
+        position: relative;
 
         input {
             width: 100%;
 
-            &[type="email"],
-            &[type="tel"] {
+            &[type="email"], &[type="tel"] {
                 border: 1px solid #ccc;
                 background-color: transparent;
             }
@@ -27,11 +27,12 @@
     }
 }
 
-#address-suggestions {
+.address-suggestions {
     position: absolute;
-    top: 98%;
-    width: 347px;
-    border: 1px solid #E6E1E2;
+    left: 0;
+    top: 65%;
+    width: 100%;
+    border: 1px solid variables.$light-gray;
     background: variables.$light-background;
     z-index: 1000;
 

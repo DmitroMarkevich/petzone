@@ -7,12 +7,29 @@ $(document).ready(function () {
     const $cancelButton = $('#cancel-btn');
 
     $profileHeader.on('click', function () {
-        $profileHeader.hide();
-        $profileSection.show();
+        $profileHeader.fadeOut(200, function () {
+            $profileSection.fadeIn(200);
+        });
     });
 
-    $cancelButton.on('click', function () {
-        $profileHeader.show();
-        $profileSection.hide();
+    $cancelButton.on('click', function (event) {
+        event.preventDefault();
+
+        $profileSection.fadeOut(200, function () {
+            $profileHeader.fadeIn(200);
+        });
     });
+
+    const $deliveryInputs = $('input[name="delivery_method"]');
+
+    $deliveryInputs.on('change', function () {
+        $('.delivery-extra').hide();
+
+        const $selectedExtra = $(this).closest('label').find('.delivery-extra');
+        if ($selectedExtra.length) {
+            $selectedExtra.fadeIn(200);
+        }
+    });
+
+    $deliveryInputs.filter(':checked').trigger('change');
 });

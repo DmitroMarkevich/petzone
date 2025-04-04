@@ -4,43 +4,39 @@
     <div class="page-container">
         <div class="profile-template">
             <div class="profile-sidebar">
-                <div class="profile-navigation-item">
-                    <a class="profile-navigation-link <?php echo e(request()->is('profile') ? 'active' : ''); ?>"
-                       href="<?php echo e(route('profile.index')); ?>">
+                <div class="profile-item">
+                    <a class="profile-link <?php echo e(is_active('profile')); ?>" href="<?php echo e(route('profile.index')); ?>">
                         <img src="<?php echo e(asset('images/profile/profile.svg')); ?>" alt="Профіль">Профіль
                     </a>
                 </div>
 
-                <div class="profile-navigation-item">
-                    <a class="profile-navigation-link <?php echo e(request()->is('profile/orders') ? 'active' : ''); ?>"
-                       href="<?php echo e(route('profile.orders')); ?>">
+                <div class="profile-item">
+                    <a class="profile-link <?php echo e(is_active('profile/orders')); ?>" href="<?php echo e(route('profile.orders')); ?>">
                         <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Замовлення">Замовлення
                     </a>
                 </div>
 
-                <div class="profile-navigation-item">
-                    <a class="profile-navigation-link <?php echo e(request()->is('profile/adverts') ? 'active' : ''); ?>"
-                       href="<?php echo e(route('profile.adverts')); ?>">
+                <div class="profile-item">
+                    <a class="profile-link <?php echo e(is_active('profile/adverts')); ?>" href="<?php echo e(route('profile.adverts')); ?>">
                         <img src="<?php echo e(asset('images/profile/folder.svg')); ?>" alt="Оголошення">Мої оголошення
                     </a>
                 </div>
 
-                <div class="profile-navigation-item">
-                    <a class="profile-navigation-link <?php echo e(request()->is('profile/wishlist') ? 'active' : ''); ?>"
-                       href="<?php echo e(route('profile.wishlist')); ?>">
+                <div class="profile-item">
+                    <a class="profile-link <?php echo e(is_active('profile/wishlist')); ?>" href="<?php echo e(route('profile.wishlist')); ?>">
                         <img src="<?php echo e(asset('images/profile/heart.svg')); ?>" alt="Вподобання">Вподобання
                     </a>
                 </div>
 
-                <div class="profile-navigation-item">
-                    <a class="profile-navigation-link <?php echo e(request()->is('profile/orders-history') ? 'active' : ''); ?>"
+                <div class="profile-item">
+                    <a class="profile-link <?php echo e(is_active('profile/orders-history')); ?>"
                        href="<?php echo e(route('profile.orders.history')); ?>">
                         <img src="<?php echo e(asset('images/profile/notebook.svg')); ?>" alt="Історія">Історія замовлень
                     </a>
                 </div>
 
-                <div class="profile-navigation-item">
-                    <a class="profile-navigation-link" href="<?php echo e(route('logout')); ?>"
+                <div class="profile-item">
+                    <a class="profile-link" href="<?php echo e(route('logout')); ?>"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <img src="<?php echo e(asset('images/profile/logout.svg')); ?>" alt="Вийти">Вийти
                         <form action="<?php echo e(route('logout')); ?>" id="logout-form" method="POST">

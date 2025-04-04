@@ -26,17 +26,17 @@
 }
 
 // Sidebar Navigation
-.profile-navigation-item {
+.profile-item {
     margin-bottom: 15px;
+
+    &:last-child {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
 }
 
-.profile-navigation-item:last-child {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-.profile-navigation-link {
+.profile-link {
     @include mixins.flex-center-vertical;
     @include mixins.font-style(18px, variables.$carbon);
     padding: 12px 20px;

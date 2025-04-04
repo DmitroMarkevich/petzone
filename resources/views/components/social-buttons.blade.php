@@ -1,4 +1,4 @@
-<div class="social-buttons">
+<div>
     <a href="{{ route('social.login', ['provider' => 'google']) }}" class="button google">
         <img src="{{ asset('images/auth/google.svg') }}" alt="Google Icon">
         {{ __('auth.google_login') }}

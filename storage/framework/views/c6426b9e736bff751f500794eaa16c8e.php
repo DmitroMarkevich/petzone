@@ -25,14 +25,6 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<script>
-    const sliderImages = [
-        {src: "<?php echo e(asset('images/auth/shopping-cart.png')); ?>", text: "Широкий вибір товарів"},
-        {src: "<?php echo e(asset('images/auth/carton.png')); ?>", text: "Швидка доставка"},
-        {src: "<?php echo e(asset('images/auth/receipt.png')); ?>", text: "Оплата по факту отримання"}
-    ];
-</script>
-
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/auth/auth-home-slider.js']); ?>
+<?php echo app('Illuminate\Foundation\Vite')(['resources/js/auth/auth-slider.js']); ?>
 
 <?php echo $__env->make('layouts.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/layouts/auth.blade.php ENDPATH**/ ?>

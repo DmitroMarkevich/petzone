@@ -14,6 +14,7 @@
                     <x-advert-item :advert="$advert">
                         <x-slot name="actions">
                             <button class="edit-btn">Редагувати</button>
+
                             <form action="{{ route('adverts.destroy', $advert->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

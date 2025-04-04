@@ -37,7 +37,7 @@ class ProfileController extends Controller
     public function index(): Factory|View|Application
     {
         $user = auth()->user();
-        $address = $user->deliveryAddress;
+        $address = $user->address;
 
         return view('profile.index', compact('user', 'address'));
     }

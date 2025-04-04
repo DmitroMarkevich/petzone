@@ -88,11 +88,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <x-input type="text" name="city" label="Місто" value="{{ $address->city ?? '' }}" readonly/>
-                        <ul id="address-suggestions" class="hidden"></ul>
+                        <ul id="city-suggestions" class="address-suggestions hidden"></ul>
+                        <input type="hidden" id="city-ref" name="cityRef">
                     </div>
                     <div class="form-group">
-                        <x-input type="text" name="street" label="Вулиця" value="{{ $address->street ?? '' }}"
-                                 readonly/>
+                        <x-input type="text" name="street" label="Вулиця" value="{{ $address->street ?? '' }}" readonly/>
+                        <ul id="street-suggestions" class="address-suggestions hidden"></ul>
                     </div>
                 </div>
 

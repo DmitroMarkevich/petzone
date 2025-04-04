@@ -1,6 +1,5 @@
 <?php
     use App\PaymentMethod;
-    use App\DeliveryMethod;
 ?>
 
 
@@ -47,28 +46,64 @@
                     <div class="container-item">
                         <h3>Доставка</h3>
 
-                        <?php $__currentLoopData = DeliveryMethod::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if (isset($component)) { $__componentOriginale892edd1d52b28f8c510669e168e9b66 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginale892edd1d52b28f8c510669e168e9b66 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.radio-button','data' => ['name' => 'delivery_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(DeliveryMethod::getTranslation($method)).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('radio-button'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['name' => 'delivery_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(DeliveryMethod::getTranslation($method)).'']); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginale892edd1d52b28f8c510669e168e9b66)): ?>
-<?php $attributes = $__attributesOriginale892edd1d52b28f8c510669e168e9b66; ?>
-<?php unset($__attributesOriginale892edd1d52b28f8c510669e168e9b66); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginale892edd1d52b28f8c510669e168e9b66)): ?>
-<?php $component = $__componentOriginale892edd1d52b28f8c510669e168e9b66; ?>
-<?php unset($__componentOriginale892edd1d52b28f8c510669e168e9b66); ?>
-<?php endif; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <label for="NOVA_POST_SELF_PICKUP" class="delivery-method">
+                            <input type="radio" id="NOVA_POST_SELF_PICKUP" name="delivery_method"
+                                   value="NOVA_POST_SELF_PICKUP">
+                            <?php echo e(__('delivery.NOVA_POST_SELF_PICKUP')); ?>
+
+
+                            <div class="delivery-extra hidden">
+                                <select name="branch" class="form-control">
+                                    <option>Введіть адресу або номер відділення</option>
+                                </select>
+                                <input type="text" name="manual_branch" class="form-control"
+                                       placeholder="Введіть адресу або номер відділення" hidden>
+                            </div>
+                        </label>
+
+                        <label for="MEEST_SELF_PICKUP" class="delivery-method">
+                            <input type="radio" id="MEEST_SELF_PICKUP" name="delivery_method" value="MEEST_SELF_PICKUP">
+                            <?php echo e(__('delivery.MEEST_SELF_PICKUP')); ?>
+
+
+                            <div class="delivery-extra hidden">
+                                <select name="branch" class="form-control">
+                                    <option>Введіть адресу або номер відділення</option>
+                                </select>
+                                <input type="text" name="manual_branch" class="form-control"
+                                       placeholder="Введіть адресу або номер відділення" hidden>
+                            </div>
+                        </label>
+
+                        <label for="NOVA_POST_COURIER" class="delivery-method">
+                            <input type="radio" id="NOVA_POST_COURIER" name="delivery_method" value="NOVA_POST_COURIER">
+                            <?php echo e(__('delivery.NOVA_POST_COURIER')); ?>
+
+
+                            <div class="delivery-extra hidden">
+                                <input type="text" placeholder="Вулиця" value="Соборності">
+                                <input type="text" placeholder="Будинок" value="12">
+                                <input type="text" placeholder="Квартира" value="1">
+                            </div>
+                        </label>
+
+                        <label for="MEEST_COURIER" class="delivery-method">
+                            <input type="radio" id="MEEST_COURIER" name="delivery_method" value="MEEST_COURIER">
+                            <?php echo e(__('delivery.MEEST_COURIER')); ?>
+
+
+                            <div class="delivery-extra hidden">
+                                <input type="text" placeholder="Вулиця" value="Соборності">
+                                <input type="text" placeholder="Будинок" value="12">
+                                <input type="text" placeholder="Квартира" value="1">
+                            </div>
+                        </label>
+
+                        <label for="SELF_PICKUP" class="delivery-method">
+                            <input type="radio" id="SELF_PICKUP" name="delivery_method" value="SELF_PICKUP">
+                            <?php echo e(__('delivery.SELF_PICKUP')); ?>
+
+                        </label>
                     </div>
 
                     <div class="container-item">
@@ -77,14 +112,14 @@
                         <?php $__currentLoopData = PaymentMethod::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if (isset($component)) { $__componentOriginale892edd1d52b28f8c510669e168e9b66 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale892edd1d52b28f8c510669e168e9b66 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.radio-button','data' => ['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(PaymentMethod::getTranslation($method)).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.radio-button','data' => ['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(PaymentMethod::getTranslation($method)).'','class' => 'payment-method']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('radio-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(PaymentMethod::getTranslation($method)).'']); ?>
+<?php $component->withAttributes(['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(PaymentMethod::getTranslation($method)).'','class' => 'payment-method']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale892edd1d52b28f8c510669e168e9b66)): ?>
@@ -106,7 +141,7 @@
                             <a href="#" class="link-edit">Змінити</a>
                         </div>
 
-                        <div class="profile-section" id="contact-info" style="display: none">
+                        <div class="profile-section" id="contact-info" hidden>
                             <div class="form-row">
                                 <div class="form-group">
                                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
@@ -158,14 +193,14 @@
                                 <div class="form-group">
                                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'email','name' => 'email','label' => 'Електронна адреса','value' => ''.e($user->email).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'patronymic','label' => 'По батькові']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'email','name' => 'email','label' => 'Електронна адреса','value' => ''.e($user->email).'']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'patronymic','label' => 'По батькові']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -215,7 +250,7 @@
                     <div class="order-total">
                         <div class="form-row">
                             <p>Товар на суму</p>
-                            <span class="advert-price"><?php echo e($advert->price); ?>₴</span>
+                            <p class="advert-price"><?php echo e($advert->price); ?>₴</p>
                         </div>
 
                         <div class="form-row">

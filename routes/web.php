@@ -7,6 +7,7 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Auth\OAuth2Controller;
 
 Auth::routes();
@@ -19,6 +20,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/adverts/search', [AdvertController::class, 'search'])->name('adverts.search');
     Route::resource('adverts', AdvertController::class);
+
+    Route::prefix('address')->name('address.')->group(function () {
+        Route::get('/cities', [AddressController::class, 'searchCities'])->name('cities');
+        Route::get('/streets', [AddressController::class, 'searchStreets'])->name('streets');
+    });
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
