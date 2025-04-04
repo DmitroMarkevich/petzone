@@ -21,5 +21,7 @@ class Address extends Model
         'city',
         'street',
         'apartment',
+        'ref_delivery_city',
+        'ref_delivery_street',
     ];
 }

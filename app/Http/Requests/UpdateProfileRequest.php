@@ -29,6 +29,8 @@ class UpdateProfileRequest extends FormRequest
             'city' => 'sometimes|string|max:100',
             'street' => 'sometimes|string|max:255',
             'apartment' => 'sometimes|string|max:50',
+            'ref_delivery_city' => 'sometimes|required_with:city|string',
+            'ref_delivery_street' => 'sometimes|required_with:street|string',
         ];
     }
 }

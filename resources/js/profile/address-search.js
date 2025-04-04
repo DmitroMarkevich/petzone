@@ -64,6 +64,7 @@ $(document).ready(function () {
     $(document).on('click', '#city-suggestions li', function () {
         $('#city').val($(this).text());
         $('#city-ref').val($(this).data('ref'));
+        console.log($(this).data('ref'));
         $('#city-suggestions').addClass('hidden');
     });
 
@@ -81,15 +82,17 @@ $(document).ready(function () {
         const streets = await fetchSuggestions('/address/streets', {search: term, cityRef});
 
         renderSuggestions('#street-suggestions', streets, street =>
-            `<li>${street.StreetsType} ${street.Description}</li>`
+            `<li data-ref="${street.Ref}">${street.StreetsType} ${street.Description}</li>`
         );
     }, 300));
 
     /**
-     * Set selected street
+     * Set selected street and its reference
      */
     $(document).on('click', '#street-suggestions li', function () {
         $('#street').val($(this).text());
+        $('#street-ref').val($(this).data('ref'));
+        console.log($(this).data('ref'));
         $('#street-suggestions').addClass('hidden');
     });
 });
