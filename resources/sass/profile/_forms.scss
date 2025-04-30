@@ -1,3 +1,4 @@
+@use '../base';
 @use '../mixins';
 @use '../variables';
 
@@ -28,24 +29,6 @@
 }
 
 .address-suggestions {
-    position: absolute;
-    left: 0;
+    @extend .dropdown-base;
     top: 65%;
-    width: 100%;
-    border: 1px solid variables.$light-gray;
-    background: variables.$light-background;
-    z-index: 1000;
-
-    li {
-        padding: 6px;
-        cursor: pointer;
-
-        &:hover {
-            background: variables.$light-gray;
-        }
-
-        &:not(:last-child) {
-            border-bottom: 1px solid #ddd;
-        }
-    }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Advert\Advert;
 use App\Models\Order;
-use App\OrderStatus;
+use App\Enum\OrderStatus;
+use App\Models\Advert\Advert;
 use Illuminate\Support\Collection;
 
 class OrderService

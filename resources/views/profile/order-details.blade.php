@@ -29,7 +29,7 @@
                     </div>
                     <span>1</span>
                     <div class="status {{ strtolower($order->status->value) }}">
-                        {{ App\OrderStatus::getTranslation($order->status) }}
+                        {{ \App\Enum\OrderStatus::getTranslation($order->status) }}
                     </div>
                     <span>{{ $order->tracking_number ?: __('N/A') }}</span>
                     <span>₴{{ $order->total_price }}</span>

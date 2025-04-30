@@ -2,38 +2,59 @@
 
 namespace App\Services;
 
+use App\Models\Advert\Advert;
+use App\Enum\NovaPostBranchType;
+use App\Services\Contracts\DeliveryService;
 use Daaner\NovaPoshta\Models\Address;
+use Daaner\NovaPoshta\Models\InternetDocument;
+use Illuminate\Support\Facades\Log;
 
-class NovaPostService
+class NovaPostService implements DeliveryService
 {
-    protected Address $address;
-
-    public function __construct()
-    {
-        $this->address = new Address();
-        $this->address->setLimit(20);
-    }
+    private Address $address;
+    private InternetDocument $intDoc;
 
     /**
-     * Search for cities based on the provided term.
-     *
-     * @param string $searchTerm
-     * @return array
+     * @param InternetDocument $intDoc
      */
-    public function searchCities(string $searchTerm): array
+    public function __construct(InternetDocument $intDoc)
     {
-        return $this->address->searchSettlements($searchTerm);
+        $this->intDoc = $intDoc;
+        $this->address = new Address();
     }
 
     /**
-     * Search for streets in the specified city.
+     * Get warehouses in the specified city and warehouse type with pagination support.
      *
      * @param string $cityRef
-     * @param string $searchTerm
+     * @param int $page
+     * @param string|null $warehouseRef
      * @return array
      */
-    public function searchStreets(string $cityRef, string $searchTerm): array
+    public function getWarehouses(string $cityRef, int $page = 1, string $warehouseRef = null): array
     {
-        return $this->address->getStreet($cityRef, $searchTerm);
+        $this->address->setPage($page);
+
+        if ($warehouseRef) {
+            $this->address->setTypeOfWarehouseRef($warehouseRef);
+        }
+
+        return $this->address->getWarehouses($cityRef, false);
+    }
+
+    /**
+     * Filter warehouses by allowed branch types.
+     *
+     * @param array $warehouses
+     * @param
+     * @return array
+     */
+    public function filterWarehousesByTypes(array $warehouses, $typeOfWarehouseCode): array
+    {
+        return $warehouses;
+    }
+
+    public function getDocumentPrice(Advert $advert, string $citySender, $cityRecipient)
+    {
     }
 }

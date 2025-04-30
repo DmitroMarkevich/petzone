@@ -21,7 +21,7 @@
             <span>{{ $order->order_number }}</span>
             <span>{{ $order->created_at->format('d/m/Y H:i') }}</span>
             <div class="status {{ strtolower($order->status->value) }}">
-                {{ App\OrderStatus::getTranslation($order->status) }}
+                {{ \App\Enum\OrderStatus::getTranslation($order->status) }}
             </div>
             <span>{{ $order->tracking_number ?: '—' }}</span>
             <span>₴{{ $order->total_price ?? '—' }}</span>

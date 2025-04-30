@@ -1,5 +1,5 @@
 <?php
-    use App\PaymentMethod;
+    use App\Enum\PaymentMethod;
 ?>
 
 
@@ -20,7 +20,7 @@
 
                     <div class="container-item">
                         <h2>Замовлення</h2>
-                        <p>Продавець: <?php echo e("$owner->first_name $owner->last_name"); ?></p>
+                        <p>Продавець: <?php echo e($advert->user->first_name); ?> <?php echo e($advert->user->last_name); ?></p>
                         <?php if (isset($component)) { $__componentOriginal4b7b31bf8150596c2e9ef372392491c5 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4b7b31bf8150596c2e9ef372392491c5 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.advert-item','data' => ['advert' => $advert]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -47,17 +47,21 @@
                         <h3>Доставка</h3>
 
                         <label for="NOVA_POST_SELF_PICKUP" class="delivery-method">
-                            <input type="radio" id="NOVA_POST_SELF_PICKUP" name="delivery_method"
-                                   value="NOVA_POST_SELF_PICKUP">
-                            <?php echo e(__('delivery.NOVA_POST_SELF_PICKUP')); ?>
+                            <div class="delivery-header">
+                                <span class="radio-label">
+                                    <input type="radio" id="NOVA_POST_SELF_PICKUP" name="delivery_method"
+                                           value="NOVA_POST_SELF_PICKUP">
+                                    <span class="delivery-name"><?php echo e(__('delivery.NOVA_POST_SELF_PICKUP')); ?></span>
+                                </span>
 
+                                <span class="delivery-price">50 грн</span>
+                            </div>
 
-                            <div class="delivery-extra hidden">
-                                <select name="branch" class="form-control">
-                                    <option>Введіть адресу або номер відділення</option>
-                                </select>
-                                <input type="text" name="manual_branch" class="form-control"
-                                       placeholder="Введіть адресу або номер відділення" hidden>
+                            <div class="delivery-extra hidden" id="nova-post-extra">
+                                <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення"
+                                       id="mainInput">
+
+                                <ul class="dropdown-panel" id="nova-post-branch"></ul>
                             </div>
                         </label>
 
@@ -67,11 +71,14 @@
 
 
                             <div class="delivery-extra hidden">
-                                <select name="branch" class="form-control">
-                                    <option>Введіть адресу або номер відділення</option>
-                                </select>
-                                <input type="text" name="manual_branch" class="form-control"
-                                       placeholder="Введіть адресу або номер відділення" hidden>
+                                <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення"
+                                       id="mainInput">
+
+                                <ul class="dropdown-panel">
+                                    <li class="dropdown-item">№22003, вул. Курортна, 2</li>
+                                    <li class="dropdown-item">№22004, вул. Центральна, 5</li>
+                                    <li class="dropdown-item">№22005, вул. Лісова, 10</li>
+                                </ul>
                             </div>
                         </label>
 
@@ -138,7 +145,7 @@
 
                         <div class="profile-header">
                             <span class="profile-name"><?php echo e("$user->first_name $user->last_name"); ?></span>
-                            <a href="#" class="link-edit">Змінити</a>
+                            <a class="link-edit">Змінити</a>
                         </div>
 
                         <div class="profile-section" id="contact-info" hidden>

@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\OrderStatus;
+use App\Enum\OrderStatus;
 use App\Models\Advert\Advert;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model

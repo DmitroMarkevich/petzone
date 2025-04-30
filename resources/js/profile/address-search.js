@@ -1,28 +1,6 @@
+import { debounce, fetchData } from '../base/utils.js';
+
 $(document).ready(function () {
-
-    /**
-     * Debounce utility to delay function execution.
-     */
-    const debounce = (fn, delay) => {
-        let timer;
-        return function (...args) {
-            clearTimeout(timer);
-            timer = setTimeout(() => fn.apply(this, args), delay);
-        };
-    };
-
-    /**
-     * Fetch suggestions via AJAX with async/await.
-     */
-    const fetchSuggestions = async (url, data) => {
-        try {
-            const response = await $.ajax({url, type: 'GET', data});
-            return response.success ? response.result : [];
-        } catch (error) {
-            console.error(`Error ${url}:`, error);
-            return [];
-        }
-    };
 
     /**
      * Render suggestion list.
@@ -50,7 +28,7 @@ $(document).ready(function () {
             return $('#city-suggestions').addClass('hidden');
         }
 
-        const result = await fetchSuggestions('/address/cities', {search: term});
+        const result = await fetchData('/address/cities', {search: term});
         const addresses = result[0]?.Addresses || [];
 
         renderSuggestions('#city-suggestions', addresses, address =>
@@ -64,7 +42,6 @@ $(document).ready(function () {
     $(document).on('click', '#city-suggestions li', function () {
         $('#city').val($(this).text());
         $('#city-ref').val($(this).data('ref'));
-        console.log($(this).data('ref'));
         $('#city-suggestions').addClass('hidden');
     });
 
@@ -79,7 +56,7 @@ $(document).ready(function () {
             return $('#street-suggestions').addClass('hidden');
         }
 
-        const streets = await fetchSuggestions('/address/streets', {search: term, cityRef});
+        const streets = await fetchData('/address/streets', {search: term, cityRef});
 
         renderSuggestions('#street-suggestions', streets, street =>
             `<li data-ref="${street.Ref}">${street.StreetsType} ${street.Description}</li>`
@@ -92,7 +69,6 @@ $(document).ready(function () {
     $(document).on('click', '#street-suggestions li', function () {
         $('#street').val($(this).text());
         $('#street-ref').val($(this).data('ref'));
-        console.log($(this).data('ref'));
         $('#street-suggestions').addClass('hidden');
     });
 });

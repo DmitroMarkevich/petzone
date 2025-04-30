@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\DeliveryMethod;
+use App\Enum\DeliveryMethod;
+use App\Enum\OrderStatus;
+use App\Enum\PaymentMethod;
 use App\Models\Advert\Advert;
 use App\Models\User;
-use App\OrderStatus;
-use App\PaymentMethod;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>

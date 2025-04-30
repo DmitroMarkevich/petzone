@@ -8,6 +8,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\Auth\OAuth2Controller;
 
 Auth::routes();
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('address')->name('address.')->group(function () {
         Route::get('/cities', [AddressController::class, 'searchCities'])->name('cities');
         Route::get('/streets', [AddressController::class, 'searchStreets'])->name('streets');
+        Route::get('/warehouses', [DeliveryController::class, 'getWarehouses'])->name('warehouses');
     });
 
     Route::prefix('profile')->name('profile.')->group(function () {

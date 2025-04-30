@@ -27,7 +27,7 @@
                     </div>
                     <span>1</span>
                     <div class="status <?php echo e(strtolower($order->status->value)); ?>">
-                        <?php echo e(App\OrderStatus::getTranslation($order->status)); ?>
+                        <?php echo e(\App\Enum\OrderStatus::getTranslation($order->status)); ?>
 
                     </div>
                     <span><?php echo e($order->tracking_number ?: __('N/A')); ?></span>

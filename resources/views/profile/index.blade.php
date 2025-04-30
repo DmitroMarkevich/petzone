@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="link-icon" id="edit-profile">
+                <a href="" class="link-icon" id="edit-profile">
                     <img src="{{ asset('images/profile/pencil.svg') }}" alt="Редагувати" class="icon">
                     Редагувати
                 </a>
@@ -106,7 +106,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="link-icon" id="edit-address">
+                <a href="" class="link-icon" id="edit-address">
                     <img src="{{ asset('images/profile/pencil.svg') }}" alt="Редагувати" class="icon">
                     Редагувати
                 </a>

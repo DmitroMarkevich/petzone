@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\NovaPostService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -13,13 +14,16 @@ use App\Http\Requests\StoreOrderRequest;
 class CheckoutController extends Controller
 {
     private OrderService $orderService;
+    private NovaPostService $novaPostService;
 
     /**
      * @param OrderService $orderService
+     * @param NovaPostService $novaPostService
      */
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, NovaPostService $novaPostService)
     {
         $this->orderService = $orderService;
+        $this->novaPostService = $novaPostService;
     }
 
     /**
@@ -31,9 +35,8 @@ class CheckoutController extends Controller
     {
         $user = auth()->user();
         $advert = Advert::inRandomOrder()->first();
-        $owner = $advert->user;
 
-        return view('checkout.index', compact('user', 'advert', 'owner'));
+        return view('checkout.index', compact('user', 'advert'));
     }
 
     /**

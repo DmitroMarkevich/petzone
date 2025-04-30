@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Services\NovaPostService;
+use App\Services\AddressService;
 
 class AddressController extends Controller
 {
-    private NovaPostService $novaPostService;
+    private AddressService $novaPostService;
 
     /**
-     * @param NovaPostService $novaPostService
+     * @param AddressService $novaPostService
      */
-    public function __construct(NovaPostService $novaPostService)
+    public function __construct(AddressService $novaPostService)
     {
         $this->novaPostService = $novaPostService;
     }
