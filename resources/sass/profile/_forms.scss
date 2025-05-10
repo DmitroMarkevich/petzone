@@ -24,6 +24,10 @@
 
         &:enabled:not([readonly]) {
             color: variables.$carbon;
+
+            &::placeholder {
+                color: variables.$carbon;
+            }
         }
     }
 

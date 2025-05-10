@@ -114,14 +114,14 @@
                     <div class="form-group">
                         <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'tel','name' => 'phone_number','id' => 'phone','label' => 'Номер телефону','value' => ''.e($user->phone_number).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','placeholder' => '+38 (0__) ___ __ __','value' => ''.e($user->phone_number).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'tel','name' => 'phone_number','id' => 'phone','label' => 'Номер телефону','value' => ''.e($user->phone_number).'','readonly' => true]); ?>
+<?php $component->withAttributes(['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','placeholder' => '+38 (0__) ___ __ __','value' => ''.e($user->phone_number).'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
 
-                <a href="" class="link-icon" id="edit-profile">
+                <a href class="link-icon" id="edit-profile">
                     <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
                     Редагувати
                 </a>
@@ -149,7 +149,7 @@
 
         <div class="profile-section delivery-address">
             <h4 class="section-title">
-                <img src="<?php echo e(asset('images/profile/address.svg')); ?>" alt="Адрес" class="icon">Адреса доставки
+                <img src="<?php echo e(asset('images/profile/address.svg')); ?>" alt="Address" class="icon">Адреса доставки
             </h4>
 
             <form id="address-form" method="POST" action="<?php echo e(route('profile.update')); ?>">
@@ -232,7 +232,7 @@
                     </div>
                 </div>
 
-                <a href="" class="link-icon" id="edit-address">
+                <a href class="link-icon" id="edit-address">
                     <img src="<?php echo e(asset('images/profile/pencil.svg')); ?>" alt="Редагувати" class="icon">
                     Редагувати
                 </a>

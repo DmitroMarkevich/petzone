@@ -2,7 +2,10 @@
  * Real-time form validation based on predefined rules.
  * Automatically applies validation to fields with the 'data-validation' attribute.
  */
-import validations from './validation-rules.js';
+const validations = {
+    email: value => /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value),
+    password: value => value.length >= 8,
+};
 
 $(document).ready(function () {
     $('input[data-validation]').on('input', function () {

@@ -60,12 +60,13 @@
                                  value="{{ $user->email }}" readonly/>
                     </div>
                     <div class="form-group">
-                        <x-input type="tel" name="phone_number" id="phone" label="Номер телефону"
-                                 value="{{ $user->phone_number }}" readonly/>
+                        <x-input type="tel" name="phone_number" label="Номер телефону"
+                                 placeholder="+38 (0__) ___ __ __" value="{{ $user->phone_number }}"
+                                 readonly/>
                     </div>
                 </div>
 
-                <a href="" class="link-icon" id="edit-profile">
+                <a href class="link-icon" id="edit-profile">
                     <img src="{{ asset('images/profile/pencil.svg') }}" alt="Редагувати" class="icon">
                     Редагувати
                 </a>
@@ -79,7 +80,7 @@
 
         <div class="profile-section delivery-address">
             <h4 class="section-title">
-                <img src="{{ asset('images/profile/address.svg') }}" alt="Адрес" class="icon">Адреса доставки
+                <img src="{{ asset('images/profile/address.svg') }}" alt="Address" class="icon">Адреса доставки
             </h4>
 
             <form id="address-form" method="POST" action="{{ route('profile.update') }}">
@@ -106,7 +107,7 @@
                     </div>
                 </div>
 
-                <a href="" class="link-icon" id="edit-address">
+                <a href class="link-icon" id="edit-address">
                     <img src="{{ asset('images/profile/pencil.svg') }}" alt="Редагувати" class="icon">
                     Редагувати
                 </a>
