@@ -5,7 +5,7 @@
 .auth-container {
     display: flex;
     height: 100vh;
-    font-family: variables.$font-family-alt;
+    font-family: variables.$font-family-alt
 }
 
 .auth-left, .auth-right {
@@ -15,7 +15,6 @@
 
 .auth-left {
     border-radius: 0 24px 24px 0;
-    color: variables.$light-background;
     background-color: variables.$dark-blue;
     background-image: url('/public/images/auth/waves.svg');
     background-size: cover;
@@ -27,14 +26,20 @@
     }
 
     .input-wrapper {
+        @include mixins.flex-column;
         position: relative;
+        gap: 10px;
     }
 
     .form-group {
+        @include mixins.flex-column;
+        margin-bottom: 40px;
+        gap: 40px;
+
         input {
-            position: relative;
             width: 100%;
-            padding: 12px 43px;
+            position: relative;
+            padding: 13px 45px;
             background-repeat: no-repeat;
             background-position: 15px center;
         }
@@ -113,21 +118,18 @@
 }
 
 .auth-header {
+    @include mixins.flex-column;
     margin-bottom: 40px;
+    gap: 25px;
 }
 
 .auth-heading,
 .form-group-label {
     @include mixins.font-style(24px, variables.$dark-gray, variables.$font-weight-bold);
-    font-size: 24px;
 }
 
 .auth-subheading, .remember-text, .form-options {
     @include mixins.font-style(14px, variables.$muted-gray, variables.$font-weight-medium);
-}
-
-.auth-heading {
-    margin-bottom: 25px;
 }
 
 .form-options {
@@ -159,7 +161,7 @@
     @include mixins.flex-center;
     position: absolute;
     right: 10px;
-    top: 15%;
+    top: 30%;
 }
 
 .step {

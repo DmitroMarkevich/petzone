@@ -10,17 +10,12 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
-                <x-input type="email" name="email" label="{{ __('auth.login.email') }}" placeholder="Email" autofocus
-                         data-validation="email"/>
-                @error('email')
-                    <span class="error-message">*{{ $message }}</span>
-                @enderror
+                <x-input type="email" name="email" label="{{ __('auth.login.email') }}"
+                         placeholder="Email" autofocus data-validation="email"/>
 
-                <x-input type="password" name="password" label="{{ __('auth.login.password') }}" placeholder="********"
+                <x-input type="password" name="password"
+                         label="{{ __('auth.login.password') }}" placeholder="********"
                          data-validation="password"/>
-                @error('password')
-                    <span class="error-message">*{{ $message }}</span>
-                @enderror
             </div>
 
             <div class="form-options">
@@ -28,15 +23,16 @@
                     <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                     <span class="remember-text">{{ __('auth.login.remember') }}</span>
                 </label>
+
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}"
-                       class="forgot-password">{{ __('auth.login.forgot_password') }}
+                    <a href="{{ route('password.request') }}" class="forgot-password">
+                        {{ __('auth.login.forgot_password') }}
                     </a>
                 @endif
             </div>
 
             <div class="auth-buttons">
-                <button type="submit" class="button login">{{ __('auth.login.login_button') }}</button>
+                <button type="submit" class="button submit">{{ __('auth.login.login_button') }}</button>
                 @include('components.social-buttons')
             </div>
         </form>

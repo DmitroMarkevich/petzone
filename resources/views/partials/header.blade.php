@@ -40,7 +40,11 @@
 
             <a class="nav-link" href="{{ route('profile.orders') }}" aria-label="Cart">
                 <img src="{{ asset('images/header/cart.svg') }}" alt="Cart" class="icon-cart">
-                <span class="badge">{{ auth()->user()->orders()->count() }}</span>
+                <span class="badge">@auth{{ auth()->user()->orders()->count() }}
+                    @else
+                        0
+                    @endauth
+                </span>
             </a>
 
             <a class="nav-avatar" href="{{ route('profile.index') }}">

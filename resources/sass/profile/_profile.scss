@@ -31,7 +31,7 @@
 
     &:last-child {
         position: absolute;
-        bottom: 0;
+        bottom: -10%;
         width: 100%;
     }
 }
@@ -85,9 +85,9 @@
 }
 
 .btn-delete, .btn-change, .btn-cancel {
-    width: 160px;
+    @include mixins.font-style(18px, variables.$carbon);
     padding: 16px 20px;
-    font-size: 18px;
+    width: 160px;
 }
 
 .btn-delete {
@@ -99,9 +99,8 @@
 }
 
 .btn-cancel {
-    color: variables.$carbon;
-    background-color: variables.$light-background;
     border: 1px solid variables.$orange;
+    background-color: variables.$light-background;
 }
 
 // Profile Sections
@@ -117,12 +116,16 @@
         margin: 5px 0 30px 0;
         gap: 8px;
     }
+
+    .form-group {
+        margin-bottom: 40px;
+    }
 }
 
 .link-icon {
     display: flex;
-    font-family: variables.$font-family-alt;
     gap: 8px;
+    font-family: variables.$font-family-alt;
 }
 
 .no-adverts {

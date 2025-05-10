@@ -32,4 +32,7 @@ return [
         'phone_number_placeholder' => 'Enter number',
         'confirm_button' => 'Confirm',
     ],
+
+    'failed' => 'The email or password is incorrect.',
+    'throttle' => 'Too many attempts. Please try again in :seconds seconds.',
 ];

@@ -2,16 +2,15 @@
 @use '../variables';
 
 .button {
-    @include mixins.flex-center;
-    @include mixins.font-style(1rem, variables.$light-background, variables.$font-weight-medium);
-    width: 100%;
-    padding: 15px 0;
+    @include mixins.flex-center-vertical;
+    @include mixins.font-style(16px, variables.$light-background, variables.$font-weight-medium);
+    justify-content: center;
     border-radius: 100px;
-    font-family: variables.$font-family-alt;
+    padding: 15px 0;
+    width: 100%;
     gap: 8px;
 
-    &.login,
-    &.register,
+    &.submit,
     &.next-step,
     &.prev-step {
         background-color: variables.$dark-blue;

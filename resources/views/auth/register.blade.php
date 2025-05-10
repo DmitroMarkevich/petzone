@@ -55,7 +55,7 @@
                              placeholder="{{ __('auth.register.phone_number_placeholder') }}"/>
                 </div>
 
-                <button type="submit" class="button register">{{ __('auth.register.confirm_button') }}</button>
+                <button type="submit" class="button submit">{{ __('auth.register.confirm_button') }}</button>
             </div>
         </form>
     </div>

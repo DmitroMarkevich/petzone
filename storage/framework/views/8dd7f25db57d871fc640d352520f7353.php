@@ -28,16 +28,6 @@
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
-                <?php $__errorArgs = ['email'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <span class="error-message">*<?php echo e($message); ?></span>
-                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
 
                 <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
@@ -59,16 +49,6 @@ unset($__errorArgs, $__bag); ?>
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
-                <?php $__errorArgs = ['password'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <span class="error-message">*<?php echo e($message); ?></span>
-                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
             </div>
 
             <div class="form-options">
@@ -76,16 +56,17 @@ unset($__errorArgs, $__bag); ?>
                     <input type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
                     <span class="remember-text"><?php echo e(__('auth.login.remember')); ?></span>
                 </label>
+
                 <?php if(Route::has('password.request')): ?>
-                    <a href="<?php echo e(route('password.request')); ?>"
-                       class="forgot-password"><?php echo e(__('auth.login.forgot_password')); ?>
+                    <a href="<?php echo e(route('password.request')); ?>" class="forgot-password">
+                        <?php echo e(__('auth.login.forgot_password')); ?>
 
                     </a>
                 <?php endif; ?>
             </div>
 
             <div class="auth-buttons">
-                <button type="submit" class="button login"><?php echo e(__('auth.login.login_button')); ?></button>
+                <button type="submit" class="button submit"><?php echo e(__('auth.login.login_button')); ?></button>
                 <?php echo $__env->make('components.social-buttons', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
         </form>

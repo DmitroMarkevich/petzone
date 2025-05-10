@@ -94,7 +94,6 @@ a {
     input {
         @include mixins.font-style(16px, variables.$muted-gray);
         border-radius: 6px;
-        margin-bottom: 40px;
         border: 1px solid variables.$ash-rose;
         background-color: #F7F8FD;
     }
@@ -106,9 +105,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .error-message {
     display: block;
-    color: variables.$bright-red;
     font-size: 12px;
-    font-family: variables.$font-family-alt;
+    color: variables.$bright-red;
 }
 
 .input-field.valid {

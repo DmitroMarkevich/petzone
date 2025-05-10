@@ -159,7 +159,7 @@
 <?php endif; ?>
                 </div>
 
-                <button type="submit" class="button register"><?php echo e(__('auth.register.confirm_button')); ?></button>
+                <button type="submit" class="button submit"><?php echo e(__('auth.register.confirm_button')); ?></button>
             </div>
         </form>
     </div>
