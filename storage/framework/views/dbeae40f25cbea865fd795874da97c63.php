@@ -5,6 +5,8 @@
         <form action="<?php echo e(route('adverts.store')); ?>" method="POST" enctype="multipart/form-data" class="advert-form">
             <?php echo csrf_field(); ?>
 
+            <input type="hidden" name="action" id="form-action" value="save">
+
             <div class="form-main">
                 <div class="form-group">
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
@@ -140,12 +142,8 @@
             </div>
 
             <div class="form-actions">
-                <form action="<?php echo e(route('adverts.preview')); ?>" method="POST" class="advert-form">
-                    <?php echo csrf_field(); ?>
-                    <button type="submit">Попередній перегляд</button>
-                </form>
-
-                <button type="submit" class="btn-change">Зберегти</button>
+                <button type="submit" name="action" value="preview" class="btn-preview">Попередній перегляд</button>
+                <button type="submit" name="action" value="save" class="btn-change">Зберегти</button>
             </div>
         </form>
     </div>

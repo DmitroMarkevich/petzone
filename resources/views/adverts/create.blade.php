@@ -7,6 +7,8 @@
         <form action="{{ route('adverts.store') }}" method="POST" enctype="multipart/form-data" class="advert-form">
             @csrf
 
+            <input type="hidden" name="action" id="form-action" value="save">
+
             <div class="form-main">
                 <div class="form-group">
                     <x-input type="text" name="title" label="Заголовок"

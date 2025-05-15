@@ -70,11 +70,17 @@ class AdvertController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreAdvertRequest $request The request containing advert data.
-     * @return RedirectResponse
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function store(StoreAdvertRequest $request): RedirectResponse
+    public function store(StoreAdvertRequest $request): Factory|View|Application|RedirectResponse
     {
         $validated = $request->validated();
+
+        if ($request->input('action') === 'preview') {
+            $advert = new Advert($validated);
+            return view('adverts.preview', compact('advert'));
+        }
+
         $this->advertService->createAdvert($validated);
 
         return redirect()->route('profile.adverts');
