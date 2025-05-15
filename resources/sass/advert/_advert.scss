@@ -88,3 +88,55 @@
         @include mixins.font-style(16px, variables.$blue, 400);
     }
 }
+
+.advert-details {
+    display: flex;
+    gap: 32px;
+}
+
+.advert-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.main-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    background: #f0f0f0;
+}
+
+.thumbnail-images img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.advert-info {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    width: 30%;
+    padding: 16px;
+    box-shadow: 0 4px 32px 0 #00000033;
+}
+
+.seller-info {
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 32px;
+}
+
+.seller {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.profile-avatar {
+    height: 27px !important;
+    width: 27px !important;
+}

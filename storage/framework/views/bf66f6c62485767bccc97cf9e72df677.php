@@ -167,7 +167,7 @@
 
 <?php echo app('Illuminate\Foundation\Vite')([
     'resources/js/advert/index.js',
-    'resources/sass/advert/_advert-form.scss'
+    'resources/sass/advert/_advert.scss'
 ]); ?>
 
 

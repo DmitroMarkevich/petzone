@@ -85,6 +85,6 @@
 
 @vite([
     'resources/js/advert/index.js',
-    'resources/sass/advert/_advert-form.scss'
+    'resources/sass/advert/_advert.scss'
 ])
 
