@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Traits\FileUploadTrait;
-use App\Http\Controllers\Controller;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Ramsey\Uuid\Uuid;
+use App\Models\User;
+use App\Traits\FileUploadTrait;
+use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {

@@ -1,3 +1,4 @@
+@php use App\Enum\OrderStatus; @endphp
 @props(['orders', 'short' => false])
 
 @php
@@ -21,7 +22,7 @@
             <span>{{ $order->order_number }}</span>
             <span>{{ $order->created_at->format('d/m/Y H:i') }}</span>
             <div class="status {{ strtolower($order->status->value) }}">
-                {{ \App\Enum\OrderStatus::getTranslation($order->status) }}
+                {{ OrderStatus::getTranslation($order->status) }}
             </div>
             <span>{{ $order->tracking_number ?: '—' }}</span>
             <span>₴{{ $order->total_price ?? '—' }}</span>

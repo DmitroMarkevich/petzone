@@ -1,7 +1,7 @@
 @extends('layouts.profile')
 
 @section('profile-content')
-    <div class="order-details-container">
+    <div class="record-container">
         <h2 class="page-title">
             <a href="{{ route('profile.orders') }}">
                 <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">

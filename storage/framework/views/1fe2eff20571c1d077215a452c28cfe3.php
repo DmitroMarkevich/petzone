@@ -1,7 +1,7 @@
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
 
 $__newAttributes = [];
-$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames((['type' => 'text', 'name', 'label', 'placeholder' => '', 'value' => old($name)]));
+$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames((['type' => 'text','name', 'label', 'placeholder' => '', 'value' => old($name)]));
 
 foreach ($attributes->all() as $__key => $__value) {
     if (in_array($__key, $__propNames)) {
@@ -16,7 +16,7 @@ $attributes = new \Illuminate\View\ComponentAttributeBag($__newAttributes);
 unset($__propNames);
 unset($__newAttributes);
 
-foreach (array_filter((['type' => 'text', 'name', 'label', 'placeholder' => '', 'value' => old($name)]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
+foreach (array_filter((['type' => 'text','name', 'label', 'placeholder' => '', 'value' => old($name)]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 }
 
@@ -29,7 +29,9 @@ foreach ($attributes->all() as $__key => $__value) {
 unset($__defined_vars); ?>
 
 <div>
-    <label for="<?php echo e($name); ?>"><?php echo e(__($label)); ?></label>
+    <?php if($label): ?>
+        <label for="<?php echo e($name); ?>"><?php echo e($label); ?></label>
+    <?php endif; ?>
 
     <div class="input-wrapper">
         <input
@@ -46,7 +48,7 @@ unset($__defined_vars); ?>
 
         <?php if($type === 'password'): ?>
             <button type="button" class="toggle-visibility">
-                <img id="eye-icon" src="<?php echo e(asset('images/auth/eye-closed.svg')); ?>" alt="Toggle Visibility">
+                <img id="eye-icon" src="<?php echo e(asset('images/auth/eye-closed.svg')); ?>" alt="Toggle">
             </button>
         <?php endif; ?>
 

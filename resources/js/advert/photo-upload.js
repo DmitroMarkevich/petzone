@@ -8,6 +8,7 @@ $(document).ready(function () {
 
             if (img.length === 0) {
                 img = $('<img>').appendTo(label);
+                label.find('.placeholder-text').remove();
             }
 
             img.attr('src', reader.result);
@@ -18,28 +19,50 @@ $(document).ready(function () {
 
     const handleFileChange = (input) => {
         const file = input[0].files[0];
-        if (!file) {
+        if (!file) return;
+
+        const $upload = input.closest('.photo-upload');
+        const isFilled = $upload.attr('data-filled') === 'true';
+
+        if (isFilled) {
+            // Заменяем фото в текущей ячейке
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            input[0].files = dataTransfer.files;
+
+            updatePreview(input, file);
             return;
         }
 
-        const inputs = $('.photo-input');
-        const currentIndex = inputs.index(input);
+        // Иначе — ищем первую свободную
+        const allUploads = $('.photo-upload');
+        let targetInput = null;
 
-        const firstEmptyInput = inputs
-            .slice(0, currentIndex + 1)
-            .filter((_, el) => !el.files.length)
-            .first();
+        allUploads.each(function () {
+            const $upload = $(this);
+            const isFilled = $upload.attr('data-filled') === 'true';
 
-        const targetInput = firstEmptyInput.length ? firstEmptyInput : input;
+            if (!isFilled) {
+                targetInput = $upload.find('.photo-input')[0];
+                return false;
+            }
+        });
 
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        targetInput[0].files = dataTransfer.files;
+        if (targetInput) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            targetInput.files = dataTransfer.files;
 
-        updatePreview(targetInput, file);
+            updatePreview($(targetInput), file);
+            $(targetInput).closest('.photo-upload').attr('data-filled', 'true');
 
-        if (targetInput[0] !== input[0]) {
-            input.val('');
+            if (targetInput !== input[0]) {
+                input.val('');
+            }
+        } else {
+            // fallback
+            updatePreview(input, file);
+            $upload.attr('data-filled', 'true');
         }
     };
 

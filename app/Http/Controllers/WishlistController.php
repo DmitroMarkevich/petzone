@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\WishlistService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Services\WishlistService;
 
 class WishlistController extends Controller
 {

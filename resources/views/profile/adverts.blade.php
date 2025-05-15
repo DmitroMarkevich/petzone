@@ -13,7 +13,7 @@
                 @foreach($adverts as $advert)
                     <x-advert-item :advert="$advert">
                         <x-slot name="actions">
-                            <button class="edit-btn">Редагувати</button>
+                            <a href="{{ route('adverts.edit', $advert->id) }}" class="edit-btn">Редагувати</a>
 
                             <form action="{{ route('adverts.destroy', $advert->id) }}" method="POST">
                                 @csrf

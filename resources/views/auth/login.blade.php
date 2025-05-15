@@ -33,7 +33,7 @@
 
             <div class="auth-buttons">
                 <button type="submit" class="button submit">{{ __('auth.login.login_button') }}</button>
-                @include('components.social-buttons')
+                @include('partials.social-buttons')
             </div>
         </form>
 

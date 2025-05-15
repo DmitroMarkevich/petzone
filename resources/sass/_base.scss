@@ -33,6 +33,10 @@ input, button, .button-link {
     font-family: variables.$font-family-alt;
 }
 
+textarea {
+    @extend input;
+}
+
 button, .button-link {
     gap: 8px;
     border-radius: 32px;
@@ -55,9 +59,9 @@ button {
     padding: 16px 28px;
 }
 
-input {
+input, select {
     outline: none;
-    padding: 14px 0 14px 14px;
+    padding: 14px;
 }
 
 a {
@@ -93,7 +97,6 @@ a {
 
     input {
         @include mixins.font-style(16px, variables.$muted-gray);
-        border-radius: 6px;
         border: 1px solid variables.$ash-rose;
         background-color: #F7F8FD;
     }

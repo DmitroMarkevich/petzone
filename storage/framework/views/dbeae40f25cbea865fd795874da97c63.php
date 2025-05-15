@@ -1,21 +1,22 @@
-<?php $__env->startSection('app-content'); ?>
-    <div class="page-container">
-        <h1>Створити оголошення</h1>
+<?php $__env->startSection('profile-content'); ?>
+    <div class="record-container">
+        <h2 class="page-title">Створити оголошення</h2>
 
-        <form action="<?php echo e(route('adverts.store')); ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo e(route('adverts.store')); ?>" method="POST" enctype="multipart/form-data" class="advert-form">
             <?php echo csrf_field(); ?>
 
-            <div class="form-group">
-                <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
+            <div class="form-main">
+                <div class="form-group">
+                    <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'title','label' => 'Заголовок','value' => ''.e(old('title')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'title','label' => 'Заголовок','placeholder' => 'Введіть заголовок товару','value' => ''.e(old('title')).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'title','label' => 'Заголовок','value' => ''.e(old('title')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'title','label' => 'Заголовок','placeholder' => 'Введіть заголовок товару','value' => ''.e(old('title')).'','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -27,60 +28,103 @@
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
 
-                <label for="description">Product Description</label>
-                <textarea id="description" name="description" rows="4" required><?php echo e(old('description')); ?></textarea>
+                    <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['id' => 'category_id','name' => 'category_id','label' => 'Категорія','options' => $categories,'selected' => old('category_id'),'class' => 'form-control','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'category_id','name' => 'category_id','label' => 'Категорія','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($categories),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('category_id')),'class' => 'form-control','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginaled2cde6083938c436304f332ba96bb7c)): ?>
+<?php $attributes = $__attributesOriginaled2cde6083938c436304f332ba96bb7c; ?>
+<?php unset($__attributesOriginaled2cde6083938c436304f332ba96bb7c); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginaled2cde6083938c436304f332ba96bb7c)): ?>
+<?php $component = $__componentOriginaled2cde6083938c436304f332ba96bb7c; ?>
+<?php unset($__componentOriginaled2cde6083938c436304f332ba96bb7c); ?>
+<?php endif; ?>
 
-                <label for="category">Категорія</label>
-                <select id="category" name="category_id" required>
-                    <option value="">Select a Category</option>
-                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id') == $category->id ? 'selected' : ''); ?>>
-                            <?php echo e($category->name); ?>
+                    <div>
+                        <label for="photo-grid">Фото</label>
 
-                        </option>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-            </div>
+                        <div id="photo-grid" class="photo-grid">
+                            <?php for($i = 1; $i <= 8; $i++): ?>
+                                <div class="photo-upload" data-index="<?php echo e($i); ?>">
+                                    <input type="file" name="images[]" id="photo-<?php echo e($i); ?>" accept="image/*"
+                                           class="photo-input">
 
-            <div class="photo-grid">
-                <?php for($i = 1; $i <= 8; $i++): ?>
-                    <div class="photo-upload">
-                        <input type="file" name="images[]" id="photo-<?php echo e($i); ?>" accept="image/*" class="photo-input">
-                        <label for="photo-<?php echo e($i); ?>" class="photo-label">
-                            <span class="placeholder-text">+</span>
-                        </label>
+                                    <label for="photo-<?php echo e($i); ?>" class="photo-label">
+                                        <span class="placeholder-text">+</span>
+                                    </label>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
                     </div>
-                <?php endfor; ?>
-            </div>
 
-            <div class="form-group">
-                <label for="condition">Стан товару</label>
-                <select id="condition" name="condition" required>
-                    <option value="new" <?php echo e(old('condition') == 'new' ? 'selected' : ''); ?>>Новий</option>
-                    <option value="used" <?php echo e(old('condition') == 'used' ? 'selected' : ''); ?>>Б/У</option>
-                </select>
-            </div>
+                    <div>
+                        <label for="description">Опис товару</label>
+                        <textarea id="description" name="description" rows="11"
+                                  placeholder="Введіть опис товару" required><?php echo e(trim(old('description'))); ?></textarea>
+                    </div>
 
-            <div class="form-group">
-                <label for="item_type">Тип оголошення</label>
-                <select id="item_type" name="item_type" required>
-                    <option value="product" <?php echo e(old('item_type') == 'product' ? 'selected' : ''); ?>>Товар</option>
-                    <option value="service" <?php echo e(old('item_type') == 'service' ? 'selected' : ''); ?>>Послуга</option>
-                </select>
-            </div>
+                    <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['id' => 'advert_condition','name' => 'advert_condition','label' => 'Стан товару','options' => ['new' => 'Новий', 'used' => 'Б/У'],'selected' => old('advert_condition', 'new'),'class' => 'form-control','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'advert_condition','name' => 'advert_condition','label' => 'Стан товару','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['new' => 'Новий', 'used' => 'Б/У']),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('advert_condition', 'new')),'class' => 'form-control','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginaled2cde6083938c436304f332ba96bb7c)): ?>
+<?php $attributes = $__attributesOriginaled2cde6083938c436304f332ba96bb7c; ?>
+<?php unset($__attributesOriginaled2cde6083938c436304f332ba96bb7c); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginaled2cde6083938c436304f332ba96bb7c)): ?>
+<?php $component = $__componentOriginaled2cde6083938c436304f332ba96bb7c; ?>
+<?php unset($__componentOriginaled2cde6083938c436304f332ba96bb7c); ?>
+<?php endif; ?>
 
+                    <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['id' => 'advert_type','name' => 'advert_type','label' => 'Тип оголошення','options' => ['product' => 'Товар', 'service' => 'Послуга'],'selected' => old('advert_type', 'product'),'class' => 'form-control','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'advert_type','name' => 'advert_type','label' => 'Тип оголошення','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['product' => 'Товар', 'service' => 'Послуга']),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('advert_type', 'product')),'class' => 'form-control','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginaled2cde6083938c436304f332ba96bb7c)): ?>
+<?php $attributes = $__attributesOriginaled2cde6083938c436304f332ba96bb7c; ?>
+<?php unset($__attributesOriginaled2cde6083938c436304f332ba96bb7c); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginaled2cde6083938c436304f332ba96bb7c)): ?>
+<?php $component = $__componentOriginaled2cde6083938c436304f332ba96bb7c; ?>
+<?php unset($__componentOriginaled2cde6083938c436304f332ba96bb7c); ?>
+<?php endif; ?>
 
-            <div class="form-group">
-                <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
+                    <div class="short-input-wrapper">
+                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','name' => 'price','label' => 'Ціна','value' => ''.e(old('price')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','name' => 'price','label' => 'Ціна','value' => ''.e(old('price')).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','name' => 'price','label' => 'Ціна','value' => ''.e(old('price')).'']); ?>
+<?php $component->withAttributes(['type' => 'number','name' => 'price','label' => 'Ціна','value' => ''.e(old('price')).'','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -91,77 +135,25 @@
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
+                    </div>
+                </div>
             </div>
 
-            <button type="submit" class="btn-change">Зберегти</button>
+            <div class="form-actions">
+                <form action="<?php echo e(route('adverts.preview')); ?>" method="POST" class="advert-form">
+                    <?php echo csrf_field(); ?>
+                    <button type="submit">Попередній перегляд</button>
+                </form>
+
+                <button type="submit" class="btn-change">Зберегти</button>
+            </div>
         </form>
     </div>
 <?php $__env->stopSection(); ?>
 
-<style>
-    textarea {
-        position: relative;
-        background-repeat: no-repeat;
-        background-position: 15px center;
-    }
+<?php echo app('Illuminate\Foundation\Vite')([
+    'resources/js/advert/index.js',
+    'resources/sass/advert/_advert-form.scss'
+]); ?>
 
-    .photo-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin: 20px 0;
-    }
-
-    .photo-upload {
-        position: relative;
-        width: 100%;
-        padding-top: 100%;
-        border: 2px dashed #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-    }
-
-    .photo-upload input[type="file"] {
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-    }
-
-    .photo-upload .photo-label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-        color: #aaa;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    .photo-upload:hover .photo-label {
-        background-color: rgba(0, 0, 0, 0.1);
-        color: #000;
-    }
-
-    .photo-upload img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
-    }
-</style>
-
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/advert/photo-upload.js']); ?>
-
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/adverts/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/adverts/create.blade.php ENDPATH**/ ?>

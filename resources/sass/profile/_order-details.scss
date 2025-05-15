@@ -1,10 +1,6 @@
 @use '../mixins';
 @use '../variables';
 
-.order-details-container {
-    width: 90%;
-}
-
 .order-details {
     @include mixins.flex-column;
     gap: 36px;

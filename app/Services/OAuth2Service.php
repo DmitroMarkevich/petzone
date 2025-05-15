@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Traits\FileUploadTrait;
 use Illuminate\Support\Str;
+use App\Traits\FileUploadTrait;
+use App\Models\User;
 
 class OAuth2Service
 {

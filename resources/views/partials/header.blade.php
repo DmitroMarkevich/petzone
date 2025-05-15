@@ -4,7 +4,7 @@
             <img src="{{ asset('images/blue-logo.svg') }}" alt="Logo" class="logo">
         </a>
 
-        <form action="{{ route('adverts.search') }}" method="GET">
+        <form action="{{ route('adverts.index') }}" method="GET">
             <div class="input-group">
                 <button class="category-btn" type="button" aria-label="Категорії" id="categoryToggle">
                     <img src="{{ asset('images/header/category.svg') }}" alt="Категорії" class="category-icon">

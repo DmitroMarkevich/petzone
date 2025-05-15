@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Services\OAuth2Service;
-use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Illuminate\Http\RedirectResponse as RedirectResponseAlias;
+use App\Services\OAuth2Service;
+use App\Http\Controllers\Controller;
 
 class OAuth2Controller extends Controller
 {

@@ -1,7 +1,9 @@
-@props(['type' => 'text', 'name', 'label', 'placeholder' => '', 'value' => old($name)])
+@props(['type' => 'text','name', 'label', 'placeholder' => '', 'value' => old($name)])
 
 <div>
-    <label for="{{ $name }}">{{ __($label) }}</label>
+    @if($label)
+        <label for="{{ $name }}">{{ $label }}</label>
+    @endif
 
     <div class="input-wrapper">
         <input
@@ -17,7 +19,7 @@
 
         @if ($type === 'password')
             <button type="button" class="toggle-visibility">
-                <img id="eye-icon" src="{{ asset('images/auth/eye-closed.svg') }}" alt="Toggle Visibility">
+                <img id="eye-icon" src="{{ asset('images/auth/eye-closed.svg') }}" alt="Toggle">
             </button>
         @endif
 

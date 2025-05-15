@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\Order;
+use Illuminate\Support\Collection;
+use App\Jobs\AutoCancelOrder;
 use App\Enum\OrderStatus;
 use App\Models\Advert\Advert;
-use Illuminate\Support\Collection;
+use App\Models\Order;
 
 class OrderService
 {
@@ -20,15 +21,19 @@ class OrderService
         $advertId = $data['advert_id'];
         $advert = Advert::findOrFail($advertId);
 
-        return Order::create([
-            'buyer_id' => auth()->id(),
+        $order = Order::create([
             'advert_id' => $advertId,
-            'status' => OrderStatus::PENDING,
             'total_price' => $advert->price,
+            'status' => OrderStatus::PENDING,
             'payment_method' => $data['payment_method'],
             'delivery_method' => $data['delivery_method'],
             'order_number' => $this->generateOrderNumber(),
+            'buyer_id' => auth()->id(),
         ]);
+
+        AutoCancelOrder::dispatch($order->id)->delay(now()->addDays(3));
+
+        return $order;
     }
 
     /**

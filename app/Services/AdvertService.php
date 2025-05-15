@@ -2,13 +2,20 @@
 
 namespace App\Services;
 
-use App\Models\Advert\Advert;
-use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
+use App\Traits\FileUploadTrait;
+use App\Models\Advert\Advert;
 
 class AdvertService
 {
     use FileUploadTrait;
+
+    public function updateAdvert(string $id, array $data)
+    {
+        $advert = Advert::findOrFail($id);
+
+        return $advert->update($data);
+    }
 
     public function createAdvert(array $data): Advert
     {

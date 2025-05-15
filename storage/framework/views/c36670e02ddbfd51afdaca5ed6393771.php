@@ -20,7 +20,7 @@
 <?php endif; ?>
 <?php $component->withAttributes(['advert' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($advert)]); ?>
                          <?php $__env->slot('actions', null, []); ?> 
-                            <button class="edit-btn">Редагувати</button>
+                            <a href="<?php echo e(route('adverts.edit', $advert->id)); ?>" class="edit-btn">Редагувати</a>
 
                             <form action="<?php echo e(route('adverts.destroy', $advert->id)); ?>" method="POST">
                                 <?php echo csrf_field(); ?>

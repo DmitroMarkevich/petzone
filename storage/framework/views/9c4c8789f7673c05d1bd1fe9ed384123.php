@@ -1,5 +1,5 @@
 <?php $__env->startSection('profile-content'); ?>
-    <div class="order-details-container">
+    <div class="record-container">
         <h2 class="page-title">
             <a href="<?php echo e(route('profile.orders')); ?>">
                 <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="Back">

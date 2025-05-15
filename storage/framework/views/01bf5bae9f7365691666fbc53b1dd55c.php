@@ -1,3 +1,4 @@
+<?php use App\Enum\OrderStatus; ?>
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
 
 $__newAttributes = [];
@@ -49,7 +50,7 @@ unset($__defined_vars); ?>
             <span><?php echo e($order->order_number); ?></span>
             <span><?php echo e($order->created_at->format('d/m/Y H:i')); ?></span>
             <div class="status <?php echo e(strtolower($order->status->value)); ?>">
-                <?php echo e(\App\Enum\OrderStatus::getTranslation($order->status)); ?>
+                <?php echo e(OrderStatus::getTranslation($order->status)); ?>
 
             </div>
             <span><?php echo e($order->tracking_number ?: '—'); ?></span>

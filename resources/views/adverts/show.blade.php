@@ -10,10 +10,11 @@
         <div class="advert-details">
             <div class="advert-gallery">
                 <div class="main-image">
-                    <img src="{{ Storage::disk('s3')->url($images->first()->image_path) }}" alt="Advert Image">
+                    <img src="{{ Storage::disk('s3')->url($advert->images->first()->image_path) }}" alt="Advert Image">
                 </div>
+
                 <div class="thumbnail-images">
-                    @foreach ($images as $image)
+                    @foreach ($advert->images as $image)
                         <img src="{{ Storage::disk('s3')->url($image->image_path) }}" alt="Thumbnail">
                     @endforeach
                 </div>
@@ -27,8 +28,8 @@
                     <span class="rating-value">0.0</span>
                 </div>
 
-                <h2 class="advert-title">{{$advert->title}}</h2>
-                <p>{{$advert->description}}</p>
+                <h2 class="advert-title">{{ $advert->title }}</h2>
+                <p>{{ $advert->description }}</p>
 
                 <div class="advert-tags">
                     <span class="tag">#Собаки</span>
@@ -48,10 +49,13 @@
         <div class="seller-info">
             <div class="seller">
                 <img id="profile-avatar"
-                     src="{{ !empty($owner->image_path) ? Storage::disk('s3')->url($owner->image_path) : asset('images/default-avatar.png') }}"
+                     src="{{ !empty($advert->user->image_path) ? Storage::disk('s3')->url($advert->user->image_path) : asset('images/default-avatar.png') }}"
                      alt="User Avatar" class="profile-avatar">
 
-                <span class="seller-name">{{ "$owner->first_name $owner->last_name" }}</span>
+                <span class="seller-name">
+                    {{ $advert->user->first_name }} {{ $advert->user->last_name }}
+                </span>
+
                 <span class="post-date">Posted: {{ $advert->created_at->format('d/m/Y H:i') }}</span>
             </div>
             <button class="view-number">View number</button>

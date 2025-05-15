@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Advert\Advert;
-use App\Enum\NovaPostBranchType;
-use App\Services\Contracts\DeliveryService;
 use Daaner\NovaPoshta\Models\Address;
 use Daaner\NovaPoshta\Models\InternetDocument;
-use Illuminate\Support\Facades\Log;
+use App\Services\Contracts\DeliveryService;
+use App\Models\Advert\Advert;
 
 class NovaPostService implements DeliveryService
 {

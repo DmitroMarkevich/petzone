@@ -67,7 +67,7 @@
 
             <div class="auth-buttons">
                 <button type="submit" class="button submit"><?php echo e(__('auth.login.login_button')); ?></button>
-                <?php echo $__env->make('components.social-buttons', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php echo $__env->make('partials.social-buttons', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
         </form>
 

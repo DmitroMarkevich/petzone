@@ -66,13 +66,19 @@
     display: flex;
     gap: 10px;
 
-    button {
+    a, button {
         @include mixins.font-style(16px, variables.$carbon);
         padding: 12px 20px;
     }
 
     .edit-btn {
+        border-radius: 32px;
         background-color: variables.$orange;
+        transition: filter 0.3s ease-in-out;
+
+        &:hover {
+            filter: brightness(115%);
+        }
     }
 
     .delete-btn {

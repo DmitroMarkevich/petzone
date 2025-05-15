@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\NovaPostService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Application;
 use App\Models\Advert\Advert;
 use App\Services\OrderService;
+use App\Services\NovaPostService;
 use App\Http\Requests\StoreOrderRequest;
 
 class CheckoutController extends Controller

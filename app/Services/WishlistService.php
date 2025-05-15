@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Advert\Advert;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Advert\Advert;
 
 class WishlistService
 {

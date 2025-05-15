@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Enum\DeliveryMethod;
-use App\Enum\PaymentMethod;
-use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\ValidationRule;
+use App\Enum\PaymentMethod;
+use App\Enum\DeliveryMethod;
 
 class StoreOrderRequest extends FormRequest
 {

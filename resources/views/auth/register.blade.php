@@ -26,7 +26,7 @@
 
                 <div>
                     <button type="button" class="button next-step">{{ __('auth.register.next') }}</button>
-                    @include('components.social-buttons')
+                    @include('partials.social-buttons')
                 </div>
 
                 <div class="auth-link">

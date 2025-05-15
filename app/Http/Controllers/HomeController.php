@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\AdvertService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use App\Services\AdvertService;
 
 class HomeController
 {

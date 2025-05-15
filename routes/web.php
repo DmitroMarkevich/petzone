@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Auth\OAuth2Controller;
 
 Auth::routes();
@@ -19,7 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-    Route::get('/adverts/search', [AdvertController::class, 'search'])->name('adverts.search');
     Route::resource('adverts', AdvertController::class);
 
     Route::prefix('address')->name('address.')->group(function () {

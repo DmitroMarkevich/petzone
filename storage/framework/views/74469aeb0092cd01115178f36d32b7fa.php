@@ -8,10 +8,11 @@
         <div class="advert-details">
             <div class="advert-gallery">
                 <div class="main-image">
-                    <img src="<?php echo e(Storage::disk('s3')->url($images->first()->image_path)); ?>" alt="Advert Image">
+                    <img src="<?php echo e(Storage::disk('s3')->url($advert->images->first()->image_path)); ?>" alt="Advert Image">
                 </div>
+
                 <div class="thumbnail-images">
-                    <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $advert->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <img src="<?php echo e(Storage::disk('s3')->url($image->image_path)); ?>" alt="Thumbnail">
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
@@ -46,10 +47,14 @@
         <div class="seller-info">
             <div class="seller">
                 <img id="profile-avatar"
-                     src="<?php echo e(!empty($owner->image_path) ? Storage::disk('s3')->url($owner->image_path) : asset('images/default-avatar.png')); ?>"
+                     src="<?php echo e(!empty($advert->user->image_path) ? Storage::disk('s3')->url($advert->user->image_path) : asset('images/default-avatar.png')); ?>"
                      alt="User Avatar" class="profile-avatar">
 
-                <span class="seller-name"><?php echo e("$owner->first_name $owner->last_name"); ?></span>
+                <span class="seller-name">
+                    <?php echo e($advert->user->first_name); ?> <?php echo e($advert->user->last_name); ?>
+
+                </span>
+
                 <span class="post-date">Posted: <?php echo e($advert->created_at->format('d/m/Y H:i')); ?></span>
             </div>
             <button class="view-number">View number</button>
