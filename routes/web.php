@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders/{id}', [ProfileController::class, 'orderDetails'])->name('orders.details');
         Route::get('/orders-history', [ProfileController::class, 'ordersHistory'])->name('orders.history');
 
+        Route::get('/sales', [ProfileController::class, 'sales'])->name('sales');
         Route::get('/adverts', [ProfileController::class, 'adverts'])->name('adverts');
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
     });

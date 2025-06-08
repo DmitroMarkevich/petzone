@@ -4,7 +4,7 @@
 
 .success-message {
     @include mixins.flex-center-vertical;
-    @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-medium);
+    @include mixins.font-style(16px, variables.$carbon, 500);
     font-family: variables.$font-family-alt;
     flex-direction: column;
     text-align: center;

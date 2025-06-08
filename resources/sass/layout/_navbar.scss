@@ -11,7 +11,7 @@ header {
 
 .navbar {
     justify-content: space-between;
-    height: 88px;
+    height: 9.5vh;
 }
 
 .input-group, .search-input {
@@ -62,9 +62,8 @@ header {
         gap: 10px;
 
         &::after {
+            @include mixins.size(24px);
             content: '';
-            width: 24px;
-            height: 24px;
             background-image: url('/public/images/greater-than.svg');
             margin-left: auto;
         }
@@ -76,11 +75,10 @@ header {
 }
 
 .search-btn {
+    @include mixins.size(40px);
     position: absolute;
-    right: 10px;
-    width: 40px;
-    height: 40px;
     background-color: variables.$orange;
+    right: 10px;
 }
 
 .navbar-right {
@@ -103,8 +101,7 @@ header {
 }
 
 .nav-avatar-image {
-    width: 56px;
-    height: 56px;
+    @include mixins.size(56px);
     border-radius: 50%;
 
     &:hover {

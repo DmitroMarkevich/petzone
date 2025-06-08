@@ -1,20 +1,16 @@
 @php use App\Enum\OrderStatus; @endphp
 @props(['orders', 'short' => false])
 
-@php
-    $showDetailsColumn = !$short;
-@endphp
-
-<div @class(['orders-container', 'orders-container--short' => $short])>
+<div class="orders-container {{ $short ? 'orders-container--short' : '' }}">
     <div class="orders-header">
         <span>Номер замовлення</span>
         <span>Дата і час</span>
         <span>Статус відправлення</span>
         <span>Номер відстеження</span>
         <span>Ціна</span>
-        @if ($showDetailsColumn)
+        @unless($short)
             <span>Більше</span>
-        @endif
+        @endunless
     </div>
 
     @foreach ($orders as $order)
@@ -24,11 +20,11 @@
             <div class="status {{ strtolower($order->status->value) }}">
                 {{ OrderStatus::getTranslation($order->status) }}
             </div>
-            <span>{{ $order->tracking_number ?: '—' }}</span>
+            <span>{{ $order->tracking_number ?? '—' }}</span>
             <span>₴{{ $order->total_price ?? '—' }}</span>
-            @if ($showDetailsColumn)
-                <a href="{{ route('profile.orders.details', ['id' => $order->id]) }}">Подивитися</a>
-            @endif
+            @unless($short)
+                <a href="{{ route('profile.orders.details', $order->id) }}">Подивитися</a>
+            @endunless
         </div>
     @endforeach
 </div>

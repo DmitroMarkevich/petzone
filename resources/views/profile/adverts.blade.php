@@ -9,6 +9,16 @@
         <div class="adverts-container">
             <h2 class="page-title">Мої оголошення</h2>
 
+            <div class="filter-buttons">
+                <button class="filter-button active">Всі</button>
+                <button class="filter-button" data-status="0">
+                    Активні ({{ $adverts->where('is_active', true)->count() }})
+                </button>
+                <button class="filter-button" data-status="0">
+                    Неактивні ({{ $adverts->where('is_active', false)->count() }})
+                </button>
+            </div>
+
             <div class="adverts-list">
                 @foreach($adverts as $advert)
                     <x-advert-item :advert="$advert">

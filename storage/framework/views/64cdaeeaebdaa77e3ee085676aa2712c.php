@@ -29,6 +29,13 @@
                 </div>
 
                 <div class="profile-item">
+                    <a class="profile-link <?php echo e(is_active('profile/sales')); ?>"
+                       href="<?php echo e(route('profile.sales')); ?>">
+                        <img src="<?php echo e(asset('images/profile/chart.svg')); ?>" alt="Продажі">Мої продажі
+                    </a>
+                </div>
+
+                <div class="profile-item">
                     <a class="profile-link <?php echo e(is_active('profile/orders-history')); ?>"
                        href="<?php echo e(route('profile.orders.history')); ?>">
                         <img src="<?php echo e(asset('images/profile/notebook.svg')); ?>" alt="Історія">Історія замовлень

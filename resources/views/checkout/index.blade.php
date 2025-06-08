@@ -166,8 +166,8 @@
                     <div class="order-terms">
                         <p class="terms-title">Підтверджуючи замовлення, я приймаю умови:</p>
                         <ul class="terms-list">
-                            <li><a href="#" class="terms-link">положення про обробку персональних даних</a></li>
-                            <li><a href="#" class="terms-link">угоди користувача</a></li>
+                            <li><a href="#" class="terms-link">Положення про обробку персональних даних.</a></li>
+                            <li><a href="#" class="terms-link">Угоди користувача.</a></li>
                         </ul>
                     </div>
                 </div>

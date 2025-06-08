@@ -44,7 +44,11 @@ class OrderService
      */
     public function getUserOrders(bool $isActive): Collection
     {
-        return auth()->user()->orders()->where('is_active', $isActive)->get();
+        return auth()->user()
+            ->orders()
+            ->where('is_active', $isActive)
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     /**

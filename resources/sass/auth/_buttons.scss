@@ -3,16 +3,14 @@
 
 .button {
     @include mixins.flex-center-vertical;
-    @include mixins.font-style(16px, variables.$light-background, variables.$font-weight-medium);
+    @include mixins.font-style(16px, variables.$light-background, 500);
     justify-content: center;
     border-radius: 100px;
     padding: 15px 0;
     width: 100%;
     gap: 8px;
 
-    &.submit,
-    &.next-step,
-    &.prev-step {
+    &.submit, &.next-step, &.prev-step {
         background-color: variables.$dark-blue;
     }
 

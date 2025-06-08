@@ -93,7 +93,7 @@
 
 .tagline {
     @include mixins.flex-center();
-    @include mixins.font-style(20px, white, variables.$font-weight-semibold);
+    @include mixins.font-style(20px, white, 600);
     position: absolute;
     white-space: nowrap;
     bottom: 15px;
@@ -105,8 +105,7 @@
 }
 
 .slider-dots span {
-    width: 6px;
-    height: 6px;
+    @include mixins.size(6px);
     border-radius: 16px;
     background-color: #B9DDFE;
     transition: width 0.3s ease, background-color 0.3s ease;
@@ -123,13 +122,12 @@
     gap: 25px;
 }
 
-.auth-heading,
-.form-group-label {
-    @include mixins.font-style(24px, variables.$dark-gray, variables.$font-weight-bold);
+.auth-heading, .form-group-label {
+    @include mixins.font-style(24px, variables.$dark-gray, 600);
 }
 
 .auth-subheading, .remember-text, .form-options {
-    @include mixins.font-style(14px, variables.$muted-gray, variables.$font-weight-medium);
+    @include mixins.font-style(14px, variables.$muted-gray, 500);
 }
 
 .form-options {
@@ -144,16 +142,16 @@
 }
 
 .forgot-password {
-    @include mixins.font-style(14px, variables.$dark-blue, variables.$font-weight-semibold);
+    @include mixins.font-style(14px, variables.$dark-blue, 600);
 }
 
 .auth-link {
     @include mixins.flex-center;
-    @include mixins.font-style(16px, variables.$muted-gray, variables.$font-weight-medium);
+    @include mixins.font-style(16px, variables.$muted-gray, 500);
     margin-top: 5vh;
 
     a {
-        font-weight: variables.$font-weight-semibold;
+        font-weight: 600;
     }
 }
 
@@ -180,8 +178,7 @@
 }
 
 .photo-background {
-    width: 120px;
-    height: 120px;
+    @include mixins.size(120px);
     border-radius: 50%;
     background-color: #EFEFF2;
     cursor: pointer;

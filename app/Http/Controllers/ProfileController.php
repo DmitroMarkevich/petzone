@@ -112,6 +112,22 @@ class ProfileController extends Controller
     }
 
     /**
+     * ...
+     *
+     * @return Factory|View|Application
+     */
+    public function sales(): Factory|View|Application
+    {
+        $userId = auth()->id();
+
+        $sales = Order::whereHas('advert', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->with('advert')->latest()->get();
+
+        return view('profile.sales', compact('sales'));
+    }
+
+    /**
      * Show the details of a specific order.
      *
      * @param string $id

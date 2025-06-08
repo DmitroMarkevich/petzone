@@ -18,11 +18,11 @@
     background-color: variables.$light-sky-blue;
 
     &.orders-header {
-        font-weight: variables.$font-weight-semibold;
+        font-weight: 600;
     }
 
     &.order-row {
-        font-weight: variables.$font-weight-medium;
+        font-weight: 500;
     }
 }
 

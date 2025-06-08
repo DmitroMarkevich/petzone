@@ -78,7 +78,7 @@
 }
 
 .section-title {
-    @include mixins.font-style(36px, variables.$dark-graphite, variables.$font-weight-medium);
+    @include mixins.font-style(36px, variables.$dark-graphite, 500);
     margin-bottom: 30px;
 }
 
@@ -89,7 +89,7 @@
 .category-item, .why-us-item {
     @include mixins.flex-grow-1;
     @include mixins.flex-center(column);
-    @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+    @include mixins.font-style(24px, variables.$carbon, 500);
     gap: 8px;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .delivery-step-title {
-    @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+    @include mixins.font-style(24px, variables.$carbon, 500);
 }
 
 .delivery-step-description {

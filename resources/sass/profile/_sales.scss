@@ -1,0 +1,29 @@
+@use '../mixins';
+@use '../variables';
+
+.sales-container {
+    @include mixins.flex-column;
+    width: 85%;
+}
+
+.filter-buttons {
+    display: flex;
+    margin-bottom: 30px;
+    gap: 8px;
+}
+
+.filter-button {
+    @include mixins.font-style(14px, variables.$carbon, 500);
+    padding: 10px 20px;
+    border-radius: 8px;
+
+    &:hover, &.active {
+        background-color: variables.$orange;
+    }
+}
+
+.toggle-details {
+    @include mixins.font-style(14px, variables.$blue, 500);
+    display: flex;
+    justify-content: normal;
+}

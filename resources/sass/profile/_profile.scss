@@ -1,6 +1,7 @@
 @use 'forms';
+@use 'sales';
 @use 'adverts';
-@use "order-details";
+@use 'order-details';
 @use '../mixins';
 @use '../variables';
 
@@ -9,9 +10,8 @@
     margin-top: 50px;
 
     .profile-sidebar {
+        @include mixins.size(350px, 75vh);
         position: relative;
-        height: 75vh;
-        width: 350px;
     }
 
     .profile-content {
@@ -21,7 +21,7 @@
     }
 
     .profile-container {
-        width: 800px;
+        width: 55%;
     }
 
     .record-container {
@@ -49,8 +49,7 @@
     font-family: variables.$font-family-alt;
     transition: background-color 0.3s, color 0.3s;
 
-    &:hover,
-    &.active {
+    &:hover, &.active {
         color: variables.$light-background;
         background-color: variables.$sky-blue;
 
@@ -68,13 +67,12 @@
 }
 
 .profile-greeting {
-    @include mixins.font-style(28px, black, variables.$font-weight-medium);
+    @include mixins.font-style(28px, variables.$carbon, 500);
     margin-bottom: 20px;
 }
 
 .profile-avatar {
-    width: 98px;
-    height: 98px;
+    @include mixins.size(98px);
     border-radius: 50%;
 }
 
@@ -94,17 +92,16 @@
     width: 160px;
 }
 
-.btn-delete {
+.btn-delete, .btn-cancel {
     border: 1px solid variables.$orange;
+}
+
+.btn-cancel {
+    background-color: variables.$light-background;
 }
 
 .btn-change {
     background-color: variables.$orange;
-}
-
-.btn-cancel {
-    border: 1px solid variables.$orange;
-    background-color: variables.$light-background;
 }
 
 // Profile Sections
@@ -115,7 +112,7 @@
     background-color: variables.$pale-blue;
 
     .section-title {
-        @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+        @include mixins.font-style(24px, variables.$carbon, 500);
         display: flex;
         margin: 5px 0 30px 0;
         gap: 8px;

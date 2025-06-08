@@ -47,17 +47,29 @@ class Order extends Model
 
     /**
      * Get the advert that is associated with the order.
+     *
+     * @return BelongsTo<Advert>
      */
     public function advert(): BelongsTo
     {
         return $this->belongsTo(Advert::class);
     }
 
+    /**
+     * Get the seller that owns the order.
+     *
+     * @return BelongsTo<User>
+     */
     public function seller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'seller_id');
     }
 
+    /**
+     * Get the buyer that owns the order.
+     *
+     * @return BelongsTo<User>
+     */
     public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');

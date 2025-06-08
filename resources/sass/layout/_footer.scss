@@ -19,7 +19,7 @@
 }
 
 .footer-link-item a {
-    @include mixins.font-style(16px, variables.$light-background, variables.$font-weight-medium);
+    @include mixins.font-style(16px, variables.$light-background, 500);
 }
 
 .footer-copy {

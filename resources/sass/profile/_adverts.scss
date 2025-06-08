@@ -7,7 +7,8 @@
 
 .page-title {
     @include mixins.flex-center-vertical;
-    @include mixins.font-style(36px, variables.$carbon, variables.$font-weight-medium);
+    font-size: 36px;
+    color: variables.$carbon;
     margin-bottom: 30px;
     gap: 12px;
 }

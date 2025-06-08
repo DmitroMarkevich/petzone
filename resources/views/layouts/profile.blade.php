@@ -31,6 +31,13 @@
                 </div>
 
                 <div class="profile-item">
+                    <a class="profile-link {{ is_active('profile/sales') }}"
+                       href="{{ route('profile.sales') }}">
+                        <img src="{{ asset('images/profile/chart.svg') }}" alt="Продажі">Мої продажі
+                    </a>
+                </div>
+
+                <div class="profile-item">
                     <a class="profile-link {{ is_active('profile/orders-history') }}"
                        href="{{ route('profile.orders.history') }}">
                         <img src="{{ asset('images/profile/notebook.svg') }}" alt="Історія">Історія замовлень

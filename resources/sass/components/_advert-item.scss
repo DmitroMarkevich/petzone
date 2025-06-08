@@ -36,14 +36,14 @@
     }
 
     .advert-price {
-        @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-medium);
+        @include mixins.font-style(16px, variables.$carbon, 500);
         font-family: variables.$font-family-alt;
     }
 }
 
 .advert-description {
     @include mixins.text-ellipsis;
-    @include mixins.font-style(14px, variables.$carbon, variables.$font-weight-medium);
+    @include mixins.font-style(14px, variables.$carbon, 500);
 }
 
 .advert-date {

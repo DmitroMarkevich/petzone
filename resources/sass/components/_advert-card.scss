@@ -25,8 +25,7 @@
     position: relative;
 
     .advert-image {
-        width: 300px;
-        height: 300px;
+        @include mixins.size(300px);
         border-radius: 8px;
     }
 }
@@ -45,9 +44,8 @@
     }
 
     img {
-        width: 20px;
-        height: 20px;
-        background-color: #FFFBFF;
+        @include mixins.size(20px);
+        background-color: white;
         border-radius: 50%;
         padding: 4px;
     }
@@ -59,11 +57,11 @@
 
 .advert-title {
     @include mixins.text-ellipsis;
-    @include mixins.font-style(16px, variables.$carbon, variables.$font-weight-semibold);
+    @include mixins.font-style(16px, variables.$carbon, 600);
 }
 
 .advert-price {
-    @include mixins.font-style(24px, variables.$dark-graphite, variables.$font-weight-bold);
+    @include mixins.font-style(24px, variables.$dark-graphite, 700);
 }
 
 .advert-tags .tag {
@@ -84,7 +82,7 @@
 }
 
 .rating-value {
-    @include mixins.font-style(14px, #484647, variables.$font-weight-semibold);
+    @include mixins.font-style(14px, #484647, 600);
 }
 
 .price-action {

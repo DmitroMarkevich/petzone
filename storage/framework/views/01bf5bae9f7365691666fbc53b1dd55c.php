@@ -29,18 +29,14 @@ foreach ($attributes->all() as $__key => $__value) {
 
 unset($__defined_vars); ?>
 
-<?php
-    $showDetailsColumn = !$short;
-?>
-
-<div class="<?php echo \Illuminate\Support\Arr::toCssClasses(['orders-container', 'orders-container--short' => $short]); ?>">
+<div class="orders-container <?php echo e($short ? 'orders-container--short' : ''); ?>">
     <div class="orders-header">
         <span>Номер замовлення</span>
         <span>Дата і час</span>
         <span>Статус відправлення</span>
         <span>Номер відстеження</span>
         <span>Ціна</span>
-        <?php if($showDetailsColumn): ?>
+        <?php if (! ($short)): ?>
             <span>Більше</span>
         <?php endif; ?>
     </div>
@@ -53,10 +49,10 @@ unset($__defined_vars); ?>
                 <?php echo e(OrderStatus::getTranslation($order->status)); ?>
 
             </div>
-            <span><?php echo e($order->tracking_number ?: '—'); ?></span>
+            <span><?php echo e($order->tracking_number ?? '—'); ?></span>
             <span>₴<?php echo e($order->total_price ?? '—'); ?></span>
-            <?php if($showDetailsColumn): ?>
-                <a href="<?php echo e(route('profile.orders.details', ['id' => $order->id])); ?>">Подивитися</a>
+            <?php if (! ($short)): ?>
+                <a href="<?php echo e(route('profile.orders.details', $order->id)); ?>">Подивитися</a>
             <?php endif; ?>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

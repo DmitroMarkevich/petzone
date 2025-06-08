@@ -19,11 +19,11 @@
         grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
 
         &.order-header {
-            font-weight: variables.$font-weight-semibold;
+            font-weight: 600;
         }
 
         &.order-item-row {
-            font-weight: variables.$font-weight-medium;
+            font-weight: 500;
         }
     }
 }
@@ -44,18 +44,18 @@
     gap: 6px;
 
     h4 {
-        font-weight: variables.$font-weight-semibold;
+        font-weight: 600;
         font-size: 16px;
     }
 
     p {
-        font-weight: variables.$font-weight-medium;
+        font-weight: 500;
         font-size: 14px;
     }
 }
 
 .section-heading {
-    @include mixins.font-style(24px, variables.$carbon, variables.$font-weight-medium);
+    @include mixins.font-style(24px, variables.$carbon, 500);
     margin-bottom: 12px;
 }
 

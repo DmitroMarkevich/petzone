@@ -1,7 +1,6 @@
 import { debounce, fetchData } from '../base/utils.js';
 
 $(document).ready(function () {
-
     /**
      * Render suggestion list.
      */

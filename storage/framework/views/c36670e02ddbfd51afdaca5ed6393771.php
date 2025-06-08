@@ -7,6 +7,16 @@
         <div class="adverts-container">
             <h2 class="page-title">Мої оголошення</h2>
 
+            <div class="filter-buttons">
+                <button class="filter-button active">Всі</button>
+                <button class="filter-button" data-status="0">
+                    Активні (<?php echo e($adverts->where('is_active', true)->count()); ?>)
+                </button>
+                <button class="filter-button" data-status="0">
+                    Неактивні (<?php echo e($adverts->where('is_active', false)->count()); ?>)
+                </button>
+            </div>
+
             <div class="adverts-list">
                 <?php $__currentLoopData = $adverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if (isset($component)) { $__componentOriginal4b7b31bf8150596c2e9ef372392491c5 = $component; } ?>
