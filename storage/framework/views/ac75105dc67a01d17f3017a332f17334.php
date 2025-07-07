@@ -1,7 +1,7 @@
 <?php $__env->startSection('profile-content'); ?>
     <?php if($wishlist->isEmpty()): ?>
-        <div class="no-adverts">
-            <p>No adverts found.</p>
+        <div class="no-results">
+            <p><?php echo e(__('common.nothing_found')); ?></p>
         </div>
     <?php else: ?>
         <div class="advert-grid">

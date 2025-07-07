@@ -3,7 +3,7 @@
 @section('profile-content')
     @if($orders->isEmpty())
         <div class="no-adverts">
-            <p>No orders found.</p>
+            <p>{{ __('No adverts found.') }}</p>
         </div>
     @else
         <div>

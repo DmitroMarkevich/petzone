@@ -1,7 +1,7 @@
 <?php $__env->startSection('profile-content'); ?>
     <?php if($orders->isEmpty()): ?>
         <div class="no-adverts">
-            <p>No orders found.</p>
+            <p><?php echo e(__('No adverts found.')); ?></p>
         </div>
     <?php else: ?>
         <div>

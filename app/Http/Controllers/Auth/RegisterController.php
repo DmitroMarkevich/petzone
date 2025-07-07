@@ -53,11 +53,20 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:50'],
             'last_name' => ['required', 'string', 'max:50'],
-            'phone_number' => ['nullable', 'string', 'max:15'],
+            'phone_number' => ['nullable', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,svg', 'max:2048'],
         ]);
+    }
+
+    protected function normalizePhoneNumber(?string $phone): ?string
+    {
+        if (!$phone) {
+            return null;
+        }
+
+        return preg_replace('/\D+/', '', $phone);
     }
 
     /**
@@ -77,12 +86,14 @@ class RegisterController extends Controller
             $imagePath = $this->uploadFile("users/$id", $data['logo']);
         }
 
+        $normalizedPhone = $this->normalizePhoneNumber($data['phone_number'] ?? null);
+
         return User::create([
             'id' => $id,
             'email' => $data['email'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'phone_number' => $data['phone_number'],
+            'phone_number' => $normalizedPhone,
             'password' => Hash::make($data['password']),
             'image_path' => $imagePath,
         ]);
