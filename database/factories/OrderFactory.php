@@ -41,7 +41,7 @@ class OrderFactory extends Factory
 
             'shipped_at' => $this->faker->optional()->dateTime(),
             'delivered_at' => $this->faker->optional()->dateTime(),
-            'canceled_at' => $this->faker->optional()->dateTime(),
+            'canceled_at' => fake()->dateTimeBetween('now', '+1 month'),
             'cancellation_reason' => $this->faker->optional()->sentence(),
         ];
     }

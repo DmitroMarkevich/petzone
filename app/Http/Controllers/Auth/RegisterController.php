@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\User;
+use App\Services\UserService;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
 
@@ -60,15 +60,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function normalizePhoneNumber(?string $phone): ?string
-    {
-        if (!$phone) {
-            return null;
-        }
-
-        return preg_replace('/\D+/', '', $phone);
-    }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -77,25 +68,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data): User
     {
-        $id = Uuid::uuid4();
-
-        $imagePath = null;
-
-        // Check if the logo is present and handle the file upload
-        if (isset($data['logo'])) {
-            $imagePath = $this->uploadFile("users/$id", $data['logo']);
-        }
-
-        $normalizedPhone = $this->normalizePhoneNumber($data['phone_number'] ?? null);
-
-        return User::create([
-            'id' => $id,
+        return app(UserService::class)->create([
             'email' => $data['email'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'phone_number' => $normalizedPhone,
+            'logo' => $data['logo'] ?? null,
+            'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
-            'image_path' => $imagePath,
+            'ip_address' => request()->ip(),
         ]);
     }
 }

@@ -18,11 +18,10 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->boolean('is_active')->default(true);
 
-            $table->uuid('buyer_id');
-            $table->uuid('advert_id');
+            $table->foreignUuid('buyer_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
 
             $table->string('payment_method');
-
             $table->string('delivery_method');
             $table->string('tracking_number')->nullable();
             $table->decimal('delivery_cost', 10)->nullable();
@@ -36,9 +35,6 @@ return new class extends Migration
             $table->text('cancellation_reason')->nullable();
 
             $table->timestamps();
-
-            $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('advert_id')->references('id')->on('adverts')->onDelete('cascade');
         });
     }
 

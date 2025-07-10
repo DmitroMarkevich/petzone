@@ -43,7 +43,7 @@ return new class extends Migration
 
         Schema::create('delivery_addresses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();;
             $table->string('city');
             $table->string('street');
             $table->string('apartment');

@@ -26,10 +26,13 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => $this->faker->unique()->email(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'ip_address' => $this->faker->boolean()
+                ? $this->faker->ipv4()
+                : $this->faker->ipv6(),
         ];
     }
 

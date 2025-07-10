@@ -29,11 +29,13 @@ class WishlistService
     public function toggleWishlist(string $advertId): void
     {
         $wishlist = Session::get('wishlist', []);
+
         if (in_array($advertId, $wishlist, true)) {
             $wishlist = array_filter($wishlist, fn($id) => $id !== $advertId);
         } else {
             $wishlist[] = $advertId;
         }
+
         Session::put('wishlist', array_values($wishlist));
     }
 }

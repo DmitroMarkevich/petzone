@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Str;
-use App\Traits\FileUploadTrait;
 use App\Models\User;
+use App\Traits\FileUploadTrait;
 
 class OAuth2Service
 {
@@ -24,42 +23,19 @@ class OAuth2Service
             ->first();
 
         if (!$user) {
-            $id = Str::uuid();
-            $avatarPath = $this->handleAvatar($socialUser, $id);
             [$firstName, $lastName] = $this->extractName($provider, $socialUser);
 
-            $user = User::create([
-                'id' => $id,
+            $user = app(UserService::class)->create([
                 'email' => $socialUser->getEmail(),
                 'first_name' => $firstName,
                 'last_name' => $lastName,
-                'image_path' => $avatarPath,
                 'provider_id' => $socialUser->getId(),
                 'provider' => $provider,
-                'password' => bcrypt(Str::random(32)),
+                'avatar_url' => $socialUser->getAvatar(),
             ]);
         }
 
         return $user;
-    }
-
-    /**
-     * Handle avatar upload and return the file path.
-     *
-     * @param $socialUser
-     * @param string $id
-     * @return string|null
-     */
-    protected function handleAvatar($socialUser, string $id): ?string
-    {
-        $avatarUrl = $socialUser->getAvatar();
-        if (!$avatarUrl) {
-            return null;
-        }
-
-        $directory = "users/$id";
-
-        return $this->uploadFileFromUrl($directory, $avatarUrl);
     }
 
     /**

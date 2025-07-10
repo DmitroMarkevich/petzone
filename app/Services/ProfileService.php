@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
-use App\Traits\FileUploadTrait;
 use App\Models\Address;
+use App\Traits\FileUploadTrait;
 
 class ProfileService
 {

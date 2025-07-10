@@ -90,8 +90,8 @@
                 </div>
 
                 <?php if($adverts->isEmpty()): ?>
-                    <div class="no-adverts">
-                        <p>No adverts found.</p>
+                    <div class="no-results">
+                        <p><?php echo e(__('common.nothing_found')); ?></p>
                     </div>
                 <?php else: ?>
                     <div class="adverts">

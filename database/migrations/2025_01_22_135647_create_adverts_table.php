@@ -12,17 +12,26 @@ return new class extends Migration {
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('parent_id')->nullable();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('categories')
+                ->nullOnDelete();
+
+            $table->index('parent_id');
         });
 
         Schema::create('adverts', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id');
+            $table->uuid('category_id');
             $table->string('title', 70);
             $table->text('description');
             $table->decimal('price', 10);
-            $table->uuid('category_id');
-            $table->uuid('user_id');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 
@@ -32,14 +41,15 @@ return new class extends Migration {
 
         Schema::create('advert_comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
+            $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
+
             $table->text('comment');
             $table->unsignedTinyInteger('rating');
-            $table->uuid('advert_id');
-            $table->uuid('user_id');
             $table->timestamps();
 
-            $table->foreign('advert_id')->references('id')->on('adverts')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unique(['advert_id', 'user_id']);
         });
     }
 
