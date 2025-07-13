@@ -1,15 +1,13 @@
-<div class="advert-item">
+<?php
+    $firstImage = $advert->images->first();
+    $imageUrl = $firstImage && $firstImage->image_path
+        ? Storage::disk('s3')->url($firstImage->image_path)
+        : asset('images/advert-test.jpg');
+?>
+
+<div class="advert-item" data-status="<?php echo e($status); ?>">
     <div class="advert-left">
         <div class="advert-image-wrapper">
-            <?php
-                $firstImage = $advert->images->first();
-                $imageUrl = asset('images/advert-test.jpg');
-
-                if ($firstImage && $firstImage->image_path) {
-                    $imageUrl = Storage::disk('s3')->url($firstImage->image_path);
-                }
-            ?>
-
             <img src="<?php echo e($imageUrl); ?>" alt="<?php echo e($advert->title); ?>" class="advert-image">
         </div>
 
@@ -18,14 +16,14 @@
             <p class="advert-description"><?php echo e($advert->description); ?></p>
 
             <div class="advert-date-wrapper">
-                <img src="<?php echo e(asset('images/profile/calendar.svg')); ?>" alt="Calendar" class="advert-date-icon">
+                <img src="<?php echo e(asset('images/profile/calendar.svg')); ?>" alt="Calendar">
                 <span class="advert-date"><?php echo e($advert->created_at->format('d.m.y')); ?></span>
             </div>
 
             <div class="advert-tags">
-                <span class="tag">#Собаки</span>
-                <span class="tag">#Їжа</span>
-                <span class="tag">#Здоров'я</span>
+                <?php $__currentLoopData = $tags ?? ['Собаки', 'Їжа', "Здоров'я"]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <span class="tag">#<?php echo e($tag); ?></span>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
@@ -33,7 +31,7 @@
     <div class="advert-right">
         <p class="advert-price"><?php echo e($advert->price); ?>₴</p>
 
-        <?php if(isset($actions)): ?>
+        <?php if(!empty($actions)): ?>
             <div class="advert-actions">
                 <?php echo e($actions); ?>
 

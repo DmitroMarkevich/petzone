@@ -31,7 +31,7 @@ class WishlistService
         $wishlist = Session::get('wishlist', []);
 
         if (in_array($advertId, $wishlist, true)) {
-            $wishlist = array_filter($wishlist, fn($id) => $id !== $advertId);
+            $wishlist = array_diff($wishlist, [$advertId]);
         } else {
             $wishlist[] = $advertId;
         }

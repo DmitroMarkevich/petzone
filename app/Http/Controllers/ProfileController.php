@@ -94,7 +94,7 @@ class ProfileController extends Controller
      */
     public function adverts(): Factory|View|Application
     {
-        $adverts = auth()->user()->adverts;
+        $adverts = auth()->user()->adverts()->get();
 
         return view('profile.adverts', compact('adverts'));
     }
@@ -112,7 +112,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * ...
+     * Show the adverts sales that belong to the authenticated user.
      *
      * @return Factory|View|Application
      */

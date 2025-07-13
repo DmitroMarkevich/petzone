@@ -8,10 +8,16 @@
             <h2 class="page-title">Мої продажі</h2>
 
             <div class="filter-buttons">
-                <button class="filter-button active">Всі</button>
-                <button class="filter-button" data-status="pending">Очікують підтвердження</button>
-                <button class="filter-button" data-status="confirmed">Підтверджені</button>
-                <button class="filter-button" data-status="canceled">Відхилені</button>
+                <button class="filter-button active">Всі (<?php echo e($sales->count()); ?>)</button>
+                <button class="filter-button" data-status="pending">
+                    Очікують підтвердження (<?php echo e($sales->where('status', 'PENDING')->count()); ?>)
+                </button>
+                <button class="filter-button" data-status="confirmed">
+                    Підтверджені (<?php echo e($sales->where('status', 'CONFIRMED')->count()); ?>)
+                </button>
+                <button class="filter-button" data-status="canceled">
+                    Відхилені (<?php echo e($sales->where('status', 'CANCELED')->count()); ?>)
+                </button>
             </div>
 
             <div class="adverts-list">
@@ -43,8 +49,6 @@
 
                                     <button type="button" class="toggle-details">Розгорнути</button>
                                 </div>
-
-
                             </div>
 
                             <div class="advert-right">
@@ -80,6 +84,6 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/profile/toggle-details.js']); ?>
+<?php echo app('Illuminate\Foundation\Vite')(['resources/js/profile/toggle-details.js', 'resources/js/profile/filter-buttons.js']); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/sales.blade.php ENDPATH**/ ?>

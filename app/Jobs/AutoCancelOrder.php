@@ -33,9 +33,9 @@ class AutoCancelOrder implements ShouldQueue
         }
 
         $order->update([
-            'status' => OrderStatus::CANCELED,
             'canceled_at' => now(),
             'cancellation_reason' => 'seller_not_confirmed',
+            'status' => OrderStatus::CANCELED,
         ]);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Enum\DeliveryMethod;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Advert\Advert;
 use App\Enum\OrderStatus;
 use App\Enum\PaymentMethod;
-use App\Models\Advert\Advert;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use App\Enum\DeliveryMethod;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
@@ -35,7 +35,7 @@ class OrderFactory extends Factory
 
             'delivery_method' => $this->faker->randomElement(DeliveryMethod::values()),
             'delivery_cost' => $this->faker->randomFloat(2, 0, 150),
-            'total_price' => $this->faker->numberBetween(10, 99999),
+            'total_price' => $this->faker->numberBetween(10, 5000),
             'tracking_number' => Str::random(10),
             'estimated_delivery_date' => $this->faker->dateTimeBetween('+1 day', '+1 weeks'),
 

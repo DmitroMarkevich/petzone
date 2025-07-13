@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
-use App\Jobs\AutoCancelOrder;
+use App\Models\Order;
 use App\Enum\OrderStatus;
 use App\Models\Advert\Advert;
-use App\Models\Order;
+use App\Jobs\AutoCancelOrder;
 
 class OrderService
 {

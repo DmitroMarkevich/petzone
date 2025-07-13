@@ -10,10 +10,16 @@
             <h2 class="page-title">Мої продажі</h2>
 
             <div class="filter-buttons">
-                <button class="filter-button active">Всі</button>
-                <button class="filter-button" data-status="pending">Очікують підтвердження</button>
-                <button class="filter-button" data-status="confirmed">Підтверджені</button>
-                <button class="filter-button" data-status="canceled">Відхилені</button>
+                <button class="filter-button active">Всі ({{ $sales->count() }})</button>
+                <button class="filter-button" data-status="pending">
+                    Очікують підтвердження ({{ $sales->where('status', 'PENDING')->count() }})
+                </button>
+                <button class="filter-button" data-status="confirmed">
+                    Підтверджені ({{ $sales->where('status', 'CONFIRMED')->count() }})
+                </button>
+                <button class="filter-button" data-status="canceled">
+                    Відхилені ({{ $sales->where('status', 'CANCELED')->count() }})
+                </button>
             </div>
 
             <div class="adverts-list">
@@ -44,8 +50,6 @@
 
                                     <button type="button" class="toggle-details">Розгорнути</button>
                                 </div>
-
-
                             </div>
 
                             <div class="advert-right">
@@ -81,4 +85,4 @@
     @endif
 @endsection
 
-@vite(['resources/js/profile/toggle-details.js'])
+@vite(['resources/js/profile/toggle-details.js', 'resources/js/profile/filter-buttons.js'])

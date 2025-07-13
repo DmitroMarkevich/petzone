@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('delivery_method');
             $table->string('tracking_number')->nullable();
             $table->decimal('delivery_cost', 10)->nullable();
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('total_price', 10);
             $table->date('estimated_delivery_date')->nullable();
 
             $table->timestamp('accepted_at')->nullable();

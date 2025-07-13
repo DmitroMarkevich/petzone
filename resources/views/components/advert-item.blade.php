@@ -1,15 +1,13 @@
-<div class="advert-item">
+@php
+    $firstImage = $advert->images->first();
+    $imageUrl = $firstImage && $firstImage->image_path
+        ? Storage::disk('s3')->url($firstImage->image_path)
+        : asset('images/advert-test.jpg');
+@endphp
+
+<div class="advert-item" data-status="{{ $status }}">
     <div class="advert-left">
         <div class="advert-image-wrapper">
-            @php
-                $firstImage = $advert->images->first();
-                $imageUrl = asset('images/advert-test.jpg');
-
-                if ($firstImage && $firstImage->image_path) {
-                    $imageUrl = Storage::disk('s3')->url($firstImage->image_path);
-                }
-            @endphp
-
             <img src="{{ $imageUrl }}" alt="{{ $advert->title }}" class="advert-image">
         </div>
 
@@ -18,14 +16,14 @@
             <p class="advert-description">{{ $advert->description }}</p>
 
             <div class="advert-date-wrapper">
-                <img src="{{ asset('images/profile/calendar.svg') }}" alt="Calendar" class="advert-date-icon">
+                <img src="{{ asset('images/profile/calendar.svg') }}" alt="Calendar">
                 <span class="advert-date">{{ $advert->created_at->format('d.m.y') }}</span>
             </div>
 
             <div class="advert-tags">
-                <span class="tag">#Собаки</span>
-                <span class="tag">#Їжа</span>
-                <span class="tag">#Здоров'я</span>
+                @foreach($tags ?? ['Собаки', 'Їжа', "Здоров'я"] as $tag)
+                    <span class="tag">#{{ $tag }}</span>
+                @endforeach
             </div>
         </div>
     </div>
@@ -33,10 +31,10 @@
     <div class="advert-right">
         <p class="advert-price">{{ $advert->price }}₴</p>
 
-        @isset($actions)
+        @if(!empty($actions))
             <div class="advert-actions">
                 {{ $actions }}
             </div>
-        @endisset
+        @endif
     </div>
 </div>

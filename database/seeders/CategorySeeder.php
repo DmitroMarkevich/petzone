@@ -13,10 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = ['Собаки', 'Коти'];
-
-        foreach ($categories as $category) {
-            Category::create(['id' => Str::uuid(), 'name' => $category]);
-        }
+        Category::factory()->count(10)->create();
+        Category::factory()->count(50)->create();
     }
 }

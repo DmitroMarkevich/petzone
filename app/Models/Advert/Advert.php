@@ -2,18 +2,18 @@
 
 namespace App\Models\Advert;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Laravel\Scout\Searchable;
 use App\Models\Image;
 use App\Models\User;
 
 class Advert extends Model
 {
-    use HasFactory, Searchable, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,7 @@ class Advert extends Model
         'title',
         'price',
         'description',
+        'average_rating',
         'category_id',
         'user_id'
     ];
@@ -68,7 +69,8 @@ class Advert extends Model
     {
         return [
             'id' => $this->id,
-            'title' => $this->title
+            'title' => $this->title,
+            'description' => $this->description,
         ];
     }
 }

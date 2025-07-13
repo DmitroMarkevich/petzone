@@ -1,7 +1,5 @@
 $(document).ready(() => {
     const $toggleButtons = $('.toggle-details');
-    const $filterButtons = $('.filter-button');
-    const $advertItems = $('.advert-item');
 
     /**
      * Click handler for toggle details buttons
@@ -13,22 +11,5 @@ $(document).ready(() => {
 
         $details.toggle();
         $(this).text($details.is(':visible') ? 'Згорнути' : 'Розгорнути');
-    });
-
-    /**
-     * Click handler for filter buttons
-     * Filters advert items by their status attribute
-     */
-    $filterButtons.on('click', function () {
-        $filterButtons.removeClass('active');
-        $(this).addClass('active');
-
-        const selectedStatus = $(this).data('status');
-
-        $advertItems.each(function () {
-            const itemStatus = $(this).data('status');
-            const shouldShow = !selectedStatus || itemStatus === selectedStatus;
-            $(this).toggle(shouldShow);
-        });
     });
 });
