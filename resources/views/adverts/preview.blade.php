@@ -12,7 +12,7 @@
                     @for ($i = 0; $i < 5; $i++)
                         <img src="{{ asset('images/star.svg') }}" alt="Star">
                     @endfor
-                    <span class="rating-value">0.0</span>
+                    <span class="rating-value">{{ $advert->average_rating }}</span>
                 </div>
 
                 <h2 class="advert-title">{{ $advert->title }}</h2>
