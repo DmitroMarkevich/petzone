@@ -32,7 +32,7 @@
                                 : asset('images/advert-test.jpg');
                         ?>
 
-                        <div class="advert-item" data-status="<?php echo e($status); ?>">
+                        <div class="advert-item" data-status="<?php echo e($status); ?>" x-data="{ open: false }">
                             <div class="advert-left">
                                 <div class="advert-image-wrapper">
                                     <img src="<?php echo e($imageUrl); ?>" alt="<?php echo e($order->advert->title); ?>"
@@ -47,7 +47,9 @@
 
                                     <p>Служба доставки: <?php echo e($order->delivery_method); ?></p>
 
-                                    <button type="button" class="toggle-details">Розгорнути</button>
+                                    <button type="button" class="toggle-details" @click="open = !open">
+                                        <span x-text="open ? 'Згорнути' : 'Розгорнути'">Розгорнути</span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -63,7 +65,7 @@
                                 <?php endif; ?>
                             </div>
 
-                            <div class="advert-details" style="display: none;">
+                            <div class="advert-details" x-show="open" x-transition x-cloak>
                                 <div>
                                     <p>Покупець</p>
                                     <p>Ім'я <?php echo e($order->buyer->first_name); ?></p>
@@ -84,6 +86,8 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/profile/toggle-details.js', 'resources/js/profile/filter-buttons.js']); ?>
+<?php $__env->startPush('scripts'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/profile/statusFilter.js'); ?>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/sales.blade.php ENDPATH**/ ?>

@@ -192,6 +192,8 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/home/home-slider.js']); ?>
+<?php $__env->startPush('scripts'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/home/slider.js'); ?>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/home.blade.php ENDPATH**/ ?>

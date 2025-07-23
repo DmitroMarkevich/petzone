@@ -34,7 +34,7 @@
                                 : asset('images/advert-test.jpg');
                         @endphp
 
-                        <div class="advert-item" data-status="{{ $status }}">
+                        <div class="advert-item" data-status="{{ $status }}" x-data="{ open: false }">
                             <div class="advert-left">
                                 <div class="advert-image-wrapper">
                                     <img src="{{ $imageUrl }}" alt="{{ $order->advert->title }}"
@@ -48,7 +48,9 @@
 
                                     <p>Служба доставки: {{ $order->delivery_method }}</p>
 
-                                    <button type="button" class="toggle-details">Розгорнути</button>
+                                    <button type="button" class="toggle-details" @click="open = !open">
+                                        <span x-text="open ? 'Згорнути' : 'Розгорнути'">Розгорнути</span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -64,7 +66,7 @@
                                 @endif
                             </div>
 
-                            <div class="advert-details" style="display: none;">
+                            <div class="advert-details" x-show="open" x-transition x-cloak>
                                 <div>
                                     <p>Покупець</p>
                                     <p>Ім'я {{ $order->buyer->first_name }}</p>
@@ -85,4 +87,6 @@
     @endif
 @endsection
 
-@vite(['resources/js/profile/toggle-details.js', 'resources/js/profile/filter-buttons.js'])
+@push('scripts')
+    @vite('resources/js/pages/profile/statusFilter.js')
+@endpush

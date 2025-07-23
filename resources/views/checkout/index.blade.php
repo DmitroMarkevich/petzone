@@ -11,7 +11,7 @@
         </header>
 
         <main>
-            <form action="{{ route('checkout.store') }}" method="POST" class="checkout-container">
+            <form action="{{ route('checkout.store') }}" method="POST" class="checkout-container" x-data="{ showContact: false }">
                 @csrf
                 <input type="hidden" name="advert_id" value="{{ $advert->id }}">
 
@@ -34,14 +34,11 @@
                                            value="NOVA_POST_SELF_PICKUP">
                                     <span class="delivery-name">{{ __('delivery.NOVA_POST_SELF_PICKUP') }}</span>
                                 </span>
-
                                 <span class="delivery-price">50 грн</span>
                             </div>
 
                             <div class="delivery-extra hidden" id="nova-post-extra">
-                                <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення"
-                                       id="mainInput">
-
+                                <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення">
                                 <ul class="dropdown-panel" id="nova-post-branch"></ul>
                             </div>
                         </label>
@@ -49,11 +46,8 @@
                         <label for="MEEST_SELF_PICKUP" class="delivery-method">
                             <input type="radio" id="MEEST_SELF_PICKUP" name="delivery_method" value="MEEST_SELF_PICKUP">
                             {{ __('delivery.MEEST_SELF_PICKUP') }}
-
                             <div class="delivery-extra hidden">
-                                <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення"
-                                       id="mainInput">
-
+                                <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення">
                                 <ul class="dropdown-panel">
                                     <li class="dropdown-item">№22003, вул. Курортна, 2</li>
                                     <li class="dropdown-item">№22004, вул. Центральна, 5</li>
@@ -65,7 +59,6 @@
                         <label for="NOVA_POST_COURIER" class="delivery-method">
                             <input type="radio" id="NOVA_POST_COURIER" name="delivery_method" value="NOVA_POST_COURIER">
                             {{ __('delivery.NOVA_POST_COURIER') }}
-
                             <div class="delivery-extra hidden">
                                 <input type="text" placeholder="Вулиця" value="Соборності">
                                 <input type="text" placeholder="Будинок" value="12">
@@ -76,7 +69,6 @@
                         <label for="MEEST_COURIER" class="delivery-method">
                             <input type="radio" id="MEEST_COURIER" name="delivery_method" value="MEEST_COURIER">
                             {{ __('delivery.MEEST_COURIER') }}
-
                             <div class="delivery-extra hidden">
                                 <input type="text" placeholder="Вулиця" value="Соборності">
                                 <input type="text" placeholder="Будинок" value="12">
@@ -105,12 +97,12 @@
                     <div class="container-item">
                         <h3>Отримувач</h3>
 
-                        <div class="profile-header">
+                        <div class="profile-header" x-show="!showContact" x-transition>
                             <span class="profile-name">{{ "$user->first_name $user->last_name" }}</span>
-                            <a class="link-edit">Змінити</a>
+                            <a href="#" class="link-edit" @click.prevent="showContact = true">Змінити</a>
                         </div>
 
-                        <div class="profile-section" id="contact-info" hidden>
+                        <div class="profile-section" x-show="showContact" x-transition>
                             <div class="form-row">
                                 <div class="form-group">
                                     <x-input type="text" name="first_name" label="Ім'я"
@@ -133,8 +125,8 @@
                             </div>
 
                             <div class="profile-actions">
-                                <button class="btn-change" id="save-btn">Зберегти</button>
-                                <button class="btn-cancel" id="cancel-btn">Скасувати</button>
+                                <button type="button" class="btn-change">Зберегти</button>
+                                <button type="button" class="btn-cancel" @click.prevent="showContact = false">Скасувати</button>
                             </div>
                         </div>
                     </div>
@@ -186,4 +178,4 @@
     @endif
 @endsection
 
-@vite(['resources/js/checkout/index.js'])
+@vite(['resources/js/checkout/advert.js'])

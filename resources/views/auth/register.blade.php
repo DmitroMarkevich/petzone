@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('auth-content')
-    <div class="auth-content">
+    <div class="auth-content" x-data="{ step: 1 }">
         <div class="auth-header">
             <h2 class="auth-heading">{{ __('auth.register.heading') }}</h2>
             <p class="auth-subheading">{{ __('auth.register.subheading') }}</p>
@@ -9,7 +9,7 @@
 
         <form id="registration-form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
-            <div class="step step-1 active">
+            <div x-show="step === 1" x-transition x-cloak>
                 <div class="form-group">
                     <x-input type="email" name="email"
                              label="{{ __('auth.register.email') }}" placeholder="Email"
@@ -25,7 +25,9 @@
                 </div>
 
                 <div>
-                    <button type="button" class="button next-step">{{ __('auth.register.next') }}</button>
+                    <button type="button" class="button next-step" @click="step = 2">
+                        {{ __('auth.register.next') }}
+                    </button>
                     @include('partials.social-buttons')
                 </div>
 
@@ -36,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="step step-2">
+            <div x-show="step === 2" x-transition hidden>
                 <div class="photo-upload">
                     <div id="photo-background" class="photo-background">
                         <img id="preview-image" src="{{ asset('images/auth/upload-photo.svg') }}" alt="Upload photo">
@@ -61,4 +63,6 @@
     </div>
 @endsection
 
-@vite(['resources/js/auth/step-navigation.js', 'resources/js/auth/photo-upload.js'])
+@push('scripts')
+    @vite(['resources/js/pages/auth/avatar.js'])
+@endpush

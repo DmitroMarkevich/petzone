@@ -68,7 +68,10 @@
     </div>
 @endsection
 
-@vite([
-    'resources/js/advert/index.js',
-    'resources/sass/advert/_advert.scss'
-])
+@push('scripts')
+    @vite('resources/js/pages/advert/photoUpload.js')
+@endpush
+
+@push('styles')
+    @vite('resources/sass/advert/_advert.scss')
+@endpush

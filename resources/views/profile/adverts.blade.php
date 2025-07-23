@@ -38,4 +38,6 @@
     @endif
 @endsection
 
-@vite(['resources/js/profile/filter-buttons.js'])
+@push('scripts')
+    @vite('resources/js/pages/profile/statusFilter.js')
+@endpush

@@ -54,6 +54,8 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/profile/filter-buttons.js']); ?>
+<?php $__env->startPush('scripts'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/profile/statusFilter.js'); ?>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/adverts.blade.php ENDPATH**/ ?>

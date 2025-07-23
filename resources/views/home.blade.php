@@ -194,4 +194,6 @@
     </div>
 @endsection
 
-@vite(['resources/js/home/home-slider.js'])
+@push('scripts')
+    @vite('resources/js/pages/home/slider.js')
+@endpush

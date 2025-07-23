@@ -8,7 +8,7 @@
             <div class="image-slider">
                 <div class="slider-frame">
                     <img id="slider-image" src="<?php echo e(asset('images/auth/shopping-cart.png')); ?>" alt="Slider Image">
-                    <p id="slider-text" class="tagline">Широкий вибір товарів</p>
+                    <p id="slider-text" class="tagline"><?php echo e(__('auth.slider.shopping_cart')); ?></p>
                 </div>
 
                 <div class="slider-dots">
@@ -25,6 +25,18 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/auth/auth-slider.js']); ?>
+<?php $__env->startPush('scripts'); ?>
+    <script>
+        window.sliderTexts = <?php echo json_encode([
+        'shopping_cart' => __('auth.slider.shopping_cart'),
+        'carton' => __('auth.slider.carton'),
+        'receipt' => __('auth.slider.receipt'),
+    ]); ?>;
+    </script>
+
+    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/auth/slider.js'); ?>
+<?php $__env->stopPush(); ?>
+
+
 
 <?php echo $__env->make('layouts.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/layouts/auth.blade.php ENDPATH**/ ?>

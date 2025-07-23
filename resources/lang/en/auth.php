@@ -33,6 +33,12 @@ return [
         'confirm_button' => 'Confirm',
     ],
 
+    'slider' => [
+        'shopping_cart' => 'Wide range of products',
+        'carton' => 'Fast delivery',
+        'receipt' => 'Pay on delivery',
+    ],
+
     'failed' => 'The email or password is incorrect.',
     'throttle' => 'Too many attempts. Please try again in :seconds seconds.',
 ];

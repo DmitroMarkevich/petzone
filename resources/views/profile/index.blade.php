@@ -125,4 +125,6 @@
     @endif
 @endsection
 
-@vite(['resources/js/profile/index.js'])
+@push('scripts')
+    @vite('resources/js/pages/profile/profile.js')
+@endpush

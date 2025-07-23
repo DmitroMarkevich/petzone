@@ -10,7 +10,7 @@
             <div class="image-slider">
                 <div class="slider-frame">
                     <img id="slider-image" src="{{ asset('images/auth/shopping-cart.png') }}" alt="Slider Image">
-                    <p id="slider-text" class="tagline">Широкий вибір товарів</p>
+                    <p id="slider-text" class="tagline">{{__('auth.slider.shopping_cart')}}</p>
                 </div>
 
                 <div class="slider-dots">
@@ -27,4 +27,16 @@
     </div>
 @endsection
 
-@vite(['resources/js/auth/auth-slider.js'])
+@push('scripts')
+    <script>
+        window.sliderTexts = {!! json_encode([
+        'shopping_cart' => __('auth.slider.shopping_cart'),
+        'carton' => __('auth.slider.carton'),
+        'receipt' => __('auth.slider.receipt'),
+    ]) !!};
+    </script>
+
+    @vite('resources/js/pages/auth/slider.js')
+@endpush
+
+

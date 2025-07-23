@@ -1,1 +1,0 @@
-components.success-message
