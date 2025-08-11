@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Advert\Advert;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Advert\Advert;
 
 class User extends Authenticatable
 {
@@ -59,11 +60,19 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the wishlist for the user.
+     */
+    public function wishlist(): BelongsToMany
+    {
+        return $this->belongsToMany(Advert::class, 'wishlists');
+    }
+
+    /**
      * Get the adverts for the user.
      */
     public function adverts(): HasMany
     {
-        return $this->hasMany(Advert::class);
+        return $this->hasMany(Advert::class, 'owner_id');
     }
 
     /**
@@ -72,6 +81,14 @@ class User extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'buyer_id');
+    }
+
+    /**
+     * Get the orders for the user.
+     */
+    public function sales(): HasMany
+    {
+        return $this->hasMany(Order::class, 'seller_id');
     }
 
     /**

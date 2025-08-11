@@ -1,11 +1,11 @@
 @extends('layouts.profile')
 
+@section('title', 'Мій профіль')
+
 @section('profile-content')
     <div class="profile-container">
         <div class="profile-header">
-            <img id="profile-avatar"
-                 src="{{ !empty($user->image_path) ? Storage::disk('s3')->url($user->image_path) : asset('images/default-avatar.png') }}"
-                 alt="Avatar" class="profile-avatar">
+            <img id="profile-avatar" src="{{ $avatarUrl ?? ''}}" alt="Avatar" class="profile-avatar">
 
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, {{ $user->first_name }}!</h2>
@@ -124,7 +124,3 @@
         <x-success-message :message="session('success')"/>
     @endif
 @endsection
-
-@push('scripts')
-    @vite('resources/js/pages/profile/profile.js')
-@endpush

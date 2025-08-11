@@ -6,25 +6,6 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 /**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-import axios from 'axios';
-window.axios = axios;
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Load Alpine.js — a lightweight JavaScript framework for adding reactive behavior directly in your HTML.
- * It allows you to add interactivity to Blade templates using special attributes.
- */
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-Alpine.start();
-
-/**
  * NProgress — a slim progress bar at the top of the page to indicate loading states.
  * Configured here to disable the spinner and set trickle speed.
  */
@@ -47,12 +28,17 @@ window.NProgress = NProgress;
  */
 import { initMask } from './modules/utils/mask.js';
 import { initValidation } from './modules/validation/validation.js';
+import { initCategoryToggle } from './modules/ui/categoryToggle.js';
 import { initVisibilityToggle } from './modules/ui/visibilityToggle.js';
 import { initVerificationMessage } from './modules/ui/verificationMessage.js';
+import { initRouteLoader } from './modules/utils/routeLoader.js';
 
 $(document).ready(() => {
+    initRouteLoader();
+
     initMask();
     initValidation();
+    initCategoryToggle();
     initVisibilityToggle();
     initVerificationMessage();
 });

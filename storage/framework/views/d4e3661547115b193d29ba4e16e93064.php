@@ -1,5 +1,6 @@
 <?php
-    $isInWishlist = in_array($advert->id, session('wishlist', []));
+    $isInWishlist = Auth::check() ? Auth::user()->wishlist()->where('advert_id', $advert->id)->exists() : false;
+
     $heartIcon = $isInWishlist ? 'images/heart-filled.svg' : 'images/heart.svg';
 
     $imageUrl = $advert->images->isNotEmpty()
@@ -7,20 +8,22 @@
         : asset('images/advert-test.jpg');
 ?>
 
-<a href="<?php echo e(route('adverts.show', $advert->id)); ?>">
-    <div class="advert-card">
-        <div class="image-container">
+<div class="advert-card">
+    <div class="image-container">
+        <a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
             <img class="advert-image" src="<?php echo e($imageUrl); ?>" alt="<?php echo e($advert->title); ?>">
+        </a>
 
-            <form action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>" method="POST">
-                <?php echo csrf_field(); ?>
-                <button type="submit" class="favorite-button" aria-label="Додати до улюбленого">
-                    <span>Додати до улюбленого</span>
-                    <img src="<?php echo e(asset($heartIcon)); ?>" alt="Heart">
-                </button>
-            </form>
-        </div>
+        <form class="wishlist-form" data-action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>"
+              data-id="<?php echo e($advert->id); ?>">
+            <?php echo csrf_field(); ?>
+            <button type="button" class="favorite-button" data-id="<?php echo e($advert->id); ?>">
+                <img src="<?php echo e(asset($heartIcon)); ?>" alt="Heart" class="heart-icon" data-id="<?php echo e($advert->id); ?>">
+            </button>
+        </form>
+    </div>
 
+    <a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
         <div class="advert-details">
             <div class="advert-tags">
                 <span class="tag">#Собаки</span>
@@ -49,6 +52,6 @@
                 Купити <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Cart Icon">
             </button>
         </div>
-    </div>
-</a>
+    </a>
+</div>
 <?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/components/advert-card.blade.php ENDPATH**/ ?>

@@ -1,10 +1,11 @@
+<?php $__env->startSection('title', 'Створення оголошення'); ?>
+
 <?php $__env->startSection('profile-content'); ?>
     <div class="record-container">
         <h2 class="page-title">Створити оголошення</h2>
 
         <form action="<?php echo e(route('adverts.store')); ?>" method="POST" enctype="multipart/form-data" class="advert-form">
             <?php echo csrf_field(); ?>
-
             <input type="hidden" name="action" id="form-action" value="save">
 
             <div class="form-main">
@@ -29,7 +30,6 @@
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
-
                     <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['id' => 'category_id','name' => 'category_id','label' => 'Категорія','options' => $categories,'selected' => old('category_id'),'class' => 'form-control','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -53,7 +53,6 @@
 
                     <div>
                         <label for="photo-grid">Фото</label>
-
                         <div id="photo-grid" class="photo-grid">
                             <?php for($i = 1; $i <= 8; $i++): ?>
                                 <div class="photo-upload" data-index="<?php echo e($i); ?>">
@@ -94,7 +93,6 @@
 <?php $component = $__componentOriginaled2cde6083938c436304f332ba96bb7c; ?>
 <?php unset($__componentOriginaled2cde6083938c436304f332ba96bb7c); ?>
 <?php endif; ?>
-
                     <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['id' => 'advert_type','name' => 'advert_type','label' => 'Тип оголошення','options' => ['product' => 'Товар', 'service' => 'Послуга'],'selected' => old('advert_type', 'product'),'class' => 'form-control','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -149,12 +147,5 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startPush('scripts'); ?>
-    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/advert/photoUpload.js'); ?>
-<?php $__env->stopPush(); ?>
-
-<?php $__env->startPush('styles'); ?>
-    <?php echo app('Illuminate\Foundation\Vite')('resources/sass/advert/_advert.scss'); ?>
-<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/adverts/create.blade.php ENDPATH**/ ?>

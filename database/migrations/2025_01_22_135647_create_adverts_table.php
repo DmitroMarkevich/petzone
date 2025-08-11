@@ -25,8 +25,10 @@ return new class extends Migration {
 
         Schema::create('adverts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
+
+            $table->foreignUuid('owner_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('category_id')->constrained('categories')->cascadeOnDelete();
+
             $table->string('title', 70);
             $table->text('description');
             $table->decimal('price', 10);
@@ -37,8 +39,10 @@ return new class extends Migration {
 
         Schema::create('advert_comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
+
             $table->text('comment');
             $table->unsignedTinyInteger('rating');
             $table->timestamps();

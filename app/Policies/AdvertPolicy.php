@@ -16,6 +16,6 @@ class AdvertPolicy
      */
     public function update(User $user, Advert $advert): bool
     {
-        return $user->id === $advert->user_id;
+        return $user->id === $advert->owner_id;
     }
 }

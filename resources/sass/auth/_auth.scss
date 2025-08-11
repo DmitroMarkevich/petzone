@@ -162,6 +162,14 @@
     top: 30%;
 }
 
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
 .photo-upload, .photo-background {
     @include mixins.flex-center;
     margin-bottom: 20px;

@@ -1,5 +1,7 @@
 @extends('layouts.profile')
 
+@section('title', 'Редагування оголошення')
+
 @section('profile-content')
     <div class="record-container">
         <h2 class="page-title">
@@ -82,12 +84,4 @@
         </form>
     </div>
 @endsection
-
-@push('scripts')
-    @vite('resources/js/pages/advert/photoUpload.js')
-@endpush
-
-@push('styles')
-    @vite('resources/sass/advert/_advert.scss')
-@endpush
 

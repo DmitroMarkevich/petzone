@@ -5,14 +5,17 @@
         : asset('images/advert-test.jpg');
 ?>
 
-<div class="advert-item" data-status="<?php echo e($status); ?>">
+<div class="advert-item" data-status="<?php echo e($status ?? ''); ?>">
     <div class="advert-left">
         <div class="advert-image-wrapper">
             <img src="<?php echo e($imageUrl); ?>" alt="<?php echo e($advert->title); ?>" class="advert-image">
         </div>
 
         <div class="advert-content">
-            <a class="advert-title" href="<?php echo e(route('adverts.show', $advert->id)); ?>"><?php echo e($advert->title); ?></a>
+            <a class="advert-title" href="<?php echo e(route('adverts.show', $advert->id)); ?>">
+                <?php echo e($advert->title); ?>
+
+            </a>
             <p class="advert-description"><?php echo e($advert->description); ?></p>
 
             <div class="advert-date-wrapper">
@@ -32,10 +35,7 @@
         <p class="advert-price"><?php echo e($advert->price); ?>₴</p>
 
         <?php if(!empty($actions)): ?>
-            <div class="advert-actions">
-                <?php echo e($actions); ?>
-
-            </div>
+            <div class="advert-actions"><?php echo e($actions); ?></div>
         <?php endif; ?>
     </div>
 </div>

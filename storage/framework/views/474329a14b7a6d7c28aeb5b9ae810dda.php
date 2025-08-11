@@ -1,17 +1,13 @@
-<?php
-    use App\Enum\PaymentMethod;
-?>
-
-
+<?php $__env->startSection('title', 'Оформлення замовлення'); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="checkout-layout">
         <header class="checkout-header">
-            <img src="<?php echo e(asset('images/blue-logo.svg')); ?>" alt="Logo">
+            <a href="<?php echo e(route('home')); ?>"><img src="<?php echo e(asset('images/blue-logo.svg')); ?>" alt="Logo"></a>
         </header>
 
         <main>
-            <form action="<?php echo e(route('checkout.store')); ?>" method="POST" class="checkout-container" x-data="{ showContact: false }">
+            <form action="<?php echo e(route('checkout.store')); ?>" method="POST" class="checkout-container">
                 <?php echo csrf_field(); ?>
                 <input type="hidden" name="advert_id" value="<?php echo e($advert->id); ?>">
 
@@ -20,7 +16,6 @@
 
                     <div class="container-item">
                         <h2>Замовлення</h2>
-                        <p>Продавець: <?php echo e($advert->user->first_name); ?> <?php echo e($advert->user->last_name); ?></p>
                         <?php if (isset($component)) { $__componentOriginal4b7b31bf8150596c2e9ef372392491c5 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4b7b31bf8150596c2e9ef372392491c5 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.advert-item','data' => ['advert' => $advert]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -108,17 +103,17 @@
                     <div class="container-item">
                         <h3>Оплата</h3>
 
-                        <?php $__currentLoopData = PaymentMethod::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = \App\Enum\PaymentMethod::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if (isset($component)) { $__componentOriginale892edd1d52b28f8c510669e168e9b66 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale892edd1d52b28f8c510669e168e9b66 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.radio-button','data' => ['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(PaymentMethod::getTranslation($method)).'','class' => 'payment-method']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.radio-button','data' => ['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(\App\Enum\PaymentMethod::getTranslation($method)).'','class' => 'payment-method']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('radio-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(PaymentMethod::getTranslation($method)).'','class' => 'payment-method']); ?>
+<?php $component->withAttributes(['name' => 'payment_method','id' => ''.e($method->value).'','value' => ''.e($method->value).'','label' => ''.e(\App\Enum\PaymentMethod::getTranslation($method)).'','class' => 'payment-method']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale892edd1d52b28f8c510669e168e9b66)): ?>
@@ -135,24 +130,35 @@
                     <div class="container-item">
                         <h3>Отримувач</h3>
 
-                        <div class="profile-header" x-show="!showContact" x-transition>
+                        <div class="profile-header">
                             <span class="profile-name"><?php echo e("$user->first_name $user->last_name"); ?></span>
-                            <a href="#" class="link-edit" @click.prevent="showContact = true">Змінити</a>
+                            <a class="link-edit" id="edit-btn">Змінити</a>
                         </div>
 
-                        <div class="profile-section" x-show="showContact" x-transition>
+                        <?php
+                            $initialUserData = [
+                                'recipient_first_name' => $user->first_name,
+                                'recipient_last_name' => $user->last_name,
+                                'recipient_middle_name' => '',
+                                'recipient_phone_number' => $user->phone_number,
+                            ];
+                        ?>
+
+                        <div id="user-data" data-user='<?php echo json_encode($initialUserData, 15, 512) ?>' hidden></div>
+
+                        <div class="profile-section" id="contact-info" style="display:none;">
                             <div class="form-row">
                                 <div class="form-group">
                                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'first_name','label' => 'Ім\'я','value' => ''.e($user->first_name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'recipient_first_name','label' => 'Ім\'я','value' => ''.e($user->first_name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'first_name','label' => 'Ім\'я','value' => ''.e($user->first_name).'']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'recipient_first_name','label' => 'Ім\'я','value' => ''.e($user->first_name).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -167,14 +173,14 @@
                                 <div class="form-group">
                                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'last_name','label' => 'Прізвище','value' => ''.e($user->last_name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'recipient_last_name','label' => 'Прізвище','value' => ''.e($user->last_name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'last_name','label' => 'Прізвище','value' => ''.e($user->last_name).'']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'recipient_last_name','label' => 'Прізвище','value' => ''.e($user->last_name).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -192,14 +198,14 @@
                                 <div class="form-group">
                                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'patronymic','label' => 'По батькові']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'recipient_middle_name','label' => 'По батькові']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'patronymic','label' => 'По батькові']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'recipient_middle_name','label' => 'По батькові']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -214,14 +220,14 @@
                                 <div class="form-group">
                                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','value' => ''.e($user->phone_number).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'tel','name' => 'recipient_phone_number','label' => 'Номер телефону','value' => ''.e($user->phone_number).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','value' => ''.e($user->phone_number).'']); ?>
+<?php $component->withAttributes(['type' => 'tel','name' => 'recipient_phone_number','label' => 'Номер телефону','value' => ''.e($user->phone_number).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -236,8 +242,8 @@
                             </div>
 
                             <div class="profile-actions">
-                                <button type="button" class="btn-change">Зберегти</button>
-                                <button type="button" class="btn-cancel" @click.prevent="showContact = false">Скасувати</button>
+                                <button class="btn-change" id="save-btn" type="button">Зберегти</button>
+                                <button class="btn-cancel" id="cancel-btn" type="button">Скасувати</button>
                             </div>
                         </div>
                     </div>
@@ -289,7 +295,5 @@
         </div>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
-
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/checkout/advert.js']); ?>
 
 <?php echo $__env->make('layouts.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/checkout/index.blade.php ENDPATH**/ ?>

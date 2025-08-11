@@ -1,9 +1,9 @@
+<?php $__env->startSection('title', 'Мій профіль'); ?>
+
 <?php $__env->startSection('profile-content'); ?>
     <div class="profile-container">
         <div class="profile-header">
-            <img id="profile-avatar"
-                 src="<?php echo e(!empty($user->image_path) ? Storage::disk('s3')->url($user->image_path) : asset('images/default-avatar.png')); ?>"
-                 alt="Avatar" class="profile-avatar">
+            <img id="profile-avatar" src="<?php echo e($avatarUrl ?? ''); ?>" alt="Avatar" class="profile-avatar">
 
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, <?php echo e($user->first_name); ?>!</h2>
@@ -268,9 +268,5 @@
 <?php endif; ?>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
-
-<?php $__env->startPush('scripts'); ?>
-    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/profile/profile.js'); ?>
-<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/index.blade.php ENDPATH**/ ?>

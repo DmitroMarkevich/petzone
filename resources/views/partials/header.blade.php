@@ -35,16 +35,12 @@
         <div class="navbar-right">
             <a class="nav-link" href="{{ route('profile.wishlist') }}" aria-label="Wishlist">
                 <img src="{{ asset('images/header/heart.svg') }}" alt="Wishlist" class="icon-heart">
-                <span class="badge">{{ session('wishlist') ? count(session('wishlist')) : 0 }}</span>
+                <span class="badge">{{ auth()->user()->wishlist()->count() }}</span>
             </a>
 
             <a class="nav-link" href="{{ route('profile.orders') }}" aria-label="Cart">
                 <img src="{{ asset('images/header/cart.svg') }}" alt="Cart" class="icon-cart">
-                <span class="badge">@auth{{ auth()->user()->orders()->count() }}
-                    @else
-                        0
-                    @endauth
-                </span>
+                <span class="badge">{{ auth()->user()->orders()->count() }}</span>
             </a>
 
             <a class="nav-avatar" href="{{ route('profile.index') }}">

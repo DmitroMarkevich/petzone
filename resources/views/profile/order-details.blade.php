@@ -1,5 +1,7 @@
 @extends('layouts.profile')
 
+@section('title', 'Деталі замовлення')
+
 @section('profile-content')
     <div class="record-container">
         <h2 class="page-title">
@@ -57,13 +59,17 @@
 
                 <div class="form-row">
                     <div class="contact-details">
-                        <p>Дуда Іван Вікторович</p>
-                        <p>+123456789</p>
+                        <p>{{ "{$order->seller->last_name} {$order->seller->first_name}" }}</p>
+                        @if ($phone = trim($order->seller->phone_number))
+                            <p>{{ $phone }}</p>
+                        @endif
                     </div>
 
-                    <a href="tel:+123456789" class="link-icon">
-                        <img src="{{ asset('images/contact-phone.svg') }}" alt="">Подзвонити відправнику
-                    </a>
+                    @if (!empty($phone))
+                        <a href="tel:{{ $phone }}" class="link-icon">
+                            <img src="{{ asset('images/contact-phone.svg') }}" alt="">Подзвонити відправнику
+                        </a>
+                    @endif
                 </div>
             </div>
 

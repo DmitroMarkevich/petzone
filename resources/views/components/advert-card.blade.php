@@ -1,5 +1,6 @@
 @php
-    $isInWishlist = in_array($advert->id, session('wishlist', []));
+    $isInWishlist = Auth::check() ? Auth::user()->wishlist()->where('advert_id', $advert->id)->exists() : false;
+
     $heartIcon = $isInWishlist ? 'images/heart-filled.svg' : 'images/heart.svg';
 
     $imageUrl = $advert->images->isNotEmpty()
@@ -7,20 +8,22 @@
         : asset('images/advert-test.jpg');
 @endphp
 
-<a href="{{ route('adverts.show', $advert->id) }}">
-    <div class="advert-card">
-        <div class="image-container">
+<div class="advert-card">
+    <div class="image-container">
+        <a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
             <img class="advert-image" src="{{ $imageUrl }}" alt="{{ $advert->title }}">
+        </a>
 
-            <form action="{{ route('wishlist.toggle', $advert->id) }}" method="POST">
-                @csrf
-                <button type="submit" class="favorite-button" aria-label="Додати до улюбленого">
-                    <span>Додати до улюбленого</span>
-                    <img src="{{ asset($heartIcon) }}" alt="Heart">
-                </button>
-            </form>
-        </div>
+        <form class="wishlist-form" data-action="{{ route('wishlist.toggle', $advert->id) }}"
+              data-id="{{ $advert->id }}">
+            @csrf
+            <button type="button" class="favorite-button" data-id="{{ $advert->id }}">
+                <img src="{{ asset($heartIcon) }}" alt="Heart" class="heart-icon" data-id="{{ $advert->id }}">
+            </button>
+        </form>
+    </div>
 
+    <a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
         <div class="advert-details">
             <div class="advert-tags">
                 <span class="tag">#Собаки</span>
@@ -49,5 +52,5 @@
                 Купити <img src="{{ asset('images/profile/cart.svg') }}" alt="Cart Icon">
             </button>
         </div>
-    </div>
-</a>
+    </a>
+</div>

@@ -4,9 +4,30 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 trait FileUploadTrait
 {
+    /**
+     * Get the default disk name to be used for storage.
+     *
+     * @return string The name of the filesystem disk ('public', 's3').
+     */
+    protected function getDisk(): string
+    {
+        return config('filesystems.default', 'public');
+    }
+
+    /**
+     * Get the Filesystem instance for the configured disk.
+     *
+     * @return Filesystem The filesystem disk instance.
+     */
+    protected function disk(): Filesystem
+    {
+        return Storage::disk($this->getDisk());
+    }
+
     /**
      * Upload a file to the storage.
      *
@@ -15,7 +36,7 @@ trait FileUploadTrait
      */
     public function uploadFile(string $directory, $file): string
     {
-        return Storage::disk('s3')->put($directory, $file, 'public');
+        return $this->disk()->put($directory, $file, 'public');
     }
 
     /**
@@ -50,8 +71,8 @@ trait FileUploadTrait
      */
     public function deleteFile(?string $filePath): void
     {
-        if ($filePath && Storage::disk('s3')->exists($filePath)) {
-            Storage::disk('s3')->delete($filePath);
+        if ($filePath && $this->disk()->exists($filePath)) {
+            $this->disk()->delete($filePath);
         }
     }
 

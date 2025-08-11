@@ -1,5 +1,7 @@
 @extends('layouts.profile')
 
+@section('title', 'Історія замовлень')
+
 @section('profile-content')
     @if($orders->isEmpty())
         <div class="no-results">

@@ -1,5 +1,7 @@
 @extends('layouts.profile')
 
+@section('title', 'Вподобання')
+
 @section('profile-content')
     @if($wishlist->isEmpty())
         <div class="no-results">

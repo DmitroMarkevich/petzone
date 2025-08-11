@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use App\Traits\FileUploadTrait;
+use App\Services\Auth\UserService;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Models\User;
-use App\Services\UserService;
-use App\Traits\FileUploadTrait;
-use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
@@ -75,7 +75,6 @@ class RegisterController extends Controller
             'logo' => $data['logo'] ?? null,
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
-            'ip_address' => request()->ip(),
         ]);
     }
 }

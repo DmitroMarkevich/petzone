@@ -1,0 +1,45 @@
+@use '../mixins';
+@use '../variables';
+
+.pagination-nav {
+    @include mixins.flex-center();
+    margin: 2rem 0;
+}
+
+.pagination {
+    @include mixins.flex-center-vertical;
+    gap: 8px;
+}
+
+.pagination-item a,
+.pagination-item span {
+    @include mixins.flex-center();
+    min-width: 40px;
+    height: 40px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid variables.$light-gray;
+    color: variables.$muted-gray;
+    transition: all 0.15s ease;
+}
+
+.pagination-item a:hover {
+    background-color: #f8fafc;
+    color: variables.$dark-gray;
+    border-color: variables.$light-gray;
+}
+
+.pagination-item.active span {
+    background-color: variables.$blue;
+    color: variables.$light-background;
+}
+
+.pagination-item.disabled span {
+    color: variables.$muted-gray;
+}
+
+.pagination-dots {
+    padding: 0 8px;
+    font-weight: 700;
+    color: variables.$muted-gray;
+}

@@ -1,5 +1,7 @@
 @extends('layouts.profile')
 
+@section('title', 'Мої оголошення')
+
 @section('profile-content')
     @if($adverts->isEmpty())
         <div class="no-results">
@@ -9,19 +11,14 @@
         <div class="adverts-container">
             <h2 class="page-title">Мої оголошення</h2>
 
-            <div class="filter-buttons">
-                <button class="filter-button active">Всі ({{ $adverts->count() }})</button>
-                <button class="filter-button" data-status="active">
-                    Активні ({{ $adverts->where('is_active', true)->count() }})
-                </button>
-                <button class="filter-button" data-status="no-active">
-                    Неактивні ({{ $adverts->where('is_active', false)->count() }})
-                </button>
-            </div>
+            <x-filter-buttons :items="$adverts->getCollection()" :filters="[
+                ['key' => 'is_active', 'value' => true, 'label' => 'Активні'],
+                ['key' => 'is_active', 'value' => false, 'label' => 'Неактивні']
+            ]" />
 
             <div class="adverts-list">
                 @foreach($adverts as $advert)
-                    <x-advert-item :advert="$advert" :status="$advert->is_active ? 'active' : 'no-active'">
+                    <x-advert-item :advert="$advert" :status="$advert->is_active">
                         <x-slot name="actions">
                             <a href="{{ route('adverts.edit', $advert->id) }}" class="edit-btn">Редагувати</a>
 
@@ -34,10 +31,11 @@
                     </x-advert-item>
                 @endforeach
             </div>
+
+            @if($adverts->hasPages())
+                {{ $adverts->links() }}
+            @endif
         </div>
     @endif
 @endsection
 
-@push('scripts')
-    @vite('resources/js/pages/profile/statusFilter.js')
-@endpush

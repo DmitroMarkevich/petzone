@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Enum\OrderStatus;
+use App\Enum\DeliveryMethod;
+use App\Models\Advert\Advert;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Enum\OrderStatus;
-use App\Models\Advert\Advert;
 
 class Order extends Model
 {
@@ -24,6 +25,7 @@ class Order extends Model
         'is_active',
 
         'buyer_id',
+        'seller_id',
         'advert_id',
 
         'payment_method',
@@ -43,6 +45,7 @@ class Order extends Model
 
     protected $casts = [
         'status' => OrderStatus::class,
+        'delivery_method' => DeliveryMethod::class,
     ];
 
     /**

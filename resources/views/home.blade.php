@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Головна')
+
 @section('app-content')
     <div class="hero-container">
         <div class="hero-text">
@@ -20,44 +22,60 @@
 
                 <div class="section-container">
                     <div class="category-item">
-                        <img src="{{ asset('images/home/dog.png') }}" alt="Собака" class="category-image">
-                        <h4 class="category-title">Для Собак</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/dog.png') }}" alt="Собака" class="category-image">
+                            <h4 class="category-title">Для Собак</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/cat.png') }}" alt="Кіт" class="category-image">
-                        <h4 class="category-title">Для Котів</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/cat.png') }}" alt="Кіт" class="category-image">
+                            <h4 class="category-title">Для Котів</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/hamster.png') }}" alt="Гризун" class="category-image">
-                        <h4 class="category-title">Для Гризунів</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/hamster.png') }}" alt="Гризун" class="category-image">
+                            <h4 class="category-title">Для Гризунів</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/parrot.png') }}" alt="Птах" class="category-image">
-                        <h4 class="category-title">Для Птахів</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/parrot.png') }}" alt="Птах" class="category-image">
+                            <h4 class="category-title">Для Птахів</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/fish.png') }}" alt="Риба" class="category-image">
-                        <h4 class="category-title">Для Риб</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/fish.png') }}" alt="Риба" class="category-image">
+                            <h4 class="category-title">Для Риб</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/reptile.png') }}" alt="Рептилія" class="category-image">
-                        <h4 class="category-title">Для Рептилій</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/reptile.png') }}" alt="Рептилія" class="category-image">
+                            <h4 class="category-title">Для Рептилій</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/medicinal.png') }}" alt="Загальні товари"
-                             class="category-image">
-                        <h4 class="category-title">Загальні Товари</h4>
+                        <a href="">
+                            <img src="{{ asset('images/home/medicinal.png') }}" alt="Загальні товари"
+                                 class="category-image">
+                            <h4 class="category-title">Загальні Товари</h4>
+                        </a>
                     </div>
 
                     <div class="category-item">
-                        <img src="{{ asset('images/home/another.png') }}" alt="Інше" class="category-image">
-                        <h4 class="category-title">Інші Товари</h4>
+                        <a href="" style="color: black">
+                            <img src="{{ asset('images/home/another.png') }}" alt="Інше" class="category-image">
+                            <h4 class="category-title">Інші Товари</h4>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -193,7 +211,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    @vite('resources/js/pages/home/slider.js')
-@endpush

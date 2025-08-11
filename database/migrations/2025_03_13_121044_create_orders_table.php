@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
 
             $table->foreignUuid('buyer_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignUuid('seller_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
 
             $table->string('payment_method');
@@ -27,6 +28,11 @@ return new class extends Migration
             $table->decimal('delivery_cost', 10)->nullable();
             $table->decimal('total_price', 10);
             $table->date('estimated_delivery_date')->nullable();
+
+            $table->string('recipient_last_name')->nullable();
+            $table->string('recipient_first_name')->nullable();
+            $table->string('recipient_middle_name')->nullable();
+            $table->string('recipient_phone')->nullable();
 
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('shipped_at')->nullable();

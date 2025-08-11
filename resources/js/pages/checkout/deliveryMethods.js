@@ -2,7 +2,7 @@ import { fetchData } from '@/modules/api/api.js';
 import { debounce } from '@/modules/utils/debounce.js';
 import { showGlobalLoader, hideGlobalLoader } from '@/modules/utils/loader.js';
 
-$(function () {
+$(document).ready(function () {
     const $deliveryInputs = $('input[name="delivery_method"]');
     const WAREHOUSES_URL = '/address/warehouses';
 

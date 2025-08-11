@@ -35,17 +35,12 @@
         <div class="navbar-right">
             <a class="nav-link" href="<?php echo e(route('profile.wishlist')); ?>" aria-label="Wishlist">
                 <img src="<?php echo e(asset('images/header/heart.svg')); ?>" alt="Wishlist" class="icon-heart">
-                <span class="badge"><?php echo e(session('wishlist') ? count(session('wishlist')) : 0); ?></span>
+                <span class="badge"><?php echo e(auth()->user()->wishlist()->count()); ?></span>
             </a>
 
             <a class="nav-link" href="<?php echo e(route('profile.orders')); ?>" aria-label="Cart">
                 <img src="<?php echo e(asset('images/header/cart.svg')); ?>" alt="Cart" class="icon-cart">
-                <span class="badge"><?php if(auth()->guard()->check()): ?><?php echo e(auth()->user()->orders()->count()); ?>
-
-                    <?php else: ?>
-                        0
-                    <?php endif; ?>
-                </span>
+                <span class="badge"><?php echo e(auth()->user()->orders()->count()); ?></span>
             </a>
 
             <a class="nav-avatar" href="<?php echo e(route('profile.index')); ?>">

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use App\Http\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
 {
@@ -22,7 +24,7 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    public function sendResetLinkEmail(Request $request)
+    public function sendResetLinkEmail(Request $request): JsonResponse|RedirectResponse
     {
         $this->validateEmail($request);
 
@@ -33,8 +35,10 @@ class ForgotPasswordController extends Controller
             $this->credentials($request)
         );
 
-        return $response == Password::RESET_LINK_SENT
-            ? $this->sendResetLinkResponse($request, $response)
-            : $this->sendResetLinkFailedResponse($request, $response);
+        if ($response == Password::RESET_LINK_SENT) {
+            return back()->with('status', trans($response));
+        }
+
+        return back()->withErrors(['email' => trans($response)]);
     }
 }

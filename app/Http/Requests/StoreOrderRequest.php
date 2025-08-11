@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\PaymentMethod;
+use App\Enum\DeliveryMethod;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
-use App\Enum\PaymentMethod;
-use App\Enum\DeliveryMethod;
 
 class StoreOrderRequest extends FormRequest
 {
@@ -29,21 +29,10 @@ class StoreOrderRequest extends FormRequest
             'advert_id' => 'required|exists:adverts,id',
             'payment_method' => ['required', Rule::in(PaymentMethod::values())],
             'delivery_method' => ['required', Rule::in(DeliveryMethod::values())],
+            'recipient_first_name' => 'required|string|max:50',
+            'recipient_last_name' => 'required|string|max:50',
+            'recipient_middle_name' => 'nullable|string|max:50',
+            'recipient_phone_number' => 'required|string|max:15',
         ];
-    }
-
-    /**
-     * Prepare the data for validation.
-     *
-     * This method modifies the request data before validation.
-     *
-     * @return void
-     */
-    public function prepareForValidation(): void
-    {
-        $this->merge([
-            'payment_method' => $this->input('payment_method'),
-            'delivery_method' => $this->input('delivery_method'),
-        ]);
     }
 }

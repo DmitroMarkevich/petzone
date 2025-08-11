@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', 'Увійти')
+
 @section('auth-content')
     <div class="auth-content">
         <div class="auth-header">

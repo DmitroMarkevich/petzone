@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', 'Редагування оголошення'); ?>
+
 <?php $__env->startSection('profile-content'); ?>
     <div class="record-container">
         <h2 class="page-title">
@@ -164,14 +166,6 @@
         </form>
     </div>
 <?php $__env->stopSection(); ?>
-
-<?php $__env->startPush('scripts'); ?>
-    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/advert/photoUpload.js'); ?>
-<?php $__env->stopPush(); ?>
-
-<?php $__env->startPush('styles'); ?>
-    <?php echo app('Illuminate\Foundation\Vite')('resources/sass/advert/_advert.scss'); ?>
-<?php $__env->stopPush(); ?>
 
 
 <?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/adverts/edit.blade.php ENDPATH**/ ?>

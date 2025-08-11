@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', 'Увійти'); ?>
+
 <?php $__env->startSection('auth-content'); ?>
     <div class="auth-content">
         <div class="auth-header">

@@ -1,17 +1,15 @@
-@php
-    use App\Enum\PaymentMethod;
-@endphp
-
 @extends('layouts.base')
+
+@section('title', 'Оформлення замовлення')
 
 @section('content')
     <div class="checkout-layout">
         <header class="checkout-header">
-            <img src="{{ asset('images/blue-logo.svg') }}" alt="Logo">
+            <a href="{{ route('home') }}"><img src="{{ asset('images/blue-logo.svg') }}" alt="Logo"></a>
         </header>
 
         <main>
-            <form action="{{ route('checkout.store') }}" method="POST" class="checkout-container" x-data="{ showContact: false }">
+            <form action="{{ route('checkout.store') }}" method="POST" class="checkout-container">
                 @csrf
                 <input type="hidden" name="advert_id" value="{{ $advert->id }}">
 
@@ -20,7 +18,6 @@
 
                     <div class="container-item">
                         <h2>Замовлення</h2>
-                        <p>Продавець: {{ $advert->user->first_name }} {{ $advert->user->last_name }}</p>
                         <x-advert-item :advert="$advert"/>
                     </div>
 
@@ -85,11 +82,11 @@
                     <div class="container-item">
                         <h3>Оплата</h3>
 
-                        @foreach (PaymentMethod::cases() as $method)
+                        @foreach (\App\Enum\PaymentMethod::cases() as $method)
                             <x-radio-button name="payment_method"
                                             id="{{ $method->value }}"
                                             value="{{ $method->value }}"
-                                            label="{{ PaymentMethod::getTranslation($method) }}"
+                                            label="{{ \App\Enum\PaymentMethod::getTranslation($method) }}"
                                             class="payment-method"/>
                         @endforeach
                     </div>
@@ -97,36 +94,47 @@
                     <div class="container-item">
                         <h3>Отримувач</h3>
 
-                        <div class="profile-header" x-show="!showContact" x-transition>
+                        <div class="profile-header">
                             <span class="profile-name">{{ "$user->first_name $user->last_name" }}</span>
-                            <a href="#" class="link-edit" @click.prevent="showContact = true">Змінити</a>
+                            <a class="link-edit" id="edit-btn">Змінити</a>
                         </div>
 
-                        <div class="profile-section" x-show="showContact" x-transition>
+                        @php
+                            $initialUserData = [
+                                'recipient_first_name' => $user->first_name,
+                                'recipient_last_name' => $user->last_name,
+                                'recipient_middle_name' => '',
+                                'recipient_phone_number' => $user->phone_number,
+                            ];
+                        @endphp
+
+                        <div id="user-data" data-user='@json($initialUserData)' hidden></div>
+
+                        <div class="profile-section" id="contact-info" style="display:none;">
                             <div class="form-row">
                                 <div class="form-group">
-                                    <x-input type="text" name="first_name" label="Ім'я"
+                                    <x-input type="text" name="recipient_first_name" label="Ім'я"
                                              value="{{ $user->first_name }}"/>
                                 </div>
                                 <div class="form-group">
-                                    <x-input type="text" name="last_name" label="Прізвище"
+                                    <x-input type="text" name="recipient_last_name" label="Прізвище"
                                              value="{{ $user->last_name }}"/>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <x-input type="text" name="patronymic" label="По батькові"/>
+                                    <x-input type="text" name="recipient_middle_name" label="По батькові"/>
                                 </div>
                                 <div class="form-group">
-                                    <x-input type="tel" name="phone_number" label="Номер телефону"
-                                             value="{{ $user->phone_number }}"/>
+                                    <x-input type="tel" name="recipient_phone_number"
+                                             label="Номер телефону" value="{{ $user->phone_number }}"/>
                                 </div>
                             </div>
 
                             <div class="profile-actions">
-                                <button type="button" class="btn-change">Зберегти</button>
-                                <button type="button" class="btn-cancel" @click.prevent="showContact = false">Скасувати</button>
+                                <button class="btn-change" id="save-btn" type="button">Зберегти</button>
+                                <button class="btn-cancel" id="cancel-btn" type="button">Скасувати</button>
                             </div>
                         </div>
                     </div>
@@ -177,5 +185,3 @@
         </div>
     @endif
 @endsection
-
-@vite(['resources/js/checkout/advert.js'])

@@ -29,6 +29,7 @@ class OrderFactory extends Factory
             'is_active' => $this->faker->boolean(),
 
             'buyer_id' => User::inRandomOrder()->first()->id,
+            'seller_id' => User::inRandomOrder()->first()->id,
             'advert_id' => Advert::inRandomOrder()->first()->id,
 
             'payment_method' => $this->faker->randomElement(PaymentMethod::values()),

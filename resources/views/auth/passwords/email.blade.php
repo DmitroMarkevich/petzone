@@ -18,6 +18,12 @@
                          data-validation="email"/>
             </div>
 
+            @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <button type="submit" class="button submit">Підтвердити</button>
 
             <div class="auth-link">

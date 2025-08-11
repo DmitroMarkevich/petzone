@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use Illuminate\Http\UploadedFile;
 use App\Models\Advert\Advert;
 use App\Traits\FileUploadTrait;
+use Illuminate\Http\UploadedFile;
 
 class AdvertService
 {
     use FileUploadTrait;
 
-    public function updateAdvert(string $id, array $data)
+    public function updateAdvert(string $id, array $data): bool
     {
         $advert = Advert::findOrFail($id);
 
@@ -24,7 +24,7 @@ class AdvertService
             'description' => $data['description'],
             'price' => $data['price'],
             'category_id' => $data['category_id'],
-            'user_id' => auth()->id(),
+            'owner_id' => auth()->id(),
         ]);
 
         if (isset($data['images']) && is_array($data['images'])) {

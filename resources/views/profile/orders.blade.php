@@ -1,5 +1,7 @@
 @extends('layouts.profile')
 
+@section('title', 'Ваші замовлення')
+
 @section('profile-content')
     @if($orders->isEmpty())
         <div class="no-results">
@@ -8,7 +10,11 @@
     @else
         <div>
             <h2 class="page-title">Ваші замовлення</h2>
-            <x-orders-table :orders="$orders"/>
+            <x-orders-table :orders="$orders->getCollection()"/>
+
+            @if($orders->hasPages())
+                {{ $orders->links() }}
+            @endif
         </div>
     @endif
 @endsection

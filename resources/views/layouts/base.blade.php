@@ -8,17 +8,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'PetZone') }}</title>
+    <title>
+        {{ config('app.name', 'PetZone') }}
+        @hasSection('title') — @yield('title') @endif
+    </title>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     @stack('styles')
 </head>
-<body>
+<body data-route="{{ Route::currentRouteName() }}">
     <div id="global-loader-overlay" class="hidden"></div>
 
     @yield('content')
-
     @stack('scripts')
 </body>
 </html>

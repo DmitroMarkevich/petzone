@@ -5,14 +5,16 @@
         : asset('images/advert-test.jpg');
 @endphp
 
-<div class="advert-item" data-status="{{ $status }}">
+<div class="advert-item" data-status="{{ $status ?? '' }}">
     <div class="advert-left">
         <div class="advert-image-wrapper">
             <img src="{{ $imageUrl }}" alt="{{ $advert->title }}" class="advert-image">
         </div>
 
         <div class="advert-content">
-            <a class="advert-title" href="{{ route('adverts.show', $advert->id) }}">{{ $advert->title }}</a>
+            <a class="advert-title" href="{{ route('adverts.show', $advert->id) }}">
+                {{ $advert->title }}
+            </a>
             <p class="advert-description">{{ $advert->description }}</p>
 
             <div class="advert-date-wrapper">
@@ -32,9 +34,7 @@
         <p class="advert-price">{{ $advert->price }}₴</p>
 
         @if(!empty($actions))
-            <div class="advert-actions">
-                {{ $actions }}
-            </div>
+            <div class="advert-actions">{{ $actions }}</div>
         @endif
     </div>
 </div>

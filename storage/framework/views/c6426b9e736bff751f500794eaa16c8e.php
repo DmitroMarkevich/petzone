@@ -16,6 +16,12 @@
                     <span class="dot"></span>
                     <span class="dot"></span>
                 </div>
+
+                <div id="slider-container"
+                     data-shopping-cart="<?php echo e(__('auth.slider.shopping_cart')); ?>"
+                     data-carton="<?php echo e(__('auth.slider.carton')); ?>"
+                     data-receipt="<?php echo e(__('auth.slider.receipt')); ?>" hidden>
+                </div>
             </div>
         </div>
 
@@ -25,17 +31,6 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startPush('scripts'); ?>
-    <script>
-        window.sliderTexts = <?php echo json_encode([
-        'shopping_cart' => __('auth.slider.shopping_cart'),
-        'carton' => __('auth.slider.carton'),
-        'receipt' => __('auth.slider.receipt'),
-    ]); ?>;
-    </script>
-
-    <?php echo app('Illuminate\Foundation\Vite')('resources/js/pages/auth/slider.js'); ?>
-<?php $__env->stopPush(); ?>
 
 
 

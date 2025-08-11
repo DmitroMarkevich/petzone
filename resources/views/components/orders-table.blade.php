@@ -1,4 +1,3 @@
-@php use App\Enum\OrderStatus; @endphp
 @props(['orders', 'short' => false])
 
 <div class="orders-container {{ $short ? 'orders-container--short' : '' }}">
@@ -18,12 +17,14 @@
             <span>{{ $order->order_number }}</span>
             <span>{{ $order->created_at->format('d/m/Y H:i') }}</span>
             <div class="status {{ strtolower($order->status->value) }}">
-                {{ OrderStatus::getTranslation($order->status) }}
+                {{ App\Enum\OrderStatus::getTranslation($order->status) }}
             </div>
             <span>{{ $order->tracking_number ?? '—' }}</span>
             <span>₴{{ $order->total_price ?? '—' }}</span>
             @unless($short)
-                <a href="{{ route('profile.orders.details', $order->id) }}">Подивитися</a>
+                <a href="{{ route('profile.orders.details', $order->id) }}">
+                    Подивитися
+                </a>
             @endunless
         </div>
     @endforeach

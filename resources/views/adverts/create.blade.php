@@ -1,19 +1,20 @@
 @extends('layouts.profile')
 
+@section('title', 'Створення оголошення')
+
 @section('profile-content')
     <div class="record-container">
         <h2 class="page-title">Створити оголошення</h2>
 
         <form action="{{ route('adverts.store') }}" method="POST" enctype="multipart/form-data" class="advert-form">
             @csrf
-
             <input type="hidden" name="action" id="form-action" value="save">
 
             <div class="form-main">
                 <div class="form-group">
                     <x-input type="text" name="title" label="Заголовок"
-                             placeholder="Введіть заголовок товару" value="{{ old('title') }}" required />
-
+                             placeholder="Введіть заголовок товару" value="{{ old('title') }}"
+                             required />
                     <x-select id="category_id" name="category_id" label="Категорія"
                               :options="$categories" :selected="old('category_id')"
                               class="form-control" required
@@ -21,7 +22,6 @@
 
                     <div>
                         <label for="photo-grid">Фото</label>
-
                         <div id="photo-grid" class="photo-grid">
                             @for ($i = 1; $i <= 8; $i++)
                                 <div class="photo-upload" data-index="{{ $i }}">
@@ -47,7 +47,6 @@
                               :selected="old('advert_condition', 'new')" class="form-control"
                               required
                     />
-
                     <x-select id="advert_type" name="advert_type"
                               label="Тип оголошення" :options="['product' => 'Товар', 'service' => 'Послуга']"
                               :selected="old('advert_type', 'product')" class="form-control"
@@ -68,10 +67,3 @@
     </div>
 @endsection
 
-@push('scripts')
-    @vite('resources/js/pages/advert/photoUpload.js')
-@endpush
-
-@push('styles')
-    @vite('resources/sass/advert/_advert.scss')
-@endpush

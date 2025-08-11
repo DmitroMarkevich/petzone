@@ -93,6 +93,10 @@
     gap: 8px;
 }
 
+.category-item a {
+    color: variables.$carbon;
+}
+
 .delivery-step-item {
     @include mixins.flex-center(column);
     @include mixins.flex-grow-1;

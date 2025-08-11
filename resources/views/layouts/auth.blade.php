@@ -18,6 +18,12 @@
                     <span class="dot"></span>
                     <span class="dot"></span>
                 </div>
+
+                <div id="slider-container"
+                     data-shopping-cart="{{ __('auth.slider.shopping_cart') }}"
+                     data-carton="{{ __('auth.slider.carton') }}"
+                     data-receipt="{{ __('auth.slider.receipt') }}" hidden>
+                </div>
             </div>
         </div>
 
@@ -27,16 +33,5 @@
     </div>
 @endsection
 
-@push('scripts')
-    <script>
-        window.sliderTexts = {!! json_encode([
-        'shopping_cart' => __('auth.slider.shopping_cart'),
-        'carton' => __('auth.slider.carton'),
-        'receipt' => __('auth.slider.receipt'),
-    ]) !!};
-    </script>
-
-    @vite('resources/js/pages/auth/slider.js')
-@endpush
 
 

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Попередній перегляд оголошення')
+
 @section('app-content')
     <div class="advert-content">
         <div class="advert-details">

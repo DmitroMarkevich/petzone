@@ -17,11 +17,8 @@ export const initVisibilityToggle = (
      */
     const togglePasswordVisibility = ($input, $icon) => {
         const isCurrentlyPassword = $input.attr('type') === 'password';
-
         $input.attr('type', isCurrentlyPassword ? 'text' : 'password');
-
-        const iconSrc = isCurrentlyPassword ? eyeOpenUrl : eyeClosedUrl;
-        $icon.attr('src', iconSrc);
+        $icon.attr('src', isCurrentlyPassword ? eyeOpenUrl : eyeClosedUrl);
     };
 
     $(document).on('click', toggleSelector, function () {

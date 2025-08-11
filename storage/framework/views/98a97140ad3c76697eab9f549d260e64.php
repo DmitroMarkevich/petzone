@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', 'Історія замовлень'); ?>
+
 <?php $__env->startSection('profile-content'); ?>
     <?php if($orders->isEmpty()): ?>
         <div class="no-results">

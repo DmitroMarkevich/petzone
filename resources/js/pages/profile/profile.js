@@ -1,3 +1,5 @@
+import './forms.js'
 import './avatar.js'
 import './address.js'
-import './forms.js'
+import './filterButtons.js'
+import './toggleDetails.js'

@@ -4,7 +4,8 @@
  * updates the background with the selected image, and hides the preview image once a photo is selected.
  */
 $(document).ready(function () {
-    const $photoBackground = $("#photo-background"), $fileInput = $("#profile-photo");
+    const $fileInput = $("#profile-photo");
+    const $photoBackground = $("#photo-background");
 
     $($photoBackground).on("click", function () {
         $($fileInput).click();

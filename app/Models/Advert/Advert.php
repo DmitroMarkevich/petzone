@@ -2,14 +2,14 @@
 
 namespace App\Models\Advert;
 
+use App\Models\Image;
+use App\Models\User;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use App\Models\Image;
-use App\Models\User;
 
 class Advert extends Model
 {
@@ -27,7 +27,7 @@ class Advert extends Model
         'description',
         'average_rating',
         'category_id',
-        'user_id'
+        'owner_id'
     ];
 
     /**
@@ -57,7 +57,7 @@ class Advert extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     /**

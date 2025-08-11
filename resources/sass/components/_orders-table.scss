@@ -26,6 +26,12 @@
     }
 }
 
+.orders-container--short {
+    .orders-header, .order-row {
+        grid-template-columns: 1fr 1.5fr 2fr 1.5fr 1fr;
+    }
+}
+
 .status {
     color: white;
     border-radius: 32px;
@@ -34,7 +40,7 @@
     margin: 0 auto;
 }
 
-.status.processing, .status.pending, .status.shipped {
+.status.confirmed, .status.pending, .status.shipped {
     background-color: variables.$dark-blue;
 }
 

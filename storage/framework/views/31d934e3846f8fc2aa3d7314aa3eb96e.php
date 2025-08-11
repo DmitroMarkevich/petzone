@@ -1,5 +1,7 @@
+<?php $__env->startSection('title', config('app.name') . ' — Зареєструватися'); ?>
+
 <?php $__env->startSection('auth-content'); ?>
-    <div class="auth-content" x-data="{ step: 1 }">
+    <div class="auth-content">
         <div class="auth-header">
             <h2 class="auth-heading"><?php echo e(__('auth.register.heading')); ?></h2>
             <p class="auth-subheading"><?php echo e(__('auth.register.subheading')); ?></p>
@@ -7,7 +9,7 @@
 
         <form id="registration-form" method="POST" action="<?php echo e(route('register')); ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
-            <div x-show="step === 1" x-transition x-cloak>
+            <div class="step step-1 active">
                 <div class="form-group">
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
@@ -74,10 +76,7 @@
                 </div>
 
                 <div>
-                    <button type="button" class="button next-step" @click="step = 2">
-                        <?php echo e(__('auth.register.next')); ?>
-
-                    </button>
+                    <button type="button" class="button next-step"><?php echo e(__('auth.register.next')); ?></button>
                     <?php echo $__env->make('partials.social-buttons', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
 
@@ -89,7 +88,7 @@
                 </div>
             </div>
 
-            <div x-show="step === 2" x-transition hidden>
+            <div class="step step-2">
                 <div class="photo-upload">
                     <div id="photo-background" class="photo-background">
                         <img id="preview-image" src="<?php echo e(asset('images/auth/upload-photo.svg')); ?>" alt="Upload photo">
@@ -168,6 +167,5 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo app('Illuminate\Foundation\Vite')(['resources/js/auth/avatar.js']); ?>
 
 <?php echo $__env->make('layouts.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/auth/register.blade.php ENDPATH**/ ?>

@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', 'Вподобання'); ?>
+
 <?php $__env->startSection('profile-content'); ?>
     <?php if($wishlist->isEmpty()): ?>
         <div class="no-results">

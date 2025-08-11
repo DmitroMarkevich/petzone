@@ -123,10 +123,6 @@ input[type="search"]::-webkit-search-cancel-button {
     display: none;
 }
 
-[x-cloak] {
-    display: none !important;
-}
-
 .dropdown-base {
     position: absolute;
     border: 1px solid variables.$light-gray;

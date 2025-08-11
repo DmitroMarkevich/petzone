@@ -22,7 +22,7 @@ class AdvertFactory extends Factory
         return [
             'id' => Str::uuid(),
             'category_id' => Category::inRandomOrder()->first()->id,
-            'user_id' => User::inRandomOrder()->first()->id,
+            'owner_id' => User::inRandomOrder()->first()->id,
             'title' => 'Оголошення #' . $this->faker->unique()->randomNumber(5),
             'description' => $this->faker->sentence,
             'price' => $this->faker->numberBetween(10, 5000),
