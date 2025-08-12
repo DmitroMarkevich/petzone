@@ -1,5 +1,5 @@
 <?php
-    $isInWishlist = Auth::check() ? Auth::user()->wishlist()->where('advert_id', $advert->id)->exists() : false;
+    $isInWishlist = \Illuminate\Support\Facades\Auth::user()->wishlist()->where('advert_id', $advert->id)->exists();
 
     $heartIcon = $isInWishlist ? 'images/heart-filled.svg' : 'images/heart.svg';
 
@@ -9,21 +9,21 @@
 ?>
 
 <div class="advert-card">
-    <div class="image-container">
-        <a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
-            <img class="advert-image" src="<?php echo e($imageUrl); ?>" alt="<?php echo e($advert->title); ?>">
-        </a>
-
-        <form class="wishlist-form" data-action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>"
-              data-id="<?php echo e($advert->id); ?>">
-            <?php echo csrf_field(); ?>
-            <button type="button" class="favorite-button" data-id="<?php echo e($advert->id); ?>">
-                <img src="<?php echo e(asset($heartIcon)); ?>" alt="Heart" class="heart-icon" data-id="<?php echo e($advert->id); ?>">
-            </button>
-        </form>
-    </div>
-
     <a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
+        <div class="image-container">
+            <a href="<?php echo e(route('adverts.show', $advert->id)); ?>" class="advert-link">
+                <img class="advert-image" src="<?php echo e($imageUrl); ?>" alt="<?php echo e($advert->title); ?>">
+            </a>
+
+            <form class="wishlist-form" data-action="<?php echo e(route('wishlist.toggle', $advert->id)); ?>"
+                  data-id="<?php echo e($advert->id); ?>">
+                <?php echo csrf_field(); ?>
+                <button type="button" class="favorite-button" data-id="<?php echo e($advert->id); ?>">
+                    <img src="<?php echo e(asset($heartIcon)); ?>" alt="Heart" class="heart-icon" data-id="<?php echo e($advert->id); ?>">
+                </button>
+            </form>
+        </div>
+
         <div class="advert-details">
             <div class="advert-tags">
                 <span class="tag">#Собаки</span>

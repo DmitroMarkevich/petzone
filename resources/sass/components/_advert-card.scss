@@ -76,9 +76,9 @@
     gap: 4px;
 }
 
-.advert-details {
+.advert-card .advert-details {
     @include mixins.flex-column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .rating-value {

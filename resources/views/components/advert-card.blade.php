@@ -1,5 +1,5 @@
 @php
-    $isInWishlist = Auth::check() ? Auth::user()->wishlist()->where('advert_id', $advert->id)->exists() : false;
+    $isInWishlist = \Illuminate\Support\Facades\Auth::user()->wishlist()->where('advert_id', $advert->id)->exists();
 
     $heartIcon = $isInWishlist ? 'images/heart-filled.svg' : 'images/heart.svg';
 
@@ -9,21 +9,21 @@
 @endphp
 
 <div class="advert-card">
-    <div class="image-container">
-        <a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
-            <img class="advert-image" src="{{ $imageUrl }}" alt="{{ $advert->title }}">
-        </a>
-
-        <form class="wishlist-form" data-action="{{ route('wishlist.toggle', $advert->id) }}"
-              data-id="{{ $advert->id }}">
-            @csrf
-            <button type="button" class="favorite-button" data-id="{{ $advert->id }}">
-                <img src="{{ asset($heartIcon) }}" alt="Heart" class="heart-icon" data-id="{{ $advert->id }}">
-            </button>
-        </form>
-    </div>
-
     <a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
+        <div class="image-container">
+            <a href="{{ route('adverts.show', $advert->id) }}" class="advert-link">
+                <img class="advert-image" src="{{ $imageUrl }}" alt="{{ $advert->title }}">
+            </a>
+
+            <form class="wishlist-form" data-action="{{ route('wishlist.toggle', $advert->id) }}"
+                  data-id="{{ $advert->id }}">
+                @csrf
+                <button type="button" class="favorite-button" data-id="{{ $advert->id }}">
+                    <img src="{{ asset($heartIcon) }}" alt="Heart" class="heart-icon" data-id="{{ $advert->id }}">
+                </button>
+            </form>
+        </div>
+
         <div class="advert-details">
             <div class="advert-tags">
                 <span class="tag">#Собаки</span>
