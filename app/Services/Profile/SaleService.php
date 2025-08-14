@@ -3,6 +3,7 @@
 namespace App\Services\Profile;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Enum\OrderStatus;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -25,5 +26,22 @@ class SaleService
             ->orderByRaw("status = ? DESC", [OrderStatus::PENDING->value])
             ->latest()
             ->paginate($perPage);
+    }
+
+    /**
+     * Update order status (CONFIRMED, CANCELED...).
+     *
+     * @param Order $order
+     * @param OrderStatus $status
+     * @return void
+     */
+    public function updateOrderStatus(Order $order, OrderStatus $status): void
+    {
+        if ($order->status === $status) {
+            return;
+        }
+
+        $order->status = $status;
+        $order->save();
     }
 }

@@ -50,7 +50,11 @@
                                         <button type="submit" class="edit-btn">Підтвердити</button>
                                     </form>
 
-                                    <button type="submit" class="delete-btn">Відхилити</button>
+                                    <form action="{{ route('profile.sales.reject', $order->id) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <button type="submit" class="delete-btn">Відхилити</button>
+                                    </form>
                                 </div>
                             @endif
                         </div>

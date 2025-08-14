@@ -38,7 +38,7 @@
                 <span class="badge"><?php echo e(auth()->user()->wishlist()->count()); ?></span>
             </a>
 
-            <a class="nav-link" href="<?php echo e(route('profile.orders')); ?>" aria-label="Cart">
+            <a class="nav-link" href="<?php echo e(route('profile.orders.index')); ?>" aria-label="Cart">
                 <img src="<?php echo e(asset('images/header/cart.svg')); ?>" alt="Cart" class="icon-cart">
                 <span class="badge"><?php echo e(auth()->user()->orders()->count()); ?></span>
             </a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\OrderStatus;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Auth\OAuth2Controller;
 use App\Http\Controllers\Advert\AdvertController;
@@ -32,12 +33,24 @@ Route::middleware('auth')->group(function () {
         Route::post('/logo', [ProfileController::class, 'uploadAvatar'])->name('uploadAvatar');
         Route::delete('/logo', [ProfileController::class, 'deleteAvatar'])->name('deleteAvatar');
 
-        Route::get('/orders', [OrderController::class, 'index'])->name('orders');
-        Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.details');
-        Route::get('/orders-history', [OrderController::class, 'history'])->name('orders.history');
+        Route::prefix('orders')->name('orders.')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('index');
+            Route::get('/history', [OrderController::class, 'history'])->name('history');
+            Route::get('/{id}', [OrderController::class, 'show'])->name('details');
+        });
 
-        Route::get('/sales', [SalesController::class, 'index'])->name('sales');
-        Route::post('/sales/{id}/confirm', [SalesController::class, 'confirm'])->name('sales.confirm');
+        Route::prefix('sales')->name('sales.')->group(function () {
+            Route::get('/', [SalesController::class, 'index'])->name('index');
+            Route::post(
+                '/{orderId}/confirm',
+                fn($id) => app(SalesController::class)->updateStatus($id, OrderStatus::CONFIRMED)
+            )->name('confirm');
+
+            Route::post(
+                '/{orderId}/reject',
+                fn($id) => app(SalesController::class)->updateStatus($id, OrderStatus::CANCELED)
+            )->name('reject');
+        });
 
         Route::get('/adverts', [ProfileController::class, 'adverts'])->name('adverts');
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');

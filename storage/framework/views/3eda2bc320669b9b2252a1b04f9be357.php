@@ -68,7 +68,11 @@
                                         <button type="submit" class="edit-btn">Підтвердити</button>
                                     </form>
 
-                                    <button type="submit" class="delete-btn">Відхилити</button>
+                                    <form action="<?php echo e(route('profile.sales.reject', $order->id)); ?>" method="POST">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('POST'); ?>
+                                        <button type="submit" class="delete-btn">Відхилити</button>
+                                    </form>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -100,4 +104,4 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.profile', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/sales.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.profile', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/sales.blade.php ENDPATH**/ ?>

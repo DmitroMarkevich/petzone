@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="profile-item">
-                    <a class="profile-link <?php echo e(is_active('profile/orders')); ?>" href="<?php echo e(route('profile.orders')); ?>">
+                    <a class="profile-link <?php echo e(is_active('profile/orders')); ?>" href="<?php echo e(route('profile.orders.index')); ?>">
                         <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Замовлення">Замовлення
                     </a>
                 </div>
@@ -30,13 +30,13 @@
 
                 <div class="profile-item">
                     <a class="profile-link <?php echo e(is_active('profile/sales')); ?>"
-                       href="<?php echo e(route('profile.sales')); ?>">
+                       href="<?php echo e(route('profile.sales.index')); ?>">
                         <img src="<?php echo e(asset('images/profile/chart.svg')); ?>" alt="Продажі">Мої продажі
                     </a>
                 </div>
 
                 <div class="profile-item">
-                    <a class="profile-link <?php echo e(is_active('profile/orders-history')); ?>"
+                    <a class="profile-link <?php echo e(is_active('profile/orders/history')); ?>"
                        href="<?php echo e(route('profile.orders.history')); ?>">
                         <img src="<?php echo e(asset('images/profile/notebook.svg')); ?>" alt="Історія">Історія замовлень
                     </a>
@@ -60,4 +60,4 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/layouts/profile.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/layouts/profile.blade.php ENDPATH**/ ?>

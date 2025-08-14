@@ -5,7 +5,7 @@
 @section('profile-content')
     <div class="record-container">
         <h2 class="page-title">
-            <a href="{{ route('profile.orders') }}">
+            <a href="{{ route('profile.orders.index') }}">
                 <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">
             </a>
             Деталі замовлення

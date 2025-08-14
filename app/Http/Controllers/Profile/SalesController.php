@@ -50,23 +50,20 @@ class SalesController extends Controller
         return view('profile.sales', compact('sales'));
     }
 
-    public function confirm(string $id): RedirectResponse
+    /**
+     * Update the status of a specific order.
+     * Finds the order by its ID and updates its status using the SaleService.
+     *
+     * @param string $orderId
+     * @param OrderStatus $status
+     *
+     * @return RedirectResponse
+     */
+    public function updateStatus(string $orderId, OrderStatus $status): RedirectResponse
     {
-        $order = Order::findOrFail($id);
+        $order = Order::findOrFail($orderId);
+        $this->saleService->updateOrderStatus($order, $status);
 
-        $order->status = OrderStatus::CONFIRMED;
-        $order->save();
-
-        return redirect()->route('profile.sales');
-    }
-
-    public function reject(string $id): RedirectResponse
-    {
-        $order = Order::findOrFail($id);
-
-        $order->status = OrderStatus::CANCELED;
-        $order->save();
-
-        return redirect()->route('profile.sales');
+        return redirect()->route('profile.sales.index');
     }
 }

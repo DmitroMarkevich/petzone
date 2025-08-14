@@ -38,7 +38,7 @@
                 <span class="badge">{{ auth()->user()->wishlist()->count() }}</span>
             </a>
 
-            <a class="nav-link" href="{{ route('profile.orders') }}" aria-label="Cart">
+            <a class="nav-link" href="{{ route('profile.orders.index') }}" aria-label="Cart">
                 <img src="{{ asset('images/header/cart.svg') }}" alt="Cart" class="icon-cart">
                 <span class="badge">{{ auth()->user()->orders()->count() }}</span>
             </a>

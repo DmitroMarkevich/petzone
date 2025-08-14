@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="profile-item">
-                    <a class="profile-link {{ is_active('profile/orders') }}" href="{{ route('profile.orders') }}">
+                    <a class="profile-link {{ is_active('profile/orders') }}" href="{{ route('profile.orders.index') }}">
                         <img src="{{ asset('images/profile/cart.svg') }}" alt="Замовлення">Замовлення
                     </a>
                 </div>
@@ -32,13 +32,13 @@
 
                 <div class="profile-item">
                     <a class="profile-link {{ is_active('profile/sales') }}"
-                       href="{{ route('profile.sales') }}">
+                       href="{{ route('profile.sales.index') }}">
                         <img src="{{ asset('images/profile/chart.svg') }}" alt="Продажі">Мої продажі
                     </a>
                 </div>
 
                 <div class="profile-item">
-                    <a class="profile-link {{ is_active('profile/orders-history') }}"
+                    <a class="profile-link {{ is_active('profile/orders/history') }}"
                        href="{{ route('profile.orders.history') }}">
                         <img src="{{ asset('images/profile/notebook.svg') }}" alt="Історія">Історія замовлень
                     </a>

@@ -54,6 +54,6 @@ class CheckoutController extends Controller
         $validatedData = $request->validated();
         $this->orderService->createOrder($request->user(), $validatedData);
 
-        return redirect()->route('profile.orders');
+        return redirect()->route('profile.orders.index');
     }
 }
