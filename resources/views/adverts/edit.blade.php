@@ -27,30 +27,24 @@
                               class="form-control" required
                     />
 
-                    <div>
-                        <label for="photo-grid">Фото</label>
+                    <div id="photo-grid" class="photo-grid">
+                        @for ($i = 1; $i <= 8; $i++)
+                            @php
+                                $image = $advert->images[$i - 1] ?? null;
+                            @endphp
 
-                        <div id="photo-grid" class="photo-grid">
-                            @for ($i = 1; $i <= 8; $i++)
-                                @php
-                                    $image = $advert->images[$i - 1] ?? null;
-                                @endphp
+                            <div class="photo-upload" data-index="{{ $i }}" {{ $image ? 'data-filled=true' : '' }}>
+                                <input type="file" name="images[]" id="photo-{{ $i }}" accept="image/*" class="photo-input">
 
-                                <div class="photo-upload" data-index="{{ $i }}" {{ $image ? 'data-filled=true' : '' }}>
-                                    <input type="file" name="images[]" id="photo-{{ $i }}" accept="image/*"
-                                           class="photo-input">
-
-                                    <label for="photo-{{ $i }}" class="photo-label">
-                                        @if ($image)
-                                            <img src="{{ Storage::disk('s3')->url($image->image_path) }}"
-                                                 alt="Photo {{ $i }}">
-                                        @else
-                                            <span class="placeholder-text">+</span>
-                                        @endif
-                                    </label>
-                                </div>
-                            @endfor
-                        </div>
+                                <label for="photo-{{ $i }}" class="photo-label">
+                                    @if ($image)
+                                        <img src="{{ Storage::disk('s3')->url($image->image_path) }}" alt="Photo {{ $i }}">
+                                    @else
+                                        <span class="placeholder-text">+</span>
+                                    @endif
+                                </label>
+                            </div>
+                        @endfor
                     </div>
 
                     <div>

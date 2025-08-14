@@ -2,8 +2,6 @@
  * Initializes an automatic image slider.
  */
 $(document).ready(function () {
-    console.log("Slider script loaded");
-
     const $sliderContainer = $('#slider-container');
 
     const sliderTexts = {
@@ -11,8 +9,6 @@ $(document).ready(function () {
         carton: $sliderContainer.data('carton'),
         receipt: $sliderContainer.data('receipt')
     };
-
-    console.log(sliderTexts);
 
     const sliderImages = [
         { src: "/images/auth/shopping-cart.png", text: sliderTexts.shopping_cart },

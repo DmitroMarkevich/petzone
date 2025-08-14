@@ -126,7 +126,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .dropdown-base {
     position: absolute;
     border: 1px solid variables.$light-gray;
-    background: variables.$light-background;
     z-index: 1000;
 
     li {

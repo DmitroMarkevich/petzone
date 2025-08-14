@@ -14,26 +14,22 @@
                 <div class="form-group">
                     <x-input type="text" name="title" label="Заголовок"
                              placeholder="Введіть заголовок товару" value="{{ old('title') }}"
-                             required />
+                             required/>
                     <x-select id="category_id" name="category_id" label="Категорія"
                               :options="$categories" :selected="old('category_id')"
                               class="form-control" required
                     />
 
-                    <div>
-                        <label for="photo-grid">Фото</label>
-                        <div id="photo-grid" class="photo-grid">
-                            @for ($i = 1; $i <= 8; $i++)
-                                <div class="photo-upload" data-index="{{ $i }}">
-                                    <input type="file" name="images[]" id="photo-{{ $i }}" accept="image/*"
-                                           class="photo-input">
+                    <div id="photo-grid" class="photo-grid">
+                        @for ($i = 1; $i <= 8; $i++)
+                            <div class="photo-upload" data-index="{{ $i }}">
+                                <input type="file" name="images[]" id="photo-{{ $i }}" accept="image/*" class="photo-input">
 
-                                    <label for="photo-{{ $i }}" class="photo-label">
-                                        <span class="placeholder-text">+</span>
-                                    </label>
-                                </div>
-                            @endfor
-                        </div>
+                                <label for="photo-{{ $i }}" class="photo-label">
+                                    <span class="placeholder-text">+</span>
+                                </label>
+                            </div>
+                        @endfor
                     </div>
 
                     <div>

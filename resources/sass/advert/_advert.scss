@@ -2,7 +2,7 @@
 @use '../variables';
 
 .form-main {
-    width: 60%
+    width: 60%;
 }
 
 .advert-form {
@@ -40,31 +40,33 @@
     gap: 10px;
 }
 
-.photo-upload {
+.form-main .photo-upload {
     position: relative;
-    width: 100%;
     padding-top: 100%;
     border: 1px solid #ccc;
     border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-}
 
-.photo-upload input[type="file"], .photo-upload img {
-    @include mixins.size(100%);
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-}
+    input[type="file"], .photo-label {
+        @include mixins.size(100%);
+    }
 
-.photo-upload input[type="file"] {
-    opacity: 0;
-}
+    input[type="file"] {
+        object-fit: cover;
+        opacity: 0;
+    }
 
-.photo-upload img {
-    object-fit: cover;
-    object-position: center;
+    .photo-label {
+        @include mixins.flex-center();
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+    }
+
+    img {
+        @include mixins.size(100%);
+        object-fit: cover;
+    }
 }
 
 .photo-main-label {

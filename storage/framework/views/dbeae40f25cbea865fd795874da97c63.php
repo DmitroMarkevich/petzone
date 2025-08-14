@@ -51,20 +51,16 @@
 <?php unset($__componentOriginaled2cde6083938c436304f332ba96bb7c); ?>
 <?php endif; ?>
 
-                    <div>
-                        <label for="photo-grid">Фото</label>
-                        <div id="photo-grid" class="photo-grid">
-                            <?php for($i = 1; $i <= 8; $i++): ?>
-                                <div class="photo-upload" data-index="<?php echo e($i); ?>">
-                                    <input type="file" name="images[]" id="photo-<?php echo e($i); ?>" accept="image/*"
-                                           class="photo-input">
+                    <div id="photo-grid" class="photo-grid">
+                        <?php for($i = 1; $i <= 8; $i++): ?>
+                            <div class="photo-upload" data-index="<?php echo e($i); ?>">
+                                <input type="file" name="images[]" id="photo-<?php echo e($i); ?>" accept="image/*" class="photo-input">
 
-                                    <label for="photo-<?php echo e($i); ?>" class="photo-label">
-                                        <span class="placeholder-text">+</span>
-                                    </label>
-                                </div>
-                            <?php endfor; ?>
-                        </div>
+                                <label for="photo-<?php echo e($i); ?>" class="photo-label">
+                                    <span class="placeholder-text">+</span>
+                                </label>
+                            </div>
+                        <?php endfor; ?>
                     </div>
 
                     <div>
