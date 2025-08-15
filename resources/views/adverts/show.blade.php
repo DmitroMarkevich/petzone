@@ -4,23 +4,26 @@
 
 @section('app-content')
     <div class="page-container">
-        <div class="breadcrumb">
+        <div>
             <a href="{{ route('profile.adverts') }}">
                 <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">
             </a>
-            <span class="category-path">Dogs / Food / Vitamins</span>
+            <span>Dogs / Food / Vitamins</span>
         </div>
 
         <div class="advert-content">
-            <div class="advert-details">
+            <div>
                 <div class="advert-gallery">
-                    <div class="main-image">
-                        <img src="{{ $mainImageUrl }}" alt="Advert Image">
+                    <div>
+                        @php
+                            $mainImage = $advert->images->first(fn($img) => $img->isMain());
+                        @endphp
+                        <img src="{{ image_url($mainImage) }}">
                     </div>
 
                     <div class="thumbnail-images">
-                        @foreach ($thumbnailUrls as $url)
-                            <img src="{{ $url }}" alt="Thumbnail">
+                        @foreach ($advert->images as $img)
+                            <img src="{{ image_url($img->image_path) }}" class="{{ $img->isMain() ? 'main-thumb' : '' }}">
                         @endforeach
                     </div>
                 </div>
@@ -54,12 +57,12 @@
             <div class="seller-info">
                 <div class="seller">
                     <img id="profile-avatar" src="{{ $avatarUrl  }}" alt="User Avatar" class="profile-avatar">
-                    <span class="seller-name">{{ $advert->user->first_name }} {{ $advert->user->last_name }}</span>
-                    <span class="post-date">Posted: {{ $advert->created_at->format('d/m/Y H:i') }}</span>
+                    <span>{{ $advert->user->first_name }} {{ $advert->user->last_name }}</span>
+                    <span>Posted: {{ $advert->created_at->format('d/m/Y H:i') }}</span>
                 </div>
 
-                <button class="view-number">View number</button>
-                <button class="view-email">View Email</button>
+                <button>View number</button>
+                <button>View Email</button>
             </div>
         </div>
     </div>

@@ -29,4 +29,16 @@ class AdvertFactory extends Factory
             'is_active' => true,
         ];
     }
+
+    public function configure(): AdvertFactory|Factory
+    {
+        return $this->afterCreating(function ($advert) {
+            $testImageUrl = 'adverts/9f95c0d0-f084-4f15-a378-ad95094abe37/qfkaJpt9Gm4giWoFbli4CB55YJ795CDJFVq8jgLe.jpg';
+
+            $advert->images()->create([
+                'image_path' => $testImageUrl,
+                'main_image' => true,
+            ]);
+        });
+    }
 }

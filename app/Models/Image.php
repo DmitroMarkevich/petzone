@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Image extends Model
+abstract class Image extends Model
 {
     use HasFactory, HasUuids;
 
@@ -20,9 +20,4 @@ class Image extends Model
         'id',
         'image_path',
     ];
-
-    public function imageable(): MorphTo
-    {
-        return $this->morphTo();
-    }
 }

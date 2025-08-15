@@ -12,11 +12,11 @@ class OAuth2Service
     /**
      * Handle OAuth user registration or login.
      *
-     * @param string $provider
-     * @param $socialUser
-     * @return User
+     * @param string $provider The OAuth provider ("google", "facebook" ...).
+     * @param mixed $socialUser The social user object returned by the provider.
+     * @return User The authenticated or newly created user.
      */
-    public function handleOAuthUser(string $provider, $socialUser): User
+    public function handleOAuthUser(string $provider, mixed $socialUser): User
     {
         $user = User::where('provider_id', $socialUser->getId())
             ->where('provider', $provider)
@@ -41,11 +41,11 @@ class OAuth2Service
     /**
      * Extract the user's first and last name based on the provider.
      *
-     * @param string $provider
-     * @param $socialUser
-     * @return array
+     * @param string $provider The OAuth provider.
+     * @param mixed $socialUser The social user object returned by the provider.
+     * @return array An array containing [first_name, last_name].
      */
-    protected function extractName(string $provider, $socialUser): array
+    protected function extractName(string $provider, mixed $socialUser): array
     {
         if ($provider === 'google') {
             $nameParts = explode(' ', $socialUser->getName(), 2);

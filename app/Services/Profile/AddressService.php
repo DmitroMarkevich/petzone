@@ -4,6 +4,7 @@ namespace App\Services\Profile;
 
 use Daaner\NovaPoshta\Models\Address;
 
+// todo: synchronization between delivery services (unification)
 class AddressService
 {
     protected Address $address;

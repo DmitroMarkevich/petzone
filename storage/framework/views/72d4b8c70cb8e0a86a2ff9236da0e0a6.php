@@ -1,7 +1,6 @@
 <?php
-    $firstImage = $advert->images->first();
-    $imageUrl = $firstImage && $firstImage->image_path
-        ? Storage::disk('s3')->url($firstImage->image_path)
+    $imageUrl = optional($advert->images->first())->image_path
+        ? Storage::disk('s3')->url($advert->images->first()->image_path)
         : asset('images/advert-test.jpg');
 ?>
 

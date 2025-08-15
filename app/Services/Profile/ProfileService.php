@@ -2,6 +2,7 @@
 
 namespace App\Services\Profile;
 
+use App\Models\User;
 use App\Models\Address;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
@@ -13,11 +14,11 @@ class ProfileService
     /**
      * Updates the user profile and delivery address.
      *
-     * @param object $user The user whose profile and address will be updated.
-     * @param array $data Data for updating the user's profile and delivery address.
+     * @param User $user The user to update.
+     * @param array $data Data for updating the profile and address.
      * @return void
      */
-    public function updateProfile(object $user, array $data): void
+    public function updateProfile(User $user, array $data): void
     {
         $userData = array_intersect_key($data, array_flip($user->getFillable()));
         if ($userData) {
@@ -31,17 +32,15 @@ class ProfileService
     }
 
     /**
-     * Upload a user's profile logo.
+     * Upload and update the user's avatar.
      *
-     * @param $user object
-     * @param UploadedFile $file
+     * @param User $user The user whose avatar will be updated.
+     * @param UploadedFile $file The uploaded file.
      * @return string Path to the uploaded file
      */
-    public function updateAvatar(object $user, UploadedFile $file): string
+    public function updateAvatar(User $user, UploadedFile $file): string
     {
-        $directory = "users/$user->id";
-
-        $imagePath = $this->uploadFile($directory, $file);
+        $imagePath = $this->uploadFile("users/$user->id", $file);
 
         if ($imagePath) {
             $this->deleteAvatar($user);
@@ -52,12 +51,12 @@ class ProfileService
     }
 
     /**
-     * Removes the user's logo.
+     * Delete the user's avatar.
      *
-     * @param object $user The user whose logo will be removed.
+     * @param User $user The user whose logo will be removed.
      * @return void
      */
-    public function deleteAvatar(object $user): void
+    public function deleteAvatar(User $user): void
     {
         if (!$user->image_path) {
             return;

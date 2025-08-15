@@ -123,8 +123,7 @@
 }
 
 .seller {
-    display: flex;
-    align-items: center;
+    @include mixins.flex-center-vertical;
     gap: 8px;
 }
 

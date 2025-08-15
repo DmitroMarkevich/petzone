@@ -17,6 +17,7 @@ class UpdateProfileRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * todo unification between meest and nova posts (ref_delivery_city, ref_delivery_street)
      *
      * @return array<string, ValidationRule|array|string>
      */

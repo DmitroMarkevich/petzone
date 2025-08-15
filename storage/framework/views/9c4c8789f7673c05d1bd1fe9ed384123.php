@@ -21,7 +21,8 @@
 
                 <div class="order-item-row">
                     <div class="order-item-info">
-                        <img class="order-image" src="<?php echo e(asset('images/advert-test.jpg')); ?>" alt="Advert Image">
+                        <img class="order-image" src="<?php echo e($mainImage); ?>" alt="Advert Image">
+
                         <div class="order-item-details">
                             <h4>Корм для собак</h4>
                             <p>Spiky Beef</p>

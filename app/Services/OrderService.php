@@ -7,18 +7,21 @@ use App\Models\Order;
 use App\Enum\OrderStatus;
 use App\Models\Advert\Advert;
 use App\Jobs\AutoCancelOrder;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService
 {
     /**
-     * Save a new order in the database.
+     * Create and save a new order in the database.
      *
-     * @param User $user
-     * @param array $data
-     * @return Order
-     * @throws \Exception
+     * @param User $user The user who is placing the order.
+     * @param array $data The data required to create the order
+     * @return Order The newly created order instance.
+     * @throws Exception
+     *
+     * // TODO
      */
     public function createOrder(User $user, array $data): Order
     {
@@ -51,12 +54,12 @@ class OrderService
     }
 
     /**
-     * Get the user's orders based on their active status.
+     * Get a paginated list of the user's orders filtered by active status.
      *
-     * @param User $user
-     * @param bool $isActive
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param User $user The user whose orders to retrieve.
+     * @param bool $isActive Filter orders by active status.
+     * @param int $perPage Number of orders per page. Default is 10.
+     * @return LengthAwarePaginator Paginated collection of the user's orders.
      */
     public function getUserOrders(User $user, bool $isActive, int $perPage = 10): LengthAwarePaginator
     {

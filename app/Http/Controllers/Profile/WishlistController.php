@@ -21,7 +21,10 @@ class WishlistController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display the authenticated user's wishlist.
+     *
+     * @param Request $request The HTTP request instance.
+     * @return View The view displaying the user's wishlist.
      */
     public function index(Request $request): View
     {
@@ -31,11 +34,11 @@ class WishlistController extends Controller
     }
 
     /**
-     * Toggle the advert in the wishlist.
+     * Toggle an advert in the authenticated user's wishlist.
      *
-     * @param Request $request
-     * @param string $advertId Advert ID for wishlist toggle.
-     * @return JsonResponse
+     * @param Request $request The HTTP request instance.
+     * @param string $advertId The ID of the advert to toggle.
+     * @return JsonResponse JSON response indicating whether the advert is now in the wishlist.
      */
     public function toggleWishlist(Request $request, string $advertId): JsonResponse
     {

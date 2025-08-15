@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Collection;
 class WishlistService
 {
     /**
-     * Get the list of favorite ads for a given user ID.
+     * Get the list of a user's favorite advertisements.
      *
-     * @param User $user
-     * @return Collection
+     * @param User $user The user whose wishlist to retrieve.
+     * @return Collection Collection of advertisements in the wishlist.
      */
     public function getWishlist(User $user): Collection
     {
@@ -19,10 +19,10 @@ class WishlistService
     }
 
     /**
-     * Toggle an ad's presence in the wishlist.
+     * Toggle an advertisement's presence in the user's wishlist.
      *
-     * @param User $user
-     * @param string $advertId ID of the advertisement
+     * @param User $user The user whose wishlist to update.
+     * @param string $advertId The ID of the advertisement to toggle.
      * @return bool True if ad is now in wishlist, false if removed
      */
     public function toggleWishlist(User $user, string $advertId): bool

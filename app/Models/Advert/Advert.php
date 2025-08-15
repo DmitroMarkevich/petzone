@@ -2,14 +2,16 @@
 
 namespace App\Models\Advert;
 
-use App\Models\Image;
 use App\Models\User;
+use App\Models\Wishlist;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Advert extends Model
 {
@@ -33,11 +35,11 @@ class Advert extends Model
     /**
      * Get all images associated with the advert.
      *
-     * @return MorphMany
+     * @return HasMany
      */
-    public function images(): MorphMany
+    public function images(): HasMany
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->hasMany(AdvertImage::class);
     }
 
     /**
@@ -58,6 +60,11 @@ class Advert extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'advert_id');
     }
 
     /**

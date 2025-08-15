@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('advert_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('image_path');
-            $table->uuidMorphs('imageable');
+            $table->boolean('main_image');
+            $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -12,13 +12,13 @@ class UserService
     use FileUploadTrait;
 
     /**
-     * Create a new user with provided data.
+     * Create a new user with the provided data.
      *
      * Handles uploading logo or avatar from URL, normalizes phone number,
      * and sets default values where necessary.
      *
      * @param array $data Array of user data.
-     * @return User Newly created User model instance.
+     * @return User The newly created User model instance.
      */
     public function create(array $data): User
     {
@@ -50,10 +50,10 @@ class UserService
     }
 
     /**
-     * Normalize phone number by removing non-digit characters.
+     * Normalize a phone number by removing all non-digit characters.
      *
-     * @param string|null $phone
-     * @return string|null Digits only or null.
+     * @param string|null $phone The phone number to normalize.
+     * @return string|null The normalized phone number containing digits only, or null if empty.
      */
     private function normalizePhoneNumber(?string $phone): ?string
     {

@@ -30,23 +30,26 @@ class ProfileController extends Controller
     /**
      * Show the profile page for the authenticated user.
      *
-     * @param Request $request
-     * @return Factory|View|Application
+     * @param Request $request The HTTP request instance.
+     * @return Factory|View|Application The view displaying the user's profile.
      */
     public function index(Request $request): Factory|View|Application
     {
-        $user = $request->user();
-        $address = $user->address;
+        $user = $request->user()->load(['address']);
         $avatarUrl = $this->imageService->getImageUrl($user->image_path);
 
-        return view('profile.index', compact('user', 'address', 'avatarUrl'));
+        return view('profile.index', [
+            'user' => $user,
+            'address' => $user->address,
+            'avatarUrl' => $avatarUrl
+        ]);
     }
 
     /**
      * Update the profile of the authenticated user.
      *
-     * @param UpdateProfileRequest $request
-     * @return RedirectResponse
+     * @param UpdateProfileRequest $request The validated request containing user data.
+     * @return RedirectResponse Redirects back to the profile page with a success message.
      */
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
@@ -59,8 +62,8 @@ class ProfileController extends Controller
     /**
      * Upload a new profile avatar for the authenticated user.
      *
-     * @param Request $request
-     * @return RedirectResponse
+     * @param Request $request The HTTP request containing the uploaded image.
+     * @return RedirectResponse Redirects back to the profile page.
      */
     public function uploadAvatar(Request $request): RedirectResponse
     {
@@ -68,9 +71,7 @@ class ProfileController extends Controller
             'profile-photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
-        $profilePhoto = $validatedData['profile-photo'];
-
-        $this->profileService->updateAvatar($request->user(), $profilePhoto);
+        $this->profileService->updateAvatar($request->user(), $validatedData['profile-photo']);
 
         return redirect()->route('profile.index');
     }
@@ -78,8 +79,8 @@ class ProfileController extends Controller
     /**
      * Remove the profile avatar for the authenticated user.
      *
-     * @param Request $request
-     * @return RedirectResponse
+     * @param Request $request The HTTP request instance.
+     * @return RedirectResponse Redirects back to the profile page.
      */
     public function deleteAvatar(Request $request): RedirectResponse
     {
@@ -91,13 +92,15 @@ class ProfileController extends Controller
     /**
      * Show the user's adverts.
      *
-     * @param Request $request
-     * @return Factory|View|Application
+     * @param Request $request The HTTP request instance.
+     * * @return Factory|View|Application The view displaying the user's adverts.
      */
     public function adverts(Request $request): Factory|View|Application
     {
-        $user = $request->user();
-        $adverts = $user->adverts()->latest()->paginate(10);;
+        $adverts = $request->user()->adverts()
+            ->with(['images' => fn($q) => $q->where('main_image', true)])
+            ->latest()
+            ->paginate(10);
 
         return view('profile.adverts', compact('adverts'));
     }

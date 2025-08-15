@@ -2,23 +2,26 @@
 
 <?php $__env->startSection('app-content'); ?>
     <div class="page-container">
-        <div class="breadcrumb">
+        <div>
             <a href="<?php echo e(route('profile.adverts')); ?>">
                 <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="Back">
             </a>
-            <span class="category-path">Dogs / Food / Vitamins</span>
+            <span>Dogs / Food / Vitamins</span>
         </div>
 
         <div class="advert-content">
-            <div class="advert-details">
+            <div>
                 <div class="advert-gallery">
-                    <div class="main-image">
-                        <img src="<?php echo e($mainImageUrl); ?>" alt="Advert Image">
+                    <div>
+                        <?php
+                            $mainImage = $advert->images->first(fn($img) => $img->isMain());
+                        ?>
+                        <img src="<?php echo e(image_url($mainImage)); ?>">
                     </div>
 
                     <div class="thumbnail-images">
-                        <?php $__currentLoopData = $thumbnailUrls; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <img src="<?php echo e($url); ?>" alt="Thumbnail">
+                        <?php $__currentLoopData = $advert->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <img src="<?php echo e(image_url($img->image_path)); ?>" class="<?php echo e($img->isMain() ? 'main-thumb' : ''); ?>">
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
@@ -52,12 +55,12 @@
             <div class="seller-info">
                 <div class="seller">
                     <img id="profile-avatar" src="<?php echo e($avatarUrl); ?>" alt="User Avatar" class="profile-avatar">
-                    <span class="seller-name"><?php echo e($advert->user->first_name); ?> <?php echo e($advert->user->last_name); ?></span>
-                    <span class="post-date">Posted: <?php echo e($advert->created_at->format('d/m/Y H:i')); ?></span>
+                    <span><?php echo e($advert->user->first_name); ?> <?php echo e($advert->user->last_name); ?></span>
+                    <span>Posted: <?php echo e($advert->created_at->format('d/m/Y H:i')); ?></span>
                 </div>
 
-                <button class="view-number">View number</button>
-                <button class="view-email">View Email</button>
+                <button>View number</button>
+                <button>View Email</button>
             </div>
         </div>
     </div>

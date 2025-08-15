@@ -18,39 +18,39 @@
             ]"/>
 
             <div class="adverts-list">
-                @forelse($sales as $order)
-                    @continue(!$order->advert)
+                @forelse($sales as $sale)
+                    @continue(!$sale->advert)
 
-                    <div class="advert-item" data-status="{{ $order->status->value }}">
+                    <div class="advert-item" data-status="{{ $sale->status->value }}">
                         <div class="advert-left">
                             <div class="advert-image-wrapper">
-                                <img src="{{ $order->advert_main_image_url }}" alt="{{ $order->advert->title }}"
-                                     class="advert-image">
+                                <img src="{{ $sale->main_image }}" class="advert-image" alt="{{ $sale->advert->title }}">
                             </div>
 
                             <div class="advert-content">
-                                <a class="advert-title" href="{{ route('adverts.show', $order->advert->id) }}">
-                                    {{ $order->advert->title }}
+                                <a class="advert-title" href="{{ route('adverts.show', $sale->advert->id) }}">
+                                    {{ $sale->advert->title }}
                                 </a>
 
-                                <p>Служба доставки: {{ \App\Enum\DeliveryMethod::getTranslation($order->delivery_method) }}</p>
+                                <p>Служба
+                                    доставки: {{ \App\Enum\DeliveryMethod::getTranslation($sale->delivery_method) }}</p>
 
                                 <button type="button" class="toggle-details">Розгорнути</button>
                             </div>
                         </div>
 
                         <div class="advert-right">
-                            <p class="advert-price">{{ $order->advert->price }}₴</p>
+                            <p class="advert-price">{{ $sale->advert->price }}₴</p>
 
-                            @if($order->status->value == \App\Enum\OrderStatus::PENDING->value)
+                            @if($sale->status->value == \App\Enum\OrderStatus::PENDING->value)
                                 <div class="advert-actions">
-                                    <form action="{{ route('profile.sales.confirm', $order->id) }}" method="POST">
+                                    <form action="{{ route('profile.sales.confirm', $sale->id) }}" method="POST">
                                         @csrf
                                         @method('POST')
                                         <button type="submit" class="edit-btn">Підтвердити</button>
                                     </form>
 
-                                    <form action="{{ route('profile.sales.reject', $order->id) }}" method="POST">
+                                    <form action="{{ route('profile.sales.reject', $sale->id) }}" method="POST">
                                         @csrf
                                         @method('POST')
                                         <button type="submit" class="delete-btn">Відхилити</button>
@@ -62,14 +62,14 @@
                         <div class="advert-details" style="display: none;">
                             <div>
                                 <p>Покупець</p>
-                                <p>Ім'я {{ $order->buyer->first_name }}</p>
-                                <p>Прізвище {{ $order->buyer->last_name }}</p>
-                                <p>Номер Телефону {{ $order->buyer->phone_number }}</p>
+                                <p>Ім'я {{ $sale->buyer->first_name }}</p>
+                                <p>Прізвище {{ $sale->buyer->last_name }}</p>
+                                <p>Номер Телефону {{ $sale->buyer->phone_number }}</p>
                             </div>
 
                             <div>
                                 <p>Разом</p>
-                                <p>Ціна {{ $order->total_price }}</p>
+                                <p>Ціна {{ $sale->total_price }}</p>
                             </div>
                         </div>
                     </div>

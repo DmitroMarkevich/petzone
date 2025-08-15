@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Advert;
 
 use App\Models\Advert\Advert;
 use App\Models\Advert\Category;
-use App\Services\ImageService;
 use App\Services\AdvertService;
+use App\Services\ImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdvertRequest;
 use Illuminate\Http\Request;
@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Application;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class AdvertController extends Controller
@@ -41,22 +40,9 @@ class AdvertController extends Controller
     public function index(Request $request): Factory|View|Application
     {
         $query = $request->input('query');
-        $page = $request->input('page', 1);
-        $perPage = 10;
 
-        if ($query) {
-            $searchResults = Advert::search($query)->get();
-            $total = $searchResults->count();
-
-            $items = $searchResults->forPage($page, $perPage)->values();
-
-            $adverts = new LengthAwarePaginator($items, $total, $perPage, $page, [
-                'path' => request()->url(),
-                'query' => request()->query(),
-            ]);
-        } else {
-            $adverts = Advert::inRandomOrder()->paginate($perPage);
-        }
+        $adverts = $this->advertService->getAdverts($query);
+        $adverts->load(['wishlists' => fn($q) => $q->where('user_id', auth()->id())]);
 
         return view('adverts.index', compact('adverts'));
     }
@@ -103,15 +89,12 @@ class AdvertController extends Controller
     {
         $advert = Advert::with(['user', 'images'])->findOrFail($id);
 
-        $mainImageUrl = $this->imageService->getMainImageUrl($advert, 'images/advert-test.jpg');
-        $thumbnailUrls = $this->imageService->getAllImageUrls($advert);
-
         $avatarUrl = $this->imageService->getImageUrl(
             $advert->user?->image_path,
             'images/default-avatar.png'
         );
 
-        return view('adverts.show', compact('advert', 'mainImageUrl', 'thumbnailUrls', 'avatarUrl'));
+        return view('adverts.show', compact('advert', 'avatarUrl'));
     }
 
     /**
