@@ -13,15 +13,15 @@
             @csrf
             <div class="step step-1 active">
                 <div class="form-group">
-                    <x-input type="email" name="email"
+                    <x-form.input type="email" name="email"
                              label="{{ __('auth.register.email') }}" placeholder="Email"
                              data-validation="email"/>
 
-                    <x-input type="password" name="password"
+                    <x-form.input type="password" name="password"
                              label="{{ __('auth.register.password') }}" placeholder="********"
                              data-validation="password"/>
 
-                    <x-input type="password" name="password_confirmation"
+                    <x-form.input type="password" name="password_confirmation"
                              label="{{ __('auth.register.password_confirmation') }}" placeholder="********"
                              data-validation="password"/>
                 </div>
@@ -47,13 +47,13 @@
                 </div>
 
                 <div class="form-group">
-                    <x-input type="text" name="first_name" label="{{ __('auth.register.first_name') }}"
+                    <x-form.input type="text" name="first_name" label="{{ __('auth.register.first_name') }}"
                              placeholder="{{ __('auth.register.first_name_placeholder') }}"/>
 
-                    <x-input type="text" name="last_name" label="{{ __('auth.register.last_name') }}"
+                    <x-form.input type="text" name="last_name" label="{{ __('auth.register.last_name') }}"
                              placeholder="{{ __('auth.register.last_name_placeholder') }}"/>
 
-                    <x-input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}"
+                    <x-form.input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}"
                              placeholder="{{ __('auth.register.phone_number_placeholder') }}"/>
                 </div>
 

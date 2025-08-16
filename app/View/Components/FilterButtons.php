@@ -27,7 +27,7 @@ class FilterButtons extends Component
         foreach ($filters as $filter) {
             $key = $filter['key'];
             $value = $filter['value'];
-            $this->counts["{$key}.{$value}"] = $items->where($key, $value)->count();
+            $this->counts["$key.$value"] = $items->where($key, $value)->count();
         }
 
         $this->counts['all'] = $items->count();
@@ -38,6 +38,6 @@ class FilterButtons extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.filter-buttons');
+        return view('components.ui.filter-buttons');
     }
 }

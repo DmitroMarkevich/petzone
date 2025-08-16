@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Profile;
 
 use App\Models\Order;
 use App\Enum\OrderStatus;
-use App\Services\ImageService;
 use App\Services\Profile\SaleService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,16 +15,13 @@ use Illuminate\Http\RedirectResponse;
 class SalesController extends Controller
 {
     private SaleService $saleService;
-    private ImageService $imageService;
 
     /**
      * @param SaleService $saleService
-     * @param ImageService $imageService
      */
-    public function __construct(SaleService $saleService, ImageService $imageService)
+    public function __construct(SaleService $saleService)
     {
         $this->saleService = $saleService;
-        $this->imageService = $imageService;
     }
 
     /**
@@ -37,12 +33,6 @@ class SalesController extends Controller
     public function index(Request $request): Factory|View|Application
     {
         $sales = $this->saleService->getUserSales($request->user(), true);
-
-        $sales->getCollection()->transform(function ($sale) {
-            $mainImagePath = $sale->advert->images->first()?->image_path;
-            $sale->main_image = $this->imageService->getImageUrl($mainImagePath);
-            return $sale;
-        });
 
         return view('profile.sales', compact('sales'));
     }

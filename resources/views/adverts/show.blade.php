@@ -15,15 +15,12 @@
             <div>
                 <div class="advert-gallery">
                     <div>
-                        @php
-                            $mainImage = $advert->images->first(fn($img) => $img->isMain());
-                        @endphp
-                        <img src="{{ image_url($mainImage) }}">
+                        <img src="{{ $advert->main_image }}" alt="">
                     </div>
 
                     <div class="thumbnail-images">
                         @foreach ($advert->images as $img)
-                            <img src="{{ image_url($img->image_path) }}" class="{{ $img->isMain() ? 'main-thumb' : '' }}">
+                            <img src="{{ image_url($img->image_path) }}" alt="">
                         @endforeach
                     </div>
                 </div>

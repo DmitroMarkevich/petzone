@@ -5,7 +5,7 @@
 @section('profile-content')
     <div class="profile-container">
         <div class="profile-header">
-            <img id="profile-avatar" src="{{ $avatarUrl ?? ''}}" alt="Avatar" class="profile-avatar">
+            <img id="profile-avatar" src="{{ image_url($user->image_path)}}" alt="Avatar" class="profile-avatar">
 
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, {{ $user->first_name }}!</h2>
@@ -45,22 +45,22 @@
                 @method('PATCH')
                 <div class="form-row">
                     <div class="form-group">
-                        <x-input type="text" name="first_name" id="first-name" label="Ім'я"
+                        <x-form.input type="text" name="first_name" id="first-name" label="Ім'я"
                                  value="{{ $user->first_name }}" readonly/>
                     </div>
                     <div class="form-group">
-                        <x-input type="text" name="last_name" id="last-name" label="Прізвище"
+                        <x-form.input type="text" name="last_name" id="last-name" label="Прізвище"
                                  value="{{ $user->last_name }}" readonly/>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <x-input type="email" name="email" id="email" label="Електронна адреса"
+                        <x-form.input type="email" name="email" id="email" label="Електронна адреса"
                                  value="{{ $user->email }}" readonly/>
                     </div>
                     <div class="form-group">
-                        <x-input type="tel" name="phone_number" label="Номер телефону"
+                        <x-form.input type="tel" name="phone_number" label="Номер телефону"
                                  placeholder="+38 (0__) ___ __ __" value="{{ $user->phone_number }}"
                                  readonly/>
                     </div>
@@ -88,13 +88,13 @@
                 @method('PATCH')
                 <div class="form-row">
                     <div class="form-group">
-                        <x-input type="text" name="city" label="Місто" value="{{ $address->city ?? '' }}" readonly/>
+                        <x-form.input type="text" name="city" label="Місто" value="{{ $user->address->city ?? '' }}" readonly/>
                         <ul id="city-suggestions" class="address-suggestions hidden"></ul>
                         <input type="hidden" name="ref_delivery_city" id="city-ref">
                     </div>
 
                     <div class="form-group">
-                        <x-input type="text" name="street" label="Вулиця" value="{{ $address->street ?? '' }}" readonly/>
+                        <x-form.input type="text" name="street" label="Вулиця" value="{{ $user->address->street ?? '' }}" readonly/>
                         <ul id="street-suggestions" class="address-suggestions hidden"></ul>
                         <input type="hidden" name="ref_delivery_street" id="street-ref">
                     </div>
@@ -102,7 +102,7 @@
 
                 <div class="form-row">
                     <div class="form-group apartment">
-                        <x-input type="text" name="apartment" label="Квартира" value="{{ $address->apartment ?? '' }}"
+                        <x-form.input type="text" name="apartment" label="Квартира" value="{{ $user->address->apartment ?? '' }}"
                                  readonly/>
                     </div>
                 </div>
@@ -121,6 +121,6 @@
     </div>
 
     @if(session('success'))
-        <x-success-message :message="session('success')"/>
+        <x-ui.success-message :message="session('success')"/>
     @endif
 @endsection

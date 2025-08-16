@@ -12,10 +12,10 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
-                <x-input type="email" name="email" label="{{ __('auth.login.email') }}"
+                <x-form.input type="email" name="email" label="{{ __('auth.login.email') }}"
                          placeholder="Email" autofocus data-validation="email"/>
 
-                <x-input type="password" name="password"
+                <x-form.input type="password" name="password"
                          label="{{ __('auth.login.password') }}" placeholder="********"
                          data-validation="password"/>
             </div>

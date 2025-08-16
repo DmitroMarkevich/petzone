@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="home-adverts-list" id="popular-adverts">
-                    @foreach($popularAdverts as $advert)
-                        @include('components.advert-card', ['adverts' => $advert])
+                    @foreach($adverts['popularAdverts'] as $advert)
+                        <x-advert-card :advert="$advert" />
                     @endforeach
                 </div>
 
@@ -118,8 +118,8 @@
                 </div>
 
                 <div class="home-adverts-list">
-                    @foreach($discountedAdverts as $advert)
-                        @include('components.advert-card', ['adverts' => $advert])
+                    @foreach($adverts['discountedAdverts'] as $advert)
+                        <x-advert-card :advert="$advert" />
                     @endforeach
                 </div>
             </section>
@@ -134,8 +134,8 @@
                 </div>
 
                 <div class="home-adverts-list">
-                    @foreach($freshAdverts as $advert)
-                        @include('components.advert-card', ['adverts' => $advert])
+                    @foreach($adverts['freshAdverts'] as $advert)
+                        <x-advert-card :advert="$advert" />
                     @endforeach
                 </div>
             </section>

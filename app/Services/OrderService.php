@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Enum\OrderStatus;
 use App\Models\Advert\Advert;
 use App\Jobs\AutoCancelOrder;
-use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -19,8 +18,6 @@ class OrderService
      * @param User $user The user who is placing the order.
      * @param array $data The data required to create the order
      * @return Order The newly created order instance.
-     * @throws Exception
-     *
      * // TODO
      */
     public function createOrder(User $user, array $data): Order
@@ -71,9 +68,23 @@ class OrderService
     }
 
     /**
-     * Generate a unique order number.
+     * Get a single order by its ID with all necessary relationships loaded.
      *
-     * @return string
+     * @param string $orderId The ID of the order to retrieve.
+     * @return Order The order model instance with related buyer, seller, and advert images.
+     */
+    public function getOrderById(string $orderId): Order
+    {
+        return Order::with([
+            'buyer', 'seller',
+            'advert' => fn($query) => $query->withMainImage()
+        ])->findOrFail($orderId);
+    }
+
+    /**
+     * Generate a unique order number for a new order.
+     *
+     * @return string The generated unique order number.
      */
     public function generateOrderNumber(): string
     {

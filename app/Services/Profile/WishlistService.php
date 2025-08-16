@@ -13,9 +13,12 @@ class WishlistService
      * @param User $user The user whose wishlist to retrieve.
      * @return Collection Collection of advertisements in the wishlist.
      */
-    public function getWishlist(User $user): Collection
+    public function getUserWishlist(User $user): Collection
     {
-        return $user->wishlist()->get();
+        return $user->wishlist()
+            ->withMainImage()
+            ->get()
+            ->map(fn($advert) => tap($advert, fn($a) => $a->inWishlist = true));
     }
 
     /**

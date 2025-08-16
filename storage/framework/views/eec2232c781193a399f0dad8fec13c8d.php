@@ -8,10 +8,10 @@
     <?php else: ?>
         <div>
             <h2 class="page-title">Ваші замовлення</h2>
-            <?php if (isset($component)) { $__componentOriginalc6be867d00e6e5fdd63b7716c605e040 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc6be867d00e6e5fdd63b7716c605e040 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.orders-table','data' => ['orders' => $orders->getCollection()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('orders-table'); ?>
+            <?php if (isset($component)) { $__componentOriginaldc7fd4df7c34c6a0b91da8c62188309c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginaldc7fd4df7c34c6a0b91da8c62188309c = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.order.table','data' => ['orders' => $orders->getCollection()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('order.table'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
@@ -20,13 +20,13 @@
 <?php $component->withAttributes(['orders' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($orders->getCollection())]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc6be867d00e6e5fdd63b7716c605e040)): ?>
-<?php $attributes = $__attributesOriginalc6be867d00e6e5fdd63b7716c605e040; ?>
-<?php unset($__attributesOriginalc6be867d00e6e5fdd63b7716c605e040); ?>
+<?php if (isset($__attributesOriginaldc7fd4df7c34c6a0b91da8c62188309c)): ?>
+<?php $attributes = $__attributesOriginaldc7fd4df7c34c6a0b91da8c62188309c; ?>
+<?php unset($__attributesOriginaldc7fd4df7c34c6a0b91da8c62188309c); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc6be867d00e6e5fdd63b7716c605e040)): ?>
-<?php $component = $__componentOriginalc6be867d00e6e5fdd63b7716c605e040; ?>
-<?php unset($__componentOriginalc6be867d00e6e5fdd63b7716c605e040); ?>
+<?php if (isset($__componentOriginaldc7fd4df7c34c6a0b91da8c62188309c)): ?>
+<?php $component = $__componentOriginaldc7fd4df7c34c6a0b91da8c62188309c; ?>
+<?php unset($__componentOriginaldc7fd4df7c34c6a0b91da8c62188309c); ?>
 <?php endif; ?>
 
             <?php if($orders->hasPages()): ?>

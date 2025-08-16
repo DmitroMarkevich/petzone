@@ -14,11 +14,11 @@
             <div class="form-group">
                 <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
 
-                <x-input type="password" name="password"
+                <x-form.input type="password" name="password"
                          label="{{ __('auth.login.password') }}" placeholder="********"
                          data-validation="password"/>
 
-                <x-input type="password" name="password_confirmation"
+                <x-form.input type="password" name="password_confirmation"
                          label="{{ __('auth.register.password_confirmation') }}" placeholder="********"
                          data-validation="password"/>
             </div>

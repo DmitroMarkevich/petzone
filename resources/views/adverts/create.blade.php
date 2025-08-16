@@ -12,10 +12,10 @@
 
             <div class="form-main">
                 <div class="form-group">
-                    <x-input type="text" name="title" label="Заголовок"
+                    <x-form.input type="text" name="title" label="Заголовок"
                              placeholder="Введіть заголовок товару" value="{{ old('title') }}"
                              required/>
-                    <x-select id="category_id" name="category_id" label="Категорія"
+                    <x-form.select id="category_id" name="category_id" label="Категорія"
                               :options="$categories" :selected="old('category_id')"
                               class="form-control" required
                     />
@@ -38,19 +38,19 @@
                                   placeholder="Введіть опис товару" required>{{ trim(old('description')) }}</textarea>
                     </div>
 
-                    <x-select id="advert_condition" name="advert_condition"
+                    <x-form.select id="advert_condition" name="advert_condition"
                               label="Стан товару" :options="['new' => 'Новий', 'used' => 'Б/У']"
                               :selected="old('advert_condition', 'new')" class="form-control"
                               required
                     />
-                    <x-select id="advert_type" name="advert_type"
+                    <x-form.select id="advert_type" name="advert_type"
                               label="Тип оголошення" :options="['product' => 'Товар', 'service' => 'Послуга']"
                               :selected="old('advert_type', 'product')" class="form-control"
                               required
                     />
 
                     <div class="short-input-wrapper">
-                        <x-input type="number" name="price" label="Ціна" value="{{ old('price') }}" required/>
+                        <x-form.input type="number" name="price" label="Ціна" value="{{ old('price') }}" required/>
                     </div>
                 </div>
             </div>

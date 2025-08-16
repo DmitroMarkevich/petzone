@@ -10,7 +10,7 @@
     @else
         <div>
             <h2 class="page-title">Історія замовлень</h2>
-            <x-orders-table :orders="$orders" :short="true"/>
+            <x-order.table :orders="$orders" :short="true"/>
         </div>
     @endif
 @endsection

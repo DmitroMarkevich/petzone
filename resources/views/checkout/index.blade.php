@@ -18,7 +18,7 @@
 
                     <div class="container-item">
                         <h2>Замовлення</h2>
-                        <x-advert-item :advert="$advert"/>
+                        <x-advert.item :advert="$advert"/>
                     </div>
 
                     <div class="container-item">
@@ -83,11 +83,11 @@
                         <h3>Оплата</h3>
 
                         @foreach (\App\Enum\PaymentMethod::cases() as $method)
-                            <x-radio-button name="payment_method"
-                                            id="{{ $method->value }}"
-                                            value="{{ $method->value }}"
-                                            label="{{ \App\Enum\PaymentMethod::getTranslation($method) }}"
-                                            class="payment-method"/>
+                            <x-form.radio-button name="payment_method"
+                                                 id="{{ $method->value }}"
+                                                 value="{{ $method->value }}"
+                                                 label="{{ \App\Enum\PaymentMethod::getTranslation($method) }}"
+                                                 class="payment-method"/>
                         @endforeach
                     </div>
 
@@ -113,22 +113,22 @@
                         <div class="profile-section" id="contact-info" style="display:none;">
                             <div class="form-row">
                                 <div class="form-group">
-                                    <x-input type="text" name="recipient_first_name" label="Ім'я"
-                                             value="{{ $user->first_name }}"/>
+                                    <x-form.input type="text" name="recipient_first_name" label="Ім'я"
+                                                  value="{{ $user->first_name }}"/>
                                 </div>
                                 <div class="form-group">
-                                    <x-input type="text" name="recipient_last_name" label="Прізвище"
-                                             value="{{ $user->last_name }}"/>
+                                    <x-form.input type="text" name="recipient_last_name" label="Прізвище"
+                                                  value="{{ $user->last_name }}"/>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <x-input type="text" name="recipient_middle_name" label="По батькові"/>
+                                    <x-form.input type="text" name="recipient_middle_name" label="По батькові"/>
                                 </div>
                                 <div class="form-group">
-                                    <x-input type="tel" name="recipient_phone_number"
-                                             label="Номер телефону" value="{{ $user->phone_number }}"/>
+                                    <x-form.input type="tel" name="recipient_phone_number"
+                                                  label="Номер телефону" value="{{ $user->phone_number }}"/>
                                 </div>
                             </div>
 

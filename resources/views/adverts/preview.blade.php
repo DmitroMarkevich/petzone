@@ -5,9 +5,7 @@
 @section('app-content')
     <div class="advert-content">
         <div class="advert-details">
-            <div class="advert-gallery">
-
-            </div>
+            <div class="advert-gallery"></div>
 
             <div class="advert-info">
                 <div class="advert-rating">
@@ -32,11 +30,7 @@
 
         <div class="seller-info">
             <div class="seller">
-
-                <span class="seller-name">
-                    Dmytro Markevych
-                </span>
-
+                <span class="seller-name">Dmytro Markevych</span>
                 <span class="post-date">Posted: 123</span>
             </div>
         </div>

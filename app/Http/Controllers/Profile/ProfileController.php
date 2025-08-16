@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Services\ImageService;
 use App\Http\Controllers\Controller;
 use App\Services\Profile\ProfileService;
 use App\Http\Requests\UpdateProfileRequest;
@@ -14,16 +13,13 @@ use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
-    private ImageService $imageService;
     private ProfileService $profileService;
 
     /**
      * @param ProfileService $profileService
-     * @param ImageService $imageService
      */
-    public function __construct(ProfileService $profileService, ImageService $imageService)
+    public function __construct(ProfileService $profileService)
     {
-        $this->imageService = $imageService;
         $this->profileService = $profileService;
     }
 
@@ -36,13 +32,8 @@ class ProfileController extends Controller
     public function index(Request $request): Factory|View|Application
     {
         $user = $request->user()->load(['address']);
-        $avatarUrl = $this->imageService->getImageUrl($user->image_path);
 
-        return view('profile.index', [
-            'user' => $user,
-            'address' => $user->address,
-            'avatarUrl' => $avatarUrl
-        ]);
+        return view('profile.index', compact('user'));
     }
 
     /**
@@ -93,7 +84,7 @@ class ProfileController extends Controller
      * Show the user's adverts.
      *
      * @param Request $request The HTTP request instance.
-     * * @return Factory|View|Application The view displaying the user's adverts.
+     * @return Factory|View|Application The view displaying the user's adverts.
      */
     public function adverts(Request $request): Factory|View|Application
     {

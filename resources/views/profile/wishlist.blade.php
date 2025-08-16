@@ -8,9 +8,9 @@
             <p>{{ __('common.nothing_found') }}</p>
         </div>
     @else
-        <div class="advert-grid">
+        <div>
             @foreach($wishlist as $advert)
-                @include('components.advert-card', ['wishlist' => $advert])
+                <x-advert-card :advert="$advert" />
             @endforeach
         </div>
     @endif

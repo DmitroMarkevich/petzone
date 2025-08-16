@@ -7,8 +7,7 @@
         <h2 class="page-title">
             <a href="{{ route('profile.adverts') }}">
                 <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">
-            </a>
-            Редагувати оголошення
+            </a> Редагувати оголошення
         </h2>
 
         <form action="{{ route('adverts.update', $advert->id) }}" method="POST"
@@ -20,9 +19,9 @@
 
             <div class="form-main">
                 <div class="form-group">
-                    <x-input type="text" name="title" label="Заголовок" value="{{ $advert->title }}"/>
+                    <x-form.input type="text" name="title" label="Заголовок" value="{{ $advert->title }}"/>
 
-                    <x-select id="category_id" name="category_id" label="Категорія"
+                    <x-form.select id="category_id" name="category_id" label="Категорія"
                               :options="$categories" :selected="old('category_id')"
                               class="form-control" required
                     />
@@ -38,7 +37,7 @@
 
                                 <label for="photo-{{ $i }}" class="photo-label">
                                     @if ($image)
-                                        <img src="{{ Storage::disk('s3')->url($image->image_path) }}" alt="Photo {{ $i }}">
+                                        <img src="{{ image_url($image->image_path) }}" alt="Photo {{ $i }}">
                                     @else
                                         <span class="placeholder-text">+</span>
                                     @endif
@@ -53,20 +52,20 @@
                                   placeholder="Введіть опис товару">{{ $advert->description }}</textarea>
                     </div>
 
-                    <x-select id="advert_condition" name="advert_condition"
+                    <x-form.select id="advert_condition" name="advert_condition"
                               label="Стан товару" :options="['new' => 'Новий', 'used' => 'Б/У']"
                               :selected="old('advert_condition', 'new')" class="form-control"
                               required
                     />
 
-                    <x-select id="advert_type" name="advert_type"
+                    <x-form.select id="advert_type" name="advert_type"
                               label="Тип оголошення" :options="['product' => 'Товар', 'service' => 'Послуга']"
                               :selected="old('advert_type', 'product')" class="form-control"
                               required
                     />
 
                     <div class="short-input-wrapper">
-                        <x-input type="number" name="price" label="Ціна" value="{{ $advert->price }}"/>
+                        <x-form.input type="number" name="price" label="Ціна" value="{{ $advert->price }}"/>
                     </div>
                 </div>
             </div>

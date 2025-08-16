@@ -18,7 +18,7 @@
 
             <div class="adverts-list">
                 @foreach($adverts as $advert)
-                    <x-advert-item :advert="$advert" :status="$advert->is_active">
+                    <x-advert.item :advert="$advert" :status="$advert->is_active">
                         <x-slot name="actions">
                             <a href="{{ route('adverts.edit', $advert->id) }}" class="edit-btn">Редагувати</a>
 
@@ -28,7 +28,7 @@
                                 <button type="submit" class="delete-btn">Видалити</button>
                             </form>
                         </x-slot>
-                    </x-advert-item>
+                    </x-advert.item>
                 @endforeach
             </div>
 

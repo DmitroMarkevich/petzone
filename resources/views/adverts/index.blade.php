@@ -115,7 +115,7 @@
                         <div class="adverts">
                             <div class="advert-grid">
                                 @foreach($adverts as $advert)
-                                    @include('components.advert-card', ['advert' => $advert])
+                                    <x-advert-card :advert="$advert" />
                                 @endforeach
                             </div>
 

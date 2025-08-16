@@ -23,16 +23,31 @@ class Category extends Model
         'parent_id',
     ];
 
+    /**
+     * Get all adverts (products) that belong to this category.
+     *
+     * @return HasMany
+     */
     public function products(): HasMany
     {
         return $this->hasMany(Advert::class);
     }
 
+    /**
+     * Get the parent category of this category.
+     *
+     * @return BelongsTo
+     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    /**
+     * Get all child categories of this category.
+     *
+     * @return HasMany
+     */
     public function children():HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');

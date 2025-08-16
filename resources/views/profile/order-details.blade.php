@@ -23,7 +23,7 @@
 
                 <div class="order-item-row">
                     <div class="order-item-info">
-                        <img class="order-image" src="{{ $mainImage }}" alt="Advert Image">
+                        <img class="order-image" src="{{ $order->advert->mainImage }}" alt="Advert Image">
 
                         <div class="order-item-details">
                             <h4>Корм для собак</h4>

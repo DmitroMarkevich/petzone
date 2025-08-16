@@ -13,7 +13,7 @@
             @csrf
 
             <div class="form-group">
-                <x-input type="email" name="email"
+                <x-form.input type="email" name="email"
                          label="{{ __('auth.login.email') }}" placeholder="********"
                          data-validation="email"/>
             </div>

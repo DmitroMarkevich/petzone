@@ -15,11 +15,21 @@ class Wishlist extends Model
      */
     protected $fillable = ['user_id', 'advert_id'];
 
+    /**
+     * Get the user who owns this wishlist entry.
+     *
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the advert associated with this wishlist entry.
+     *
+     * @return BelongsTo
+     */
     public function advert(): BelongsTo
     {
         return $this->belongsTo(Advert::class);

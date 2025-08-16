@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Models\Order;
 use App\Services\OrderService;
-use App\Services\ImageService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -15,16 +13,13 @@ use Illuminate\Auth\Access\AuthorizationException;
 class OrderController extends Controller
 {
     private OrderService $orderService;
-    private ImageService $imageService;
 
     /**
      * @param OrderService $orderService
-     * @param ImageService $imageService
      */
-    public function __construct(OrderService $orderService, ImageService $imageService)
+    public function __construct(OrderService $orderService)
     {
         $this->orderService = $orderService;
-        $this->imageService = $imageService;
     }
 
     /**
@@ -49,24 +44,17 @@ class OrderController extends Controller
      */
     public function show(string $id): Factory|View|Application
     {
-        $order = Order::with([
-            'buyer',
-            'seller',
-            'advert.images' => fn($q) => $q->where('main_image', true)
-        ])->findOrFail($id);
-
+        $order = $this->orderService->getOrderById($id);
         $this->authorize('view', $order);
 
-        $mainImage = $this->imageService->getImageUrl($order->advert->images->first()->image_path);
-
-        return view('profile.order-details', compact('order', 'mainImage'));
+        return view('profile.order-details', compact('order'));
     }
 
     /**
      * Show the user's orders history (completed or archived orders).
      *
      * @param Request $request The HTTP request instance.
-     * * @return Factory|View|Application The view displaying order history.
+     * @return Factory|View|Application The view displaying order history.
      */
     public function history(Request $request): Factory|View|Application
     {

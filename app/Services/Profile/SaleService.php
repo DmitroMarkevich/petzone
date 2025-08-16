@@ -21,10 +21,7 @@ class SaleService
     {
         return $user->sales()
             ->whereHas('advert', fn($q) => $q->where('is_active', $isActive))
-            ->with([
-                'advert.images' => fn($query) => $query->where('main_image', true),
-                'buyer'
-            ])
+            ->with(['advert' => fn($q) => $q->withMainImage(), 'buyer'])
             ->orderByRaw("status = ? DESC", [OrderStatus::PENDING->value])
             ->latest()
             ->paginate($perPage);

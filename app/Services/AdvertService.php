@@ -7,31 +7,47 @@ use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-// todo: need to be refactored
+// todo: need to be refactored; need to add methods with popular and discounted adverts (with redis)
 class AdvertService
 {
     use FileUploadTrait;
 
-    // todo fix bugs
-    public function getAdverts(?string $query = null, int $perPage = 10, ?int $userId = null): LengthAwarePaginator
+    private const DEFAULT_PER_PAGE = 10;
+
+    /**
+     * Get a paginated list of adverts with images and wishlist relations.
+     *
+     * If a search query is provided, full-text search is used.
+     * Otherwise, adverts are returned in random order.
+     *
+     * @param string|null $query The search query, or null for random adverts.
+     * @param int $perPage Number of adverts per page. Default is 10.
+     * @return LengthAwarePaginator Paginated collection of adverts.
+     */
+    public function getAdverts(?string $query = null, int $perPage = self::DEFAULT_PER_PAGE, ?string $userId = null): LengthAwarePaginator
     {
-        $with = ['images'];
-        if ($userId) {
-            $with['wishlists'] = fn($q) => $q->where('user_id', $userId);
+        $queryBuilder = Advert::query();
+
+        if ($query) {
+            $queryBuilder->where(function ($q) use ($query) {
+                $q->where('title', 'like', "%$query%")
+                    ->orWhere('description', 'like', "%$query%");
+            });
+        } else {
+            $queryBuilder->orderBy('random_seed');
         }
 
-        $queryBuilder = $query ? Advert::search($query) : Advert::query();
+        $queryBuilder->with([
+            'images' => fn($q) => $q->where('main_image', true),
+            'wishlists' => fn($q) => $userId ? $q->where('user_id', $userId) : $q->whereRaw('1 = 0')
+        ]);
 
-        return $queryBuilder
-            ->with($with)
-            ->when(!$query, fn($q) => $q->inRandomOrder())
-            ->paginate($perPage);
+        return $queryBuilder->paginate($perPage);
     }
 
     public function updateAdvert(string $id, array $data): bool
     {
-        $advert = Advert::findOrFail($id);
-        return $advert->update($data);
+        return Advert::findOrFail($id)->update($data);
     }
 
     public function createAdvert(array $data): Advert
@@ -44,30 +60,45 @@ class AdvertService
             'owner_id' => auth()->id(),
         ]);
 
-        if (isset($data['images']) && is_array($data['images'])) {
-            foreach ($data['images'] as $image) {
-                $this->addAdvertImage($advert, $image);
+            if (isset($data['images']) && is_array($data['images'])) {
+                foreach ($data['images'] as $index => $image) {
+                    $this->addAdvertImage($advert, $image, $index === 0);
+                }
             }
-        }
 
         return $advert;
     }
 
-    protected function addAdvertImage(Advert $advert, UploadedFile $file): void
+    protected function addAdvertImage(Advert $advert, UploadedFile $file, bool $mainImage = false): void
     {
         $directory = "adverts/$advert->id";
         $imagePath = $this->uploadFile($directory, $file);
 
-        $advert->images()->create(['image_path' => $imagePath]);
+        $advert->images()->create([
+            'image_path' => $imagePath,
+            'main_image' => $mainImage,
+        ]);
     }
 
     public function getFreshAdverts(int $hours = 5, int $limit = 4)
     {
         return Advert::select('id', 'title', 'price')
-            ->with(['images' => fn($q) => $q->where('main_image', true)])
+            ->withMainImage()
             ->where('created_at', '>=', now()->subHours($hours))
             ->latest()
             ->take($limit)
             ->get();
+    }
+
+    // todo
+    public function getPopularAdverts(int $limit = 4): \Illuminate\Support\Collection
+    {
+        return collect();
+    }
+
+    // todo
+    public function getDiscountedAdverts(int $limit = 4): \Illuminate\Support\Collection
+    {
+        return collect();
     }
 }

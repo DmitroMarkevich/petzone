@@ -24,7 +24,7 @@
                     <div class="advert-item" data-status="{{ $sale->status->value }}">
                         <div class="advert-left">
                             <div class="advert-image-wrapper">
-                                <img src="{{ $sale->main_image }}" class="advert-image" alt="{{ $sale->advert->title }}">
+                                <img src="{{ $sale->advert->main_image }}" class="advert-image" alt="{{ $sale->advert->title }}">
                             </div>
 
                             <div class="advert-content">
@@ -32,8 +32,7 @@
                                     {{ $sale->advert->title }}
                                 </a>
 
-                                <p>Служба
-                                    доставки: {{ \App\Enum\DeliveryMethod::getTranslation($sale->delivery_method) }}</p>
+                                <p>Служба доставки: {{ \App\Enum\DeliveryMethod::getTranslation($sale->delivery_method) }}</p>
 
                                 <button type="button" class="toggle-details">Розгорнути</button>
                             </div>

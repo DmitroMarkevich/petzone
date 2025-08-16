@@ -4,18 +4,16 @@ namespace App\Models\Advert;
 
 use App\Models\User;
 use App\Models\Wishlist;
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Advert extends Model
 {
-    use HasFactory, HasUuids, Searchable;
+    use HasFactory, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -28,9 +26,25 @@ class Advert extends Model
         'price',
         'description',
         'average_rating',
+        'random_seed',
         'category_id',
         'owner_id'
     ];
+
+    /**
+     * Boot method for the model.
+     *
+     * Automatically sets a random seed when creating a new advert.
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($advert) {
+            // Set a random number between 0 and 1 for random order
+            $advert->random_seed = mt_rand() / mt_getrandmax();
+        });
+    }
 
     /**
      * Get all images associated with the advert.
@@ -40,6 +54,30 @@ class Advert extends Model
     public function images(): HasMany
     {
         return $this->hasMany(AdvertImage::class);
+    }
+
+    /**
+     * Accessor for the main image of the advert.
+     * Returns the path to the first main image, or a default if none exists.
+     *
+     * @return string
+     */
+    public function getMainImageAttribute(): string
+    {
+        return image_url($this->images->first()?->image_path, 'images/default.png');
+    }
+
+    /**
+     * Scope to eager load only the main image of the advert.
+     *
+     * Usage: Advert::withMainImage()->get();
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWithMainImage(Builder $query): Builder
+    {
+        return $query->with(['images' => fn($q) => $q->where('main_image', true)]);
     }
 
     /**
@@ -65,19 +103,5 @@ class Advert extends Model
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'advert_id');
-    }
-
-    /**
-     * Get the data to be indexed for search.
-     *
-     * @return array<string, mixed>
-     */
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-        ];
     }
 }

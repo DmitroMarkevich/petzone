@@ -3,7 +3,7 @@
 <?php $__env->startSection('profile-content'); ?>
     <div class="profile-container">
         <div class="profile-header">
-            <img id="profile-avatar" src="<?php echo e($avatarUrl ?? ''); ?>" alt="Avatar" class="profile-avatar">
+            <img id="profile-avatar" src="<?php echo e(image_url($user->image_path)); ?>" alt="Avatar" class="profile-avatar">
 
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, <?php echo e($user->first_name); ?>!</h2>
@@ -43,10 +43,10 @@
                 <?php echo method_field('PATCH'); ?>
                 <div class="form-row">
                     <div class="form-group">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'first_name','id' => 'first-name','label' => 'Ім\'я','value' => ''.e($user->first_name).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'first_name','id' => 'first-name','label' => 'Ім\'я','value' => ''.e($user->first_name).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
@@ -55,20 +55,20 @@
 <?php $component->withAttributes(['type' => 'text','name' => 'first_name','id' => 'first-name','label' => 'Ім\'я','value' => ''.e($user->first_name).'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                     </div>
                     <div class="form-group">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'last_name','id' => 'last-name','label' => 'Прізвище','value' => ''.e($user->last_name).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'last_name','id' => 'last-name','label' => 'Прізвище','value' => ''.e($user->last_name).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
@@ -77,23 +77,23 @@
 <?php $component->withAttributes(['type' => 'text','name' => 'last_name','id' => 'last-name','label' => 'Прізвище','value' => ''.e($user->last_name).'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'email','name' => 'email','id' => 'email','label' => 'Електронна адреса','value' => ''.e($user->email).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'email','name' => 'email','id' => 'email','label' => 'Електронна адреса','value' => ''.e($user->email).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
@@ -102,20 +102,20 @@
 <?php $component->withAttributes(['type' => 'email','name' => 'email','id' => 'email','label' => 'Електронна адреса','value' => ''.e($user->email).'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                     </div>
                     <div class="form-group">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','placeholder' => '+38 (0__) ___ __ __','value' => ''.e($user->phone_number).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','placeholder' => '+38 (0__) ___ __ __','value' => ''.e($user->phone_number).'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
@@ -124,13 +124,13 @@
 <?php $component->withAttributes(['type' => 'tel','name' => 'phone_number','label' => 'Номер телефону','placeholder' => '+38 (0__) ___ __ __','value' => ''.e($user->phone_number).'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                     </div>
                 </div>
@@ -157,50 +157,50 @@
                 <?php echo method_field('PATCH'); ?>
                 <div class="form-row">
                     <div class="form-group">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'city','label' => 'Місто','value' => ''.e($address->city ?? '').'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'city','label' => 'Місто','value' => ''.e($user->address->city ?? '').'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'city','label' => 'Місто','value' => ''.e($address->city ?? '').'','readonly' => true]); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'city','label' => 'Місто','value' => ''.e($user->address->city ?? '').'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                         <ul id="city-suggestions" class="address-suggestions hidden"></ul>
                         <input type="hidden" name="ref_delivery_city" id="city-ref">
                     </div>
 
                     <div class="form-group">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'street','label' => 'Вулиця','value' => ''.e($address->street ?? '').'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'street','label' => 'Вулиця','value' => ''.e($user->address->street ?? '').'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'street','label' => 'Вулиця','value' => ''.e($address->street ?? '').'','readonly' => true]); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'street','label' => 'Вулиця','value' => ''.e($user->address->street ?? '').'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                         <ul id="street-suggestions" class="address-suggestions hidden"></ul>
                         <input type="hidden" name="ref_delivery_street" id="street-ref">
@@ -209,25 +209,25 @@
 
                 <div class="form-row">
                     <div class="form-group apartment">
-                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'apartment','label' => 'Квартира','value' => ''.e($address->apartment ?? '').'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'apartment','label' => 'Квартира','value' => ''.e($user->address->apartment ?? '').'','readonly' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'apartment','label' => 'Квартира','value' => ''.e($address->apartment ?? '').'','readonly' => true]); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'apartment','label' => 'Квартира','value' => ''.e($user->address->apartment ?? '').'','readonly' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $attributes = $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
+<?php if (isset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
+<?php $component = $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b; ?>
+<?php unset($__componentOriginal5c2a97ab476b69c1189ee85d1a95204b); ?>
 <?php endif; ?>
                     </div>
                 </div>
@@ -246,10 +246,10 @@
     </div>
 
     <?php if(session('success')): ?>
-        <?php if (isset($component)) { $__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.success-message','data' => ['message' => session('success')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('success-message'); ?>
+        <?php if (isset($component)) { $__componentOriginal59a01b2dcd10f7d9ec086655487d2911 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal59a01b2dcd10f7d9ec086655487d2911 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.ui.success-message','data' => ['message' => session('success')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('ui.success-message'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
@@ -258,13 +258,13 @@
 <?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(session('success'))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8)): ?>
-<?php $attributes = $__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8; ?>
-<?php unset($__attributesOriginala5e77f3594f8b6318da2dcd4db70cfc8); ?>
+<?php if (isset($__attributesOriginal59a01b2dcd10f7d9ec086655487d2911)): ?>
+<?php $attributes = $__attributesOriginal59a01b2dcd10f7d9ec086655487d2911; ?>
+<?php unset($__attributesOriginal59a01b2dcd10f7d9ec086655487d2911); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8)): ?>
-<?php $component = $__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8; ?>
-<?php unset($__componentOriginala5e77f3594f8b6318da2dcd4db70cfc8); ?>
+<?php if (isset($__componentOriginal59a01b2dcd10f7d9ec086655487d2911)): ?>
+<?php $component = $__componentOriginal59a01b2dcd10f7d9ec086655487d2911; ?>
+<?php unset($__componentOriginal59a01b2dcd10f7d9ec086655487d2911); ?>
 <?php endif; ?>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>

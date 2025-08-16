@@ -34,15 +34,19 @@ class AdvertController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request The request containing query and page data.
-     * @return Factory|View|Application
+     * @param Request $request The HTTP request instance.
+     * @return Factory|View|Application The view displaying the adverts.
      */
     public function index(Request $request): Factory|View|Application
     {
+        $userId = $request->user()->id;
         $query = $request->input('query');
+        $adverts = $this->advertService->getAdverts($query, 10, $userId);
 
-        $adverts = $this->advertService->getAdverts($query);
-        $adverts->load(['wishlists' => fn($q) => $q->where('user_id', auth()->id())]);
+        $adverts->getCollection()->transform(function ($advert) {
+            $advert->in_wishlist = $advert->wishlists->isNotEmpty();
+            return $advert;
+        });
 
         return view('adverts.index', compact('adverts'));
     }
@@ -50,7 +54,7 @@ class AdvertController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View|Application
+     * @return Factory|View|Application The view with the advert creation form.
      */
     public function create(): Factory|View|Application
     {
@@ -62,8 +66,8 @@ class AdvertController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreAdvertRequest $request The request containing advert data.
-     * @return Application|Factory|View|RedirectResponse
+     * @param StoreAdvertRequest $request The validated request with advert data.
+     * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
      */
     public function store(StoreAdvertRequest $request): Factory|View|Application|RedirectResponse
     {
@@ -80,32 +84,31 @@ class AdvertController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified advert.
      *
-     * @param string $id UUID of the advert
-     * @return Factory|View|Application
+     * @param string $id UUID of the advert.
+     * @return Factory|View|Application The view displaying advert details.
      */
     public function show(string $id): Factory|View|Application
     {
         $advert = Advert::with(['user', 'images'])->findOrFail($id);
 
-        $avatarUrl = $this->imageService->getImageUrl(
-            $advert->user?->image_path,
-            'images/default-avatar.png'
-        );
+        // todo abstracting photo transmission and processing
+        $avatarUrl = $this->imageService->getImageUrl($advert->user?->image_path, 'images/default-avatar.png');
 
         return view('adverts.show', compact('advert', 'avatarUrl'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified advert.
      *
-     * @param string $id UUID of the advert
-     * @return Factory|View|Application
-     * @throws AuthorizationException
+     * @param string $id UUID of the advert.
+     * @return Factory|View|Application The view with advert edit form.
+     * @throws AuthorizationException If the user is not authorized to edit the advert.
      */
     public function edit(string $id): Factory|View|Application
     {
+        // todo refactor the logic for receiving categories (long response from the database)
         $categories = Category::all();
         $advert = Advert::with('images')->findOrFail($id);
 
@@ -115,11 +118,11 @@ class AdvertController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified advert in storage.
      *
-     * @param StoreAdvertRequest $request The request containing advert data.
-     * @param string $id UUID of the advert
-     * @return Application|Factory|View|RedirectResponse
+     * @param StoreAdvertRequest $request The request containing updated advert data.
+     * @param string $id UUID of the advert.
+     * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
      */
     public function update(StoreAdvertRequest $request, string $id): Application|Factory|View|RedirectResponse
     {
@@ -136,11 +139,11 @@ class AdvertController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified advert from storage.
      *
-     * @param string $id UUID of the advert
-     * @return RedirectResponse
-     * @throws AuthorizationException
+     * @param string $id UUID of the advert.
+     * @return RedirectResponse Redirects to profile adverts after deletion.
+     * @throws AuthorizationException If the user is not authorized to delete the advert.
      */
     public function destroy(string $id): RedirectResponse
     {

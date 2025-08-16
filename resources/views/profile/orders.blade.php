@@ -10,7 +10,7 @@
     @else
         <div>
             <h2 class="page-title">Ваші замовлення</h2>
-            <x-orders-table :orders="$orders->getCollection()"/>
+            <x-order.table :orders="$orders->getCollection()"/>
 
             @if($orders->hasPages())
                 {{ $orders->links() }}
