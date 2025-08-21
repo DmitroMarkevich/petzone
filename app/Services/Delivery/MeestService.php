@@ -2,7 +2,7 @@
 
 namespace App\Services\Delivery;
 
-use App\Services\Contracts\DeliveryService;
+use App\Services\Delivery\Contracts\DeliveryService;
 
 class MeestService implements DeliveryService
 {

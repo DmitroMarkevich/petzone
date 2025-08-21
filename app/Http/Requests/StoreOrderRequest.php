@@ -32,7 +32,7 @@ class StoreOrderRequest extends FormRequest
             'recipient_first_name' => 'required|string|max:50',
             'recipient_last_name' => 'required|string|max:50',
             'recipient_middle_name' => 'nullable|string|max:50',
-            'recipient_phone_number' => 'required|string|max:15',
+            'recipient_phone_number' => 'required|string|max:20',
         ];
     }
 }

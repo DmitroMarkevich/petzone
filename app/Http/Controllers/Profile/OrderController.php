@@ -44,7 +44,7 @@ class OrderController extends Controller
      */
     public function show(string $id): Factory|View|Application
     {
-        $order = $this->orderService->getOrderById($id);
+        $order = $this->orderService->getOrderByIdWithMainImage($id);
         $this->authorize('view', $order);
 
         return view('profile.order-details', compact('order'));

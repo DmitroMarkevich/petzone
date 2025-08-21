@@ -26,7 +26,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'first_name' => 'sometimes|string|max:50',
             'last_name' => 'sometimes|string|max:50',
-            'phone_number' => 'sometimes|nullable|string|max:15',
+            'phone_number' => 'sometimes|nullable|string|max:20',
             'city' => 'sometimes|string|max:100',
             'street' => 'sometimes|string|max:255',
             'apartment' => 'sometimes|string|max:50',

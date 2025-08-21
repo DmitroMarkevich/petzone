@@ -1,16 +1,17 @@
 <?php
 
 use App\Enum\OrderStatus;
-use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Auth\OAuth2Controller;
 use App\Http\Controllers\Advert\AdvertController;
-use App\Http\Controllers\Profile\OrderController;
-use App\Http\Controllers\Profile\SalesController;
-use App\Http\Controllers\Profile\AddressController;
-use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\Profile\WishlistController;
+use App\Http\Controllers\Auth\OAuth2Controller;
 use App\Http\Controllers\Checkout\CheckoutController;
 use App\Http\Controllers\Checkout\DeliveryController;
+use App\Http\Controllers\Checkout\StripeWebhookController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Profile\AddressController;
+use App\Http\Controllers\Profile\OrderController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\SalesController;
+use App\Http\Controllers\Profile\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -59,7 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('checkout')->name('checkout.')->group(function () {
         Route::get('/', [CheckoutController::class, 'index'])->name('index');
         Route::post('/', [CheckoutController::class, 'store'])->name('store');
+
+        Route::get('/success', [CheckoutController::class, 'success'])->name('success');
+        Route::get('/cancel', [CheckoutController::class, 'cancel'])->name('cancel');
     });
+
+    Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
     Route::prefix('wishlist')->name('wishlist.')->group(function () {
         Route::post('/toggle/{advertId}', [WishlistController::class, 'toggleWishlist'])->name('toggle');

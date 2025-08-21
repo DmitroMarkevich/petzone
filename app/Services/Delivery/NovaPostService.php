@@ -3,7 +3,7 @@
 namespace App\Services\Delivery;
 
 use App\Models\Advert\Advert;
-use App\Services\Contracts\DeliveryService;
+use App\Services\Delivery\Contracts\DeliveryService;
 use Daaner\NovaPoshta\Models\Address;
 use Daaner\NovaPoshta\Models\InternetDocument;
 

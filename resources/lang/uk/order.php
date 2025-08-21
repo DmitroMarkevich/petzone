@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'PROCESSING' => 'В обробці',
     'PENDING' => 'Очікує',
     'CONFIRMED' => 'Підтверджено',
     'SHIPPED' => 'Відправлено',

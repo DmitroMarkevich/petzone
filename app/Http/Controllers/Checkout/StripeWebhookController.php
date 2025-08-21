@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers\Checkout;
+
+use App\Http\Controllers\Controller;
+use App\Services\StripeWebhookService;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class StripeWebhookController extends Controller
+{
+    private StripeWebhookService $stripeService;
+
+    public function __construct(StripeWebhookService $stripeService)
+    {
+        $this->stripeService = $stripeService;
+    }
+
+    public function handle(Request $request): Response|JsonResponse|ResponseFactory
+    {
+        $payload = $request->getContent();
+        $sigHeader = $request->header('Stripe-Signature');
+
+        try {
+            $event = $this->stripeService->constructEvent($payload, $sigHeader);
+        } catch (\UnexpectedValueException) {
+            return response('Invalid payload', 400);
+        }
+
+        $this->stripeService->handleEvent($event);
+
+        return response()->json(['status' => 'success']);
+    }
+}

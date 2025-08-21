@@ -7,6 +7,7 @@ use App\Enum\Contracts\Translatable;
 
 enum OrderStatus: string implements Translatable
 {
+    case PROCESSING = 'PROCESSING';
     case PENDING = 'PENDING';
     case CONFIRMED = 'CONFIRMED';
     case SHIPPED = 'SHIPPED';

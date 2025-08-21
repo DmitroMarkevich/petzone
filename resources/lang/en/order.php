@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'PROCESSING' => 'Processing',
     'PENDING' => 'Pending',
     'CONFIRMED' => 'Confirmed',
     'SHIPPED' => 'Shipped',
