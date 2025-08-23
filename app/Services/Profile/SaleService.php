@@ -21,6 +21,7 @@ class SaleService
     {
         return $user->sales()
             ->whereHas('advert', fn($q) => $q->where('is_active', $isActive))
+            ->where('status', '!=', OrderStatus::PROCESSING->value)
             ->with(['advert' => fn($q) => $q->withMainImage(), 'buyer'])
             ->orderByRaw("status = ? DESC", [OrderStatus::PENDING->value])
             ->latest()

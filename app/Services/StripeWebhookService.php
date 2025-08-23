@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use Stripe\Event;
-use Stripe\Webhook;
 use App\Models\Order;
 use App\Enum\OrderStatus;
+use Stripe\Event;
+use Stripe\Webhook;
+use Stripe\Exception\SignatureVerificationException;
 
 class StripeWebhookService
 {
@@ -24,7 +25,7 @@ class StripeWebhookService
      *
      * @param string $payload Raw request payload from Stripe.
      * @param string $sigHeader Stripe-Signature header.
-     * @throws \Stripe\Exception\SignatureVerificationException If signature is invalid.
+     * @throws SignatureVerificationException If signature is invalid.
      */
     public function constructEvent(string $payload, string $sigHeader): Event
     {
