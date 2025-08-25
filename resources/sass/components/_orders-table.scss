@@ -40,6 +40,10 @@
     margin: 0 auto;
 }
 
+.status.processing {
+    background-color: variables.$orange;
+}
+
 .status.confirmed, .status.pending, .status.shipped {
     background-color: variables.$dark-blue;
 }
