@@ -137,15 +137,17 @@
 }
 
 .scroll-btn {
-    width: 40px;
-    height: 40px;
+    @extend .scroll-btn-base;
     border-radius: 32px;
     box-shadow: 0 4px 24px 0 #0000000D;
-    background-color: #FFE6A5;
-}
 
-.scroll-btn.right {
-    background-color: variables.$orange;
+    &.left {
+        background-color: #FFE6A5;
+    }
+
+    &.right {
+        background-color: variables.$orange;
+    }
 }
 
 .scroll-indicator {

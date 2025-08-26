@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="category-item">
-                        <a href="" style="color: black">
+                        <a href="">
                             <img src="{{ asset('images/home/another.png') }}" alt="Інше" class="category-image">
                             <h4 class="category-title">Інші Товари</h4>
                         </a>

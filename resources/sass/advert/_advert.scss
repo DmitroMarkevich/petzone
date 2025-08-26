@@ -90,43 +90,20 @@
 }
 
 .advert-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.main-image img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    background: #f0f0f0;
-}
-
-.thumbnail-images img {
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
+    @include mixins.flex-column;
+    gap: 16px;
 }
 
 .advert-info {
+    @include mixins.flex-column;
     @include mixins.text-ellipsis;
-    width: 30%;
-    padding: 16px;
-    box-shadow: 0 4px 32px 0 #00000033;
+    border-radius: 16px;
+    padding: 24px;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.seller-info {
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 32px;
-}
-
-.seller {
-    @include mixins.flex-center-vertical;
-    gap: 8px;
-}
-
-.profile-avatar {
-    @include mixins.size(27px);
+.seller-avatar {
+    @include mixins.size(56px);
+    border-radius: 50%;
 }

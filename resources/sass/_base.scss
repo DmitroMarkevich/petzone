@@ -123,6 +123,12 @@ input[type="search"]::-webkit-search-cancel-button {
     display: none;
 }
 
+.scroll-btn-base {
+    @include mixins.size(40px);
+    border-radius: 32px;
+    box-shadow: 0 4px 24px 0 #0000000D;
+}
+
 .dropdown-base {
     position: absolute;
     border: 1px solid variables.$light-gray;

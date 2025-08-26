@@ -15,9 +15,9 @@
 
     <div class="advert-details">
         <div class="advert-tags">
-            <span class="tag">#Собаки</span>
-            <span class="tag">#Їжа</span>
-            <span class="tag">#Здоров'я</span>
+            @foreach($tags ?? ['Собаки', 'Їжа', "Здоров'я"] as $tag)
+                <span class="tag">#{{ $tag }}</span>
+            @endforeach
         </div>
 
         <h3 class="advert-title">{{ $advert->title }}</h3>

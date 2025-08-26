@@ -15,9 +15,9 @@
 
     <div class="advert-details">
         <div class="advert-tags">
-            <span class="tag">#Собаки</span>
-            <span class="tag">#Їжа</span>
-            <span class="tag">#Здоров'я</span>
+            <?php $__currentLoopData = $tags ?? ['Собаки', 'Їжа', "Здоров'я"]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <span class="tag">#<?php echo e($tag); ?></span>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
 
         <h3 class="advert-title"><?php echo e($advert->title); ?></h3>
