@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.log(1);
-
     const updatePreview = (input, file) => {
         const $label = input.next('.photo-label');
         const reader = new FileReader();
