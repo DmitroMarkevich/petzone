@@ -57,7 +57,7 @@
                                     <option>Рептилії</option>
                                 </select>
                             </div>
-                        </div>
+                        7/div>
                     </div>
                 </div>
 

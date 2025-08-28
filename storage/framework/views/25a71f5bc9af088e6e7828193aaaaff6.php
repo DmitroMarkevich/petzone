@@ -33,9 +33,14 @@
 
     <div class="price-action">
         <p class="advert-price"><?php echo e($advert->price); ?> ₴</p>
-        <button class="buy-button" type="button">
-            Купити <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Cart Icon">
-        </button>
+
+        <form action="<?php echo e(route('checkout.select')); ?>" method="POST">
+            <?php echo csrf_field(); ?>
+            <input type="hidden" name="advert_id" value="<?php echo e($advert->id); ?>">
+            <button class="buy-button" type="submit">
+                Купити <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Cart Icon">
+            </button>
+        </form>
     </div>
 </div>
 

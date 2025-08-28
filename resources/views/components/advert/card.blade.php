@@ -33,9 +33,14 @@
 
     <div class="price-action">
         <p class="advert-price">{{ $advert->price }} ₴</p>
-        <button class="buy-button" type="button">
-            Купити <img src="{{ asset('images/profile/cart.svg') }}" alt="Cart Icon">
-        </button>
+
+        <form action="{{ route('checkout.select') }}" method="POST">
+            @csrf
+            <input type="hidden" name="advert_id" value="{{ $advert->id }}">
+            <button class="buy-button" type="submit">
+                Купити <img src="{{ asset('images/profile/cart.svg') }}" alt="Cart Icon">
+            </button>
+        </form>
     </div>
 </div>
 
