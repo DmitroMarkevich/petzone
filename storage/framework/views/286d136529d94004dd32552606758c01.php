@@ -7,15 +7,15 @@
                 <a href="<?php echo e(route('home')); ?>">
                     <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="Back">
                 </a>
-                <span class="category-path">Dogs / Food / Vitamins</span>
+                <span>Dogs / Food / Vitamins</span>
             </div>
 
             <div style="display: flex; gap: 48px">
-                <div class="filter-results-container">
-                    <div class="filters">
+                <div style="display: flex; gap: 50px">
+                    <div>
                         <div class="form-row">
                             <h3>Фільтрувати</h3>
-                            <button class="filters-clear">Очистити все</button>
+                            <button style="color: #797677">Очистити все</button>
                         </div>
 
                         <div class="filters-list">
@@ -40,8 +40,9 @@
                             </div>
 
                             <div class="filter-group">
-                                <label>Локація</label>
-                                <input type="text" placeholder="Місто / Район">
+                                <label>Локація
+                                    <input type="text" placeholder="Місто / Район">
+                                </label>
                             </div>
 
                             <div class="filter-group">
@@ -53,38 +54,6 @@
                                     <option>Птахи</option>
                                     <option>Рептилії</option>
                                 </select>
-                            </div>
-
-                            <div class="filter-group">
-                                <label>Додатково</label>
-                                <div>
-                                    <input type="checkbox" id="certified">
-                                    <label for="certified">Сертифікований майстер</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="online-consult">
-                                    <label for="online-consult">Онлайн консультація</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="home-service">
-                                    <label for="home-service">Виїзд додому</label>
-                                </div>
-                            </div>
-
-                            <div class="filter-group">
-                                <label>Ветеринарні послуги</label>
-                                <div>
-                                    <input type="checkbox" id="vaccination">
-                                    <label for="vaccination">Вакцинація</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="chip">
-                                    <label for="chip">Чіпування</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="sterilization">
-                                    <label for="sterilization">Стерилізація / Кастрація</label>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -110,10 +79,9 @@
                             </div>
                         </div>
 
-                        <div class="adverts">
-                            <div class="advert-grid">
-                                <?php $__currentLoopData = $adverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
+                        <div class="advert-grid">
+                            <?php $__currentLoopData = $adverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf74e02aea032995600afb10c96aa9574 = $attributes; } ?>
 <?php $component = App\View\Components\AdvertCard::resolve(['advert' => $advert] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('advert-card'); ?>
@@ -133,14 +101,13 @@
 <?php $component = $__componentOriginalf74e02aea032995600afb10c96aa9574; ?>
 <?php unset($__componentOriginalf74e02aea032995600afb10c96aa9574); ?>
 <?php endif; ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </div>
-
-                            <?php if($adverts->hasPages()): ?>
-                                <?php echo e($adverts->links()); ?>
-
-                            <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
+
+                        <?php if($adverts->hasPages()): ?>
+                            <?php echo e($adverts->links()); ?>
+
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
             </div>
@@ -149,23 +116,17 @@
 <?php $__env->stopSection(); ?>
 
 <style>
-    .filter-results-container {
-        display: flex;
-        gap: 50px;
-    }
-
     .filters-list {
         width: 300px;
-        background: #ffffff;
         padding: 20px;
-        border-radius: 10px;
+        border-radius: 16px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     select, input {
         width: 100%;
         padding: 8px;
-        border: 1px solid black;
+        border: 1px solid #E6E1E2;
         border-radius: 5px;
         font-size: 14px;
     }
@@ -180,12 +141,7 @@
         align-items: center;
     }
 
-    .filters-clear {
-        color: #797677;
-    }
-
     .sort-options {
-        font-family: 'Inter', sans-serif;
         border: 1px solid #E6E1E2;
     }
 </style>
