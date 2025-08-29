@@ -23,19 +23,41 @@ jobs:
           script: |
             set -e
 
-            cd ${{ vars.PROJECT_PATH }}
+             cd ${{ vars.PROJECT_PATH }}
 
-            git fetch origin main
-            git reset --hard origin/main
+             # Update code
+             git fetch origin main
+             git reset --hard origin/main
 
-            docker compose run --rm app composer install --no-dev --optimize-autoloader
+            # Check if composer.lock changed
+             if ! docker compose exec -T app composer check-platform-reqs > /dev/null 2>&1; then
+               echo "Installing PHP dependencies..."
+               docker compose run --rm app composer install --no-dev --optimize-autoloader --no-interaction
+             fi
 
-            docker compose run --rm app npm ci
-            docker compose run --rm app npm run build
+             # Check if package-lock.json changed
+             if [ -f "package-lock.json" ] && ! cmp -s package-lock.json.old package-lock.json 2>/dev/null; then
+               echo "Installing Node dependencies..."
+               docker compose run --rm app npm ci --silent
+               cp package-lock.json package-lock.json.old
+             fi
 
-            docker compose run --rm app php artisan optimize:clear
+             # Check if assets changed
+             if [ -d "resources" ]; then
+               echo "Building assets..."
+               docker compose run --rm app npm run build
+             fi
 
-            docker compose down
-            docker compose up -d --build
+             docker compose exec -T app php artisan optimize:clear
 
-            docker compose exec -T app php artisan migrate --force
+             # Graceful restart
+             echo "Restarting containers..."
+             docker compose up -d --no-deps app
+
+             # Migrations
+             docker compose exec -T app php artisan migrate --force
+
+             # Optimize after deploy
+             docker compose exec -T app php artisan optimize
+
+             echo "PetZone deploy was successful"
