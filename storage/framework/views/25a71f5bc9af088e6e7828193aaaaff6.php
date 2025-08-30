@@ -32,7 +32,14 @@
     </div>
 
     <div class="price-action">
-        <p class="advert-price"><?php echo e($advert->price); ?> ₴</p>
+        <div class="advert-price">
+            <?php if($advert->shouldShowDiscountPrice()): ?>
+                <span class="old-price"><?php echo e(number_format($advert->previous_price)); ?> ₴</span>
+                <h4 class="new-price"><?php echo e(number_format($advert->price)); ?> ₴</h4>
+            <?php else: ?>
+                <span class="current-price"><?php echo e(number_format($advert->price)); ?> ₴</span>
+            <?php endif; ?>
+        </div>
 
         <form action="<?php echo e(route('checkout.select')); ?>" method="POST">
             <?php echo csrf_field(); ?>
@@ -72,5 +79,4 @@
         });
     });
 </script>
-
 <?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/components/advert/card.blade.php ENDPATH**/ ?>

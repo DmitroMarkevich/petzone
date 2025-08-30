@@ -57,41 +57,41 @@
                                     <option>Рептилії</option>
                                 </select>
                             </div>
-                        7/div>
+                        </div>
                     </div>
-                </div>
 
-                @if($adverts->isEmpty())
-                    <div class="no-results">
-                        <p>{{ __('common.nothing_found') }}</p>
-                    </div>
-                @else
-                    <div style="display: flex; flex-direction: column; width: 100%">
-                        <div class="form-row" style="margin-bottom: 30px;">
-                            <p>Всього ~{{ count($adverts) }} результатів</p>
+                    @if($adverts->isEmpty())
+                        <div class="no-results">
+                            <p>{{ __('common.nothing_found') }}</p>
+                        </div>
+                    @else
+                        <div style="display: flex; flex-direction: column; width: 100%">
+                            <div class="form-row" style="margin-bottom: 30px;">
+                                <p>Всього ~{{ count($adverts) }} результатів</p>
 
-                            <div class="sort-container">
-                                <label for="sort-options"></label>
-                                <select id="sort-options" class="sort-options">
-                                    <option value="price-asc">Від дешевих до дорогих</option>
-                                    <option value="price-desc">Від дорогих до дешевих</option>
-                                    <option value="date-asc">Новинки</option>
-                                    <option value="date-asc" selected>За рейтингом</option>
-                                </select>
+                                <div class="sort-container">
+                                    <label for="sort-options"></label>
+                                    <select id="sort-options" class="sort-options">
+                                        <option value="price-asc">Від дешевих до дорогих</option>
+                                        <option value="price-desc">Від дорогих до дешевих</option>
+                                        <option value="date-asc">Новинки</option>
+                                        <option value="date-asc" selected>За рейтингом</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="advert-grid">
-                            @foreach($adverts as $advert)
-                                <x-advert-card :advert="$advert"/>
-                            @endforeach
-                        </div>
+                            <div class="advert-grid">
+                                @foreach($adverts as $advert)
+                                    <x-advert-card :advert="$advert"/>
+                                @endforeach
+                            </div>
 
-                        @if($adverts->hasPages())
-                            {{ $adverts->links() }}
-                        @endif
-                    </div>
-                @endif
+                            @if($adverts->hasPages())
+                                {{ $adverts->links() }}
+                            @endif
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

@@ -38,7 +38,7 @@ class HomeController
         $adverts = [
             'freshAdverts' => $this->advertService->getFreshAdverts(200, 5),
             'popularAdverts' => $this->advertService->getPopularAdverts(),
-            'discountedAdverts' => $this->advertService->getDiscountedAdverts()
+            'discountedAdverts' => $this->advertService->getDiscountedAdverts(5)
         ];
 
         foreach ($adverts as $advertList) {

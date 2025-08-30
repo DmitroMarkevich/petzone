@@ -19,13 +19,18 @@ class AdvertFactory extends Factory
      */
     public function definition(): array
     {
+        $currentPrice = $this->faker->numberBetween(10, 5000);
+        $previousPrice = $this->faker->optional()->numberBetween(10, 5000);
+
         return [
             'id' => Str::uuid(),
             'category_id' => Category::inRandomOrder()->first()->id,
             'owner_id' => User::inRandomOrder()->first()->id,
             'title' => 'Оголошення #' . $this->faker->unique()->randomNumber(5),
             'description' => $this->faker->sentence,
-            'price' => $this->faker->numberBetween(10, 5000),
+            'price' => $currentPrice,
+            'previous_price' => $previousPrice,
+            'price_changed_at' => $previousPrice ? now() : null,
             'is_active' => true,
         ];
     }
@@ -34,11 +39,7 @@ class AdvertFactory extends Factory
     {
         return $this->afterCreating(function ($advert) {
             $testImageUrl = 'adverts/9f95c0d0-f084-4f15-a378-ad95094abe37/qfkaJpt9Gm4giWoFbli4CB55YJ795CDJFVq8jgLe.jpg';
-
-            $advert->images()->create([
-                'image_path' => $testImageUrl,
-                'main_image' => true,
-            ]);
+            $advert->images()->create(['image_path' => $testImageUrl, 'main_image' => true]);
         });
     }
 }

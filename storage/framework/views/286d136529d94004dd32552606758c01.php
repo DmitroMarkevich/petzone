@@ -55,33 +55,32 @@
                                     <option>Рептилії</option>
                                 </select>
                             </div>
-                        7/div>
-                    </div>
-                </div>
-
-                <?php if($adverts->isEmpty()): ?>
-                    <div class="no-results">
-                        <p><?php echo e(__('common.nothing_found')); ?></p>
-                    </div>
-                <?php else: ?>
-                    <div style="display: flex; flex-direction: column; width: 100%">
-                        <div class="form-row" style="margin-bottom: 30px;">
-                            <p>Всього ~<?php echo e(count($adverts)); ?> результатів</p>
-
-                            <div class="sort-container">
-                                <label for="sort-options"></label>
-                                <select id="sort-options" class="sort-options">
-                                    <option value="price-asc">Від дешевих до дорогих</option>
-                                    <option value="price-desc">Від дорогих до дешевих</option>
-                                    <option value="date-asc">Новинки</option>
-                                    <option value="date-asc" selected>За рейтингом</option>
-                                </select>
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="advert-grid">
-                            <?php $__currentLoopData = $adverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
+                    <?php if($adverts->isEmpty()): ?>
+                        <div class="no-results">
+                            <p><?php echo e(__('common.nothing_found')); ?></p>
+                        </div>
+                    <?php else: ?>
+                        <div style="display: flex; flex-direction: column; width: 100%">
+                            <div class="form-row" style="margin-bottom: 30px;">
+                                <p>Всього ~<?php echo e(count($adverts)); ?> результатів</p>
+
+                                <div class="sort-container">
+                                    <label for="sort-options"></label>
+                                    <select id="sort-options" class="sort-options">
+                                        <option value="price-asc">Від дешевих до дорогих</option>
+                                        <option value="price-desc">Від дорогих до дешевих</option>
+                                        <option value="date-asc">Новинки</option>
+                                        <option value="date-asc" selected>За рейтингом</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="advert-grid">
+                                <?php $__currentLoopData = $adverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf74e02aea032995600afb10c96aa9574 = $attributes; } ?>
 <?php $component = App\View\Components\AdvertCard::resolve(['advert' => $advert] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('advert-card'); ?>
@@ -101,15 +100,16 @@
 <?php $component = $__componentOriginalf74e02aea032995600afb10c96aa9574; ?>
 <?php unset($__componentOriginalf74e02aea032995600afb10c96aa9574); ?>
 <?php endif; ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+
+                            <?php if($adverts->hasPages()): ?>
+                                <?php echo e($adverts->links()); ?>
+
+                            <?php endif; ?>
                         </div>
-
-                        <?php if($adverts->hasPages()): ?>
-                            <?php echo e($adverts->links()); ?>
-
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>

@@ -51,7 +51,7 @@
     }
 }
 
-.advert-title, .advert-price {
+.advert-title, .current-price, .new-price {
     font-family: variables.$font-family;
 }
 
@@ -61,7 +61,23 @@
 }
 
 .advert-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.current-price {
     @include mixins.font-style(24px, variables.$dark-graphite, 700);
+}
+
+.old-price {
+    @include mixins.font-style(16px, #AEAAAB, 400);
+    font-family: variables.$font-family-alt;
+    text-decoration: line-through;
+}
+
+.new-price {
+    @include mixins.font-style(24px, variables.$bright-red, 700);
 }
 
 .advert-tags .tag {

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Advert\Advert;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 // todo: need to be refactored; need to add methods with popular and discounted adverts (with redis)
@@ -47,7 +48,14 @@ class AdvertService
 
     public function updateAdvert(string $id, array $data): bool
     {
-        return Advert::findOrFail($id)->update($data);
+        $advert = Advert::findOrFail($id);
+
+        if ($data['price'] < $advert->price) {
+            $data['previous_price'] = $advert->price;
+            $data['price_changed_at'] = now();
+        }
+
+        return $advert->update($data);
     }
 
     public function createAdvert(array $data): Advert
@@ -60,11 +68,11 @@ class AdvertService
             'owner_id' => auth()->id(),
         ]);
 
-            if (isset($data['images']) && is_array($data['images'])) {
-                foreach ($data['images'] as $index => $image) {
-                    $this->addAdvertImage($advert, $image, $index === 0);
-                }
+        if (isset($data['images']) && is_array($data['images'])) {
+            foreach ($data['images'] as $index => $image) {
+                $this->addAdvertImage($advert, $image, $index === 0);
             }
+        }
 
         return $advert;
     }
@@ -80,10 +88,9 @@ class AdvertService
         ]);
     }
 
-    public function getFreshAdverts(int $hours = 5, int $limit = 4)
+    public function getFreshAdverts(int $hours = 5, int $limit = 4): Collection
     {
-        return Advert::select('id', 'title', 'price')
-            ->withMainImage()
+        return Advert::withMainImage()
             ->where('created_at', '>=', now()->subHours($hours))
             ->latest()
             ->take($limit)
@@ -97,8 +104,13 @@ class AdvertService
     }
 
     // todo
-    public function getDiscountedAdverts(int $limit = 4): \Illuminate\Support\Collection
+    public function getDiscountedAdverts(int $limit = 4): Collection
     {
-        return collect();
+        return Advert::withMainImage()
+            ->whereNotNull('previous_price')
+            ->whereColumn('previous_price', '>', 'price')
+            ->orderBy('random_seed')
+            ->take($limit)
+            ->get();
     }
 }

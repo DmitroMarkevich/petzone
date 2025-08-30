@@ -2,6 +2,7 @@
 
 namespace App\Models\Advert;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ class Advert extends Model
         'id',
         'title',
         'price',
+        'previous_price',
         'description',
         'average_rating',
         'random_seed',
@@ -103,5 +105,14 @@ class Advert extends Model
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'advert_id');
+    }
+
+    public function shouldShowDiscountPrice(): bool
+    {
+        if (!$this->previous_price || $this->price >= $this->previous_price || !$this->price_changed_at) {
+            return false;
+        }
+
+        return Carbon::parse($this->price_changed_at)->gt(now()->subWeeks(3));
     }
 }
