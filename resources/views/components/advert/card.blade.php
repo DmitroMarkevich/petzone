@@ -8,6 +8,7 @@
               data-id="{{ $advert->id }}">
             @csrf
             <button type="button" class="favorite-button" data-id="{{ $advert->id }}">
+                Додати до улюбленого
                 <img src="{{ $heartIcon }}" alt="Heart" class="heart-icon" data-id="{{ $advert->id }}">
             </button>
         </form>

@@ -8,6 +8,7 @@
               data-id="<?php echo e($advert->id); ?>">
             <?php echo csrf_field(); ?>
             <button type="button" class="favorite-button" data-id="<?php echo e($advert->id); ?>">
+                Додати до улюбленого
                 <img src="<?php echo e($heartIcon); ?>" alt="Heart" class="heart-icon" data-id="<?php echo e($advert->id); ?>">
             </button>
         </form>
