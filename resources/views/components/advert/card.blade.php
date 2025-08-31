@@ -24,10 +24,11 @@
         <h3 class="advert-title">{{ $advert->title }}</h3>
 
         <div class="advert-rating" role="img" aria-label="{{ $advert->average_rating }}">
-            @for ($i = 1; $i <= 5; $i++)
-                <img src="{{ asset('images/star.svg') }}"
-                     alt="{{ $i <= $advert->average_rating ? 'Star' : 'Empty Star' }}">
-            @endfor
+            <div class="stars-wrapper">
+                @for ($i = 1; $i <= 5; $i++)
+                    <img src="{{ $i <= $starsToShow ? asset('images/star-filled.svg') : asset('images/star.svg') }}" alt="Star">
+                @endfor
+            </div>
             <span class="rating-value">{{ $advert->average_rating }}</span>
         </div>
     </div>
@@ -71,10 +72,10 @@
         $.ajax({
             url: $form.data('action'),
             method: 'POST',
-            headers: { 'X-CSRF-TOKEN': csrfToken },
-            success: function(response) {
+            headers: {'X-CSRF-TOKEN': csrfToken},
+            success: function (response) {
                 $icon.attr('src', `/images/${response.in_wishlist ? 'heart-filled.svg' : 'heart.svg'}`);
-            }, complete: function() {
+            }, complete: function () {
                 $button.prop('disabled', false);
             }
         });

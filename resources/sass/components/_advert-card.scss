@@ -89,6 +89,10 @@
     gap: 10px;
 }
 
+.stars-wrapper {
+    gap: 2px;
+}
+
 .rating-value {
     @include mixins.font-style(14px, #484647, 600);
 }

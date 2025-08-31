@@ -2,14 +2,16 @@
 
 namespace App\View\Components;
 
-use App\Models\Advert\Advert;
 use Closure;
 use Illuminate\View\View;
 use Illuminate\View\Component;
+use App\Models\Advert\Advert;
 
 class AdvertCard extends Component
 {
     public Advert $advert;
+    public int $starsToShow;
+    public string $heartIcon;
 
     /**
      * Create a new component instance.
@@ -17,6 +19,14 @@ class AdvertCard extends Component
     public function __construct(Advert $advert)
     {
         $this->advert = $advert;
+
+        $rating = $advert->average_rating ?? 0;
+        $whole = floor($rating);
+        $this->starsToShow = ($rating - $whole) > 0.6 ? $whole + 1 : $whole;
+
+        $this->heartIcon = $this->advert->inWishlist
+            ? asset('images/heart-filled.svg')
+            : asset('images/heart.svg');
     }
 
     /**
@@ -24,13 +34,10 @@ class AdvertCard extends Component
      */
     public function render(): View|Closure|string
     {
-        $heartIcon = $this->advert->inWishlist
-            ? asset('images/heart-filled.svg')
-            : asset('images/heart.svg');
-
         return view('components.advert.card', [
             'advert' => $this->advert,
-            'heartIcon' => $heartIcon,
+            'heartIcon' => $this->heartIcon,
+            'starsToShow' => $this->starsToShow,
         ]);
     }
 }

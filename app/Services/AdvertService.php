@@ -94,7 +94,7 @@ class AdvertService
     public function getPopularAdverts(int $limit = 10): Collection
     {
         return $this->cachedAdverts("adverts:popular:$limit", fn() =>
-            Advert::select('id','title','price','previous_price')
+            Advert::select('id','title','price','previous_price', 'average_rating')
                 ->withMainImage()
                 ->withCount('wishlists')
                 ->orderBy('wishlists_count','desc')
@@ -106,7 +106,7 @@ class AdvertService
     public function getDiscountedAdverts(int $limit = 5): Collection
     {
         return $this->cachedAdverts("adverts:discounted:$limit", fn() =>
-            Advert::select('id','title','price','previous_price')
+            Advert::select('id','title','price','previous_price', 'average_rating')
                 ->withMainImage()
                 ->whereColumn('previous_price','>','price')
                 ->orderBy('random_seed')
@@ -118,7 +118,7 @@ class AdvertService
     public function getFreshAdverts(int $hours = 5, int $limit = 5): Collection
     {
         return $this->cachedAdverts("adverts:fresh:$hours:$limit", fn() =>
-            Advert::select('id','title','price','previous_price')
+            Advert::select('id','title','price','previous_price', 'average_rating')
                 ->withMainImage()
                 ->where('created_at','>=',now()->subHours($hours))
                 ->latest()
