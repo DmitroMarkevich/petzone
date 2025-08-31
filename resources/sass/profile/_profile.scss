@@ -18,6 +18,11 @@
         display: flex;
         justify-content: center;
         width: 100%;
+
+        &:has(.wishlist-container) {
+            display: block;
+            justify-content: flex-start;
+        }
     }
 
     .profile-container {
@@ -131,4 +136,10 @@
 
 .no-results {
     @include mixins.flex-center();
+}
+
+.wishlist-container {
+    display: flex;
+    padding: 0 120px;
+    gap: 24px;
 }

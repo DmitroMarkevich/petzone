@@ -8,7 +8,7 @@
             <p>{{ __('common.nothing_found') }}</p>
         </div>
     @else
-        <div>
+        <div class="wishlist-container">
             @foreach($wishlist as $advert)
                 <x-advert-card :advert="$advert" />
             @endforeach

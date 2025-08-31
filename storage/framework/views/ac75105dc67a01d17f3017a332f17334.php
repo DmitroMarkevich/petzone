@@ -6,7 +6,7 @@
             <p><?php echo e(__('common.nothing_found')); ?></p>
         </div>
     <?php else: ?>
-        <div>
+        <div class="wishlist-container">
             <?php $__currentLoopData = $wishlist; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf74e02aea032995600afb10c96aa9574 = $attributes; } ?>
