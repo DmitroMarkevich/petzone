@@ -140,6 +140,7 @@
 
 .wishlist-container {
     display: flex;
-    padding: 0 120px;
+    flex-wrap: wrap;
+    padding: 0 0 0 80px;
     gap: 16px;
 }
