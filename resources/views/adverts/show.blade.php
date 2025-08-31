@@ -72,7 +72,14 @@
                 </div>
 
                 <div class="form-row" style="margin-top: auto">
-                    <span class="advert-price">{{ $advert->price }} ₴</span>
+                    <div class="advert-price">
+                        @if($advert->shouldShowDiscountPrice())
+                            <span class="old-price">{{ number_format($advert->previous_price) }} ₴</span>
+                            <h4 class="new-price">{{ number_format($advert->price) }} ₴</h4>
+                        @else
+                            <span class="current-price">{{ number_format($advert->price) }} ₴</span>
+                        @endif
+                    </div>
 
                     <form action="{{ route('checkout.select') }}" method="POST" style="display: inline">
                         @csrf

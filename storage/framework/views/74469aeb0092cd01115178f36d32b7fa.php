@@ -70,7 +70,14 @@
                 </div>
 
                 <div class="form-row" style="margin-top: auto">
-                    <span class="advert-price"><?php echo e($advert->price); ?> ₴</span>
+                    <div class="advert-price">
+                        <?php if($advert->shouldShowDiscountPrice()): ?>
+                            <span class="old-price"><?php echo e(number_format($advert->previous_price)); ?> ₴</span>
+                            <h4 class="new-price"><?php echo e(number_format($advert->price)); ?> ₴</h4>
+                        <?php else: ?>
+                            <span class="current-price"><?php echo e(number_format($advert->price)); ?> ₴</span>
+                        <?php endif; ?>
+                    </div>
 
                     <form action="<?php echo e(route('checkout.select')); ?>" method="POST" style="display: inline">
                         <?php echo csrf_field(); ?>

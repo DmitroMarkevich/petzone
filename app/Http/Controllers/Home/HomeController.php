@@ -36,15 +36,14 @@ class HomeController
         }
 
         $adverts = [
-            'freshAdverts' => $this->advertService->getFreshAdverts(200, 5),
             'popularAdverts' => $this->advertService->getPopularAdverts(),
-            'discountedAdverts' => $this->advertService->getDiscountedAdverts(5)
+            'discountedAdverts' => $this->advertService->getDiscountedAdverts(),
+            'freshAdverts' => $this->advertService->getFreshAdverts(200)
         ];
 
-        foreach ($adverts as $advertList) {
-            $collection = method_exists($advertList, 'getCollection') ? $advertList->getCollection() : $advertList;
-
-            $collection->transform(function ($advert) use ($userWishlistIds) {
+        // Add 'in_wishlist' flag to each advert based on user wishlist for frontend display
+        foreach ($adverts as $key => $collection) {
+            $adverts[$key] = $collection->map(function ($advert) use ($userWishlistIds) {
                 $advert->in_wishlist = in_array($advert->id, $userWishlistIds);
                 return $advert;
             });

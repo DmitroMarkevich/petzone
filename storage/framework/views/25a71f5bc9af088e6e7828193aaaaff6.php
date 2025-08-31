@@ -28,7 +28,7 @@
                 <img src="<?php echo e(asset('images/star.svg')); ?>"
                      alt="<?php echo e($i <= $advert->average_rating ? 'Star' : 'Empty Star'); ?>">
             <?php endfor; ?>
-            <span class="rating-value"><?php echo e($advert->average_rating); ?>.0</span>
+            <span class="rating-value"><?php echo e($advert->average_rating); ?></span>
         </div>
     </div>
 

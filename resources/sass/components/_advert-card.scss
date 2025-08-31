@@ -62,10 +62,6 @@
     align-items: flex-start;
 }
 
-.current-price {
-    @include mixins.font-style(24px, variables.$dark-graphite, 700);
-}
-
 .old-price {
     @include mixins.font-style(16px, #AEAAAB, 400);
     font-family: variables.$font-family-alt;

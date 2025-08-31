@@ -107,3 +107,7 @@
     @include mixins.size(56px);
     border-radius: 50%;
 }
+
+.current-price {
+    @include mixins.font-style(24px, variables.$dark-graphite, 700);
+}

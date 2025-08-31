@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use Closure;
 use App\Models\Advert\Advert;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 // todo: need to be refactored; need to add methods with popular and discounted adverts (with redis)
@@ -25,15 +27,16 @@ class AdvertService
      * @param int $perPage Number of adverts per page. Default is 10.
      * @return LengthAwarePaginator Paginated collection of adverts.
      */
-    public function getAdverts(?string $query = null, int $perPage = self::DEFAULT_PER_PAGE, ?string $userId = null): LengthAwarePaginator
-    {
+    public function getAdverts(
+        ?string $query = null,
+        int $perPage = self::DEFAULT_PER_PAGE,
+        ?string $userId = null
+    ): LengthAwarePaginator {
         $queryBuilder = Advert::query();
 
         if ($query) {
-            $queryBuilder->where(function ($q) use ($query) {
-                $q->where('title', 'like', "%$query%")
-                    ->orWhere('description', 'like', "%$query%");
-            });
+            $queryBuilder->where(fn($q) => $q->where('title', 'like', "%$query%")
+                ->orWhere('description', 'like', "%$query%"));
         } else {
             $queryBuilder->orderBy('random_seed');
         }
@@ -88,29 +91,45 @@ class AdvertService
         ]);
     }
 
-    public function getFreshAdverts(int $hours = 5, int $limit = 4): Collection
+    public function getPopularAdverts(int $limit = 10): Collection
     {
-        return Advert::withMainImage()
-            ->where('created_at', '>=', now()->subHours($hours))
-            ->latest()
-            ->take($limit)
-            ->get();
+        return $this->cachedAdverts("adverts:popular:$limit", fn() =>
+            Advert::select('id','title','price','previous_price')
+                ->withMainImage()
+                ->withCount('wishlists')
+                ->orderBy('wishlists_count','desc')
+                ->limit($limit)
+                ->get()
+        );
     }
 
-    // todo
-    public function getPopularAdverts(int $limit = 4): \Illuminate\Support\Collection
+    public function getDiscountedAdverts(int $limit = 5): Collection
     {
-        return collect();
+        return $this->cachedAdverts("adverts:discounted:$limit", fn() =>
+            Advert::select('id','title','price','previous_price')
+                ->withMainImage()
+                ->whereColumn('previous_price','>','price')
+                ->orderBy('random_seed')
+                ->take($limit)
+                ->get()
+        );
     }
 
-    // todo
-    public function getDiscountedAdverts(int $limit = 4): Collection
+    public function getFreshAdverts(int $hours = 5, int $limit = 5): Collection
     {
-        return Advert::withMainImage()
-            ->whereNotNull('previous_price')
-            ->whereColumn('previous_price', '>', 'price')
-            ->orderBy('random_seed')
-            ->take($limit)
-            ->get();
+        return $this->cachedAdverts("adverts:fresh:$hours:$limit", fn() =>
+            Advert::select('id','title','price','previous_price')
+                ->withMainImage()
+                ->where('created_at','>=',now()->subHours($hours))
+                ->latest()
+                ->take($limit)
+                ->get(),
+                30
+        );
+    }
+
+    private function cachedAdverts(string $key, Closure $callback, int $minutes = 60): Collection
+    {
+        return Cache::remember($key, now()->addMinutes($minutes), $callback);
     }
 }

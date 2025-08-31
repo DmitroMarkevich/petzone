@@ -109,7 +109,7 @@ class Advert extends Model
 
     public function shouldShowDiscountPrice(): bool
     {
-        if (!$this->previous_price || $this->price >= $this->previous_price || !$this->price_changed_at) {
+        if (!$this->previous_price || $this->price >= $this->previous_price) {
             return false;
         }
 

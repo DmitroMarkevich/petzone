@@ -28,7 +28,7 @@
                 <img src="{{ asset('images/star.svg') }}"
                      alt="{{ $i <= $advert->average_rating ? 'Star' : 'Empty Star' }}">
             @endfor
-            <span class="rating-value">{{ $advert->average_rating }}.0</span>
+            <span class="rating-value">{{ $advert->average_rating }}</span>
         </div>
     </div>
 
