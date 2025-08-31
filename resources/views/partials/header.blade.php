@@ -45,8 +45,7 @@
 
             <a class="nav-avatar" href="{{ route('profile.index') }}">
                 @if (!empty(auth()->user()->image_path))
-                    <img src="{{ Storage::disk('s3')->url(auth()->user()->image_path) }}" alt="Avatar"
-                         class="nav-avatar-image">
+                    <img src="{{ image_url($user->image_path) }}" alt="Avatar" class="nav-avatar-image">
                 @else
                     <img src="{{ asset('images/default-avatar.png') }}" alt="Avatar" class="nav-avatar-image">
                 @endif

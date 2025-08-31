@@ -5,7 +5,11 @@
 @section('profile-content')
     <div class="profile-container">
         <div class="profile-header">
-            <img id="profile-avatar" src="{{ image_url($user->image_path)}}" alt="Avatar" class="profile-avatar">
+            @if (!empty(auth()->user()->image_path))
+                <img id="profile-avatar" src="{{ image_url($user->image_path) }}" alt="Avatar" class="profile-avatar">
+            @else
+                <img id="profile-avatar" src="{{ asset('images/default-avatar.png') }}" alt="Avatar" class="profile-avatar">
+            @endif
 
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, {{ $user->first_name }}!</h2>

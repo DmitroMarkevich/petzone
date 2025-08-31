@@ -45,8 +45,7 @@
 
             <a class="nav-avatar" href="<?php echo e(route('profile.index')); ?>">
                 <?php if(!empty(auth()->user()->image_path)): ?>
-                    <img src="<?php echo e(Storage::disk('s3')->url(auth()->user()->image_path)); ?>" alt="Avatar"
-                         class="nav-avatar-image">
+                    <img src="<?php echo e(image_url($user->image_path)); ?>" alt="Avatar" class="nav-avatar-image">
                 <?php else: ?>
                     <img src="<?php echo e(asset('images/default-avatar.png')); ?>" alt="Avatar" class="nav-avatar-image">
                 <?php endif; ?>

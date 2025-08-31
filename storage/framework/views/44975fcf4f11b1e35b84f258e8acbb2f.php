@@ -3,7 +3,11 @@
 <?php $__env->startSection('profile-content'); ?>
     <div class="profile-container">
         <div class="profile-header">
-            <img id="profile-avatar" src="<?php echo e(image_url($user->image_path)); ?>" alt="Avatar" class="profile-avatar">
+            <?php if(!empty(auth()->user()->image_path)): ?>
+                <img id="profile-avatar" src="<?php echo e(image_url($user->image_path)); ?>" alt="Avatar" class="profile-avatar">
+            <?php else: ?>
+                <img id="profile-avatar" src="<?php echo e(asset('images/default-avatar.png')); ?>" alt="Avatar" class="profile-avatar">
+            <?php endif; ?>
 
             <div class="profile-info">
                 <h2 class="profile-greeting">Вітаємо, <?php echo e($user->first_name); ?>!</h2>
