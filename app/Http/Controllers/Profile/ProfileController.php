@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProfileController extends Controller
 {
@@ -54,7 +53,7 @@ class ProfileController extends Controller
         $userData = array_intersect_key($validatedData, array_flip((new User())->getFillable()));
         $addressData = array_intersect_key($validatedData, array_flip((new Address())->getFillable()));
 
-        $dto = new ProfileData([
+        $dto = ProfileData::from([
             'userData' => $userData,
             'addressData' => $addressData
         ]);

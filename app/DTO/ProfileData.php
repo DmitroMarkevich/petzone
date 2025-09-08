@@ -2,11 +2,12 @@
 
 namespace App\DTO;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Data;
 
-class ProfileData extends DataTransferObject
+class ProfileData extends Data
 {
-    public array $userData = [];
-
-    public array $addressData = [];
+    public function __construct(
+        public array $userData = [],
+        public array $addressData = [],
+    ) {}
 }

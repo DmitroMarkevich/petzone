@@ -15,7 +15,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Auth\Access\AuthorizationException;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class AdvertController extends Controller
 {
@@ -72,11 +71,10 @@ class AdvertController extends Controller
      *
      * @param StoreAdvertRequest $request The validated request with advert data.
      * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
-     * @throws UnknownProperties Thrown if the provided request data contains keys that don't exist in the DTO.
      */
     public function store(StoreAdvertRequest $request): Factory|View|Application|RedirectResponse
     {
-        $dto = new AdvertData($request->validated());
+        $dto = AdvertData::from($request->validated());
 
         if ($request->input('action') === 'preview') {
             $advert = new Advert($dto->toModelAttributes());
@@ -129,11 +127,10 @@ class AdvertController extends Controller
      *
      * @param StoreAdvertRequest $request The request containing updated advert data.
      * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
-     * @throws UnknownProperties Thrown if the provided request data contains keys that don't exist in the DTO.
      */
     public function update(StoreAdvertRequest $request, Advert $advert): Application|Factory|View|RedirectResponse
     {
-        $dto = new AdvertData($request->validated());
+        $dto = AdvertData::from($request->validated());
 
         if ($request->input('action') === 'preview') {
             $advert = new Advert($dto->toModelAttributes());
