@@ -154,7 +154,7 @@ class AdvertService
     {
         $cacheMinutes = 30;
 
-        return $this->cacheService->remember("adverts:discounted:$limit", fn() =>
+        return $this->cacheService->remember("adverts:fresh:$limit", fn() =>
             $this->baseAdvertQuery()
                 ->where('created_at', '>=', now()->subHours($hours))
                 ->latest()
