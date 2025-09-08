@@ -105,6 +105,7 @@ volumes:
     vendor:
     storage:
     redisdata:
+    meili_data:
     etc-letsencrypt:
 
 networks:
