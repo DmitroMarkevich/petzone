@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('wishlists', function (Blueprint $table) {
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('advert_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
 
             $table->unique(['user_id', 'advert_id']);
+            $table->index('advert_id');
         });
     }
 

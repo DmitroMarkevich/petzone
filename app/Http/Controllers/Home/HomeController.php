@@ -49,6 +49,6 @@ class HomeController
             });
         }
 
-        return view('home', compact('adverts'));
+        return view('pages.home', compact('adverts'));
     }
 }

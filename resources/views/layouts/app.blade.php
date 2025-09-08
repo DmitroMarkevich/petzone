@@ -1,12 +1,12 @@
 @extends('layouts.base')
 
 @section('content')
-    @include('partials.header')
+    @include('components.partials.header')
 
     <main>
         @yield('app-content')
         @stack('scripts')
     </main>
 
-    @include('partials.footer')
+    @include('components.partials.footer')
 @endsection

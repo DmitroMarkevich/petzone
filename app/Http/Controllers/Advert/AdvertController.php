@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Advert;
 
+use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
 use App\Models\Advert\Category;
 use App\Services\AdvertService;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Auth\Access\AuthorizationException;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class AdvertController extends Controller
 {
@@ -41,7 +43,9 @@ class AdvertController extends Controller
     {
         $userId = $request->user()->id;
         $query = $request->input('query');
-        $adverts = $this->advertService->getAdverts($query, 10, $userId);
+        $sort = $request->input('sort');
+
+        $adverts = $this->advertService->getAdverts($query, $userId, $sort);
 
         $adverts->getCollection()->transform(function ($advert) {
             $advert->in_wishlist = $advert->wishlists->isNotEmpty();
@@ -68,17 +72,19 @@ class AdvertController extends Controller
      *
      * @param StoreAdvertRequest $request The validated request with advert data.
      * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
+     * @throws UnknownProperties Thrown if the provided request data contains keys that don't exist in the DTO.
      */
     public function store(StoreAdvertRequest $request): Factory|View|Application|RedirectResponse
     {
-        $validated = $request->validated();
+        $dto = new AdvertData($request->validated());
 
         if ($request->input('action') === 'preview') {
-            $advert = new Advert($validated);
+            $advert = new Advert($dto->toModelAttributes());
+
             return view('adverts.preview', compact('advert'));
         }
 
-        $this->advertService->createAdvert($validated);
+        $this->advertService->createAdvert($dto);
 
         return redirect()->route('profile.adverts');
     }
@@ -109,10 +115,11 @@ class AdvertController extends Controller
     public function edit(string $id): Factory|View|Application
     {
         // todo refactor the logic for receiving categories (long response from the database)
-        $categories = Category::all();
         $advert = Advert::with('images')->findOrFail($id);
 
         $this->authorize('update', $advert);
+
+        $categories = Category::all();
 
         return view('adverts.edit', compact('advert', 'categories'));
     }
@@ -121,19 +128,20 @@ class AdvertController extends Controller
      * Update the specified advert in storage.
      *
      * @param StoreAdvertRequest $request The request containing updated advert data.
-     * @param string $id UUID of the advert.
      * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
+     * @throws UnknownProperties Thrown if the provided request data contains keys that don't exist in the DTO.
      */
-    public function update(StoreAdvertRequest $request, string $id): Application|Factory|View|RedirectResponse
+    public function update(StoreAdvertRequest $request, Advert $advert): Application|Factory|View|RedirectResponse
     {
-        $validated = $request->validated();
+        $dto = new AdvertData($request->validated());
 
         if ($request->input('action') === 'preview') {
-            $advert = new Advert($validated);
+            $advert = new Advert($dto->toModelAttributes());
+
             return view('adverts.preview', compact('advert'));
         }
 
-        $this->advertService->updateAdvert($id, $validated);
+        $this->advertService->updateAdvert($advert, $dto);
 
         return redirect()->route('profile.adverts');
     }

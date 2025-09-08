@@ -3,8 +3,8 @@
 
 .order-details {
     @include mixins.flex-column;
-    gap: 36px;
     font-family: variables.$font-family-alt;
+    gap: 36px;
 }
 
 .order-container {
@@ -35,8 +35,7 @@
 }
 
 .order-image {
-    width: 110px;
-    height: 110px;
+    @include mixins.size(110px);
 }
 
 .order-item-details {
@@ -49,17 +48,15 @@
     }
 
     p {
-        font-weight: 500;
         font-size: 14px;
     }
-}
-
-.section-heading {
-    @include mixins.font-style(24px, variables.$carbon, 500);
-    margin-bottom: 12px;
 }
 
 .contact-details {
     @include mixins.flex-column;
     gap: 12px;
+}
+
+.section-heading {
+    @include mixins.font-style(24px, variables.$carbon, 500);
 }

@@ -4,8 +4,8 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\Traits\FileUploadTrait;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {

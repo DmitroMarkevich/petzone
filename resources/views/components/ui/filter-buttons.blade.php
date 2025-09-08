@@ -1,11 +1,31 @@
-<div class="filter-buttons">
-    <button class="filter-button active" data-status="all">
-        Всі ({{ $counts['all'] ?? 0 }})
-    </button>
+@props([
+    'items',
+    'filters' => [],
+    'queryKey' => 'filter',
+])
 
+@php
+    $currentValue = request($queryKey);
+@endphp
+
+<div class="filter-buttons">
     @foreach ($filters as $filter)
-        <button class="filter-button" data-status="{{ strtolower($filter['value']) }}">
-            {{ $filter['label'] ?? $filter['value'] }} ({{ $counts["{$filter['key']}.{$filter['value']}"] ?? 0 }})
-        </button>
+        @php
+            $value = $filter['value'];
+            $label = $filter['label'];
+            $key = $queryKey;
+
+            $count = $items->filter(fn ($item) => data_get($item, $filter['key']) == $value)->count();
+
+            $isActive = (string) $currentValue === (string) $value;
+
+            $totalCount = $items->count();
+            $isAllActive = is_null($currentValue);
+        @endphp
+
+        <a href="{{ request()->fullUrlWithQuery([$queryKey => null]) }}"
+           class="filter-button {{ $isAllActive ? 'active' : '' }}">
+            Всі ({{ $totalCount }})
+        </a>
     @endforeach
 </div>

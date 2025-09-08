@@ -2,20 +2,24 @@
 
 namespace App\Services;
 
-use Closure;
+use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-// todo: need to be refactored; need to add methods with popular and discounted adverts (with redis)
 class AdvertService
 {
     use FileUploadTrait;
 
-    private const DEFAULT_PER_PAGE = 10;
+    private CacheService $cacheService;
+
+    public function __construct(CacheService $cacheService)
+    {
+        $this->cacheService = $cacheService;
+    }
 
     /**
      * Get a paginated list of adverts with images and wishlist relations.
@@ -27,59 +31,74 @@ class AdvertService
      * @param int $perPage Number of adverts per page. Default is 10.
      * @return LengthAwarePaginator Paginated collection of adverts.
      */
-    public function getAdverts(
-        ?string $query = null,
-        int $perPage = self::DEFAULT_PER_PAGE,
-        ?string $userId = null
-    ): LengthAwarePaginator {
-        $queryBuilder = Advert::query();
+    public function getAdverts(?string $query = null, ?string $userId = null, ?string $sort = null, int $perPage = 10): LengthAwarePaginator
+    {
+        $builder = $query ? Advert::search($query) : Advert::query();
 
-        if ($query) {
-            $queryBuilder->where(fn($q) => $q->where('title', 'like', "%$query%")
-                ->orWhere('description', 'like', "%$query%"));
-        } else {
-            $queryBuilder->orderBy('random_seed');
+        $sortOptions = [
+            'price-asc'  => fn($q) => $q->orderBy('price', 'asc'),
+            'price-desc' => fn($q) => $q->orderBy('price', 'desc'),
+            'date-asc'   => fn($q) => $q->orderBy('created_at', 'desc'),
+        ];
+
+        if ($sort && isset($sortOptions[$sort])) {
+            $builder = $sortOptions[$sort](Advert::query());
+        } elseif (!$query) {
+            $builder = $builder->inRandomOrder();
         }
 
-        $queryBuilder->with([
+        $paginator = $builder->paginate($perPage);
+        $paginator->getCollection()->load([
             'images' => fn($q) => $q->where('main_image', true),
-            'wishlists' => fn($q) => $userId ? $q->where('user_id', $userId) : $q->whereRaw('1 = 0')
+            'wishlists' => fn($q) => $q->when($userId, fn($q) => $q->where('user_id', $userId)),
         ]);
 
-        return $queryBuilder->paginate($perPage);
+        return $paginator;
     }
 
-    public function updateAdvert(string $id, array $data): bool
+    /**
+     * Update an existing advert using data from a DTO.
+     *
+     * @param Advert $advert Advert to update.
+     * @param AdvertData $dto DTO containing updated advert information.
+     * @return bool True if the advert was successfully saved.
+     */
+    public function updateAdvert(Advert $advert, AdvertData $dto): bool
     {
-        $advert = Advert::findOrFail($id);
-
-        if ($data['price'] < $advert->price) {
-            $data['previous_price'] = $advert->price;
-            $data['price_changed_at'] = now();
+        if ($dto->price < $advert->price) {
+            $advert->previous_price = $advert->price;
+            $advert->price_changed_at = now();
         }
 
-        return $advert->update($data);
+        $advert->fill($dto->toModelAttributes());
+
+        return $advert->save();
     }
 
-    public function createAdvert(array $data): Advert
+    /**
+     * Create a new advert from a DTO and attach uploaded images.
+     *
+     * @param AdvertData $dto DTO containing advert data and uploaded images.
+     * @return Advert The newly created advert.
+     */
+    public function createAdvert(AdvertData $dto): Advert
     {
-        $advert = Advert::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'price' => $data['price'],
-            'category_id' => $data['category_id'],
-            'owner_id' => auth()->id(),
-        ]);
+        $advert = Advert::create(array_merge($dto->toModelAttributes(), ['owner_id' => auth()->id()]));
 
-        if (isset($data['images']) && is_array($data['images'])) {
-            foreach ($data['images'] as $index => $image) {
-                $this->addAdvertImage($advert, $image, $index === 0);
-            }
+        foreach ($dto->images as $index => $image) {
+            $this->addAdvertImage($advert, $image, $index === 0);
         }
 
         return $advert;
     }
 
+    /**
+     * Upload a file in storage and create an advert image record.
+     *
+     * @param Advert $advert The advert to attach the image to.
+     * @param UploadedFile $file The uploaded image file.
+     * @param bool $mainImage Whether this image is the main image.
+     */
     protected function addAdvertImage(Advert $advert, UploadedFile $file, bool $mainImage = false): void
     {
         $directory = "adverts/$advert->id";
@@ -91,45 +110,68 @@ class AdvertService
         ]);
     }
 
+    /**
+     * Get popular adverts, ordered by the number of wishlists.
+     *
+     * @param int $limit Number of adverts to return.
+     * @return Collection
+     */
     public function getPopularAdverts(int $limit = 10): Collection
     {
-        return $this->cachedAdverts("adverts:popular:$limit", fn() =>
-            Advert::select('id','title','price','previous_price', 'average_rating')
-                ->withMainImage()
+        return $this->cacheService->remember("adverts:popular:$limit", fn() =>
+            $this->baseAdvertQuery()
                 ->withCount('wishlists')
-                ->orderBy('wishlists_count','desc')
+                ->orderByDesc('wishlists_count')
                 ->limit($limit)
                 ->get()
         );
     }
 
+    /**
+     * Get discounted adverts where previous price is higher than current price.
+     *
+     * @param int $limit Number of adverts to return.
+     * @return Collection
+     */
     public function getDiscountedAdverts(int $limit = 5): Collection
     {
-        return $this->cachedAdverts("adverts:discounted:$limit", fn() =>
-            Advert::select('id','title','price','previous_price', 'average_rating')
-                ->withMainImage()
-                ->whereColumn('previous_price','>','price')
-                ->orderBy('random_seed')
+        return $this->cacheService->remember("adverts:discounted:$limit", fn() =>
+            $this->baseAdvertQuery()
+                ->whereColumn('previous_price', '>', 'price')
                 ->take($limit)
                 ->get()
         );
     }
 
+    /**
+     * Get recently created adverts within a time frame.
+     *
+     * @param int $hours Time frame in hours for "fresh" adverts.
+     * @param int $limit Number of adverts to return.
+     * @return Collection
+     */
     public function getFreshAdverts(int $hours = 5, int $limit = 5): Collection
     {
-        return $this->cachedAdverts("adverts:fresh:$hours:$limit", fn() =>
-            Advert::select('id','title','price','previous_price', 'average_rating')
-                ->withMainImage()
-                ->where('created_at','>=',now()->subHours($hours))
+        $cacheMinutes = 30;
+
+        return $this->cacheService->remember("adverts:discounted:$limit", fn() =>
+            $this->baseAdvertQuery()
+                ->where('created_at', '>=', now()->subHours($hours))
                 ->latest()
                 ->take($limit)
                 ->get(),
-                30
+            $cacheMinutes
         );
     }
 
-    private function cachedAdverts(string $key, Closure $callback, int $minutes = 60): Collection
+    /**
+     * Base query builder for adverts with default fields and main image.
+     *
+     * @return Builder
+     */
+    private function baseAdvertQuery(): Builder
     {
-        return Cache::remember($key, now()->addMinutes($minutes), $callback);
+        return Advert::select('id', 'title', 'price', 'previous_price', 'average_rating')
+            ->withMainImage();
     }
 }

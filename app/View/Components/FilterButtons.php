@@ -10,20 +10,20 @@ use Illuminate\Support\Collection;
 class FilterButtons extends Component
 {
     public Collection $items;
-
     public array $filters;
-
     public array $counts = [];
+    public ?string $currentFilter;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($items, array $filters)
+    public function __construct($items, array $filters, ?string $currentFilter = null)
     {
         $this->items = $items;
         $this->filters = $filters;
+        $this->currentFilter = $currentFilter;
 
-        // Calculate counts for each filter
+        $this->counts = [];
         foreach ($filters as $filter) {
             $key = $filter['key'];
             $value = $filter['value'];

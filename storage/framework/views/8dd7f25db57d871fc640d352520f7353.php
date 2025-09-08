@@ -69,7 +69,7 @@
 
             <div class="auth-buttons">
                 <button type="submit" class="button submit"><?php echo e(__('auth.login.login_button')); ?></button>
-                <?php echo $__env->make('partials.social-buttons', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                <?php echo $__env->make('components.partials.social-buttons', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
             </div>
         </form>
 

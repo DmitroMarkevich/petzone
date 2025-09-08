@@ -17,3 +17,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/groups/auth.php';
+
+Route::fallback(function () {
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+    abort(404);
+});

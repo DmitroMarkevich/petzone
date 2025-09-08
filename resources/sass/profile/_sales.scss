@@ -24,6 +24,6 @@
 
 .toggle-details {
     @include mixins.font-style(14px, variables.$blue, 500);
-    display: flex;
     justify-content: normal;
+    padding: 0;
 }

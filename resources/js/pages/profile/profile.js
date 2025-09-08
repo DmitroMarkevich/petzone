@@ -1,5 +1,4 @@
 import './forms.js'
 import './avatar.js'
 import './address.js'
-import './filterButtons.js'
-import './toggleDetails.js'
+import '../advert/toggleDetails.js'

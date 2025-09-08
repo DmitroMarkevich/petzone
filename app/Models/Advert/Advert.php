@@ -8,13 +8,15 @@ use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Cache;
+use Laravel\Scout\Searchable;
 
 class Advert extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -28,25 +30,9 @@ class Advert extends Model
         'previous_price',
         'description',
         'average_rating',
-        'random_seed',
         'category_id',
         'owner_id'
     ];
-
-    /**
-     * Boot method for the model.
-     *
-     * Automatically sets a random seed when creating a new advert.
-     */
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($advert) {
-            // Set a random number between 0 and 1 for random order
-            $advert->random_seed = mt_rand() / mt_getrandmax();
-        });
-    }
 
     /**
      * Get all images associated with the advert.
@@ -66,7 +52,9 @@ class Advert extends Model
      */
     public function getMainImageAttribute(): string
     {
-        return image_url($this->images->first()?->image_path, 'images/default.png');
+        return Cache::remember("advert_main_image:$this->id", 60, function () {
+            return image_url($this->images->first()?->image_path, 'images/default.png');
+        });
     }
 
     /**
@@ -102,11 +90,24 @@ class Advert extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    /**
+     * Get all wishlist entries that include this advert.
+     *
+     * @return HasMany
+     */
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'advert_id');
     }
 
+    /**
+     * Determines whether the advert should display a discount price.
+     *
+     * Returns true if there is a previous price greater than the current price
+     * and the price change occurred within the last 3 weeks.
+     *
+     * @return bool
+     */
     public function shouldShowDiscountPrice(): bool
     {
         if (!$this->previous_price || $this->price >= $this->previous_price) {
@@ -114,5 +115,15 @@ class Advert extends Model
         }
 
         return Carbon::parse($this->price_changed_at)->gt(now()->subWeeks(3));
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'category_id' => $this->category_id,
+            'price' => $this->price,
+        ];
     }
 }

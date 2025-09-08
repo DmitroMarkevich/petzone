@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Models\Order\Order;
 use App\Services\OrderService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -32,22 +33,21 @@ class OrderController extends Controller
     {
         $orders = $this->orderService->getUserOrders($request->user(), true);
 
-        return view('profile.orders', compact('orders'));
+        return view('profile.orders.index', compact('orders'));
     }
 
     /**
      * Show the details of a specific order.
      *
-     * @param string $id The ID of the order to display.
+     * @param Order $order The order to display.
      * @return Factory|View|Application The view displaying order details.
      * @throws AuthorizationException If the user is not authorized to view the order.
      */
-    public function show(string $id): Factory|View|Application
+    public function show(Order $order): Factory|View|Application
     {
-        $order = $this->orderService->getOrderByIdWithMainImage($id);
         $this->authorize('view', $order);
 
-        return view('profile.order-details', compact('order'));
+        return view('profile.orders.show', compact('order'));
     }
 
     /**
@@ -60,6 +60,6 @@ class OrderController extends Controller
     {
         $orders = $this->orderService->getUserOrders($request->user(), false);
 
-        return view('profile.orders-history', compact('orders'));
+        return view('profile.orders.history', compact('orders'));
     }
 }

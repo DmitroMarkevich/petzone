@@ -28,7 +28,7 @@ class WishlistController extends Controller
      */
     public function index(Request $request): View
     {
-        $wishlist = $this->wishlistService->getUserWishlist($request->user());
+        $wishlist = $this->wishlistService->getUserWishlist($request->user(), $request->get('sort'));
 
         return view('profile.wishlist', compact('wishlist'));
     }

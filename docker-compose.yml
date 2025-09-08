@@ -35,6 +35,24 @@ services:
             timeout: 5s
             retries: 5
 
+    meilisearch:
+        image: getmeili/meilisearch:latest
+        container_name: petzone_meilisearch
+        restart: unless-stopped
+        environment:
+            MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+        ports:
+            - "7700:7700"
+        volumes:
+            - meili_data:/meili_data
+        networks:
+            - laravel
+        healthcheck:
+            test: [ "CMD", "curl", "-f", "http://localhost:7700/health" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
     app:
         build:
             context: .

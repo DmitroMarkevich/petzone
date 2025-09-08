@@ -22,4 +22,17 @@ enum DeliveryMethod: string implements Translatable
     {
         return __('delivery.' . $method->name);
     }
+
+    public static function getIcon(UnitEnum $method): string
+    {
+        $icons = [
+            self::NOVA_POST_SELF_PICKUP->value => 'novapost.svg',
+            self::NOVA_POST_COURIER->value => 'novapost.svg',
+            self::MEEST_SELF_PICKUP->value => 'meest.svg',
+            self::MEEST_COURIER->value => 'meest.svg',
+            self::SELF_PICKUP->value => 'selfpickup.svg',
+        ];
+
+        return asset('images/' . ($icons[$method->value] ?? 'default.svg'));
+    }
 }

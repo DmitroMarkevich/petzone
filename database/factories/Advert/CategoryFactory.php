@@ -25,9 +25,8 @@ class CategoryFactory extends Factory
         }
 
         return [
-            'id' => Str::uuid(),
             'parent_id' => $parentId,
-            'name' => $this->faker->unique()->word,
+            'name' => $this->faker->word,
             'description' => $this->faker->sentence,
         ];
     }

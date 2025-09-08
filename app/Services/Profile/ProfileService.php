@@ -3,7 +3,7 @@
 namespace App\Services\Profile;
 
 use App\Models\User;
-use App\Models\Address;
+use App\DTO\ProfileData;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\UploadedFile;
 
@@ -12,22 +12,20 @@ class ProfileService
     use FileUploadTrait;
 
     /**
-     * Updates the user profile and delivery address.
+     * Update user profile data and delivery address.
      *
-     * @param User $user The user to update.
-     * @param array $data Data for updating the profile and address.
+     * @param User $user The user whose profile will be updated.
+     * @param ProfileData $dto Data transfer object with user and address data.
      * @return void
      */
-    public function updateProfile(User $user, array $data): void
+    public function updateProfile(User $user, ProfileData $dto): void
     {
-        $userData = array_intersect_key($data, array_flip($user->getFillable()));
-        if ($userData) {
-            $user->update($userData);
+        if ($dto->userData) {
+            $user->update($dto->userData);
         }
 
-        $addressData = array_intersect_key($data, array_flip((new Address())->getFillable()));
-        if ($addressData) {
-            $user->address()->updateOrCreate(['user_id' => $user->id], $addressData);
+        if ($dto->addressData) {
+            $user->address()->updateOrCreate(['user_id' => $user->id], $dto->addressData);
         }
     }
 

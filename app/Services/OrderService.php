@@ -2,13 +2,40 @@
 
 namespace App\Services;
 
+use App\DTO\OrderData;
+use App\DTO\RecipientData;
 use App\Models\User;
-use App\Models\Order;
-use Illuminate\Support\Str;
+use App\Models\Order\Order;
+use App\Models\Advert\Advert;
+use App\Enum\OrderStatus;
+use App\Enum\PaymentMethod;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService
 {
+    /**
+     * Create a new order for the given buyer, advert, and recipient.
+     *
+     * @param User $buyer The user who places the order.
+     * @param OrderData $orderData Data Transfer Object containing order details.
+     * @param RecipientData $recipientData Data Transfer Object containing recipient details.
+     * @return Order The newly created order instance.
+     */
+    public function createOrder(User $buyer, OrderData $orderData, RecipientData $recipientData): Order
+    {
+        $advert = Advert::findOrFail($orderData->advert_id);
+
+        $status = match ($orderData->payment_method) {
+            PaymentMethod::CREDIT_CARD->value => OrderStatus::PROCESSING,
+            PaymentMethod::CASH_ON_DELIVERY->value => OrderStatus::PENDING,
+        };
+
+        $order = Order::create($orderData->toModelAttributes($buyer, $advert, $status));
+        $order->recipient()->create($recipientData->toArray());
+
+        return $order;
+    }
+
     /**
      * Get a paginated list of the user's orders filtered by active status.
      *
@@ -19,38 +46,6 @@ class OrderService
      */
     public function getUserOrders(User $user, bool $isActive, int $perPage = 10): LengthAwarePaginator
     {
-        return $user->orders()
-            ->with(['advert:id,title,price'])
-            ->where('is_active', $isActive)
-            ->latest()
-            ->paginate($perPage);
+        return $user->orders()->where('is_active', $isActive)->latest()->paginate($perPage);
     }
-
-    /**
-     * Get a single order by its ID with all necessary relationships loaded (buyer, seller, advert main image).
-     *
-     * @param string $orderId The ID of the order to retrieve.
-     * @return Order The order model instance with related buyer, seller, and advert images.
-     */
-    public function getOrderByIdWithMainImage(string $orderId): Order
-    {
-        return Order::with([
-            'buyer', 'seller',
-            'advert' => fn($query) => $query->withMainImage()
-        ])->findOrFail($orderId);
-    }
-
-//    /**
-//     * Generate a unique order number for a new order.
-//     *
-//     * @return string The generated unique order number.
-//     */
-//    public function generateOrderNumber(): string
-//    {
-//        do {
-//            $orderNumber = strtoupper(Str::random(8));
-//        } while (Order::where('order_number', $orderNumber)->exists());
-//
-//        return $orderNumber;
-//    }
 }

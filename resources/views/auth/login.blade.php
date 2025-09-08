@@ -13,11 +13,11 @@
             @csrf
             <div class="form-group">
                 <x-form.input type="email" name="email" label="{{ __('auth.login.email') }}"
-                         placeholder="Email" autofocus data-validation="email"/>
+                              placeholder="Email" autofocus data-validation="email"/>
 
                 <x-form.input type="password" name="password"
-                         label="{{ __('auth.login.password') }}" placeholder="********"
-                         data-validation="password"/>
+                              label="{{ __('auth.login.password') }}" placeholder="********"
+                              data-validation="password"/>
             </div>
 
             <div class="form-options">
@@ -35,7 +35,7 @@
 
             <div class="auth-buttons">
                 <button type="submit" class="button submit">{{ __('auth.login.login_button') }}</button>
-                @include('partials.social-buttons')
+                @include('components.partials.social-buttons')
             </div>
         </form>
 

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Order;
 use App\Enum\OrderStatus;
+use App\Models\Order\Order;
 use Stripe\Event;
 use Stripe\Webhook;
 use Stripe\Exception\SignatureVerificationException;

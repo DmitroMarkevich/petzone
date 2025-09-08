@@ -77,7 +77,7 @@
 @endpush
 
 @section('content')
-    @include('partials.header')
+    @include('components.partials.header')
 
     <main class="checkout-success">
         <div class="card">
@@ -102,5 +102,5 @@
         </div>
     </main>
 
-    @include('partials.footer')
+    @include('components.partials.footer')
 @endsection

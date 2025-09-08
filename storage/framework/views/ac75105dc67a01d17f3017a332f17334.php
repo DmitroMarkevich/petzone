@@ -6,9 +6,43 @@
             <p><?php echo e(__('common.nothing_found')); ?></p>
         </div>
     <?php else: ?>
-        <div class="wishlist-container">
-            <?php $__currentLoopData = $wishlist; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
+        <div style="padding-left: 80px">
+            <div class="form-row" style="margin-bottom: 30px;">
+                <p>Всього ~<?php echo e($wishlist->total()); ?> результатів</p>
+
+                <?php if (isset($component)) { $__componentOriginal0034da402c85560bef13a411a8a95196 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal0034da402c85560bef13a411a8a95196 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.ui.sort-options','data' => ['options' => ['' => 'За релевантністю',
+                        'price-asc' => 'Від дешевих до дорогих',
+                        'price-desc' => 'Від дорогих до дешевих',
+                        'date-asc' => 'Новинки'
+                    ],'selected' => request('sort')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('ui.sort-options'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['' => 'За релевантністю',
+                        'price-asc' => 'Від дешевих до дорогих',
+                        'price-desc' => 'Від дорогих до дешевих',
+                        'date-asc' => 'Новинки'
+                    ]),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(request('sort'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal0034da402c85560bef13a411a8a95196)): ?>
+<?php $attributes = $__attributesOriginal0034da402c85560bef13a411a8a95196; ?>
+<?php unset($__attributesOriginal0034da402c85560bef13a411a8a95196); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal0034da402c85560bef13a411a8a95196)): ?>
+<?php $component = $__componentOriginal0034da402c85560bef13a411a8a95196; ?>
+<?php unset($__componentOriginal0034da402c85560bef13a411a8a95196); ?>
+<?php endif; ?>
+            </div>
+
+            <div class="wishlist-container">
+                <?php $__currentLoopData = $wishlist; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $advert): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf74e02aea032995600afb10c96aa9574 = $attributes; } ?>
 <?php $component = App\View\Components\AdvertCard::resolve(['advert' => $advert] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('advert-card'); ?>
@@ -28,7 +62,13 @@
 <?php $component = $__componentOriginalf74e02aea032995600afb10c96aa9574; ?>
 <?php unset($__componentOriginalf74e02aea032995600afb10c96aa9574); ?>
 <?php endif; ?>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+
+            <?php if($wishlist->hasPages()): ?>
+                <?php echo e($wishlist->links()); ?>
+
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>

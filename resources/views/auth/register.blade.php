@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', config('app.name') . ' — Зареєструватися')
+@section('title', 'Зареєструватися')
 
 @section('auth-content')
     <div class="auth-content">
@@ -14,21 +14,21 @@
             <div class="step step-1 active">
                 <div class="form-group">
                     <x-form.input type="email" name="email"
-                             label="{{ __('auth.register.email') }}" placeholder="Email"
-                             data-validation="email"/>
+                                  label="{{ __('auth.register.email') }}" placeholder="Email"
+                                  data-validation="email"/>
 
                     <x-form.input type="password" name="password"
-                             label="{{ __('auth.register.password') }}" placeholder="********"
-                             data-validation="password"/>
+                                  label="{{ __('auth.register.password') }}" placeholder="********"
+                                  data-validation="password"/>
 
                     <x-form.input type="password" name="password_confirmation"
-                             label="{{ __('auth.register.password_confirmation') }}" placeholder="********"
-                             data-validation="password"/>
+                                  label="{{ __('auth.register.password_confirmation') }}" placeholder="********"
+                                  data-validation="password"/>
                 </div>
 
                 <div>
                     <button type="button" class="button next-step">{{ __('auth.register.next') }}</button>
-                    @include('partials.social-buttons')
+                    @include('components.partials.social-buttons')
                 </div>
 
                 <div class="auth-link">
@@ -48,13 +48,13 @@
 
                 <div class="form-group">
                     <x-form.input type="text" name="first_name" label="{{ __('auth.register.first_name') }}"
-                             placeholder="{{ __('auth.register.first_name_placeholder') }}"/>
+                                  placeholder="{{ __('auth.register.first_name_placeholder') }}"/>
 
                     <x-form.input type="text" name="last_name" label="{{ __('auth.register.last_name') }}"
-                             placeholder="{{ __('auth.register.last_name_placeholder') }}"/>
+                                  placeholder="{{ __('auth.register.last_name_placeholder') }}"/>
 
                     <x-form.input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}"
-                             placeholder="{{ __('auth.register.phone_number_placeholder') }}"/>
+                                  placeholder="{{ __('auth.register.phone_number_placeholder') }}"/>
                 </div>
 
                 <button type="submit" class="button submit">{{ __('auth.register.confirm_button') }}</button>

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Models\Order;
 use App\Enum\OrderStatus;
-use App\Services\Profile\SaleService;
+use App\Models\Order\Order;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
+use App\Services\Profile\SaleService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
@@ -32,7 +32,8 @@ class SalesController extends Controller
      */
     public function index(Request $request): Factory|View|Application
     {
-        $sales = $this->saleService->getUserSales($request->user(), true);
+        $status = $request->query('status');
+        $sales = $this->saleService->getUserSales($request->user(), true, $status);
 
         return view('profile.sales', compact('sales'));
     }
@@ -40,13 +41,12 @@ class SalesController extends Controller
     /**
      * Update the status of a specific order.
      *
-     * @param string $orderId The ID of the order to update.
+     * @param Order $order The order to update.
      * @param OrderStatus $status The new status to set for the order.
      * @return RedirectResponse Redirects back to the sales index page.
      */
-    public function updateStatus(string $orderId, OrderStatus $status): RedirectResponse
+    public function updateStatus(Order $order, OrderStatus $status): RedirectResponse
     {
-        $order = Order::findOrFail($orderId);
         $this->saleService->updateOrderStatus($order, $status);
 
         return redirect()->route('profile.sales.index');

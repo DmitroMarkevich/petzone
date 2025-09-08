@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Order;
+use App\Models\Order\Order;
 use App\Models\Advert\Advert;
 use Stripe\Stripe;
 use Stripe\Exception\ApiErrorException;

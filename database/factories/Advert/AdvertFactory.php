@@ -20,18 +20,28 @@ class AdvertFactory extends Factory
     public function definition(): array
     {
         $currentPrice = $this->faker->numberBetween(10, 5000);
-        $previousPrice = $this->faker->optional()->numberBetween(10, 5000);
+        $hasPreviousPrice = $this->faker->boolean(30);
+
+        $previousPrice = null;
+        $priceChangedAt = null;
+
+        if ($hasPreviousPrice) {
+            $discountPercent = $this->faker->numberBetween(10, 50);
+            $previousPrice = $currentPrice + ($currentPrice * $discountPercent / 100);
+            $priceChangedAt = $this->faker->dateTimeBetween('-3 months', '-1 day');
+        }
 
         return [
-            'id' => Str::uuid(),
-            'category_id' => Category::inRandomOrder()->first()->id,
             'owner_id' => User::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
+
             'title' => 'Оголошення #' . $this->faker->unique()->randomNumber(5),
-            'description' => $this->faker->sentence,
+            'description' => $this->faker->paragraphs(rand(2, 4), true),
+            'average_rating' => $this->faker->randomFloat(1, 0, 5),
             'price' => $currentPrice,
             'previous_price' => $previousPrice,
-            'price_changed_at' => $previousPrice ? now() : null,
-            'is_active' => true,
+            'price_changed_at' => $priceChangedAt,
+            'is_active' => $this->faker->boolean(90),
         ];
     }
 

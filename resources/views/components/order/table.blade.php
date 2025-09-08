@@ -22,9 +22,7 @@
             <span>{{ $order->tracking_number ?? '—' }}</span>
             <span>₴{{ $order->total_price ?? '—' }}</span>
             @unless($short)
-                <a href="{{ route('profile.orders.details', $order->id) }}">
-                    Подивитися
-                </a>
+                <a href="{{ route('profile.orders.show', $order->id) }}">Подивитися</a>
             @endunless
         </div>
     @endforeach

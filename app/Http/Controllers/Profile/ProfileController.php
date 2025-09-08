@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Models\User;
+use App\Models\Address;
+use App\DTO\ProfileData;
 use App\Http\Controllers\Controller;
 use App\Services\Profile\ProfileService;
 use App\Http\Requests\UpdateProfileRequest;
@@ -10,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProfileController extends Controller
 {
@@ -41,13 +45,24 @@ class ProfileController extends Controller
      *
      * @param UpdateProfileRequest $request The validated request containing user data.
      * @return RedirectResponse Redirects back to the profile page with a success message.
+     * @throws UnknownProperties
      */
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
-        $this->profileService->updateProfile($request->user(), $validatedData);
 
-        return redirect()->route('profile.index')->with('success', 'Ви успішно змінили свої персональні дані');
+        $userData = array_intersect_key($validatedData, array_flip((new User())->getFillable()));
+        $addressData = array_intersect_key($validatedData, array_flip((new Address())->getFillable()));
+
+        $dto = new ProfileData([
+            'userData' => $userData,
+            'addressData' => $addressData
+        ]);
+
+        $this->profileService->updateProfile($request->user(), $dto);
+
+        return redirect()->route('profile.index')
+            ->with('success', 'Ви успішно змінили свої персональні дані');
     }
 
     /**

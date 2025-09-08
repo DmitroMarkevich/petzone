@@ -2,12 +2,12 @@
 
 namespace App\Jobs;
 
-use App\Models\Order;
 use App\Enum\OrderStatus;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Models\Order\Order;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 
 class AutoCancelOrder implements ShouldQueue
 {

@@ -2,29 +2,35 @@
 
 namespace App\Http\Controllers\Checkout;
 
-use App\Models\Order;
-use App\Enum\OrderStatus;
+use App\DTO\OrderData;
+use App\DTO\RecipientData;
 use App\Enum\PaymentMethod;
 use App\Models\Advert\Advert;
+use App\Models\Order\Order;
+use App\Services\OrderService;
 use App\Services\StripeService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Stripe\Exception\ApiErrorException;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class CheckoutController extends Controller
 {
+    private OrderService $orderService;
     private StripeService $stripeService;
 
     /**
+     * @param OrderService $orderService
      * @param StripeService $stripeService
      */
-    public function __construct(StripeService $stripeService)
+    public function __construct(OrderService $orderService, StripeService $stripeService)
     {
+        $this->orderService = $orderService;
         $this->stripeService = $stripeService;
     }
 
@@ -70,38 +76,22 @@ class CheckoutController extends Controller
      * @param StoreOrderRequest $request Validated form request containing order data.
      * @return RedirectResponse Redirects to Stripe payment or success page.
      * @throws ApiErrorException Thrown if Stripe Checkout session creation fails.
+     * @throws UnknownProperties
      */
     public function store(StoreOrderRequest $request): RedirectResponse
     {
-        $validatedData = $request->validated();
-        $advert = Advert::findOrFail($validatedData['advert_id']);
+        $validated = $request->validated();
 
-        $paymentMethod = $validatedData['payment_method'];
-        $status = match ($paymentMethod) {
-            PaymentMethod::CREDIT_CARD->value => OrderStatus::PROCESSING,
-            PaymentMethod::CASH_ON_DELIVERY->value => OrderStatus::PENDING,
-        };
+        $orderData = new OrderData($validated);
+        $recipientData = RecipientData::fromRequest($validated);
 
-        $order = Order::create([
-            'order_number' => uniqid(),
-            'advert_id' => $advert->id,
-            'seller_id' => $advert->owner_id,
-            'buyer_id' => $request->user()->id,
-            'payment_method' => $validatedData['payment_method'],
-            'delivery_method' => $validatedData['delivery_method'],
-            'recipient_first_name' => $validatedData['recipient_first_name'],
-            'recipient_last_name' => $validatedData['recipient_last_name'],
-            'recipient_middle_name' => $validatedData['recipient_middle_name'] ?? null,
-            'recipient_phone_number' => $validatedData['recipient_phone_number'],
-            'total_price' => $advert->price,
-            'status' => $status,
-        ]);
+        $order = $this->orderService->createOrder($request->user(), $orderData, $recipientData);
 
         $request->session()->put('last_order_number', $order->order_number);
         $request->session()->forget('checkout_advert_id');
 
-        if ($paymentMethod === PaymentMethod::CREDIT_CARD->value) {
-            $session = $this->stripeService->createCheckoutSession($advert, $order);
+        if ($order->payment_method === PaymentMethod::CREDIT_CARD->value) {
+            $session = $this->stripeService->createCheckoutSession($order->advert, $order);
             return redirect()->away($session->url);
         }
 

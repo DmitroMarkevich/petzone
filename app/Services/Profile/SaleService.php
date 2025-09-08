@@ -3,8 +3,8 @@
 namespace App\Services\Profile;
 
 use App\Models\User;
-use App\Models\Order;
 use App\Enum\OrderStatus;
+use App\Models\Order\Order;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class SaleService
@@ -14,18 +14,30 @@ class SaleService
      *
      * @param User $user The user whose sales to retrieve.
      * @param bool $isActive Filter orders by active status.
+     * @param string|null $status Optional. Filter orders by status (e.g., 'PENDING', 'CONFIRMED').
      * @param int $perPage Number of orders per page. Default is 10.
      * @return LengthAwarePaginator Paginated collection of orders.
      */
-    public function getUserSales(User $user, bool $isActive, int $perPage = 10): LengthAwarePaginator
+    public function getUserSales(User $user, bool $isActive, ?string $status = null, int $perPage = 10): LengthAwarePaginator
     {
-        return $user->sales()
-            ->whereHas('advert', fn($q) => $q->where('is_active', $isActive))
+        $query = $user->sales()->whereHas('advert', fn($q) => $q->where('is_active', $isActive))
             ->where('status', '!=', OrderStatus::PROCESSING->value)
-            ->with(['advert' => fn($q) => $q->withMainImage(), 'buyer'])
-            ->orderByRaw("status = ? DESC", [OrderStatus::PENDING->value])
+            ->with([
+                'recipient',
+                'buyer:id,first_name,last_name',
+                'advert' => fn($q) => $q
+                    ->select('id', 'title')
+                    ->withMainImage(),
+            ]);
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        return $query->orderByRaw("status = ? DESC", [OrderStatus::PENDING->value])
             ->latest()
-            ->paginate($perPage);
+            ->paginate($perPage)
+            ->withQueryString();
     }
 
     /**

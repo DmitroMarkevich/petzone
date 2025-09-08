@@ -3,7 +3,7 @@
 namespace App\Services\Profile;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class WishlistService
 {
@@ -11,14 +11,30 @@ class WishlistService
      * Get the list of a user's favorite advertisements.
      *
      * @param User $user The user whose wishlist to retrieve.
-     * @return Collection Collection of advertisements in the wishlist.
+     * @param string|null $sort Sorting option key (optional).
+     * @param int $perPage Number of adverts per page. Default is 10.
+     * @return LengthAwarePaginator Paginated collection of adverts.
      */
-    public function getUserWishlist(User $user): Collection
+    public function getUserWishlist(User $user, ?string $sort = null, int $perPage = 10): LengthAwarePaginator
     {
-        return $user->wishlist()
-            ->withMainImage()
-            ->get()
-            ->map(fn($advert) => tap($advert, fn($a) => $a->inWishlist = true));
+        $sortOptions = [
+            'price-asc'  => fn($q) => $q->orderBy('price', 'asc'),
+            'price-desc' => fn($q) => $q->orderBy('price', 'desc'),
+            'date-asc'   => fn($q) => $q->orderBy('created_at', 'desc'),
+        ];
+
+        $builder = $user->wishlist()->withMainImage();
+
+        if ($sort && isset($sortOptions[$sort])) {
+            $builder = $sortOptions[$sort]($builder);
+        } else {
+            $builder = $builder->inRandomOrder();
+        }
+
+        $paginator = $builder->paginate($perPage)->withQueryString();
+        $paginator->getCollection()->each(fn($advert) => $advert->inWishlist = true);
+
+        return $paginator;
     }
 
     /**

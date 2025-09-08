@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Order;
+use App\Models\Order\Order;
 use App\Models\Advert\Advert;
 use App\Policies\OrderPolicy;
 use App\Policies\AdvertPolicy;

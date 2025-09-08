@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Exception;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\OAuth2Service;
 use Laravel\Socialite\Facades\Socialite;
@@ -30,10 +31,14 @@ class OAuth2Controller extends Controller
      */
     public function handleProviderCallback(string $provider): RedirectResponseAlias
     {
-        $socialUser = Socialite::driver($provider)->user();
-        $user = $this->oauthService->handleOAuthUser($provider, $socialUser);
-        auth()->login($user);
+        try {
+            $socialUser = Socialite::driver($provider)->user();
+            $user = $this->oauthService->handleOAuthUser($provider, $socialUser);
+            auth()->login($user);
 
-        return redirect()->route('home');
+            return redirect()->route('home');
+        } catch (Exception $e) {
+            return redirect()->route('login');
+        }
     }
 }

@@ -13,28 +13,35 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('email', 255)->unique();
+
+            $table->string('email')->unique();
             $table->string('first_name', 50);
             $table->string('last_name', 50);
-            $table->string('phone_number', 15)->nullable();
-            $table->string('image_path', 255)->nullable();
+            $table->string('phone_number', 20)->nullable();
+            $table->string('image_path')->nullable();
             $table->string('password');
-            $table->string('provider_id')->nullable()->unique();
+
+            $table->string('provider_id')->nullable();
             $table->enum('provider', ['local', 'google', 'facebook'])->default('local');
+
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
+
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token')->unique();
+
             $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
+
             $table->uuid('user_id')->nullable()->index();
+
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
@@ -43,10 +50,13 @@ return new class extends Migration
 
         Schema::create('delivery_addresses', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();;
+
             $table->string('city');
             $table->string('street');
             $table->string('apartment');
+
             $table->timestamps();
         });
     }

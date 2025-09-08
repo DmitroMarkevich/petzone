@@ -10,7 +10,7 @@
             </a> Редагувати оголошення
         </h2>
 
-        <form action="{{ route('adverts.update', $advert->id) }}" method="POST"
+        <form action="{{ route('adverts.update', $advert) }}" method="POST"
               enctype="multipart/form-data" class="advert-form">
             @csrf
             @method('PUT')
