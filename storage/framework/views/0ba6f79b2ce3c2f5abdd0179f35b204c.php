@@ -31,10 +31,7 @@ unset($__defined_vars); ?>
 <div x-data="advertForm(<?php echo json_encode($advert, 15, 512) ?>)">
     <form action="<?php echo e($action); ?>" method="POST" enctype="multipart/form-data" class="advert-form">
         <?php echo csrf_field(); ?>
-        <?php if($advert): ?>
-            <?php echo method_field('PUT'); ?>
-        <?php endif; ?>
-
+        <?php if($advert): ?><?php echo method_field('PUT'); ?><?php endif; ?>
         <input type="hidden" name="action" id="form-action" value="save">
 
         <div class="form-main">
@@ -88,11 +85,7 @@ unset($__defined_vars); ?>
                         ?>
 
                         <div class="photo-upload" x-bind:data-filled="uploads[<?php echo e($i); ?>].filled" data-index="<?php echo e($i); ?>">
-                            <input type="file"
-                                   name="images[]"
-                                   id="photo-<?php echo e($i); ?>"
-                                   accept="image/*"
-                                   class="photo-input"
+                            <input type="file" name="images[]" id="photo-<?php echo e($i); ?>" accept="image/*" class="photo-input"
                                    @change="handleFileUpload($event, <?php echo e($i); ?>)">
 
                             <label for="photo-<?php echo e($i); ?>" class="photo-label">
@@ -193,46 +186,37 @@ unset($__defined_vars); ?>
 </div>
 
 <script>
-function advertForm(advert = null) {
-    return {
-        uploads: Array.from({length: 9}, (_, i) => ({
-            filled: !!(advert?.images[i-1] ?? false),
-            src: advert?.images[i-1]?.image_path ? "<?php echo e(url('storage')); ?>/" + advert.images[i-1].image_path : ''
-        })),
+    function advertForm(advert = null) {
+        return {
+            uploads: Array.from({ length: 9 }, (_, i) => ({
+                filled: !!(advert?.images[i - 1] ?? false),
+                src: advert?.images[i - 1]?.image_path ? "<?php echo e(url('storage')); ?>/" + advert.images[i - 1].image_path : ''
+            })),
 
-        handleFileUpload(event, index) {
-            const file = event.target.files[0];
-            if (!file) return;
+            handleFileUpload(event, index) {
+                const file = event.target.files[0];
+                if (!file) return;
 
-            const targetIndex = this.findTargetSlot(index);
-            this.setFileToSlot(file, targetIndex);
+                const targetIndex = this.uploads[index].filled ? index : this.uploads.findIndex((u, i) => i > 0 && !u.filled) || 1;
+                this.setFileToSlot(file, targetIndex);
 
-            if (targetIndex !== index) {
-                event.target.value = '';
-            }
-        },
+                if (targetIndex !== index) {
+                    event.target.value = '';
+                }
+            },
 
-        findTargetSlot(currentIndex) {
-            if (!this.uploads[currentIndex].filled) return currentIndex;
+            setFileToSlot(file, index) {
+                this.uploads[index].filled = true;
+                this.uploads[index].src = URL.createObjectURL(file);
 
-            for (let i = 1; i <= 8; i++) {
-                if (!this.uploads[i].filled) return i;
-            }
-            return currentIndex;
-        },
-
-        setFileToSlot(file, index) {
-            this.uploads[index].filled = true;
-            this.uploads[index].src = URL.createObjectURL(file);
-
-            const input = document.getElementById(`photo-${index}`);
-            if (input) {
-                const dt = new DataTransfer();
-                dt.items.add(file);
-                input.files = dt.files;
+                const input = document.getElementById(`photo-${index}`);
+                if (input) {
+                    const dt = new DataTransfer();
+                    dt.items.add(file);
+                    input.files = dt.files;
+                }
             }
         }
     }
-}
 </script>
 <?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/components/advert/form.blade.php ENDPATH**/ ?>

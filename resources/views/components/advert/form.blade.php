@@ -3,10 +3,7 @@
 <div x-data="advertForm(@json($advert))">
     <form action="{{ $action }}" method="POST" enctype="multipart/form-data" class="advert-form">
         @csrf
-        @if($advert)
-            @method('PUT')
-        @endif
-
+        @if($advert)@method('PUT')@endif
         <input type="hidden" name="action" id="form-action" value="save">
 
         <div class="form-main">
@@ -27,11 +24,7 @@
                         @endphp
 
                         <div class="photo-upload" x-bind:data-filled="uploads[{{ $i }}].filled" data-index="{{ $i }}">
-                            <input type="file"
-                                   name="images[]"
-                                   id="photo-{{ $i }}"
-                                   accept="image/*"
-                                   class="photo-input"
+                            <input type="file" name="images[]" id="photo-{{ $i }}" accept="image/*" class="photo-input"
                                    @change="handleFileUpload($event, {{ $i }})">
 
                             <label for="photo-{{ $i }}" class="photo-label">
@@ -84,45 +77,36 @@
 </div>
 
 <script>
-function advertForm(advert = null) {
-    return {
-        uploads: Array.from({length: 9}, (_, i) => ({
-            filled: !!(advert?.images[i-1] ?? false),
-            src: advert?.images[i-1]?.image_path ? "{{ url('storage') }}/" + advert.images[i-1].image_path : ''
-        })),
+    function advertForm(advert = null) {
+        return {
+            uploads: Array.from({ length: 9 }, (_, i) => ({
+                filled: !!(advert?.images[i - 1] ?? false),
+                src: advert?.images[i - 1]?.image_path ? "{{ url('storage') }}/" + advert.images[i - 1].image_path : ''
+            })),
 
-        handleFileUpload(event, index) {
-            const file = event.target.files[0];
-            if (!file) return;
+            handleFileUpload(event, index) {
+                const file = event.target.files[0];
+                if (!file) return;
 
-            const targetIndex = this.findTargetSlot(index);
-            this.setFileToSlot(file, targetIndex);
+                const targetIndex = this.uploads[index].filled ? index : this.uploads.findIndex((u, i) => i > 0 && !u.filled) || 1;
+                this.setFileToSlot(file, targetIndex);
 
-            if (targetIndex !== index) {
-                event.target.value = '';
-            }
-        },
+                if (targetIndex !== index) {
+                    event.target.value = '';
+                }
+            },
 
-        findTargetSlot(currentIndex) {
-            if (!this.uploads[currentIndex].filled) return currentIndex;
+            setFileToSlot(file, index) {
+                this.uploads[index].filled = true;
+                this.uploads[index].src = URL.createObjectURL(file);
 
-            for (let i = 1; i <= 8; i++) {
-                if (!this.uploads[i].filled) return i;
-            }
-            return currentIndex;
-        },
-
-        setFileToSlot(file, index) {
-            this.uploads[index].filled = true;
-            this.uploads[index].src = URL.createObjectURL(file);
-
-            const input = document.getElementById(`photo-${index}`);
-            if (input) {
-                const dt = new DataTransfer();
-                dt.items.add(file);
-                input.files = dt.files;
+                const input = document.getElementById(`photo-${index}`);
+                if (input) {
+                    const dt = new DataTransfer();
+                    dt.items.add(file);
+                    input.files = dt.files;
+                }
             }
         }
     }
-}
 </script>

@@ -46,12 +46,12 @@
         <div class="navbar-right">
             <a class="nav-link" href="<?php echo e(route('profile.wishlist')); ?>" aria-label="Wishlist">
                 <img src="<?php echo e(asset('images/header/heart.svg')); ?>" alt="Wishlist">
-                <span class="badge"><?php echo e(auth()->user()->wishlist()->count()); ?></span>
+                <span class="badge"><?php echo e($wishlistCount); ?></span>
             </a>
 
             <a class="nav-link" href="<?php echo e(route('profile.orders.index')); ?>" aria-label="Cart">
                 <img src="<?php echo e(asset('images/header/cart.svg')); ?>" alt="Cart">
-                <span class="badge"><?php echo e(auth()->user()->orders()->count()); ?></span>
+                <span class="badge"><?php echo e($ordersCount); ?></span>
             </a>
 
             <a class="nav-avatar" href="<?php echo e(route('profile.index')); ?>">
@@ -141,7 +141,7 @@
     <a href="<?php echo e(route('profile.wishlist')); ?>">
         <img src="<?php echo e(asset('images/header/heart.svg')); ?>" alt="Wishlist">
         <span>Улюблене</span>
-        <span class="badge"><?php echo e(auth()->user()->wishlist()->count()); ?></span>
+        <span class="badge"><?php echo e($wishlistCount); ?></span>
     </a>
     <a href="<?php echo e(route('advert.create')); ?>">
         <img src="<?php echo e(asset('images/header/add.svg')); ?>" alt="Add">
@@ -150,7 +150,7 @@
     <a href="<?php echo e(route('profile.orders.index')); ?>">
         <img src="<?php echo e(asset('images/header/cart.svg')); ?>" alt="Cart">
         <span>Кошик</span>
-        <span class="badge"><?php echo e(auth()->user()->orders()->count()); ?></span>
+        <span class="badge"><?php echo e($ordersCount); ?></span>
     </a>
     <a href="<?php echo e(route('profile.index')); ?>">
         <img src="<?php echo e(asset('images/default-avatar.png')); ?>" alt="Profile">

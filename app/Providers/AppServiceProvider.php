@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\View\Composers\HeaderComposer;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,5 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::defaultView('components.ui.pagination');
+        View::composer('components.partials.header', HeaderComposer::class);
     }
 }

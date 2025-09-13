@@ -46,12 +46,12 @@
         <div class="navbar-right">
             <a class="nav-link" href="{{ route('profile.wishlist') }}" aria-label="Wishlist">
                 <img src="{{ asset('images/header/heart.svg') }}" alt="Wishlist">
-                <span class="badge">{{ auth()->user()->wishlist()->count() }}</span>
+                <span class="badge">{{ $wishlistCount }}</span>
             </a>
 
             <a class="nav-link" href="{{ route('profile.orders.index') }}" aria-label="Cart">
                 <img src="{{ asset('images/header/cart.svg') }}" alt="Cart">
-                <span class="badge">{{ auth()->user()->orders()->count() }}</span>
+                <span class="badge">{{ $ordersCount }}</span>
             </a>
 
             <a class="nav-avatar" href="{{ route('profile.index') }}">
@@ -141,7 +141,7 @@
     <a href="{{ route('profile.wishlist') }}">
         <img src="{{ asset('images/header/heart.svg') }}" alt="Wishlist">
         <span>Улюблене</span>
-        <span class="badge">{{ auth()->user()->wishlist()->count() }}</span>
+        <span class="badge">{{ $wishlistCount }}</span>
     </a>
     <a href="{{ route('advert.create') }}">
         <img src="{{ asset('images/header/add.svg') }}" alt="Add">
@@ -150,7 +150,7 @@
     <a href="{{ route('profile.orders.index') }}">
         <img src="{{ asset('images/header/cart.svg') }}" alt="Cart">
         <span>Кошик</span>
-        <span class="badge">{{ auth()->user()->orders()->count() }}</span>
+        <span class="badge">{{ $ordersCount }}</span>
     </a>
     <a href="{{ route('profile.index') }}">
         <img src="{{ asset('images/default-avatar.png') }}" alt="Profile">
