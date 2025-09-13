@@ -1,0 +1,43 @@
+@use '../base';
+@use '../mixins';
+@use '../variables';
+
+%flash-message-base {
+    @include mixins.flex-center(column);
+    @include mixins.font-style(16px, variables.$carbon, 500);
+    font-family: variables.$font-family-alt;
+
+    gap: 8px;
+    position: fixed;
+    text-align: center;
+    padding: 24px 32px;
+    border-radius: 32px;
+    transform: translate(-50%, 100%);
+
+    .hidden {
+        display: none;
+        opacity: 0;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+}
+
+.flash-message--success {
+    @extend %flash-message-base;
+    background-color: #C6F7E0;
+
+    .icon {
+        @include mixins.size(40px, 30px);
+    }
+}
+
+.flash-message--error {
+    @extend %flash-message-base;
+    background-color: #FECACA;
+
+    .icon {
+        @include mixins.size(50px, 40px);
+    }
+}

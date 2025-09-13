@@ -14,15 +14,19 @@
         <?php if (! empty(trim($__env->yieldContent('title')))): ?> — <?php echo $__env->yieldContent('title'); ?> <?php endif; ?>
     </title>
 
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
     <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?>
-
     <?php echo $__env->yieldPushContent('styles'); ?>
-</head>
-<body data-route="<?php echo e(Route::currentRouteName()); ?>">
-    <div id="global-loader-overlay" class="hidden"></div>
+    <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
 
+</head>
+<body data-route="<?php echo e(Route::currentRouteName()); ?>" x-data="{ sidebarOpen: false }">
+    <div id="global-loader-overlay" class="hidden"></div>
     <?php echo $__env->yieldContent('content'); ?>
     <?php echo $__env->yieldPushContent('scripts'); ?>
+    <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
+
 </body>
 </html>
 <?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/layouts/base.blade.php ENDPATH**/ ?>

@@ -1,9 +1,7 @@
-/**
- * Import jQuery and expose it globally via window.$ and window.jQuery,
- * so that plugins and libraries depending on jQuery work properly.
- */
-import $ from 'jquery';
-window.$ = window.jQuery = $;
+import Alpine from 'alpinejs'
+window.Alpine = Alpine
+
+Alpine.start();
 
 /**
  * NProgress — a slim progress bar at the top of the page to indicate loading states.
@@ -28,37 +26,10 @@ window.NProgress = NProgress;
  */
 import { initMask } from './modules/utils/mask.js';
 import { initValidation } from './modules/validation/validation.js';
-import { initCategoryToggle } from './modules/ui/categoryToggle.js';
-import { initVisibilityToggle } from './modules/ui/visibilityToggle.js';
-import { initVerificationMessage } from './modules/ui/verificationMessage.js';
-import { initRouteLoader } from './modules/utils/routeLoader.js';
+import { initVisibilityToggle } from './modules/ui/visibility.js';
 
-$(document).ready(() => {
-    initRouteLoader();
-
+document.addEventListener('DOMContentLoaded', () => {
     initMask();
     initValidation();
-    initCategoryToggle();
     initVisibilityToggle();
-    initVerificationMessage();
 });
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo';
-
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-//     enabledTransports: ['ws', 'wss'],
-// });

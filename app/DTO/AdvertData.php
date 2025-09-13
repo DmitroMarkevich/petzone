@@ -3,8 +3,6 @@
 namespace App\DTO;
 
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Attributes\DataCollectionOf;
-use Illuminate\Http\UploadedFile;
 
 class AdvertData extends Data
 {
@@ -13,17 +11,19 @@ class AdvertData extends Data
         public string $description,
         public float $price,
         public string $category_id,
-        #[DataCollectionOf(UploadedFile::class)]
-        public array $images = [],
+        public string $advert_condition,
+        public string $advert_type,
     ) {}
 
     public function toModelAttributes(): array
     {
         return [
-            'title'       => $this->title,
-            'description' => $this->description,
-            'price'       => $this->price,
-            'category_id' => $this->category_id,
+            'title'            => $this->title,
+            'description'      => $this->description,
+            'price'            => $this->price,
+            'category_id'      => $this->category_id,
+            'advert_condition' => $this->advert_condition,
+            'advert_type'      => $this->advert_type,
         ];
     }
 }

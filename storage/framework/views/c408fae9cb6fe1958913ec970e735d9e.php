@@ -1,7 +1,5 @@
 <footer class="footer">
-    <a href="<?php echo e(route('home')); ?>">
-        <img src="<?php echo e(asset('images/white-logo.svg')); ?>" alt="Logo">
-    </a>
+    <a href="<?php echo e(route('home')); ?>"><img src="<?php echo e(asset('images/white-logo.svg')); ?>" alt="Logo"></a>
 
     <ul class="footer-links">
         <li class="footer-link-item"><a href="#">Про нас</a></li>

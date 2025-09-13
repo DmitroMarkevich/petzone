@@ -27,6 +27,7 @@ services:
         command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
         volumes:
             - redisdata:/data
+            - ./_docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
         networks:
             - laravel
         healthcheck:

@@ -5,14 +5,10 @@ namespace App\Services;
 use App\Models\Order\Order;
 use App\Models\Advert\Advert;
 use Stripe\Stripe;
-use Stripe\Exception\ApiErrorException;
 use Stripe\Checkout\Session as StripeSession;
 
 class StripeService
 {
-    /**
-     * Construct the service and set Stripe secret.
-     */
     public function __construct()
     {
         Stripe::setApiKey(config('services.stripe.secret'));
@@ -20,11 +16,6 @@ class StripeService
 
     /**
      * Create a Stripe Checkout session for a given advert and order.
-     *
-     * @param Advert $advert The advert to be purchased.
-     * @param Order $order The order associated with this checkout session.
-     * @return StripeSession The created Stripe Checkout session object.
-     * @throws ApiErrorException If the Stripe API request fails.
      */
     public function createCheckoutSession(Advert $advert, Order $order): StripeSession
     {

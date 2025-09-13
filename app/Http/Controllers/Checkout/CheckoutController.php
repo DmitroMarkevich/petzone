@@ -16,18 +16,12 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Stripe\Exception\ApiErrorException;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class CheckoutController extends Controller
 {
     private OrderService $orderService;
     private StripeService $stripeService;
 
-    /**
-     * @param OrderService $orderService
-     * @param StripeService $stripeService
-     */
     public function __construct(OrderService $orderService, StripeService $stripeService)
     {
         $this->orderService = $orderService;
@@ -36,9 +30,6 @@ class CheckoutController extends Controller
 
     /**
      * Display the checkout page for the currently selected advert.
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|View|Application The view displaying the checkout form.
      */
     public function index(Request $request): Factory|View|Application
     {
@@ -55,10 +46,7 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Select an advert еo check out and save it in the session.
-     *
-     * @param Request $request The HTTP request instance containing 'advert_id'.
-     * @return RedirectResponse Redirects to the checkout page.
+     * Select an advert to check out and save it in the session.
      */
     public function select(Request $request): RedirectResponse
     {
@@ -72,17 +60,12 @@ class CheckoutController extends Controller
 
     /**
      * Store a new order and initiate payment if necessary.
-     *
-     * @param StoreOrderRequest $request Validated form request containing order data.
-     * @return RedirectResponse Redirects to Stripe payment or success page.
-     * @throws ApiErrorException Thrown if Stripe Checkout session creation fails.
-     * @throws UnknownProperties
      */
     public function store(StoreOrderRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        $orderData = new OrderData($validated);
+        $orderData = OrderData::from($validated);
         $recipientData = RecipientData::fromRequest($validated);
 
         $order = $this->orderService->createOrder($request->user(), $orderData, $recipientData);
@@ -100,9 +83,6 @@ class CheckoutController extends Controller
 
     /**
      * Display the success page after a completed order.
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|Application|View The view displaying order success.
      */
     public function success(Request $request): Factory|Application|View
     {
@@ -111,9 +91,6 @@ class CheckoutController extends Controller
 
     /**
      * Display the cancel page for a canceled order.
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|Application|View The view displaying order cancellation.
      */
     public function cancel(Request $request): Factory|Application|View
     {
@@ -122,10 +99,6 @@ class CheckoutController extends Controller
 
     /**
      * Helper method to retrieve the last order and display the given view.
-     *
-     * @param Request $request The HTTP request instance.
-     * @param string $view The name of the view to render.
-     * @return Factory|Application|View The view with order data.
      */
     private function showCheckoutResult(Request $request, string $view): Factory|Application|View
     {

@@ -33,6 +33,6 @@ Route::prefix('profile')->name('profile.')->group(function () {
         )->name('reject');
     });
 
-    Route::get('/adverts', [ProfileController::class, 'adverts'])->name('adverts');
+    Route::get('/advert', [ProfileController::class, 'adverts'])->name('advert');
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
 });

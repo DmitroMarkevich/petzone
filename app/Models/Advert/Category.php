@@ -24,19 +24,15 @@ class Category extends Model
     ];
 
     /**
-     * Get all adverts (products) that belong to this category.
-     *
-     * @return HasMany
+     * Get all adverts that belong to this category.
      */
-    public function products(): HasMany
+    public function adverts(): HasMany
     {
         return $this->hasMany(Advert::class);
     }
 
     /**
      * Get the parent category of this category.
-     *
-     * @return BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -45,8 +41,6 @@ class Category extends Model
 
     /**
      * Get all child categories of this category.
-     *
-     * @return HasMany
      */
     public function children():HasMany
     {

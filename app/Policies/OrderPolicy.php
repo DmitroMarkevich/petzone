@@ -9,10 +9,6 @@ class OrderPolicy
 {
     /**
      * Determine if the given user can view the order.
-     *
-     * @param User $user The authenticated user.
-     * @param Order $order The order being checked.
-     * @return bool True if the user can view the order, false otherwise.
      */
     public function view(User $user, Order $order): bool
     {

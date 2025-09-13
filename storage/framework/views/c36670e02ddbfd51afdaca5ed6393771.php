@@ -46,9 +46,9 @@
 <?php endif; ?>
 <?php $component->withAttributes(['advert' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($advert),'status' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($advert->is_active)]); ?>
                          <?php $__env->slot('actions', null, []); ?> 
-                            <a href="<?php echo e(route('adverts.edit', $advert->id)); ?>" class="edit-btn">Редагувати</a>
+                            <a href="<?php echo e(route('advert.edit', $advert->id)); ?>" class="edit-btn">Редагувати</a>
 
-                            <form action="<?php echo e(route('adverts.destroy', $advert->id)); ?>" method="POST">
+                            <form action="<?php echo e(route('advert.destroy', $advert->id)); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('DELETE'); ?>
                                 <button type="submit" class="delete-btn">Видалити</button>

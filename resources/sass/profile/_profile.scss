@@ -109,6 +109,12 @@
     background-color: variables.$orange;
 }
 
+.flex-show {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
 // Profile Sections
 .profile-section {
     margin-bottom: 20px;
@@ -142,4 +148,99 @@
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+}
+
+.wishlist-wrapper {
+    padding-left: 80px;
+
+    .wishlist-header {
+        @include mixins.flex-center-vertical;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 1320px) {
+    .profile-actions.photo, .profile-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1120px) {
+    .profile-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .profile-template {
+        flex-direction: column;
+    }
+
+    .profile-content {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .profile-header {
+        @include mixins.flex-center-vertical();
+        justify-content: center;
+    }
+
+    .profile-actions.photo, .profile-actions {
+        button {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 14px;
+        }
+    }
+
+    .wishlist-wrapper {
+        padding: 0;
+    }
+
+    .wishlist-container {
+        @include mixins.flex-center(column);
+    }
+
+    .profile-section .form-row {
+        @include mixins.flex-column;
+        gap: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .wishlist-container {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-container, .record-container {
+        width: 100% !important;
+    }
+}
+
+.profile-sidebar {
+    transition: transform 0.3s ease-in-out;
+
+    @media (max-width: 992px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        background-color: variables.$pale-blue;
+        transform: translateX(-100%);
+        z-index: 1000;
+
+        &.open {
+            left: 0;
+        }
+    }
+
+    &.open {
+        transform: translateX(0);
+    }
 }

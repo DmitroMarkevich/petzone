@@ -1,7 +1,5 @@
 <footer class="footer">
-    <a href="{{ route('home') }}">
-        <img src="{{ asset('images/white-logo.svg') }}" alt="Logo">
-    </a>
+    <a href="{{ route('home') }}"><img src="{{ asset('images/white-logo.svg') }}" alt="Logo"></a>
 
     <ul class="footer-links">
         <li class="footer-link-item"><a href="#">Про нас</a></li>

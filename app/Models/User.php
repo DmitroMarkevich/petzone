@@ -69,7 +69,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the adverts for the user.
+     * Get the advert for the user.
      */
     public function adverts(): HasMany
     {

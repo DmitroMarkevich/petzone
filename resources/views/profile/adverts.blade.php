@@ -20,9 +20,9 @@
                 @foreach($adverts as $advert)
                     <x-advert.item :advert="$advert" :status="$advert->is_active">
                         <x-slot name="actions">
-                            <a href="{{ route('adverts.edit', $advert->id) }}" class="edit-btn">Редагувати</a>
+                            <a href="{{ route('advert.edit', $advert->id) }}" class="edit-btn">Редагувати</a>
 
-                            <form action="{{ route('adverts.destroy', $advert->id) }}" method="POST">
+                            <form action="{{ route('advert.destroy', $advert->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-btn">Видалити</button>

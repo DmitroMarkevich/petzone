@@ -17,9 +17,6 @@ class AddressService
 
     /**
      * Search for cities based on the provided term.
-     *
-     * @param string $searchTerm
-     * @return array
      */
     public function searchCities(string $searchTerm): array
     {
@@ -28,10 +25,6 @@ class AddressService
 
     /**
      * Search for streets in the specified city.
-     *
-     * @param string $cityRef
-     * @param string $searchTerm
-     * @return array
      */
     public function searchStreets(string $cityRef, string $searchTerm): array
     {

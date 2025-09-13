@@ -24,15 +24,7 @@ class StripeWebhookController extends Controller
     }
 
     /**
-     * Handle incoming Stripe webhook requests.
-     *
-     * Validates the payload and signature from Stripe, constructs the event,
-     * and delegates handling to the StripeWebhookService.
-     *
-     * @param Request $request The incoming HTTP request containing the Stripe event payload.
-     * @return Response|JsonResponse|ResponseFactory A JSON response indicating success,
-     *                                               or an error response if the payload is invalid.
-     * @throws SignatureVerificationException If the Stripe signature verification fails.
+     * Handles the Stripe webhook via StripeWebhookService.
      */
     public function handle(Request $request): Response|JsonResponse|ResponseFactory
     {

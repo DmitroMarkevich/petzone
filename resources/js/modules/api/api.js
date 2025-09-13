@@ -1,12 +1,20 @@
-/**
- * Fetch suggestions via AJAX with async/await.
- */
 export const fetchData = async (url, data = {}, type = 'GET') => {
     try {
-        const response = await $.ajax({ url, type, data });
-        return response.success ? response.result : [];
-    } catch (error) {
-        console.error(`Error fetching data from ${url}:`, error);
+        const options = {
+            method: type.toUpperCase(),
+            headers: { 'Content-Type': 'application/json' },
+        };
+
+        if (type.toUpperCase() === 'GET' && Object.keys(data).length) {
+            url += `?${new URLSearchParams(data)}`;
+        } else if (type.toUpperCase() === 'POST') {
+            options.body = JSON.stringify(data);
+        }
+
+        const json = await fetch(url, options).json();
+        return json.success ? json.result : [];
+    } catch (e) {
+        console.error('Fetch failed:', e);
         return [];
     }
 };

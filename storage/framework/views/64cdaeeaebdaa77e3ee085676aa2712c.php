@@ -2,8 +2,8 @@
 
 <?php $__env->startSection('app-content'); ?>
     <div class="page-container">
-        <div class="profile-template">
-            <div class="profile-sidebar">
+        <div class="profile-template" x-data="{ sidebarOpen: false }">
+            <div class="profile-sidebar" :class="{ 'open': sidebarOpen }">
                 <div class="profile-item">
                     <a class="profile-link <?php echo e(is_active('profile')); ?>" href="<?php echo e(route('profile.index')); ?>">
                         <img src="<?php echo e(asset('images/profile/profile.svg')); ?>" alt="Профіль">Профіль
@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="profile-item">
-                    <a class="profile-link <?php echo e(is_active('profile/adverts')); ?>" href="<?php echo e(route('profile.adverts')); ?>">
+                    <a class="profile-link <?php echo e(is_active('profile/advert')); ?>" href="<?php echo e(route('profile.advert')); ?>">
                         <img src="<?php echo e(asset('images/profile/folder.svg')); ?>" alt="Оголошення">Мої оголошення
                     </a>
                 </div>

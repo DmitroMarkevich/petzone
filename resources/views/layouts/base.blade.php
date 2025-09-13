@@ -13,14 +13,16 @@
         @hasSection('title') — @yield('title') @endif
     </title>
 
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
     @stack('styles')
+    @livewireStyles
 </head>
-<body data-route="{{ Route::currentRouteName() }}">
+<body data-route="{{ Route::currentRouteName() }}" x-data="{ sidebarOpen: false }">
     <div id="global-loader-overlay" class="hidden"></div>
-
     @yield('content')
     @stack('scripts')
+    @livewireScripts
 </body>
 </html>

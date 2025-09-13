@@ -162,12 +162,12 @@
     top: 30%;
 }
 
-.step {
-    display: none;
+[x-cloak] {
+    display: none !important;
 }
 
-.step.active {
-    display: block;
+.auth-content:not([x-data]) .step:not(:first-child) {
+    display: none;
 }
 
 .photo-upload, .photo-background {

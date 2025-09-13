@@ -6,7 +6,7 @@
             </div>
 
             <div class="advert-content">
-                <a class="advert-title" href="{{ route('adverts.show', $advert->id) }}">{{ $advert->title }}</a>
+                <a class="advert-title" href="{{ route('advert.show', $advert->id) }}">{{ $advert->title }}</a>
                 <p class="advert-description">{{ $advert->description }}</p>
 
                 <div class="advert-date-wrapper">

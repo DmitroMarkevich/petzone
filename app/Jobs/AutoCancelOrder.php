@@ -4,10 +4,10 @@ namespace App\Jobs;
 
 use App\Enum\OrderStatus;
 use App\Models\Order\Order;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AutoCancelOrder implements ShouldQueue
 {

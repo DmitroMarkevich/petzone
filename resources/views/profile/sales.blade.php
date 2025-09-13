@@ -22,7 +22,7 @@
                 @forelse($sales as $sale)
                     @continue(!$sale->advert)
 
-                    <div class="advert-item" data-status="{{ $sale->status->value }}">
+                    <div class="advert-item" data-status="{{ $sale->status->value }}" x-data="{ open: false }">
                         <div class="advert-main">
                             <div class="advert-left">
                                 <div class="advert-image-wrapper">
@@ -30,7 +30,7 @@
                                 </div>
 
                                 <div class="advert-content">
-                                    <a class="advert-title" href="{{ route('adverts.show', $sale->advert->id) }}">
+                                    <a class="advert-title" href="{{ route('advert.show', $sale->advert->id) }}">
                                         {{ $sale->advert->title }}
                                     </a>
 
@@ -45,7 +45,9 @@
                                         <span class="advert-date">{{ $sale->created_at->format('d.m.y, H:i') }}</span>
                                     </div>
 
-                                    <button type="button" class="toggle-details">Розгорнути</button>
+                                    <button type="button" class="toggle-details" @click="open = !open">
+                                        <span x-text="open ? 'Згорнути' : 'Розгорнути'"></span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -68,7 +70,7 @@
                             </div>
                         </div>
 
-                        <div class="advert-details">
+                        <div class="advert-details" x-show="open" x-transition>
                             <div class="details-section">
                                 <h4 class="details-title">Інформація про покупця</h4>
                                 <div class="details-list">
@@ -105,19 +107,16 @@
             </div>
         </div>
     @endif
+
+    @if(session('success'))
+        <x-ui.flash-message :message="session('success')" />
+    @endif
 @endsection
 
 
 <style>
     .advert-details {
-        display: none;
-    }
-
-    .advert-details.active {
         display: grid;
-    }
-
-    .advert-details {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
 

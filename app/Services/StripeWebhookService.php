@@ -23,8 +23,6 @@ class StripeWebhookService
     /**
      * Construct a Stripe Event from the payload and signature header.
      *
-     * @param string $payload Raw request payload from Stripe.
-     * @param string $sigHeader Stripe-Signature header.
      * @throws SignatureVerificationException If signature is invalid.
      */
     public function constructEvent(string $payload, string $sigHeader): Event
@@ -34,8 +32,6 @@ class StripeWebhookService
 
     /**
      * Process a Stripe Event and update order status if applicable.
-     *
-     * @param Event $event The Stripe Event object to handle.
      */
     public function handleEvent(Event $event): void
     {

@@ -22,10 +22,6 @@ class AdvertController extends Controller
 
     private AdvertService $advertService;
 
-    /**
-     * @param AdvertService $advertService
-     * @param ImageService $imageService
-     */
     public function __construct(AdvertService $advertService, ImageService $imageService)
     {
         $this->imageService = $imageService;
@@ -33,10 +29,7 @@ class AdvertController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|View|Application The view displaying the adverts.
+     * Displays a list of adverts with optional search query and sorting.
      */
     public function index(Request $request): Factory|View|Application
     {
@@ -51,7 +44,7 @@ class AdvertController extends Controller
             return $advert;
         });
 
-        return view('adverts.index', compact('adverts'));
+        return view('advert.index', compact('adverts'));
     }
 
     /**
@@ -63,35 +56,30 @@ class AdvertController extends Controller
     {
         $categories = Category::all();
 
-        return view('adverts.create', compact('categories'));
+        return view('advert.create', compact('categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreAdvertRequest $request The validated request with advert data.
-     * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
+     * Stores a new advert or shows a preview, depending on the action.
      */
     public function store(StoreAdvertRequest $request): Factory|View|Application|RedirectResponse
     {
-        $dto = AdvertData::from($request->validated());
+        $dto = AdvertData::from($request->except('images'));
+        $images = $request->file('images', []);
 
         if ($request->input('action') === 'preview') {
             $advert = new Advert($dto->toModelAttributes());
 
-            return view('adverts.preview', compact('advert'));
+            return view('advert.preview', compact('advert', 'images'));
         }
 
-        $this->advertService->createAdvert($dto);
+        $this->advertService->createAdvert($dto, $images);
 
-        return redirect()->route('profile.adverts');
+        return redirect()->route('profile.advert');
     }
 
     /**
-     * Display the specified advert.
-     *
-     * @param string $id UUID of the advert.
-     * @return Factory|View|Application The view displaying advert details.
+     * Shows a single advert with user info and avatar.
      */
     public function show(string $id): Factory|View|Application
     {
@@ -100,14 +88,12 @@ class AdvertController extends Controller
         // todo abstracting photo transmission and processing
         $avatarUrl = $this->imageService->getImageUrl($advert->user?->image_path, 'images/default-avatar.png');
 
-        return view('adverts.show', compact('advert', 'avatarUrl'));
+        return view('advert.show', compact('advert', 'avatarUrl'));
     }
 
     /**
      * Show the form for editing the specified advert.
      *
-     * @param string $id UUID of the advert.
-     * @return Factory|View|Application The view with advert edit form.
      * @throws AuthorizationException If the user is not authorized to edit the advert.
      */
     public function edit(string $id): Factory|View|Application
@@ -119,14 +105,11 @@ class AdvertController extends Controller
 
         $categories = Category::all();
 
-        return view('adverts.edit', compact('advert', 'categories'));
+        return view('advert.edit', compact('advert', 'categories'));
     }
 
     /**
-     * Update the specified advert in storage.
-     *
-     * @param StoreAdvertRequest $request The request containing updated advert data.
-     * @return Application|Factory|View|RedirectResponse Redirects to profile adverts or shows preview.
+     * Updates the advert or shows a preview, depending on the action.
      */
     public function update(StoreAdvertRequest $request, Advert $advert): Application|Factory|View|RedirectResponse
     {
@@ -135,19 +118,17 @@ class AdvertController extends Controller
         if ($request->input('action') === 'preview') {
             $advert = new Advert($dto->toModelAttributes());
 
-            return view('adverts.preview', compact('advert'));
+            return view('advert.preview', compact('advert'));
         }
 
         $this->advertService->updateAdvert($advert, $dto);
 
-        return redirect()->route('profile.adverts');
+        return redirect()->route('profile.advert');
     }
 
     /**
-     * Remove the specified advert from storage.
+     * Deletes the advert after authorization check.
      *
-     * @param string $id UUID of the advert.
-     * @return RedirectResponse Redirects to profile adverts after deletion.
      * @throws AuthorizationException If the user is not authorized to delete the advert.
      */
     public function destroy(string $id): RedirectResponse
@@ -158,6 +139,6 @@ class AdvertController extends Controller
 
         $advert->delete();
 
-        return redirect()->route('profile.adverts');
+        return redirect()->route('profile.advert');
     }
 }

@@ -8,11 +8,12 @@
             <p>{{ __('common.nothing_found') }}</p>
         </div>
     @else
-        <div style="padding-left: 80px">
-            <div class="form-row" style="margin-bottom: 30px;">
+        <div class="wishlist-wrapper">
+            <div class="wishlist-header">
                 <p>Всього ~{{ $wishlist->total() }} результатів</p>
 
-                <x-ui.sort-options :options="['' => 'За релевантністю',
+                <x-ui.sort-options :options="[
+                        '' => 'За релевантністю',
                         'price-asc' => 'Від дешевих до дорогих',
                         'price-desc' => 'Від дорогих до дешевих',
                         'date-asc' => 'Новинки'
@@ -32,3 +33,7 @@
         </div>
     @endif
 @endsection
+
+@push('scripts')
+    @vite('resources/js/modules/ui/wishlist.js')
+@endpush

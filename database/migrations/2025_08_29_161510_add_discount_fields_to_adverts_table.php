@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('adverts', function (Blueprint $table) {
+        Schema::table('advert', function (Blueprint $table) {
             $table->decimal('previous_price', 10)->nullable()->after('price');
             $table->timestamp('price_changed_at')->nullable()->after('previous_price');
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('adverts', function (Blueprint $table) {
+        Schema::table('advert', function (Blueprint $table) {
             $table->dropColumn(['previous_price', 'price_changed_at']);
         });
     }

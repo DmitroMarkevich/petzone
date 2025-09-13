@@ -38,16 +38,15 @@
                 <?php $__empty_1 = true; $__currentLoopData = $sales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sale): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <?php if(!$sale->advert) continue; ?>
 
-                    <div class="advert-item" data-status="<?php echo e($sale->status->value); ?>">
+                    <div class="advert-item" data-status="<?php echo e($sale->status->value); ?>" x-data="{ open: false }">
                         <div class="advert-main">
                             <div class="advert-left">
                                 <div class="advert-image-wrapper">
-                                    <img src="<?php echo e($sale->advert->main_image); ?>" class="advert-image"
-                                         alt="<?php echo e($sale->advert->title); ?>">
+                                    <img src="<?php echo e($sale->advert->main_image); ?>" class="advert-image" alt="<?php echo e($sale->advert->title); ?>">
                                 </div>
 
                                 <div class="advert-content">
-                                    <a class="advert-title" href="<?php echo e(route('adverts.show', $sale->advert->id)); ?>">
+                                    <a class="advert-title" href="<?php echo e(route('advert.show', $sale->advert->id)); ?>">
                                         <?php echo e($sale->advert->title); ?>
 
                                     </a>
@@ -64,7 +63,9 @@
                                         <span class="advert-date"><?php echo e($sale->created_at->format('d.m.y, H:i')); ?></span>
                                     </div>
 
-                                    <button type="button" class="toggle-details">Розгорнути</button>
+                                    <button type="button" class="toggle-details" @click="open = !open">
+                                        <span x-text="open ? 'Згорнути' : 'Розгорнути'"></span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -87,7 +88,7 @@
                             </div>
                         </div>
 
-                        <div class="advert-details">
+                        <div class="advert-details" x-show="open" x-transition>
                             <div class="details-section">
                                 <h4 class="details-title">Інформація про покупця</h4>
                                 <div class="details-list">
@@ -126,19 +127,35 @@
             </div>
         </div>
     <?php endif; ?>
+
+    <?php if(session('success')): ?>
+        <?php if (isset($component)) { $__componentOriginalf0c95b89bbca1866d74c11d156e76d97 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf0c95b89bbca1866d74c11d156e76d97 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.ui.flash-message','data' => ['message' => session('success')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('ui.flash-message'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(session('success'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf0c95b89bbca1866d74c11d156e76d97)): ?>
+<?php $attributes = $__attributesOriginalf0c95b89bbca1866d74c11d156e76d97; ?>
+<?php unset($__attributesOriginalf0c95b89bbca1866d74c11d156e76d97); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf0c95b89bbca1866d74c11d156e76d97)): ?>
+<?php $component = $__componentOriginalf0c95b89bbca1866d74c11d156e76d97; ?>
+<?php unset($__componentOriginalf0c95b89bbca1866d74c11d156e76d97); ?>
+<?php endif; ?>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 
 <style>
     .advert-details {
-        display: none;
-    }
-
-    .advert-details.active {
         display: grid;
-    }
-
-    .advert-details {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
 

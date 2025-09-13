@@ -9,26 +9,16 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class OrderController extends Controller
 {
     private OrderService $orderService;
 
-    /**
-     * @param OrderService $orderService
-     */
     public function __construct(OrderService $orderService)
     {
         $this->orderService = $orderService;
     }
 
-    /**
-     * Display a list of the user's active orders.
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|View|Application The view displaying active orders.
-     */
     public function index(Request $request): Factory|View|Application
     {
         $orders = $this->orderService->getUserOrders($request->user(), true);
@@ -36,13 +26,6 @@ class OrderController extends Controller
         return view('profile.orders.index', compact('orders'));
     }
 
-    /**
-     * Show the details of a specific order.
-     *
-     * @param Order $order The order to display.
-     * @return Factory|View|Application The view displaying order details.
-     * @throws AuthorizationException If the user is not authorized to view the order.
-     */
     public function show(Order $order): Factory|View|Application
     {
         $this->authorize('view', $order);
@@ -51,10 +34,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the user's orders history (completed or archived orders).
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|View|Application The view displaying order history.
+     * Display a list of user's past orders (order history).
      */
     public function history(Request $request): Factory|View|Application
     {

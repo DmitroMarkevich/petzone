@@ -25,3 +25,27 @@
 .footer-copy {
     @include mixins.font-style(14px, variables.$ash-rose);
 }
+
+@media (max-width: 768px) {
+    .footer {
+        text-align: center;
+        height: auto;
+        padding: 20px;
+    }
+
+    .footer-links {
+        gap: 12px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .footer-link-item a {
+        font-size: 14px;
+    }
+
+    .footer-copy {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+}

@@ -11,13 +11,6 @@ class ProfileService
 {
     use FileUploadTrait;
 
-    /**
-     * Update user profile data and delivery address.
-     *
-     * @param User $user The user whose profile will be updated.
-     * @param ProfileData $dto Data transfer object with user and address data.
-     * @return void
-     */
     public function updateProfile(User $user, ProfileData $dto): void
     {
         if ($dto->userData) {
@@ -29,13 +22,6 @@ class ProfileService
         }
     }
 
-    /**
-     * Upload and update the user's avatar.
-     *
-     * @param User $user The user whose avatar will be updated.
-     * @param UploadedFile $file The uploaded file.
-     * @return string Path to the uploaded file
-     */
     public function updateAvatar(User $user, UploadedFile $file): string
     {
         $imagePath = $this->uploadFile("users/$user->id", $file);
@@ -48,19 +34,15 @@ class ProfileService
         return $imagePath;
     }
 
-    /**
-     * Delete the user's avatar.
-     *
-     * @param User $user The user whose logo will be removed.
-     * @return void
-     */
-    public function deleteAvatar(User $user): void
+    public function deleteAvatar(User $user): bool
     {
         if (!$user->image_path) {
-            return;
+            return false;
         }
 
         $this->deleteFile($user->image_path);
         $user->forceFill(['image_path' => null])->save();
+
+        return true;
     }
 }

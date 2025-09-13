@@ -7,10 +7,7 @@ use UnitEnum;
 interface Translatable
 {
     /**
-     * Get the translated label for an enum case.
-     *
-     * @param UnitEnum $method The enum case to translate.
-     * @return string The translated label.
+     * Returns a human-readable translation for a given enum case.
      */
     public static function getTranslation(UnitEnum $method): string;
 }

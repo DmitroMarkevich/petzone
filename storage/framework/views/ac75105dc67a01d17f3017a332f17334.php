@@ -6,13 +6,14 @@
             <p><?php echo e(__('common.nothing_found')); ?></p>
         </div>
     <?php else: ?>
-        <div style="padding-left: 80px">
-            <div class="form-row" style="margin-bottom: 30px;">
+        <div class="wishlist-wrapper">
+            <div class="wishlist-header">
                 <p>Всього ~<?php echo e($wishlist->total()); ?> результатів</p>
 
                 <?php if (isset($component)) { $__componentOriginal0034da402c85560bef13a411a8a95196 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal0034da402c85560bef13a411a8a95196 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.ui.sort-options','data' => ['options' => ['' => 'За релевантністю',
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.ui.sort-options','data' => ['options' => [
+                        '' => 'За релевантністю',
                         'price-asc' => 'Від дешевих до дорогих',
                         'price-desc' => 'Від дорогих до дешевих',
                         'date-asc' => 'Новинки'
@@ -23,7 +24,8 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['' => 'За релевантністю',
+<?php $component->withAttributes(['options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute([
+                        '' => 'За релевантністю',
                         'price-asc' => 'Від дешевих до дорогих',
                         'price-desc' => 'Від дорогих до дешевих',
                         'date-asc' => 'Новинки'
@@ -72,5 +74,9 @@
         </div>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')('resources/js/modules/ui/wishlist.js'); ?>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.profile', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/profile/wishlist.blade.php ENDPATH**/ ?>

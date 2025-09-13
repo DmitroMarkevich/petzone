@@ -1,7 +1,8 @@
 @use '../mixins';
 @use '../variables';
 
-.navbar, .input-group, .search-form, .nav-icons, .category-btn, .badge, .nav-link {
+.navbar, .input-group, .search-form, .nav-icons,
+.category-btn, .badge, .nav-link {
     @include mixins.flex-center;
 }
 
@@ -14,15 +15,22 @@ header {
     height: 9.5vh;
 }
 
-.input-group, .search-input {
+.input-group,
+.search-input {
     border-radius: 40px;
 }
 
 .input-group {
-    padding: 4px;
-    width: 615px;
+    width: 100%;
     border: 1px solid variables.$dark-gray;
     position: relative;
+    padding: 4px;
+}
+
+@media (min-width: 1440px) {
+    .input-group {
+        width: 615px;
+    }
 }
 
 .search-input {
@@ -107,4 +115,148 @@ header {
     &:hover {
         border: 1.5px solid variables.$orange;
     }
+}
+
+.search-btn-mobile {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: variables.$carbon;
+        border-radius: 2px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .hero-button {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+
+    .navbar {
+        @include mixins.flex-center();
+        position: relative;
+        height: 60px;
+    }
+
+    .input-group, .category-btn,
+    .navbar-right, .hero-button {
+        display: none !important;
+    }
+
+    .logo {
+        z-index: 1;
+    }
+
+    .search-btn-mobile {
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+
+    .mobile-footer {
+        display: flex !important;
+        @include mixins.flex-center-vertical;
+        @include mixins.size(100%, 60px);
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background: variables.$light-background;
+        z-index: 100;
+
+        a {
+            @include mixins.flex-column();
+            align-items: center;
+            position: relative;
+            font-size: 12px;
+            color: variables.$carbon;
+
+            .badge {
+                top: -5px;
+                right: 5px;
+            }
+
+            img {
+                @include mixins.size(24px);
+                margin-bottom: 2px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1120px) {
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+}
+
+.mobile-footer {
+    display: none;
+}
+
+.mobile-search-modal {
+    @include mixins.flex-center();
+    @include mixins.size(100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.modal-content {
+    @include mixins.flex-column;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    position: relative;
+
+    form {
+        @include mixins.flex-column;
+        gap: 12px;
+    }
+}
+
+.modal-search-input {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.modal-search-btn {
+    @include mixins.font-style(16px, white, 600);
+    background-color: variables.$orange;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 24px;
+    cursor: pointer;
 }

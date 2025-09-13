@@ -53,8 +53,6 @@ class Order extends Model
 
     /**
      * Get the advert that is associated with the order.
-     *
-     * @return BelongsTo<Advert>
      */
     public function advert(): BelongsTo
     {
@@ -63,8 +61,6 @@ class Order extends Model
 
     /**
      * Get the seller that owns the order.
-     *
-     * @return BelongsTo<User>
      */
     public function seller(): BelongsTo
     {
@@ -73,8 +69,6 @@ class Order extends Model
 
     /**
      * Get the buyer that owns the order.
-     *
-     * @return BelongsTo<User>
      */
     public function buyer(): BelongsTo
     {
@@ -82,11 +76,7 @@ class Order extends Model
     }
 
     /**
-     * Get the recipient associated with the order.
-     *
      * This is the person who will receive the order.
-     *
-     * @return HasOne
      */
     public function recipient(): HasOne
     {

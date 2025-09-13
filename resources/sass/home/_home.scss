@@ -2,26 +2,24 @@
 @use '../mixins';
 @use '../variables';
 
-.hero-container, .why-us-item, .category-item, .delivery-step-item {
-    text-align: center;
-}
-
+// ===== HERO =====
 .hero-container {
     position: relative;
+    text-align: center;
 }
 
 .hero-text {
     @include mixins.flex-center(column);
+    position: absolute;
     top: 50%;
     left: 50%;
     gap: 36px;
-    position: absolute;
     color: variables.$light-background;
     transform: translate(-50%, -50%);
-}
 
-.hero-text p {
-    width: 600px;
+    p {
+        width: 80%;
+    }
 }
 
 .hero-title {
@@ -47,7 +45,9 @@
     border: 1px solid variables.$orange;
 }
 
-.content-sections, .content-section{
+// ===== CONTENT =====
+.content-sections,
+.content-section {
     @include mixins.flex-column;
 }
 
@@ -65,31 +65,44 @@
     gap: 28px;
 }
 
+.section-title {
+    @include mixins.font-style(36px, variables.$dark-graphite, 500);
+    margin-bottom: 30px;
+}
+
+// ===== ADVERTS =====
 .home-adverts-list {
     display: flex;
     justify-content: space-between;
+    overflow-x: auto;
     padding-bottom: 10px;
     scrollbar-width: none;
-    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 #popular-adverts {
     gap: 16px;
 }
 
-.section-title {
-    @include mixins.font-style(36px, variables.$dark-graphite, 500);
-    margin-bottom: 30px;
+.popular-adverts {
+    @include mixins.flex-column;
+    gap: 16px;
 }
 
+// ===== CATEGORIES =====
 .category-title {
     width: 100px;
 }
 
-.category-item, .why-us-item {
+.category-item,
+.why-us-item {
     @include mixins.flex-grow-1;
     @include mixins.flex-center(column);
     @include mixins.font-style(24px, variables.$carbon, 500);
+    text-align: center;
     gap: 8px;
 }
 
@@ -97,6 +110,19 @@
     color: variables.$carbon;
 }
 
+.section-container {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+// ===== DELIVERY =====
 .delivery-step-item {
     @include mixins.flex-center(column);
     @include mixins.flex-grow-1;
@@ -104,7 +130,8 @@
     gap: 32px;
 }
 
-.delivery-step-title, .delivery-step-description {
+.delivery-step-title,
+.delivery-step-description {
     max-width: 280px;
 }
 
@@ -117,6 +144,7 @@
     font-family: variables.$font-family-alt;
 }
 
+// ===== WHY US =====
 .why-us-item {
     padding: 36px 8px;
     border-radius: 16px;
@@ -131,6 +159,7 @@
     width: 200px;
 }
 
+// ===== SCROLL =====
 .scroll-buttons {
     display: flex;
     gap: 24px;
@@ -153,21 +182,59 @@
 .scroll-indicator {
     @include mixins.flex-center();
     gap: 16px;
+
+    span {
+        @include mixins.size(16px);
+        border-radius: 16px;
+        background-color: #FFE6A5;
+        transition: width 0.3s ease, background-color 0.3s ease;
+
+        &.active {
+            width: 36px;
+            background-color: variables.$orange;
+        }
+    }
 }
 
-.scroll-indicator span {
-    width: 16px;
-    height: 16px;
-    border-radius: 16px;
-    background-color: #FFE6A5;
-    transition: width 0.3s ease, background-color 0.3s ease;
+// ===== MEDIA =====
+@media (max-width: 1400px) {
+    .hero-title { font-size: 48px; }
+    .hero-subtitle { font-size: 20px; }
+    .section-title { font-size: 26px; font-weight: 600; }
+
+    .hero-text {
+        gap: 28px;
+        width: 100%;
+
+        p { font-size: 14px; }
+    }
 }
 
-.scroll-indicator span.active {
-    width: 36px;
-    background-color: variables.$orange;
+@media (max-width: 1250px) {
+    .hero-title { font-size: 40px; }
+    .hero-subtitle { font-size: 18px; }
+    .section-title { font-size: 22px; font-weight: 600; }
 }
 
-.home-adverts-list::-webkit-scrollbar {
-    display: none;
+@media (max-width: 1000px) {
+    .hero-title { font-size: 28px; }
+    .category-title { font-size: 16px; font-weight: 600; }
+}
+
+@media (max-width: 800px) {
+    .hero-title { font-size: 14px; }
+    .hero-subtitle { font-size: 14px; }
+    .view-all-button { font-size: 14px; gap: 0; padding: 6px 8px; }
+    .section-title { font-size: 18px; font-weight: 600; }
+
+    .hero-text {
+        gap: 15px;
+
+        p { font-size: 12px; }
+    }
+
+    .section-container .categories {
+        flex-direction: column;
+        gap: 0;
+    }
 }

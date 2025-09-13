@@ -1,7 +1,7 @@
 <?php $__env->startSection('title', 'Оформлення замовлення'); ?>
 
 <?php $__env->startSection('app-content'); ?>
-    <div class="checkout-layout">
+    <div class="checkout-layout" x-data="checkoutForm()">
         <form action="<?php echo e(route('checkout.store')); ?>" method="POST" class="checkout-container">
             <?php echo csrf_field(); ?>
             <input type="hidden" name="advert_id" value="<?php echo e($advert->id); ?>">
@@ -33,30 +33,41 @@
 <?php endif; ?>
                 </div>
 
-                <div class="container-item">
+                <div class="container-item" x-data="deliveryMethods()">
                     <h3>Доставка</h3>
 
                     <label for="NOVA_POST_SELF_PICKUP" class="delivery-method">
                         <div class="delivery-header">
-                                <span class="radio-label">
-                                    <input type="radio" id="NOVA_POST_SELF_PICKUP" name="delivery_method"
-                                           value="NOVA_POST_SELF_PICKUP">
-                                    <span class="delivery-name"><?php echo e(__('delivery.NOVA_POST_SELF_PICKUP')); ?></span>
-                                </span>
+                            <span class="radio-label">
+                                <input type="radio"
+                                       id="NOVA_POST_SELF_PICKUP"
+                                       name="delivery_method"
+                                       value="NOVA_POST_SELF_PICKUP"
+                                       x-model="selectedMethod">
+                                <span class="delivery-name"><?php echo e(__('delivery.NOVA_POST_SELF_PICKUP')); ?></span>
+                            </span>
                             <span class="delivery-price">50 грн</span>
                         </div>
 
-                        <div class="delivery-extra hidden" id="nova-post-extra">
+                        <div class="delivery-extra" x-show="selectedMethod === 'NOVA_POST_SELF_PICKUP'">
                             <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення">
                             <ul class="dropdown-panel" id="nova-post-branch"></ul>
                         </div>
                     </label>
 
                     <label for="MEEST_SELF_PICKUP" class="delivery-method">
-                        <input type="radio" id="MEEST_SELF_PICKUP" name="delivery_method" value="MEEST_SELF_PICKUP">
-                        <?php echo e(__('delivery.MEEST_SELF_PICKUP')); ?>
+                        <div class="delivery-header">
+                            <span class="radio-label">
+                                <input type="radio"
+                                       id="MEEST_SELF_PICKUP"
+                                       name="delivery_method"
+                                       value="MEEST_SELF_PICKUP"
+                                       x-model="selectedMethod">
+                                <span class="delivery-name"><?php echo e(__('delivery.MEEST_SELF_PICKUP')); ?></span>
+                            </span>
+                        </div>
 
-                        <div class="delivery-extra hidden">
+                        <div class="delivery-extra" x-show="selectedMethod === 'MEEST_SELF_PICKUP'">
                             <input type="text" class="dropdown-input" placeholder="Виберіть відповідне відділення">
                             <ul class="dropdown-panel">
                                 <li class="dropdown-item">№22003, вул. Курортна, 2</li>
@@ -67,10 +78,18 @@
                     </label>
 
                     <label for="NOVA_POST_COURIER" class="delivery-method">
-                        <input type="radio" id="NOVA_POST_COURIER" name="delivery_method" value="NOVA_POST_COURIER">
-                        <?php echo e(__('delivery.NOVA_POST_COURIER')); ?>
+                        <div class="delivery-header">
+                            <span class="radio-label">
+                                <input type="radio"
+                                       id="NOVA_POST_COURIER"
+                                       name="delivery_method"
+                                       value="NOVA_POST_COURIER"
+                                       x-model="selectedMethod">
+                                <span class="delivery-name"><?php echo e(__('delivery.NOVA_POST_COURIER')); ?></span>
+                            </span>
+                        </div>
 
-                        <div class="delivery-extra hidden">
+                        <div class="delivery-extra" x-show="selectedMethod === 'NOVA_POST_COURIER'">
                             <input type="text" placeholder="Вулиця" value="Соборності">
                             <input type="text" placeholder="Будинок" value="12">
                             <input type="text" placeholder="Квартира" value="1">
@@ -78,10 +97,18 @@
                     </label>
 
                     <label for="MEEST_COURIER" class="delivery-method">
-                        <input type="radio" id="MEEST_COURIER" name="delivery_method" value="MEEST_COURIER">
-                        <?php echo e(__('delivery.MEEST_COURIER')); ?>
+                        <div class="delivery-header">
+                            <span class="radio-label">
+                                <input type="radio"
+                                       id="MEEST_COURIER"
+                                       name="delivery_method"
+                                       value="MEEST_COURIER"
+                                       x-model="selectedMethod">
+                                <span class="delivery-name"><?php echo e(__('delivery.MEEST_COURIER')); ?></span>
+                            </span>
+                        </div>
 
-                        <div class="delivery-extra hidden">
+                        <div class="delivery-extra" x-show="selectedMethod === 'MEEST_COURIER'">
                             <input type="text" placeholder="Вулиця" value="Соборності">
                             <input type="text" placeholder="Будинок" value="12">
                             <input type="text" placeholder="Квартира" value="1">
@@ -89,7 +116,11 @@
                     </label>
 
                     <label for="SELF_PICKUP" class="delivery-method">
-                        <input type="radio" id="SELF_PICKUP" name="delivery_method" value="SELF_PICKUP">
+                        <input type="radio"
+                               id="SELF_PICKUP"
+                               name="delivery_method"
+                               value="SELF_PICKUP"
+                               x-model="selectedMethod">
                         <?php echo e(__('delivery.SELF_PICKUP')); ?>
 
                     </label>
@@ -125,35 +156,24 @@
                 <div class="container-item">
                     <h3>Отримувач</h3>
 
-                    <div class="profile-header">
-                        <span class="profile-name"><?php echo e("$user->first_name $user->last_name"); ?></span>
-                        <a class="link-edit" id="edit-btn">Змінити</a>
+                    <div class="profile-header" x-show="!editing">
+                        <span class="profile-name" x-text="displayName"></span>
+                        <a class="link-edit" @click="startEdit">Змінити</a>
                     </div>
 
-                    <?php
-                        $initialUserData = [
-                            'recipient_first_name' => $user->first_name,
-                            'recipient_last_name' => $user->last_name,
-                            'recipient_middle_name' => '',
-                            'recipient_phone_number' => $user->phone_number,
-                        ];
-                    ?>
-
-                    <div id="user-data" data-user='<?php echo json_encode($initialUserData, 15, 512) ?>' hidden></div>
-
-                    <div class="profile-section" id="contact-info" style="display:none;">
+                    <div class="profile-section" x-show="editing" x-transition>
                         <div class="form-row">
                             <div class="form-group">
                                 <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'recipient_first_name','label' => 'Ім\'я','value' => ''.e($user->first_name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'recipient_first_name','label' => 'Ім\'я','xModel' => 'form.recipient_first_name']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'recipient_first_name','label' => 'Ім\'я','value' => ''.e($user->first_name).'']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'recipient_first_name','label' => 'Ім\'я','x-model' => 'form.recipient_first_name']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
@@ -168,14 +188,14 @@
                             <div class="form-group">
                                 <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'recipient_last_name','label' => 'Прізвище','value' => ''.e($user->last_name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'recipient_last_name','label' => 'Прізвище','xModel' => 'form.recipient_last_name']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'recipient_last_name','label' => 'Прізвище','value' => ''.e($user->last_name).'']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'recipient_last_name','label' => 'Прізвище','x-model' => 'form.recipient_last_name']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
@@ -193,14 +213,14 @@
                             <div class="form-group">
                                 <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'recipient_middle_name','label' => 'По батькові']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'text','name' => 'recipient_middle_name','label' => 'По батькові','xModel' => 'form.recipient_middle_name']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'recipient_middle_name','label' => 'По батькові']); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'recipient_middle_name','label' => 'По батькові','x-model' => 'form.recipient_middle_name']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
@@ -215,14 +235,14 @@
                             <div class="form-group">
                                 <?php if (isset($component)) { $__componentOriginal5c2a97ab476b69c1189ee85d1a95204b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'tel','name' => 'recipient_phone_number','label' => 'Номер телефону','value' => ''.e($user->phone_number).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form.input','data' => ['type' => 'tel','name' => 'recipient_phone_number','label' => 'Номер телефону','xModel' => 'form.recipient_phone_number']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('form.input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'tel','name' => 'recipient_phone_number','label' => 'Номер телефону','value' => ''.e($user->phone_number).'']); ?>
+<?php $component->withAttributes(['type' => 'tel','name' => 'recipient_phone_number','label' => 'Номер телефону','x-model' => 'form.recipient_phone_number']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal5c2a97ab476b69c1189ee85d1a95204b)): ?>
@@ -237,8 +257,8 @@
                         </div>
 
                         <div class="profile-actions">
-                            <button class="btn-change" id="save-btn" type="button">Зберегти</button>
-                            <button class="btn-cancel" id="cancel-btn" type="button">Скасувати</button>
+                            <button class="btn-change" type="button" @click="saveChanges">Зберегти</button>
+                            <button class="btn-cancel" type="button" @click="cancelEdit">Скасувати</button>
                         </div>
                     </div>
                 </div>
@@ -284,6 +304,54 @@
 
         </div>
     <?php endif; ?>
+
+    <script>
+        function deliveryMethods() {
+            return {
+                selectedMethod: ''
+            }
+        }
+
+        function checkoutForm() {
+            return {
+                editing: false,
+                form: {
+                    recipient_first_name: '<?php echo e($user->first_name); ?>',
+                    recipient_last_name: '<?php echo e($user->last_name); ?>',
+                    recipient_middle_name: '',
+                    recipient_phone_number: '<?php echo e($user->phone_number); ?>'
+                },
+                original: {
+                    recipient_first_name: '<?php echo e($user->first_name); ?>',
+                    recipient_last_name: '<?php echo e($user->last_name); ?>',
+                    recipient_middle_name: '',
+                    recipient_phone_number: '<?php echo e($user->phone_number); ?>'
+                },
+
+                get displayName() {
+                    const first = this.form.recipient_first_name || '';
+                    const last = this.form.recipient_last_name || '';
+                    return `${first} ${last}`.trim();
+                },
+
+                startEdit() {
+                    this.editing = true;
+                },
+
+                saveChanges() {
+                    // Оновлюємо оригінальні дані
+                    this.original = { ...this.form };
+                    this.editing = false;
+                },
+
+                cancelEdit() {
+                    // Відновлюємо оригінальні дані
+                    this.form = { ...this.original };
+                    this.editing = false;
+                }
+            }
+        }
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/checkout/index.blade.php ENDPATH**/ ?>

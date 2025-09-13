@@ -24,7 +24,7 @@
         @endif
 
         @error($name)
-            <span class="error-message">*{{ $message }}</span>
+        <span class="error-message">*{{ $message }}</span>
         @enderror
     </div>
 </div>

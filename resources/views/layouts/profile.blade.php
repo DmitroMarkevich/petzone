@@ -4,8 +4,8 @@
 
 @section('app-content')
     <div class="page-container">
-        <div class="profile-template">
-            <div class="profile-sidebar">
+        <div class="profile-template" x-data="{ sidebarOpen: false }">
+            <div class="profile-sidebar" :class="{ 'open': sidebarOpen }">
                 <div class="profile-item">
                     <a class="profile-link {{ is_active('profile') }}" href="{{ route('profile.index') }}">
                         <img src="{{ asset('images/profile/profile.svg') }}" alt="Профіль">Профіль
@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="profile-item">
-                    <a class="profile-link {{ is_active('profile/adverts') }}" href="{{ route('profile.adverts') }}">
+                    <a class="profile-link {{ is_active('profile/advert') }}" href="{{ route('profile.advert') }}">
                         <img src="{{ asset('images/profile/folder.svg') }}" alt="Оголошення">Мої оголошення
                     </a>
                 </div>

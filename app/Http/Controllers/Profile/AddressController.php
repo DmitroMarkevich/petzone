@@ -21,9 +21,6 @@ class AddressController extends Controller
 
     /**
      * Search for cities by name using Nova Post API.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function searchCities(Request $request): JsonResponse
     {
@@ -36,9 +33,6 @@ class AddressController extends Controller
 
     /**
      * Search for streets in a specific city using Nova Post API.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function searchStreets(Request $request): JsonResponse
     {

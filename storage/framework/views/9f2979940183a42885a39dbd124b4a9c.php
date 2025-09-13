@@ -6,7 +6,7 @@
             </div>
 
             <div class="advert-content">
-                <a class="advert-title" href="<?php echo e(route('adverts.show', $advert->id)); ?>"><?php echo e($advert->title); ?></a>
+                <a class="advert-title" href="<?php echo e(route('advert.show', $advert->id)); ?>"><?php echo e($advert->title); ?></a>
                 <p class="advert-description"><?php echo e($advert->description); ?></p>
 
                 <div class="advert-date-wrapper">

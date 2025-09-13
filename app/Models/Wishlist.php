@@ -17,8 +17,6 @@ class Wishlist extends Model
 
     /**
      * Get the user who owns this wishlist entry.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -27,8 +25,6 @@ class Wishlist extends Model
 
     /**
      * Get the advert associated with this wishlist entry.
-     *
-     * @return BelongsTo
      */
     public function advert(): BelongsTo
     {

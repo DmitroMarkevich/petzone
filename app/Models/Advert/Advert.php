@@ -47,8 +47,6 @@ class Advert extends Model
     /**
      * Accessor for the main image of the advert.
      * Returns the path to the first main image, or a default if none exists.
-     *
-     * @return string
      */
     public function getMainImageAttribute(): string
     {
@@ -59,11 +57,7 @@ class Advert extends Model
 
     /**
      * Scope to eager load only the main image of the advert.
-     *
      * Usage: Advert::withMainImage()->get();
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeWithMainImage(Builder $query): Builder
     {
@@ -72,8 +66,6 @@ class Advert extends Model
 
     /**
      * Get the category associated with the advert.
-     *
-     * @return BelongsTo
      */
     public function category(): BelongsTo
     {
@@ -82,8 +74,6 @@ class Advert extends Model
 
     /**
      * Get the user who created the advert.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -92,8 +82,6 @@ class Advert extends Model
 
     /**
      * Get all wishlist entries that include this advert.
-     *
-     * @return HasMany
      */
     public function wishlists(): HasMany
     {
@@ -102,11 +90,8 @@ class Advert extends Model
 
     /**
      * Determines whether the advert should display a discount price.
-     *
      * Returns true if there is a previous price greater than the current price
      * and the price change occurred within the last 3 weeks.
-     *
-     * @return bool
      */
     public function shouldShowDiscountPrice(): bool
     {

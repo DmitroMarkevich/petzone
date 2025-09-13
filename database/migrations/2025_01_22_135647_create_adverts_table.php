@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->index('parent_id');
         });
 
-        Schema::create('adverts', function (Blueprint $table) {
+        Schema::create('advert', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->foreignUuid('owner_id')->constrained('users')->cascadeOnDelete();
@@ -46,7 +46,7 @@ return new class extends Migration {
         Schema::create('advert_comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
+            $table->foreignUuid('advert_id')->constrained('advert')->cascadeOnDelete();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
 
             $table->text('comment');
@@ -65,7 +65,7 @@ return new class extends Migration {
     {
         Schema::dropIfExists('advert_comments');
         Schema::dropIfExists('advert_images');
-        Schema::dropIfExists('adverts');
+        Schema::dropIfExists('advert');
         Schema::dropIfExists('categories');
     }
 };

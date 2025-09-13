@@ -9,18 +9,17 @@ export const validations = {
 /**
  * Validate a single input field by its data-validation type.
  */
-export const validateInput = ($input) => {
-    const validationType = $input.data('validation');
+export const validateInput = (input) => {
+    const validationType = input.dataset.validation;
     const validator = validations[validationType];
 
     if (!validator) return;
 
-    const inputValue = $input.val().trim();
-    const isValid = validator(inputValue);
+    const value = input.value.trim();
+    const isValid = validator(value);
 
-    $input
-        .toggleClass('valid', isValid)
-        .toggleClass('invalid', inputValue && !isValid);
+    input.classList.toggle('valid', isValid);
+    input.classList.toggle('invalid', value && !isValid);
 
     return isValid;
 };
@@ -29,7 +28,11 @@ export const validateInput = ($input) => {
  * Initialize validation for all fields with data-validation.
  */
 export const initValidation = () => {
-    $('input[data-validation]').on('input', function () {
-        validateInput($(this));
+    const inputs = document.querySelectorAll('input[data-validation]');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            validateInput(input);
+        });
     });
 };

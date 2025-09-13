@@ -13,10 +13,6 @@ class DeliveryController extends Controller
     private MeestService $meestService;
     private NovaPostService $novaPostService;
 
-    /**
-     * @param NovaPostService $novaPostService
-     * @param MeestService $meestService
-     */
     public function __construct(MeestService $meestService, NovaPostService $novaPostService)
     {
         $this->meestService = $meestService;
@@ -25,9 +21,6 @@ class DeliveryController extends Controller
 
     /**
      * Retrieve a list of warehouses based on the selected delivery method and city.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function getWarehouses(Request $request): JsonResponse
     {

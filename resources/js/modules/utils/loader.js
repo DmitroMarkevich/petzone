@@ -3,7 +3,11 @@
  */
 export const showGlobalLoader = () => {
     window.NProgress.start();
-    $('#global-loader-overlay').removeClass('hidden');
+
+    const overlay = document.getElementById('global-loader-overlay');
+    if (overlay) {
+        overlay.classList.remove('hidden');
+    }
 };
 
 /**
@@ -11,5 +15,9 @@ export const showGlobalLoader = () => {
  */
 export const hideGlobalLoader = () => {
     window.NProgress.done();
-    $('#global-loader-overlay').addClass('hidden');
+
+    const overlay = document.getElementById('global-loader-overlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
 };

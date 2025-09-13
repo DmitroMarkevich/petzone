@@ -26,8 +26,6 @@ class OrderRecipient extends Model
 
     /**
      * Get the order associated with this recipient.
-     *
-     * @return BelongsTo
      */
     public function order(): BelongsTo
     {

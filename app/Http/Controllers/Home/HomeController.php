@@ -12,9 +12,6 @@ class HomeController
 {
     private AdvertService $advertService;
 
-    /**
-     * @param AdvertService $advertService
-     */
     public function __construct(AdvertService $advertService)
     {
         $this->advertService = $advertService;
@@ -22,9 +19,6 @@ class HomeController
 
     /**
      * Display the home page.
-     *
-     * @param Request $request The HTTP request instance.
-     * @return Factory|View|Application The view displaying adverts on the home page.
      */
     public function index(Request $request): Factory|View|Application
     {
@@ -49,6 +43,6 @@ class HomeController
             });
         }
 
-        return view('pages.home', compact('adverts'));
+        return view('home', compact('adverts'));
     }
 }

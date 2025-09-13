@@ -7,22 +7,29 @@
                 <img class="navbar-logo" src="{{ asset('images/white-logo.svg') }}" alt="Logo">
             </a>
 
-            <div class="image-slider">
+            <div class="image-slider"
+                x-data="{
+                currentIndex: 0,
+                sliderImages: [
+                    { src: '/images/auth/shopping-cart.png', text: '{{ __('auth.slider.shopping_cart') }}' },
+                    { src: '/images/auth/carton.png', text: '{{ __('auth.slider.carton') }}' },
+                    { src: '/images/auth/receipt.png', text: '{{ __('auth.slider.receipt') }}' }
+                ],
+                init() {
+                    setInterval(() => {
+                        this.currentIndex = (this.currentIndex + 1) % this.sliderImages.length;
+                    }, 5000);
+                }}"
+            >
                 <div class="slider-frame">
-                    <img id="slider-image" src="{{ asset('images/auth/shopping-cart.png') }}" alt="Slider Image">
-                    <p id="slider-text" class="tagline">{{__('auth.slider.shopping_cart')}}</p>
+                    <img :src="sliderImages[currentIndex].src" alt="Slider Image" class="slider-image">
+                    <p class="tagline" x-text="sliderImages[currentIndex].text"></p>
                 </div>
 
                 <div class="slider-dots">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-
-                <div id="slider-container"
-                     data-shopping-cart="{{ __('auth.slider.shopping_cart') }}"
-                     data-carton="{{ __('auth.slider.carton') }}"
-                     data-receipt="{{ __('auth.slider.receipt') }}" hidden>
+                    <template x-for="(image, index) in sliderImages" :key="index">
+                    <span class="dot" :class="{ 'active': currentIndex === index }"></span>
+                    </template>
                 </div>
             </div>
         </div>
@@ -32,6 +39,3 @@
         </div>
     </div>
 @endsection
-
-
-
