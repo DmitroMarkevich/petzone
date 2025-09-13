@@ -111,3 +111,9 @@
 .current-price {
     @include mixins.font-style(24px, variables.$dark-graphite, 700);
 }
+
+@media (max-width: 1560px) {
+    .form-main {
+        width: 100%;
+    }
+}
