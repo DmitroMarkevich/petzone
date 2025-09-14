@@ -76,59 +76,34 @@
         </div>
     </nav>
 
-    <aside x-show="sidebarOpen"
-           x-transition
-           class="mobile-sidebar"
-           @click.outside="sidebarOpen = false"
-           x-cloak>
+    <aside
+        x-show="sidebarOpen"
+        x-transition
+        class="mobile-sidebar"
+        @click.outside="sidebarOpen = false"
+        x-cloak
+    >
         <div class="sidebar-content">
-            <div class="profile-item">
-                <a class="profile-link <?php echo e(is_active('profile')); ?>" href="<?php echo e(route('profile.index')); ?>">
-                    <img src="<?php echo e(asset('images/profile/profile.svg')); ?>" alt="Профіль">Профіль
-                </a>
-            </div>
-
-            <div class="profile-item">
-                <a class="profile-link <?php echo e(is_active('profile/orders')); ?>" href="<?php echo e(route('profile.orders.index')); ?>">
-                    <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Замовлення">Замовлення
-                </a>
-            </div>
-
-            <div class="profile-item">
-                <a class="profile-link <?php echo e(is_active('profile/advert')); ?>" href="<?php echo e(route('profile.advert')); ?>">
-                    <img src="<?php echo e(asset('images/profile/folder.svg')); ?>" alt="Оголошення">Мої оголошення
-                </a>
-            </div>
-
-            <div class="profile-item">
-                <a class="profile-link <?php echo e(is_active('profile/wishlist')); ?>" href="<?php echo e(route('profile.wishlist')); ?>">
-                    <img src="<?php echo e(asset('images/profile/heart.svg')); ?>" alt="Вподобання">Вподобання
-                </a>
-            </div>
-
-            <div class="profile-item">
-                <a class="profile-link <?php echo e(is_active('profile/sales')); ?>"
-                   href="<?php echo e(route('profile.sales.index')); ?>">
-                    <img src="<?php echo e(asset('images/profile/chart.svg')); ?>" alt="Продажі">Мої продажі
-                </a>
-            </div>
-
-            <div class="profile-item">
-                <a class="profile-link <?php echo e(is_active('profile/orders/history')); ?>"
-                   href="<?php echo e(route('profile.orders.history')); ?>">
-                    <img src="<?php echo e(asset('images/profile/notebook.svg')); ?>" alt="Історія">Історія замовлень
-                </a>
-            </div>
-
-            <div class="profile-item">
-                <a class="profile-link" href="<?php echo e(route('logout')); ?>"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <img src="<?php echo e(asset('images/profile/logout.svg')); ?>" alt="Вийти">Вийти
-                    <form action="<?php echo e(route('logout')); ?>" id="logout-form" method="POST">
-                        <?php echo csrf_field(); ?>
-                    </form>
-                </a>
-            </div>
+            <?php if (isset($component)) { $__componentOriginala79e8c508b1bcb1544fa83672f5ecaa9 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala79e8c508b1bcb1544fa83672f5ecaa9 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.partials.profile.sidebar','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('partials.profile.sidebar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginala79e8c508b1bcb1544fa83672f5ecaa9)): ?>
+<?php $attributes = $__attributesOriginala79e8c508b1bcb1544fa83672f5ecaa9; ?>
+<?php unset($__attributesOriginala79e8c508b1bcb1544fa83672f5ecaa9); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala79e8c508b1bcb1544fa83672f5ecaa9)): ?>
+<?php $component = $__componentOriginala79e8c508b1bcb1544fa83672f5ecaa9; ?>
+<?php unset($__componentOriginala79e8c508b1bcb1544fa83672f5ecaa9); ?>
+<?php endif; ?>
         </div>
     </aside>
 </header>

@@ -206,6 +206,25 @@
             </section>
         </div>
     </div>
+
+    <style>
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .section-title {
+            margin: 0;
+        }
+
+        .scroll-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
 @endsection
 
 <script>

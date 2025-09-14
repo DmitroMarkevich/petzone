@@ -38,10 +38,12 @@
 .profile-item {
     margin-bottom: 15px;
 
-    &:last-child {
-        position: absolute;
-        bottom: -10%;
-        width: 100%;
+    @media (min-width: 1120px) {
+        &:last-child {
+            position: absolute;
+            bottom: -10%;
+            width: 100%;
+        }
     }
 }
 
