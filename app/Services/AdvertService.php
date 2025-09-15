@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
+use App\Enum\AdvertSortOption;
 use App\Traits\FileUploadTrait;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,22 +27,13 @@ class AdvertService
      * If a search query is provided, full-text search is used.
      * Otherwise, adverts are returned in random order.
      */
-    public function getAdverts(?string $query = null, ?string $userId = null, ?string $sort = null, int $perPage = 10): LengthAwarePaginator
-    {
-        $builder = $query ? Advert::search($query) : Advert::query();
-
-        $sortOptions = [
-            'relevance' => fn($q) => $q,
-            'price-asc'  => fn($q) => $q->orderBy('price', 'asc'),
-            'price-desc' => fn($q) => $q->orderBy('price', 'desc'),
-            'date-asc'   => fn($q) => $q->orderBy('created_at', 'desc'),
-        ];
-
-        if ($sort && isset($sortOptions[$sort])) {
-            $builder = $sortOptions[$sort]($builder);
-        } elseif (!$query) {
-            $builder = $builder->inRandomOrder();
-        }
+    public function getAdverts(
+        ?string $query = null,
+        ?string $userId = null,
+        ?string $sort = null,
+        int $perPage = 10
+    ): LengthAwarePaginator {
+        $builder = $this->buildAdvertQuery($query, $sort);
 
         $paginator = $builder->paginate($perPage);
         $paginator->getCollection()->load([
@@ -50,6 +42,42 @@ class AdvertService
         ]);
 
         return $paginator;
+    }
+
+    /**
+     * Build the advert query based on search query and sorting.
+     */
+    private function buildAdvertQuery(?string $query, ?string $sort): Builder
+    {
+        $builder = $query ? Advert::search($query) : Advert::query();
+        $sortOption = AdvertSortOption::tryFromRequest($sort);
+
+        if ($sortOption) {
+            return $sortOption->apply($builder);
+        }
+
+        return $query ? $builder : $builder->inRandomOrder();
+    }
+
+    /**
+     * Create a new advert from a DTO and attach uploaded images.
+     */
+    public function createAdvert(AdvertData $data, User $user, array $images = []): Advert
+    {
+        $advert = Advert::create([...$data->toModelAttributes(), 'owner_id' => $user->id]);
+
+        if (!empty($images)) {
+            $directory = "advert/$advert->id";
+
+            foreach ($images as $index => $image) {
+                if ($image) {
+                    $imagePath = $this->uploadFile($directory, $image);
+                    $advert->images()->create(['image_path' => $imagePath, 'main_image' => $index === 0]);
+                }
+            }
+        }
+
+        return $advert;
     }
 
     /**
@@ -67,25 +95,19 @@ class AdvertService
         return $advert->save();
     }
 
-    /**
-     * Create a new advert from a DTO and attach uploaded images.
-     */
-    public function createAdvert(AdvertData $data, array $images = []): Advert
-    {
-        $advert = Advert::create([...$data->toModelAttributes(), 'owner_id' => auth()->id()]);
+    public function getRelatedAdverts(Advert $advert, float $priceTolerance = 0.5): Collection {
+        $priceRange = [
+            $advert->price * (1 - $priceTolerance),
+            $advert->price * (1 + $priceTolerance)
+        ];
 
-        if (!empty($images)) {
-            $directory = "advert/$advert->id";
-
-            foreach ($images as $index => $image) {
-                if ($image) {
-                    $imagePath = $this->uploadFile($directory, $image);
-                    $advert->images()->create(['image_path' => $imagePath, 'main_image' => $index === 0]);
-                }
-            }
-        }
-
-        return $advert;
+        return $this->baseAdvertQuery()
+            ->where('id', '!=', $advert->id)
+            ->where('category_id', $advert->category_id)
+            ->whereBetween('price', $priceRange)
+            ->orderByRaw('ABS(price - ?) ASC, created_at DESC', [$advert->price])
+            ->limit(5)
+            ->get();
     }
 
     /**
@@ -93,12 +115,11 @@ class AdvertService
      */
     public function getPopularAdverts(int $limit = 10): Collection
     {
-        return $this->cacheService->remember("advert:popular:$limit", fn() =>
-            $this->baseAdvertQuery()
-                ->withCount('wishlists')
-                ->orderByDesc('wishlists_count')
-                ->limit($limit)
-                ->get()
+        return $this->cacheService->remember("advert:popular:$limit", fn() => $this->baseAdvertQuery()
+            ->withCount('wishlists')
+            ->orderByDesc('wishlists_count')
+            ->limit($limit)
+            ->get()
         );
     }
 
@@ -107,11 +128,10 @@ class AdvertService
      */
     public function getDiscountedAdverts(int $limit = 5): Collection
     {
-        return $this->cacheService->remember("advert:discounted:$limit", fn() =>
-            $this->baseAdvertQuery()
-                ->whereColumn('previous_price', '>', 'price')
-                ->take($limit)
-                ->get()
+        return $this->cacheService->remember("advert:discounted:$limit", fn() => $this->baseAdvertQuery()
+            ->whereColumn('previous_price', '>', 'price')
+            ->limit($limit)
+            ->get()
         );
     }
 
@@ -122,12 +142,11 @@ class AdvertService
     {
         $cacheMinutes = 30;
 
-        return $this->cacheService->remember("advert:fresh:$limit", fn() =>
-            $this->baseAdvertQuery()
-                ->where('created_at', '>=', now()->subHours($hours))
-                ->latest()
-                ->take($limit)
-                ->get(),
+        return $this->cacheService->remember("advert:fresh:$limit", fn() => $this->baseAdvertQuery()
+            ->where('created_at', '>=', now()->subHours($hours))
+            ->latest()
+            ->take($limit)
+            ->get(),
             $cacheMinutes
         );
     }

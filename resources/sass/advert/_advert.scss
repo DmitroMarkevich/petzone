@@ -101,6 +101,17 @@
     padding: 24px;
     gap: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    .advert-title {
+        @include mixins.text-break;
+        @include mixins.font-style(20px, variables.$carbon, 600);
+        margin-bottom: 8px;
+    }
+
+    .advert-description {
+        @include mixins.text-break;
+        @include mixins.font-style(14px, variables.$muted-gray, 500);
+    }
 }
 
 .seller-avatar {
@@ -110,6 +121,129 @@
 
 .current-price {
     @include mixins.font-style(24px, variables.$dark-graphite, 700);
+}
+
+.delivery-item {
+    display: flex;
+    padding: 12px 0;
+    gap: 12px;
+}
+
+.delivery-item.complaint {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 8px;
+    padding-top: 20px;
+}
+
+.advert-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.breadcrumb {
+    @include mixins.flex-center-vertical;
+    @include mixins.font-style(14px, variables.$muted-gray);
+    margin-bottom: 24px;
+    gap: 8px;
+}
+
+.advert-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.advert-slider {
+    position: relative;
+
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+
+        &.left { left: 10px; }
+        &.right { right: 10px; }
+    }
+}
+
+.advert-main-image {
+    flex: 1;
+
+    img {
+        @include mixins.size(100%, 500px);
+        object-fit: contain;
+        border-radius: 16px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.advert-thumbnails {
+    display: flex;
+    gap: 12px;
+
+    img {
+        @include mixins.size(80px);
+        border-radius: 8px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+        border: 1px solid transparent;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        &.active {
+            border: 1px solid variables.$orange;
+        }
+    }
+}
+
+.advert-extra {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 40px;
+    gap: 32px;
+}
+
+.seller-card, .delivery-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.seller-header {
+    @include mixins.flex-center-vertical;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
+.seller-name {
+    @include mixins.font-style(16px, variables.$carbon, 500);
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.seller-date {
+    @include mixins.font-style(14px, variables.$dark-gray);
+}
+
+.seller-btn {
+    width: 100%;
+    background-color: #fff;
+    transition: background 0.2s ease;
+    border: 1px solid variables.$muted-gray;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .advert-main, .advert-extra {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 1560px) {

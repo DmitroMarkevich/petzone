@@ -2,12 +2,11 @@
 
 <?php $__env->startSection('app-content'); ?>
     <div class="advert-container" x-data="advertGallery()">
-        <div class="breadcrumb">
-            <a href="<?php echo e(route('profile.advert')); ?>" class="back-link">
-                <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="Back">Назад
-            </a>
-            <span>/ Dogs / Food / Vitamins</span>
-        </div>
+        <h3 class="page-title" style="font-size: 26px">
+            <a href="<?php echo e(route('advert.index')); ?>">
+                <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="Back">
+            </a>Повернутись назад
+        </h3>
 
         <div class="advert-main">
             <div class="advert-gallery">
@@ -30,10 +29,10 @@
                         <?php endif; ?>
                     </div>
                 </div>
+
                 <div class="advert-thumbnails">
                     <?php $__currentLoopData = $advert->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <img src="<?php echo e(image_url($img->image_path)); ?>" alt=""
-                             @click="setCurrentImage(<?php echo e($index); ?>)"
+                        <img src="<?php echo e(image_url($img->image_path)); ?>" alt="" @click="setCurrentImage(<?php echo e($index); ?>)"
                              x-bind:class="{ 'active': currentIndex === <?php echo e($index); ?> }">
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
@@ -41,15 +40,26 @@
 
             <div class="advert-info">
                 <div class="form-row">
-                    <div class="advert-rating">
-                        <span class="rating-value"><?php echo e($advert->average_rating); ?></span>
-                        <div>
-                            <?php for($i = 1; $i <= 5; $i++): ?>
-                                <img src="<?php echo e(asset('images/star.svg')); ?>"
-                                     alt="<?php echo e($i <= $advert->average_rating ? 'Star' : 'Empty Star'); ?>">
-                            <?php endfor; ?>
-                        </div>
-                    </div>
+                    <?php if (isset($component)) { $__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3 = $attributes; } ?>
+<?php $component = App\View\Components\AdvertRating::resolve(['rating' => $advert->average_rating] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('advert-rating'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\AdvertRating::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3)): ?>
+<?php $attributes = $__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3; ?>
+<?php unset($__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3)): ?>
+<?php $component = $__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3; ?>
+<?php unset($__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3); ?>
+<?php endif; ?>
                     <button class="wishlist-btn">
                         <img src="<?php echo e(asset('images/heart.svg')); ?>" alt="Add to favorites">
                     </button>
@@ -68,7 +78,7 @@
 
                 <div>
                     <h3 class="advert-subtitle">Options:</h3>
-                    <p class="advert-text">Size/Weight/Volume, etc</p>
+                    <span>Size/Weight/Volume, etc</span>
                 </div>
 
                 <div class="form-row" style="margin-top: auto">
@@ -84,8 +94,8 @@
                     <form action="<?php echo e(route('checkout.select')); ?>" method="POST" style="display: inline">
                         <?php echo csrf_field(); ?>
                         <input type="hidden" name="advert_id" value="<?php echo e($advert->id); ?>">
-                        <button type="submit" class="buy-button">
-                            Купити <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Cart">
+                        <button type="submit" class="buy-button">Купити
+                            <img src="<?php echo e(asset('images/profile/cart.svg')); ?>" alt="Cart">
                         </button>
                     </form>
                 </div>
@@ -93,9 +103,10 @@
         </div>
 
         <div class="advert-extra">
-            <div class="seller-card">
+            <div class="seller-card" x-data="{ showPhone: false, showEmail: false }">
                 <div class="seller-header">
-                    <img src="<?php echo e($avatarUrl); ?>" class="seller-avatar" alt="Seller Avatar">
+                    <img src="<?php echo e(image_url($advert->user->image_path, 'images/default-avatar.png')); ?>"
+                         class="seller-avatar" alt="Seller Avatar">
                     <div>
                         <a href="#" class="seller-name">
                             <?php echo e($advert->user->first_name); ?> <?php echo e($advert->user->last_name); ?>
@@ -105,8 +116,10 @@
                     </div>
                 </div>
 
-                <button class="seller-btn">View number</button>
-                <button class="seller-btn">View Email</button>
+                <button class="seller-btn" @click="showPhone = !showPhone"
+                        x-text="showPhone ? '<?php echo e($advert->user->phone ?? 'No number'); ?>' : 'View number'"></button>
+                <button class="seller-btn" @click="showEmail = !showEmail"
+                        x-text="showEmail ? '<?php echo e($advert->user->email ?? 'No email'); ?>' : 'View Email'"></button>
             </div>
 
             <div class="delivery-card">
@@ -129,8 +142,50 @@
                 </div>
             </div>
         </div>
+
+        <?php if(!empty($relatedAdverts) && $relatedAdverts->isNotEmpty()): ?>
+            <div class="related-adverts">
+                <h2 class="section-title">Схожі оголошення</h2>
+                <div class="related-adverts-list">
+                    <?php $__currentLoopData = $relatedAdverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf74e02aea032995600afb10c96aa9574 = $attributes; } ?>
+<?php $component = App\View\Components\AdvertCard::resolve(['advert' => $advert] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('advert-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\AdvertCard::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf74e02aea032995600afb10c96aa9574)): ?>
+<?php $attributes = $__attributesOriginalf74e02aea032995600afb10c96aa9574; ?>
+<?php unset($__attributesOriginalf74e02aea032995600afb10c96aa9574); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf74e02aea032995600afb10c96aa9574)): ?>
+<?php $component = $__componentOriginalf74e02aea032995600afb10c96aa9574; ?>
+<?php unset($__componentOriginalf74e02aea032995600afb10c96aa9574); ?>
+<?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 <?php $__env->stopSection(); ?>
+
+<style>
+    .related-adverts {
+        margin-top: 40px;
+
+        .related-adverts-list {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+    }
+</style>
 
 <script>
     function advertGallery() {
@@ -172,189 +227,5 @@
         }
     }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-<style>
-    .delivery-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 12px 0;
-    }
-
-    .delivery-item.complaint {
-        border-top: 1px solid #f0f0f0;
-        margin-top: 8px;
-        padding-top: 20px;
-    }
-
-    .advert-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 24px;
-    }
-
-    .breadcrumb {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #555;
-        font-size: 14px;
-        margin-bottom: 24px;
-    }
-
-    .advert-main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-    }
-
-    .advert-slider {
-        position: relative;
-    }
-
-    .scroll-btn {
-        position: absolute;
-        top: 50%;
-        z-index: 10;
-        background: rgba(255, 255, 255, 0.8);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .scroll-btn:hover {
-        background: rgba(255, 255, 255, 0.9);
-    }
-
-    .scroll-btn.left { left: 10px; }
-    .scroll-btn.right { right: 10px; }
-
-    .advert-main-image {
-        flex: 1;
-    }
-
-    .advert-main-image img {
-        width: 100%;
-        height: 500px;
-        object-fit: contain;
-        border-radius: 16px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .advert-thumbnails {
-        display: flex;
-        gap: 12px;
-        margin-top: 12px;
-    }
-
-    .advert-thumbnails img {
-        width: 80px;
-        height: 80px;
-        border-radius: 8px;
-        object-fit: cover;
-        cursor: pointer;
-        transition: opacity 0.2s ease;
-        border: 2px solid transparent;
-    }
-
-    .advert-thumbnails img:hover {
-        opacity: 0.8;
-    }
-
-    .advert-thumbnails img.active {
-        border: 0.5px solid #007bff;
-    }
-
-    .advert-title {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-word;
-    }
-
-    .advert-description {
-        color: #555;
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-word;
-    }
-
-    .advert-subtitle {
-        font-weight: 600;
-        margin-bottom: 4px;
-    }
-
-    .advert-text {
-        color: #666;
-    }
-
-    .advert-extra {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-        margin-top: 40px;
-    }
-
-    .seller-card, .delivery-card {
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .seller-header {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 16px;
-    }
-
-    .seller-name {
-        font-weight: 600;
-        text-decoration: none;
-        color: #333;
-    }
-
-    .seller-name:hover {
-        text-decoration: underline;
-    }
-
-    .seller-date {
-        font-size: 13px;
-        color: #777;
-    }
-
-    .seller-btn {
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 10px;
-        background: #fff;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        margin-top: 8px;
-    }
-
-    @media (max-width: 768px) {
-        .advert-main, .advert-extra {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\dmark\PhpstormProjects\petzone\resources\views/advert/show.blade.php ENDPATH**/ ?>

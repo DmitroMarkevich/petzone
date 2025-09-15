@@ -6,7 +6,6 @@ use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
 use App\Models\Advert\Category;
 use App\Services\AdvertService;
-use App\Services\ImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdvertRequest;
 use Illuminate\Http\Request;
@@ -18,13 +17,10 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class AdvertController extends Controller
 {
-    private ImageService $imageService;
-
     private AdvertService $advertService;
 
-    public function __construct(AdvertService $advertService, ImageService $imageService)
+    public function __construct(AdvertService $advertService)
     {
-        $this->imageService = $imageService;
         $this->advertService = $advertService;
     }
 
@@ -73,22 +69,20 @@ class AdvertController extends Controller
             return view('advert.preview', compact('advert', 'images'));
         }
 
-        $this->advertService->createAdvert($dto, $images);
+        $this->advertService->createAdvert($dto, $request->user(), $images);
 
         return redirect()->route('profile.advert');
     }
 
     /**
-     * Shows a single advert with user info and avatar.
+     * Shows a single advert details.
      */
     public function show(string $id): Factory|View|Application
     {
         $advert = Advert::with(['user', 'images'])->findOrFail($id);
+        $relatedAdverts = $this->advertService->getRelatedAdverts($advert);
 
-        // todo abstracting photo transmission and processing
-        $avatarUrl = $this->imageService->getImageUrl($advert->user?->image_path, 'images/default-avatar.png');
-
-        return view('advert.show', compact('advert', 'avatarUrl'));
+        return view('advert.show', compact('advert', 'relatedAdverts'));
     }
 
     /**

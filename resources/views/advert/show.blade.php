@@ -4,12 +4,11 @@
 
 @section('app-content')
     <div class="advert-container" x-data="advertGallery()">
-        <div class="breadcrumb">
-            <a href="{{ route('profile.advert') }}" class="back-link">
-                <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">Назад
-            </a>
-            <span>/ Dogs / Food / Vitamins</span>
-        </div>
+        <h3 class="page-title" style="font-size: 26px">
+            <a href="{{ route('advert.index') }}">
+                <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">
+            </a>Повернутись назад
+        </h3>
 
         <div class="advert-main">
             <div class="advert-gallery">
@@ -32,10 +31,10 @@
                         @endif
                     </div>
                 </div>
+
                 <div class="advert-thumbnails">
                     @foreach ($advert->images as $index => $img)
-                        <img src="{{ image_url($img->image_path) }}" alt=""
-                             @click="setCurrentImage({{ $index }})"
+                        <img src="{{ image_url($img->image_path) }}" alt="" @click="setCurrentImage({{ $index }})"
                              x-bind:class="{ 'active': currentIndex === {{ $index }} }">
                     @endforeach
                 </div>
@@ -43,15 +42,7 @@
 
             <div class="advert-info">
                 <div class="form-row">
-                    <div class="advert-rating">
-                        <span class="rating-value">{{ $advert->average_rating }}</span>
-                        <div>
-                            @for ($i = 1; $i <= 5; $i++)
-                                <img src="{{ asset('images/star.svg') }}"
-                                     alt="{{ $i <= $advert->average_rating ? 'Star' : 'Empty Star' }}">
-                            @endfor
-                        </div>
-                    </div>
+                    <x-advert-rating :rating="$advert->average_rating"/>
                     <button class="wishlist-btn">
                         <img src="{{ asset('images/heart.svg') }}" alt="Add to favorites">
                     </button>
@@ -70,7 +61,7 @@
 
                 <div>
                     <h3 class="advert-subtitle">Options:</h3>
-                    <p class="advert-text">Size/Weight/Volume, etc</p>
+                    <span>Size/Weight/Volume, etc</span>
                 </div>
 
                 <div class="form-row" style="margin-top: auto">
@@ -86,8 +77,8 @@
                     <form action="{{ route('checkout.select') }}" method="POST" style="display: inline">
                         @csrf
                         <input type="hidden" name="advert_id" value="{{ $advert->id }}">
-                        <button type="submit" class="buy-button">
-                            Купити <img src="{{ asset('images/profile/cart.svg') }}" alt="Cart">
+                        <button type="submit" class="buy-button">Купити
+                            <img src="{{ asset('images/profile/cart.svg') }}" alt="Cart">
                         </button>
                     </form>
                 </div>
@@ -95,9 +86,10 @@
         </div>
 
         <div class="advert-extra">
-            <div class="seller-card">
+            <div class="seller-card" x-data="{ showPhone: false, showEmail: false }">
                 <div class="seller-header">
-                    <img src="{{ $avatarUrl }}" class="seller-avatar" alt="Seller Avatar">
+                    <img src="{{ image_url($advert->user->image_path, 'images/default-avatar.png') }}"
+                         class="seller-avatar" alt="Seller Avatar">
                     <div>
                         <a href="#" class="seller-name">
                             {{ $advert->user->first_name }} {{ $advert->user->last_name }}
@@ -106,8 +98,10 @@
                     </div>
                 </div>
 
-                <button class="seller-btn">View number</button>
-                <button class="seller-btn">View Email</button>
+                <button class="seller-btn" @click="showPhone = !showPhone"
+                        x-text="showPhone ? '{{ $advert->user->phone ?? 'No number' }}' : 'View number'"></button>
+                <button class="seller-btn" @click="showEmail = !showEmail"
+                        x-text="showEmail ? '{{ $advert->user->email ?? 'No email' }}' : 'View Email'"></button>
             </div>
 
             <div class="delivery-card">
@@ -130,8 +124,31 @@
                 </div>
             </div>
         </div>
+
+        @if(!empty($relatedAdverts) && $relatedAdverts->isNotEmpty())
+            <div class="related-adverts">
+                <h2 class="section-title">Схожі оголошення</h2>
+                <div class="related-adverts-list">
+                    @foreach($relatedAdverts as $related)
+                        <x-advert-card :advert="$advert"/>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 @endsection
+
+<style>
+    .related-adverts {
+        margin-top: 40px;
+
+        .related-adverts-list {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+    }
+</style>
 
 <script>
     function advertGallery() {
@@ -173,187 +190,3 @@
         }
     }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-<style>
-    .delivery-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 12px 0;
-    }
-
-    .delivery-item.complaint {
-        border-top: 1px solid #f0f0f0;
-        margin-top: 8px;
-        padding-top: 20px;
-    }
-
-    .advert-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 24px;
-    }
-
-    .breadcrumb {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #555;
-        font-size: 14px;
-        margin-bottom: 24px;
-    }
-
-    .advert-main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-    }
-
-    .advert-slider {
-        position: relative;
-    }
-
-    .scroll-btn {
-        position: absolute;
-        top: 50%;
-        z-index: 10;
-        background: rgba(255, 255, 255, 0.8);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .scroll-btn:hover {
-        background: rgba(255, 255, 255, 0.9);
-    }
-
-    .scroll-btn.left { left: 10px; }
-    .scroll-btn.right { right: 10px; }
-
-    .advert-main-image {
-        flex: 1;
-    }
-
-    .advert-main-image img {
-        width: 100%;
-        height: 500px;
-        object-fit: contain;
-        border-radius: 16px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .advert-thumbnails {
-        display: flex;
-        gap: 12px;
-        margin-top: 12px;
-    }
-
-    .advert-thumbnails img {
-        width: 80px;
-        height: 80px;
-        border-radius: 8px;
-        object-fit: cover;
-        cursor: pointer;
-        transition: opacity 0.2s ease;
-        border: 2px solid transparent;
-    }
-
-    .advert-thumbnails img:hover {
-        opacity: 0.8;
-    }
-
-    .advert-thumbnails img.active {
-        border: 0.5px solid #007bff;
-    }
-
-    .advert-title {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-word;
-    }
-
-    .advert-description {
-        color: #555;
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-word;
-    }
-
-    .advert-subtitle {
-        font-weight: 600;
-        margin-bottom: 4px;
-    }
-
-    .advert-text {
-        color: #666;
-    }
-
-    .advert-extra {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-        margin-top: 40px;
-    }
-
-    .seller-card, .delivery-card {
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .seller-header {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 16px;
-    }
-
-    .seller-name {
-        font-weight: 600;
-        text-decoration: none;
-        color: #333;
-    }
-
-    .seller-name:hover {
-        text-decoration: underline;
-    }
-
-    .seller-date {
-        font-size: 13px;
-        color: #777;
-    }
-
-    .seller-btn {
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 10px;
-        background: #fff;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        margin-top: 8px;
-    }
-
-    @media (max-width: 768px) {
-        .advert-main, .advert-extra {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>

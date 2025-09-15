@@ -18,18 +18,8 @@
                 <span class="tag">#{{ $tag }}</span>
             @endforeach
         </div>
-
         <h3 class="advert-title">{{ $advert->title }}</h3>
-
-        <div class="advert-rating" role="img" aria-label="{{ $advert->average_rating }}">
-            <div class="stars-wrapper">
-                @for ($i = 1; $i <= 5; $i++)
-                    <img src="{{ $i <= $starsToShow ? asset('images/star-filled.svg') : asset('images/star.svg') }}"
-                         alt="Star">
-                @endfor
-            </div>
-            <span class="rating-value">{{ $advert->average_rating }}</span>
-        </div>
+        <x-advert-rating :rating="$advert->average_rating"/>
     </div>
 
     <div class="price-action">

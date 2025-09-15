@@ -18,18 +18,27 @@
                 <span class="tag">#<?php echo e($tag); ?></span>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-
         <h3 class="advert-title"><?php echo e($advert->title); ?></h3>
-
-        <div class="advert-rating" role="img" aria-label="<?php echo e($advert->average_rating); ?>">
-            <div class="stars-wrapper">
-                <?php for($i = 1; $i <= 5; $i++): ?>
-                    <img src="<?php echo e($i <= $starsToShow ? asset('images/star-filled.svg') : asset('images/star.svg')); ?>"
-                         alt="Star">
-                <?php endfor; ?>
-            </div>
-            <span class="rating-value"><?php echo e($advert->average_rating); ?></span>
-        </div>
+        <?php if (isset($component)) { $__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3 = $attributes; } ?>
+<?php $component = App\View\Components\AdvertRating::resolve(['rating' => $advert->average_rating] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('advert-rating'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\AdvertRating::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3)): ?>
+<?php $attributes = $__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3; ?>
+<?php unset($__attributesOriginald51ff61c4f49ffd1eb36143e10c4abc3); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3)): ?>
+<?php $component = $__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3; ?>
+<?php unset($__componentOriginald51ff61c4f49ffd1eb36143e10c4abc3); ?>
+<?php endif; ?>
     </div>
 
     <div class="price-action">
