@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Advert;
 
 use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
-use App\Models\Advert\Category;
 use App\Services\AdvertService;
+use App\Models\Advert\Category;
+use App\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdvertRequest;
 use Illuminate\Http\Request;
@@ -18,10 +19,12 @@ use Illuminate\Auth\Access\AuthorizationException;
 class AdvertController extends Controller
 {
     private AdvertService $advertService;
+    private CategoryService $categoryService;
 
-    public function __construct(AdvertService $advertService)
+    public function __construct(AdvertService $advertService, CategoryService $categoryService)
     {
         $this->advertService = $advertService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -34,7 +37,6 @@ class AdvertController extends Controller
         $sort = $request->input('sort');
 
         $adverts = $this->advertService->getAdverts($query, $userId, $sort);
-
         $adverts->getCollection()->transform(function ($advert) {
             $advert->in_wishlist = $advert->wishlists->isNotEmpty();
             return $advert;
@@ -50,7 +52,7 @@ class AdvertController extends Controller
      */
     public function create(): Factory|View|Application
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAll();
 
         return view('advert.create', compact('categories'));
     }
@@ -77,10 +79,13 @@ class AdvertController extends Controller
     /**
      * Shows a single advert details.
      */
-    public function show(string $id): Factory|View|Application
+    public function show(Advert $advert): Factory|View|Application
     {
-        $advert = Advert::with(['user', 'images'])->findOrFail($id);
-        $relatedAdverts = $this->advertService->getRelatedAdverts($advert);
+        $relatedAdverts = $this->advertService->getRelatedAdverts($advert, limit: 10)->load(['wishlists']);
+        $relatedAdverts->transform(function ($advert) {
+            $advert->in_wishlist = $advert->wishlists->isNotEmpty();
+            return $advert;
+        });
 
         return view('advert.show', compact('advert', 'relatedAdverts'));
     }
@@ -107,6 +112,8 @@ class AdvertController extends Controller
      */
     public function update(StoreAdvertRequest $request, Advert $advert): Application|Factory|View|RedirectResponse
     {
+        $this->authorize('update', $advert);
+
         $dto = AdvertData::from($request->validated());
 
         if ($request->input('action') === 'preview') {

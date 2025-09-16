@@ -126,11 +126,23 @@
         </div>
 
         @if(!empty($relatedAdverts) && $relatedAdverts->isNotEmpty())
-            <div class="related-adverts">
-                <h2 class="section-title">Схожі оголошення</h2>
-                <div class="related-adverts-list">
+            <div class="related-adverts" x-data="scrollContainer()" x-init="init()">
+                <div class="form-row">
+                    <h2 class="section-title">Схожі оголошення</h2>
+
+                    <div class="scroll-buttons">
+                        <button @click="scrollLeft()" class="scroll-btn left">
+                            <img src="{{ asset('images/less-than.svg') }}" alt="<">
+                        </button>
+                        <button @click="scrollRight()" class="scroll-btn right">
+                            <img src="{{ asset('images/greater-than.svg') }}" alt=">">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="related-adverts-list" x-ref="container">
                     @foreach($relatedAdverts as $related)
-                        <x-advert-card :advert="$advert"/>
+                        <x-advert-card :advert="$related" small="true"/>
                     @endforeach
                 </div>
             </div>
@@ -138,27 +150,11 @@
     </div>
 @endsection
 
-<style>
-    .related-adverts {
-        margin-top: 40px;
-
-        .related-adverts-list {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-    }
-</style>
-
 <script>
     function advertGallery() {
         return {
             currentIndex: 0,
-            images: [
-                @foreach($advert->images as $img)
-                    '{{ image_url($img->image_path) }}',
-                @endforeach
-            ],
+            images: [@foreach($advert->images as $img) '{{ image_url($img->image_path) }}', @endforeach ],
 
             get currentImageSrc() {
                 return this.images[this.currentIndex] || '{{ $advert->main_image }}';
@@ -186,6 +182,31 @@
                 if (this.canGoNext) {
                     this.currentIndex++;
                 }
+            }
+        }
+    }
+
+    function scrollContainer() {
+        return {
+            scrollStep: 300, init() {
+                this.updateStep();
+                window.addEventListener('resize', () => this.updateStep());
+            },
+
+            updateStep() {
+                const container = this.$refs.container;
+                if (!container) return;
+                this.scrollStep = Math.floor(container.clientWidth * 0.8);
+            },
+            scrollLeft() {
+                const container = this.$refs.container;
+                if (!container) return;
+                container.scrollBy({left: -this.scrollStep, behavior: 'smooth'});
+            },
+            scrollRight() {
+                const container = this.$refs.container;
+                if (!container) return;
+                container.scrollBy({left: this.scrollStep, behavior: 'smooth'});
             }
         }
     }

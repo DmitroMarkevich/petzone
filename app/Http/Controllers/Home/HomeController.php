@@ -22,18 +22,16 @@ class HomeController
      */
     public function index(Request $request): Factory|View|Application
     {
-        $user = $request->user();
-
-        $userWishlistIds = [];
-        if ($user) {
-            $userWishlistIds = $user->wishlist()->pluck('advert_id')->all();
-        }
-
         $adverts = [
             'popularAdverts' => $this->advertService->getPopularAdverts(),
             'discountedAdverts' => $this->advertService->getDiscountedAdverts(),
             'freshAdverts' => $this->advertService->getFreshAdverts(200)
         ];
+
+        $userWishlistIds = $request->user()
+            ->wishlist()
+            ->pluck('advert_id')
+            ->all();
 
         // Add 'in_wishlist' flag to each advert based on user wishlist for frontend display
         foreach ($adverts as $key => $collection) {

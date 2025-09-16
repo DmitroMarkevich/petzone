@@ -1,4 +1,4 @@
-<div class="advert-card">
+<div class="advert-card <?php echo e($small ? 'advert-card--small' : ''); ?>">
     <div class="image-container">
         <a href="<?php echo e(route('advert.show', $advert->id)); ?>">
             <img class="advert-image" src="<?php echo e($advert->mainImage); ?>" alt="<?php echo e($advert->title); ?>">

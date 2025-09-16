@@ -144,13 +144,25 @@
         </div>
 
         <?php if(!empty($relatedAdverts) && $relatedAdverts->isNotEmpty()): ?>
-            <div class="related-adverts">
-                <h2 class="section-title">Схожі оголошення</h2>
-                <div class="related-adverts-list">
+            <div class="related-adverts" x-data="scrollContainer()" x-init="init()">
+                <div class="form-row">
+                    <h2 class="section-title">Схожі оголошення</h2>
+
+                    <div class="scroll-buttons">
+                        <button @click="scrollLeft()" class="scroll-btn left">
+                            <img src="<?php echo e(asset('images/less-than.svg')); ?>" alt="<">
+                        </button>
+                        <button @click="scrollRight()" class="scroll-btn right">
+                            <img src="<?php echo e(asset('images/greater-than.svg')); ?>" alt=">">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="related-adverts-list" x-ref="container">
                     <?php $__currentLoopData = $relatedAdverts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if (isset($component)) { $__componentOriginalf74e02aea032995600afb10c96aa9574 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf74e02aea032995600afb10c96aa9574 = $attributes; } ?>
-<?php $component = App\View\Components\AdvertCard::resolve(['advert' => $advert] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = App\View\Components\AdvertCard::resolve(['advert' => $related,'small' => 'true'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('advert-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -175,27 +187,11 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<style>
-    .related-adverts {
-        margin-top: 40px;
-
-        .related-adverts-list {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-    }
-</style>
-
 <script>
     function advertGallery() {
         return {
             currentIndex: 0,
-            images: [
-                <?php $__currentLoopData = $advert->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    '<?php echo e(image_url($img->image_path)); ?>',
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            ],
+            images: [<?php $__currentLoopData = $advert->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> '<?php echo e(image_url($img->image_path)); ?>', <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> ],
 
             get currentImageSrc() {
                 return this.images[this.currentIndex] || '<?php echo e($advert->main_image); ?>';
@@ -223,6 +219,31 @@
                 if (this.canGoNext) {
                     this.currentIndex++;
                 }
+            }
+        }
+    }
+
+    function scrollContainer() {
+        return {
+            scrollStep: 300, init() {
+                this.updateStep();
+                window.addEventListener('resize', () => this.updateStep());
+            },
+
+            updateStep() {
+                const container = this.$refs.container;
+                if (!container) return;
+                this.scrollStep = Math.floor(container.clientWidth * 0.8);
+            },
+            scrollLeft() {
+                const container = this.$refs.container;
+                if (!container) return;
+                container.scrollBy({left: -this.scrollStep, behavior: 'smooth'});
+            },
+            scrollRight() {
+                const container = this.$refs.container;
+                if (!container) return;
+                container.scrollBy({left: this.scrollStep, behavior: 'smooth'});
             }
         }
     }

@@ -24,12 +24,10 @@ window.NProgress = NProgress;
  * - initVisibilityToggle: toggles password visibility toggles
  * - initVerificationMessage: auto-hides verification messages after a timeout
  */
-import { initMask } from './modules/utils/mask.js';
 import { initValidation } from './modules/validation/validation.js';
 import { initVisibilityToggle } from './modules/ui/visibility.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    initMask();
     initValidation();
     initVisibilityToggle();
 });

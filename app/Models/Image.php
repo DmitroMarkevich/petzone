@@ -15,8 +15,5 @@ abstract class Image extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'id',
-        'image_path',
-    ];
+    protected $fillable = ['id', 'image_path'];
 }

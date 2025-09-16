@@ -1,4 +1,4 @@
-<div class="advert-card">
+<div class="advert-card {{ $small ? 'advert-card--small' : '' }}">
     <div class="image-container">
         <a href="{{ route('advert.show', $advert->id) }}">
             <img class="advert-image" src="{{ $advert->mainImage }}" alt="{{ $advert->title }}">

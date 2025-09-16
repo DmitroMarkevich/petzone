@@ -14,19 +14,27 @@
     justify-content: space-between;
     position: relative;
     width: 330px;
-    min-height: 490px;
+    height: 490px;
     padding: 16px;
     border-radius: 16px;
     box-shadow: 0 4px 24px 0 #0000000D, 0 2px 8px 0 #0000000D;
     font-family: variables.$font-family-alt;
-}
 
-.advert-card .image-container {
-    position: relative;
+    .image-container {
+        position: relative;
+    }
 
     .advert-image {
         @include mixins.size(300px);
         border-radius: 8px;
+    }
+
+    &--small {
+        @include mixins.size(270px, 420px);
+
+        .advert-image {
+            @include mixins.size(240px);
+        }
     }
 }
 
@@ -108,3 +116,4 @@
     background-color: variables.$orange;
     padding: 12px 20px;
 }
+

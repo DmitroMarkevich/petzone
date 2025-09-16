@@ -240,6 +240,22 @@
     margin-top: 8px;
 }
 
+.related-adverts {
+    margin-top: 40px;
+}
+
+.related-adverts-list {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    gap: 16px;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .advert-main, .advert-extra {
         grid-template-columns: 1fr;
