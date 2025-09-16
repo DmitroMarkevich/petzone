@@ -102,7 +102,7 @@ class AdvertController extends Controller
 
         $this->authorize('update', $advert);
 
-        $categories = Category::all();
+        $categories = $this->categoryService->getAll();
 
         return view('advert.edit', compact('advert', 'categories'));
     }
