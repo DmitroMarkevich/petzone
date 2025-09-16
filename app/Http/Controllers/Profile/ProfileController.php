@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Models\User;
-use App\Models\Address;
 use App\DTO\ProfileData;
 use App\Http\Controllers\Controller;
 use App\Services\Profile\ProfileService;
@@ -33,12 +31,7 @@ class ProfileController extends Controller
 
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
-        $validatedData = $request->validated();
-
-        $userData = array_intersect_key($validatedData, array_flip((new User())->getFillable()));
-        $addressData = array_intersect_key($validatedData, array_flip((new Address())->getFillable()));
-
-        $dto = ProfileData::from(['userData' => $userData, 'addressData' => $addressData]);
+        $dto = ProfileData::fromRequest($request);
 
         $this->profileService->updateProfile($request->user(), $dto);
 
