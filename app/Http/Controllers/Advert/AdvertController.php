@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Advert;
 use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
 use App\Services\AdvertService;
-use App\Models\Advert\Category;
 use App\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdvertRequest;
