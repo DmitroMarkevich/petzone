@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('advert_id')->constrained()->onDelete('cascade');
 
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
 
             $table->unique(['user_id', 'advert_id']);
             $table->index('advert_id');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('advert_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('advert_id')->constrained('advert')->cascadeOnDelete();
+            $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
 
             $table->string('image_path');
             $table->boolean('main_image')->default(false);

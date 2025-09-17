@@ -19,7 +19,7 @@
 
                 $table->foreignUuid('buyer_id')->constrained('users')->cascadeOnDelete();
                 $table->foreignUuid('seller_id')->constrained('users')->cascadeOnDelete();
-                $table->foreignUuid('advert_id')->constrained('advert')->cascadeOnDelete();
+                $table->foreignUuid('advert_id')->constrained('adverts')->cascadeOnDelete();
 
                 $table->string('payment_method');
                 $table->string('delivery_method');
