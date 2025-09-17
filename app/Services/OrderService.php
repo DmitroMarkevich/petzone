@@ -9,6 +9,7 @@ use App\Models\Order\Order;
 use App\Models\Advert\Advert;
 use App\Enum\OrderStatus;
 use App\Enum\PaymentMethod;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService
@@ -23,10 +24,11 @@ class OrderService
             PaymentMethod::CASH_ON_DELIVERY->value => OrderStatus::PENDING,
         };
 
-        $order = Order::create($orderData->toModelAttributes($buyer, $advert, $status));
-        $order->recipient()->create($recipientData->toArray());
-
-        return $order;
+        return DB::transaction(function () use ($buyer, $orderData, $recipientData, $advert, $status) {
+            $order = Order::create($orderData->toModelAttributes($buyer, $advert, $status));
+            $order->recipient()->create($recipientData->toArray());
+            return $order;
+        });
     }
 
     public function getUserOrders(User $user, bool $isActive, int $perPage = 10): LengthAwarePaginator
