@@ -2,10 +2,11 @@
 
 <?php $__env->startSection('app-content'); ?>
     <div class="advert-container" x-data="advertGallery()">
-        <h3 class="page-title" style="font-size: 26px">
+        <h3 class="page-title">
             <a href="<?php echo e(route('advert.index')); ?>">
                 <img src="<?php echo e(asset('images/left-arrow.svg')); ?>" alt="Back">
-            </a>Повернутись назад
+            </a>
+            Повернутись назад
         </h3>
 
         <div class="advert-main">
@@ -116,10 +117,29 @@
                     </div>
                 </div>
 
-                <button class="seller-btn" @click="showPhone = !showPhone"
-                        x-text="showPhone ? '<?php echo e($advert->user->phone ?? 'No number'); ?>' : 'View number'"></button>
-                <button class="seller-btn" @click="showEmail = !showEmail"
-                        x-text="showEmail ? '<?php echo e($advert->user->email ?? 'No email'); ?>' : 'View Email'"></button>
+                <div x-data="{ modalOpen: false, modalContent: '', copied: false }">
+                    <?php if($advert->user->phone): ?>
+                        <button class="seller-btn" @click="modalContent = '<?php echo e($advert->user->phone); ?>'; modalOpen = true">
+                            Переглянути номер телефону
+                        </button>
+                    <?php endif; ?>
+
+                    <button class="seller-btn" @click="modalContent = '<?php echo e($advert->user->email); ?>'; modalOpen = true">
+                        Показати електрону пошту
+                    </button>
+
+                    <div x-show="modalOpen" x-transition class="mobile-search-modal" @click.outside="modalOpen = false" x-cloak>
+                        <div class="modal-content">
+                            <input type="text" x-model="modalContent" class="modal-input" readonly autofocus>
+                            <button type="button" class="modal-search-btn"
+                                    @click="navigator.clipboard.writeText(modalContent); copied = true; setTimeout(() => copied = false, 2000)">
+                                Скопіювати
+                            </button>
+                            <button @click="modalOpen = false" class="modal-close-btn">&times;</button>
+                            <div x-show="copied" class="copy-success-message"> Текст успішно скопійовано!</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="delivery-card">
@@ -133,9 +153,10 @@
 
                 <div class="delivery-item complaint">
                     <div class="delivery-icon">
-                        <img src="<?php echo e(asset('images/warning.svg')); ?>" alt="Warning" width="20" height="20">
+                        <img src="<?php echo e(asset('images/warning.svg')); ?>" alt="Warning">
                     </div>
-                    <div class="form-row" style="width: 100%">
+
+                    <div class="form-row">
                         <span class="delivery-title">Поскаржитись на товар</span>
                         <span>arrow</span>
                     </div>
@@ -152,6 +173,7 @@
                         <button @click="scrollLeft()" class="scroll-btn left">
                             <img src="<?php echo e(asset('images/less-than.svg')); ?>" alt="<">
                         </button>
+
                         <button @click="scrollRight()" class="scroll-btn right">
                             <img src="<?php echo e(asset('images/greater-than.svg')); ?>" alt=">">
                         </button>
@@ -225,25 +247,12 @@
 
     function scrollContainer() {
         return {
-            scrollStep: 300, init() {
-                this.updateStep();
-                window.addEventListener('resize', () => this.updateStep());
-            },
-
-            updateStep() {
-                const container = this.$refs.container;
-                if (!container) return;
-                this.scrollStep = Math.floor(container.clientWidth * 0.8);
-            },
+            scrollStep: 300,
             scrollLeft() {
-                const container = this.$refs.container;
-                if (!container) return;
-                container.scrollBy({left: -this.scrollStep, behavior: 'smooth'});
+                this.$refs.container.scrollBy({left: -this.scrollStep, behavior: 'smooth'});
             },
             scrollRight() {
-                const container = this.$refs.container;
-                if (!container) return;
-                container.scrollBy({left: this.scrollStep, behavior: 'smooth'});
+                this.$refs.container.scrollBy({left: this.scrollStep, behavior: 'smooth'});
             }
         }
     }

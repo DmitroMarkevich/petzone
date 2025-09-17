@@ -133,12 +133,24 @@
     border-top: 1px solid #f0f0f0;
     margin-top: 8px;
     padding-top: 20px;
+
+    .delivery-icon {
+        @include mixins.size(20px);
+    }
+
+    .form-row {
+        width: 100%;
+    }
 }
 
 .advert-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
+
+    .page-title {
+        font-size: 26px;
+    }
 }
 
 .breadcrumb {
@@ -254,6 +266,21 @@
     &::-webkit-scrollbar {
         display: none;
     }
+}
+
+.modal-input {
+    @include mixins.font-style(16px, #797677);
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: default
+}
+
+.copy-success-message {
+    @include mixins.font-style(16px, #28a745, 500);
+    transition: opacity 0.3s ease-in-out;
+    margin-top: 10px;
 }
 
 @media (max-width: 768px) {

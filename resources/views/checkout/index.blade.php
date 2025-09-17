@@ -241,13 +241,11 @@
                 },
 
                 saveChanges() {
-                    // Оновлюємо оригінальні дані
-                    this.original = { ...this.form };
+    ё                    this.original = { ...this.form };
                     this.editing = false;
                 },
 
                 cancelEdit() {
-                    // Відновлюємо оригінальні дані
                     this.form = { ...this.original };
                     this.editing = false;
                 }
