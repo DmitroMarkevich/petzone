@@ -13,7 +13,7 @@ class StripeWebhookService
     private string $endpointSecret;
 
     /**
-     * Construct the service and set Stripe webhook secret.
+     * Set Stripe webhook secret.
      */
     public function __construct()
     {

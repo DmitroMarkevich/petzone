@@ -9,9 +9,6 @@ class CategoryService
 {
     private CacheService $cacheService;
 
-    /**
-     * @param CacheService $cacheService
-     */
     public function __construct(CacheService $cacheService)
     {
         $this->cacheService = $cacheService;
