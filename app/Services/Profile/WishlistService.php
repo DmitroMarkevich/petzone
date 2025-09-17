@@ -3,22 +3,19 @@
 namespace App\Services\Profile;
 
 use App\Models\User;
+use App\Enum\AdvertSortOption;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class WishlistService
 {
     public function getUserWishlist(User $user, ?string $sort = null, int $perPage = 10): LengthAwarePaginator
     {
-        $sortOptions = [
-            'price-asc'  => fn($q) => $q->orderBy('price', 'asc'),
-            'price-desc' => fn($q) => $q->orderBy('price', 'desc'),
-            'date-asc'   => fn($q) => $q->orderBy('created_at', 'desc'),
-        ];
-
         $builder = $user->wishlist()->withMainImage();
 
-        if ($sort && isset($sortOptions[$sort])) {
-            $builder = $sortOptions[$sort]($builder);
+        $sortOption = AdvertSortOption::tryFromRequest($sort);
+
+        if ($sortOption) {
+            $builder = $sortOption->apply($builder);
         } else {
             $builder = $builder->inRandomOrder();
         }
