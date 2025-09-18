@@ -6,6 +6,7 @@
 /storage/logs/*
 *.log
 /storage/*.key
+/storage/framework/views/*
 /storage/pail
 /vendor
 .env
