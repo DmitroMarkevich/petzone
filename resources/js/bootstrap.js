@@ -14,18 +14,3 @@ NProgress.configure({
 });
 
 window.NProgress = NProgress;
-
-/**
- * Import and initialize custom UI modules:
- * - initMask: applies input masks (e.g. phone number formatting)
- * - initValidation: sets up form validation on inputs with data attributes
- * - initVisibilityToggle: toggles password visibility toggles
- * - initVerificationMessage: auto-hides verification messages after a timeout
- */
-import { initValidation } from './modules/validation/validation.js';
-import { initVisibilityToggle } from './modules/ui/visibility.js';
-
-document.addEventListener('DOMContentLoaded', () => {
-    // initValidation();
-    // initVisibilityToggle();
-});

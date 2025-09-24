@@ -17,6 +17,7 @@
     @stack('styles')
 </head>
 <body data-route="{{ Route::currentRouteName() }}" x-data="{ sidebarOpen: false }">
+    <div id="global-loader-overlay" class="hidden"></div>
     @yield('content')
     @stack('scripts')
 </body>

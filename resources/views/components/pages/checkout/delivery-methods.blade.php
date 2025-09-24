@@ -27,7 +27,8 @@
                    :class="{'error-border': deliveryServices.nova_post.validationError}"
             />
 
-            <ul class="dropdown-panel" x-show="deliveryServices.nova_post.dropdownVisible && deliveryServices.nova_post.filteredBranches.length > 0">
+            <ul class="dropdown-panel"
+                x-show="deliveryServices.nova_post.dropdownVisible && deliveryServices.nova_post.filteredBranches.length > 0">
                 <template x-for="(branch, index) in deliveryServices.nova_post.filteredBranches" :key="branch.Ref">
                     <li class="dropdown-item"
                         @click.prevent="selectBranch('nova_post', branch)"
@@ -62,7 +63,8 @@
                    :class="{'error-border': deliveryServices.meest.validationError}"
             />
 
-            <ul class="dropdown-panel" x-show="deliveryServices.meest.dropdownVisible && deliveryServices.meest.filteredBranches.length > 0">
+            <ul class="dropdown-panel"
+                x-show="deliveryServices.meest.dropdownVisible && deliveryServices.meest.filteredBranches.length > 0">
                 <template x-for="(branch, index) in deliveryServices.meest.filteredBranches" :key="index">
                     <li class="dropdown-item"
                         @click.prevent="selectBranch('meest', branch)"
@@ -100,7 +102,7 @@
                     selected: false,
                     selectedBranch: null,
                     validationError: false,
-                    dropdownVisible: false,
+                    dropdownVisible: false
                 },
                 meest: {
                     branches: [],
@@ -109,7 +111,7 @@
                     selected: false,
                     selectedBranch: null,
                     validationError: false,
-                    dropdownVisible: false,
+                    dropdownVisible: false
                 },
             },
 
@@ -132,6 +134,8 @@
             },
 
             fetchWarehouses(service) {
+                showGlobalLoader();
+
                 fetch(`/address/warehouses?delivery_method=${service}`)
                     .then(response => response.json())
                     .then(data => {
@@ -140,7 +144,11 @@
                         s.branches = branches;
                         s.filteredBranches = branches;
                         s.dropdownVisible = true;
-                    });
+                    })
+                    .catch(error => {
+                        console.error('Ошибка загрузки отделений:', error);
+                    })
+                    .finally(() => hideGlobalLoader());
             },
 
             filterBranches(service) {
@@ -178,10 +186,7 @@
             },
 
             validateSelection() {
-                const DELIVERY_METHODS = {
-                    NOVA_POST_SELF_PICKUP: 'nova_post',
-                    MEEST_SELF_PICKUP: 'meest',
-                };
+                const DELIVERY_METHODS = {NOVA_POST_SELF_PICKUP: 'nova_post', MEEST_SELF_PICKUP: 'meest'};
                 const selectedService = DELIVERY_METHODS[this.selectedMethod] || null;
 
                 if (selectedService && !this.deliveryServices[selectedService].selected) {
