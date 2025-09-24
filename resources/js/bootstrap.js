@@ -14,3 +14,9 @@ NProgress.configure({
 });
 
 window.NProgress = NProgress;
+
+import { initMask } from './modules/utils/mask.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    initMask();
+});

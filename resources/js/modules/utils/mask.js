@@ -1,14 +1,9 @@
-import Inputmask from "inputmask";
+import IMask from 'imask';
 
-/**
- * Initializes input mask for phone number fields.
- * Applies the mask to the input with type="tel"
- */
 export const initMask = () => {
-    Inputmask({
-        mask: '+38 (099) 999 99 99',
-        greedy: false,
-        clearIncomplete: true,
-        showMaskOnHover: false,
-    }).mask('input[type="tel"]');
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        IMask(input, {
+            mask: '+38 (000) 000 00 00'
+        });
+    });
 };

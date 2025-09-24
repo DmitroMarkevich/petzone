@@ -15,6 +15,7 @@
         "-": "^0.0.1",
         "alpinejs": "^3.15.0",
         "dotenv": "^16.4.7",
+        "imask": "^7.6.1",
         "jquery": "^3.7.1",
         "jquery-mask-plugin": "^1.14.16",
         "nprogress": "^0.2.0",
