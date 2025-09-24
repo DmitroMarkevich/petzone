@@ -4,14 +4,13 @@ namespace App\Services\Profile;
 
 use Daaner\NovaPoshta\Models\Address;
 
-// todo: synchronization between delivery services (unification)
 class AddressService
 {
-    protected Address $address;
+    private Address $address;
 
-    public function __construct()
+    public function __construct(Address $address)
     {
-        $this->address = new Address();
+        $this->address = $address;
         $this->address->setLimit(20);
     }
 

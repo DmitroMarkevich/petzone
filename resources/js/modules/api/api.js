@@ -11,7 +11,9 @@ export const fetchData = async (url, data = {}, type = 'GET') => {
             options.body = JSON.stringify(data);
         }
 
-        const json = await fetch(url, options).json();
+        const response = await fetch(url, options);
+        const json = await response.json();
+
         return json.success ? json.result : [];
     } catch (e) {
         console.error('Fetch failed:', e);

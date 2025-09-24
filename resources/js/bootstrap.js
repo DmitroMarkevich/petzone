@@ -1,8 +1,6 @@
 import Alpine from 'alpinejs'
 window.Alpine = Alpine
 
-Alpine.start();
-
 /**
  * NProgress — a slim progress bar at the top of the page to indicate loading states.
  * Configured here to disable the spinner and set trickle speed.
@@ -28,6 +26,6 @@ import { initValidation } from './modules/validation/validation.js';
 import { initVisibilityToggle } from './modules/ui/visibility.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    initValidation();
-    initVisibilityToggle();
+    // initValidation();
+    // initVisibilityToggle();
 });

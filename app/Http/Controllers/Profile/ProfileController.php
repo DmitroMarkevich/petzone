@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\DTO\AddressData;
 use App\DTO\ProfileData;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateAddressRequest;
 use App\Services\Profile\ProfileService;
 use App\Http\Requests\UploadAvatarRequest;
 use App\Http\Requests\UpdateProfileRequest;
@@ -29,14 +31,24 @@ class ProfileController extends Controller
         return view('profile.index', compact('user'));
     }
 
-    public function update(UpdateProfileRequest $request): RedirectResponse
+    public function updateProfile(UpdateProfileRequest $request): RedirectResponse
     {
-        $dto = ProfileData::fromRequest($request);
+        $dto = ProfileData::from($request->validated());
 
         $this->profileService->updateProfile($request->user(), $dto);
 
         return redirect()->route('profile.index')
             ->with('success', 'Ви успішно змінили свої персональні дані');
+    }
+
+    public function updateAddress(UpdateAddressRequest $request): RedirectResponse
+    {
+        $dto = AddressData::fromRequest($request->validated());
+
+        $this->profileService->updateAddress($request->user(), $dto);
+
+        return redirect()->route('profile.index')
+            ->with('success', 'Ви успішно змінили свою адресу доставки');
     }
 
     public function uploadAvatar(UploadAvatarRequest $request): RedirectResponse

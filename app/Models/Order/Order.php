@@ -32,12 +32,13 @@ class Order extends Model
         'advert_id',
 
         'payment_method',
-
         'delivery_method',
-        'tracking_number',
+
         'delivery_cost',
         'total_price',
         'estimated_delivery_date',
+
+        'tracking_number',
 
         'accepted_at',
         'shipped_at',

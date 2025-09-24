@@ -23,6 +23,7 @@
 
                 $table->string('payment_method');
                 $table->string('delivery_method');
+
                 $table->string('tracking_number')->nullable();
                 $table->decimal('delivery_cost', 10)->nullable();
                 $table->decimal('total_price', 10);

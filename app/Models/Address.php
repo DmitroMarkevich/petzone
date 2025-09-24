@@ -19,9 +19,13 @@ class Address extends Model
     protected $fillable = [
         'id',
         'city',
+        'city_ref',
+        'present',
+        'area',
+        'parent_region_code',
+        'parent_region_types',
+        'settlement_type_code',
         'street',
         'apartment',
-        'ref_delivery_city',
-        'ref_delivery_street',
     ];
 }

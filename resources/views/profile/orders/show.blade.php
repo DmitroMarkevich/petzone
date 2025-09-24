@@ -1,3 +1,7 @@
+@php
+    $recipient = $order->recipient;
+@endphp
+
 @extends('layouts.profile')
 
 @section('title', 'Деталі замовлення')
@@ -44,14 +48,34 @@
             <div class="form-row">
                 <div class="contact-details">
                     <h3 class="section-heading">Адреса доставки</h3>
-                    <p>Київ, Відділення №32</p>
-                    <p>вул. Набережно-Хрещатицька, 33</p>
+
+                    @php
+                        $settlementType = $recipient->warehouse_settlement_type ?? '';
+                        $city = $recipient->warehouse_city ?? '';
+                        $region = $recipient->warehouse_region ?? '';
+                        $title = $recipient->warehouse_title ?? '';
+
+                        $firstLine = trim("$settlementType $city, $region область");
+                        $secondLine = $title;
+
+                        $mapQuery = urlencode("$firstLine, $secondLine");
+                    @endphp
+
+                    @if($firstLine)
+                        <p>{{ $firstLine }}</p>
+                    @endif
+
+                    @if($secondLine)
+                        <p>{{ $secondLine }}</p>
+                    @endif
                 </div>
 
-                <a href="https://www.google.com/maps/search/?api=1&query=Київ, Відділення №32, вул. Набережно-Хрещатицька, 33"
-                   class="link-icon">
-                    <img src="{{ asset('images/location-pin.svg') }}" alt="">Подивитися в Google Maps
-                </a>
+                @if($firstLine || $secondLine)
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ $mapQuery }}"
+                       class="link-icon" target="_blank">
+                        <img src="{{ asset('images/location-pin.svg') }}" alt="">Подивитися в Google Maps
+                    </a>
+                @endif
             </div>
 
             <div class="form-row">
@@ -69,8 +93,8 @@
 
             <div class="contact-details">
                 <h3 class="section-heading">Одержувач</h3>
-                <p>{{ "{$order->recipient->first_name} {$order->recipient->last_name} {$order->recipient->middle_name}" }}</p>
-                <p>{{ $order->recipient->phone_number }}</p>
+                <p>{{ "$recipient->first_name $recipient->last_name $recipient->middle_name" }}</p>
+                <p>{{ $recipient->phone_number }}</p>
             </div>
         </div>
     </div>

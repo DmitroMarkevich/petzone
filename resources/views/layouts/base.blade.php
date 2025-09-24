@@ -11,13 +11,12 @@
         @hasSection('title') — @yield('title') @endif
     </title>
 
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body data-route="{{ Route::currentRouteName() }}" x-data="{ sidebarOpen: false }">
-    <div id="global-loader-overlay" class="hidden"></div>
     @yield('content')
     @stack('scripts')
 </body>

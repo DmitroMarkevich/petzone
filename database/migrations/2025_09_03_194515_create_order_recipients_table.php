@@ -21,6 +21,12 @@ return new class extends Migration
             $table->string('middle_name', 50)->nullable();
             $table->string('phone_number', 20);
 
+            $table->string('warehouse_ref')->nullable();
+            $table->string('warehouse_title')->nullable();
+            $table->string('warehouse_settlement_type')->nullable();
+            $table->string('warehouse_city')->nullable();
+            $table->string('warehouse_region')->nullable();
+
             $table->timestamps();
         });
     }

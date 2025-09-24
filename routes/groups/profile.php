@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('index');
-    Route::patch('/update', [ProfileController::class, 'update'])->name('update');
+
+    Route::patch('/update-profile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
+    Route::patch('/update-address', [ProfileController::class, 'updateAddress'])->name('updateAddress');
+
     Route::post('/logo', [ProfileController::class, 'uploadAvatar'])->name('uploadAvatar');
     Route::delete('/logo', [ProfileController::class, 'deleteAvatar'])->name('deleteAvatar');
 

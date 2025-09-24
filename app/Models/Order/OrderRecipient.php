@@ -5,11 +5,10 @@ namespace App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderRecipient extends Model
 {
-    use HasFactory, HasUuids;
+    use HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -18,10 +17,17 @@ class OrderRecipient extends Model
      */
     protected $fillable = [
         'order_id',
+
         'first_name',
         'last_name',
         'middle_name',
         'phone_number',
+
+        'warehouse_ref',
+        'warehouse_title',
+        'warehouse_settlement_type',
+        'warehouse_city',
+        'warehouse_region',
     ];
 
     /**

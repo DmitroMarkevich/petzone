@@ -9,37 +9,34 @@ use Illuminate\Http\JsonResponse;
 
 class AddressController extends Controller
 {
-    private AddressService $novaPostService;
+    private AddressService $addressService;
 
-    /**
-     * @param AddressService $novaPostService
-     */
-    public function __construct(AddressService $novaPostService)
+    public function __construct(AddressService $addressService)
     {
-        $this->novaPostService = $novaPostService;
+        $this->addressService = $addressService;
     }
 
     /**
-     * Search for cities by name using Nova Post API.
+     * Search for cities by name.
      */
     public function searchCities(Request $request): JsonResponse
     {
         $searchTerm = $request->query('search', '');
 
-        $cities = $this->novaPostService->searchCities($searchTerm);
+        $cities = $this->addressService->searchCities($searchTerm);
 
         return response()->json($cities);
     }
 
     /**
-     * Search for streets in a specific city using Nova Post API.
+     * Search for streets in a specific city.
      */
     public function searchStreets(Request $request): JsonResponse
     {
-        $cityRef = $request->query('cityRef', '');
         $searchTerm = $request->query('search', '');
+        $cityRef = $request->query('cityRef', '');
 
-        $streets = $this->novaPostService->searchStreets($cityRef, $searchTerm);
+        $streets = $this->addressService->searchStreets($cityRef, $searchTerm);
 
         return response()->json($streets);
     }

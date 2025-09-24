@@ -2,6 +2,7 @@
 
 namespace App\Services\Profile;
 
+use App\DTO\AddressData;
 use App\Models\User;
 use App\DTO\ProfileData;
 use App\Traits\FileUploadTrait;
@@ -13,13 +14,15 @@ class ProfileService
 
     public function updateProfile(User $user, ProfileData $dto): void
     {
-        if ($dto->userData) {
-            $user->update($dto->userData);
-        }
+        $user->update($dto->toArray());
+    }
 
-        if ($dto->addressData) {
-            $user->address()->updateOrCreate(['user_id' => $user->id], $dto->addressData);
-        }
+    public function updateAddress(User $user, AddressData $dto): void
+    {
+        $user->address()->updateOrCreate(
+            ['user_id' => $user->id],
+            $dto->toArray()
+        );
     }
 
     public function updateAvatar(User $user, UploadedFile $file): string

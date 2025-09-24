@@ -3,20 +3,17 @@
 namespace App\Http\Controllers\Checkout;
 
 use App\Http\Controllers\Controller;
-use App\Services\Delivery\MeestService;
-use App\Services\Delivery\NovaPostService;
-use Illuminate\Http\Request;
+use App\Services\Delivery\Factory\DeliveryServiceFactory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
-    private MeestService $meestService;
-    private NovaPostService $novaPostService;
+    protected DeliveryServiceFactory $deliveryServiceFactory;
 
-    public function __construct(MeestService $meestService, NovaPostService $novaPostService)
+    public function __construct(DeliveryServiceFactory $deliveryServiceFactory)
     {
-        $this->meestService = $meestService;
-        $this->novaPostService = $novaPostService;
+        $this->deliveryServiceFactory = $deliveryServiceFactory;
     }
 
     /**
@@ -24,19 +21,16 @@ class DeliveryController extends Controller
      */
     public function getWarehouses(Request $request): JsonResponse
     {
-        $defCityRef = $request->user()?->address?->ref_delivery_city;
-        $cityRef = $request->query('cityRef', $defCityRef);
-
+        $city = $request->user()?->address?->city_ref;
         $deliveryMethod = $request->query('delivery_method');
 
-        $warehouses = [];
+        $service = $this->deliveryServiceFactory->getService($deliveryMethod);
 
-        if ($deliveryMethod == 'nova_post') {
-            $warehouses1 = $this->novaPostService->getWarehouses($cityRef);
-            $warehouses = $this->novaPostService->filterWarehousesByTypes($warehouses1, '9a68df70-0267-42a8-bb5c-37f427e36ee4');
-        } elseif ($deliveryMethod == 'meest') {
-            $warehouses = $this->meestService->getWarehouses($cityRef);
+        if (!$service) {
+            return response()->json(['error' => 'Unsupported delivery method'], 400);
         }
+
+        $warehouses = $service->getWarehouses($city);
 
         return response()->json($warehouses);
     }
