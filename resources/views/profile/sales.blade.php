@@ -70,7 +70,7 @@
                             </div>
                         </div>
 
-                        <div class="advert-details" x-show="open" x-transition>
+                        <div class="advert-details" x-show="open" x-transition x-cloak>
                             <div class="details-section">
                                 <h4 class="details-title">Інформація про покупця</h4>
                                 <div class="details-list">

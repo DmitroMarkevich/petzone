@@ -8,7 +8,7 @@
         <a class="link-edit" @click="startEdit">Змінити</a>
     </div>
 
-    <div class="profile-section" x-show="editing" x-transition>
+    <div class="profile-section" x-show="editing" x-transition x-cloak>
         <div class="form-row">
             <div class="form-group">
                 <x-form.input type="text" name="recipient_first_name" label="Ім'я"

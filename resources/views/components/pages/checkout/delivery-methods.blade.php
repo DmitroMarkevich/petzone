@@ -15,7 +15,7 @@
             <span class="delivery-price">50 грн</span>
         </div>
 
-        <div class="delivery-extra" x-show="selectedMethod === 'NOVA_POST_SELF_PICKUP'">
+        <div class="delivery-extra" x-show="selectedMethod === 'NOVA_POST_SELF_PICKUP'" x-cloak>
             <input type="text"
                    class="dropdown-input"
                    :readonly="deliveryServices.nova_post.selected && !deliveryServices.nova_post.dropdownVisible"
@@ -50,7 +50,7 @@
             </span>
         </div>
 
-        <div class="delivery-extra" x-show="selectedMethod === 'MEEST_SELF_PICKUP'">
+        <div class="delivery-extra" x-show="selectedMethod === 'MEEST_SELF_PICKUP'" x-cloak>
             <input type="text"
                    class="dropdown-input"
                    :readonly="deliveryServices.meest.selected && !deliveryServices.meest.dropdownVisible"
