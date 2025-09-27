@@ -2,42 +2,25 @@
 
 namespace Database\Factories\Advert;
 
-use App\Models\Advert\Category;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Advert\Category>
  */
 class CategoryFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
-        $parentId = null;
-
-        if ($this->faker->boolean()) {
-            $parentId = Category::inRandomOrder()->value('id');
-        }
-
-        return [
-            'parent_id' => $parentId,
-            'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-        ];
+        return [];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    public function withData(string $name, ?string $parentId = null): static
     {
-        return $this->state(fn(array $attributes) => [
-            'email_verified_at' => null,
+        return $this->state(fn () => [
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'parent_id' => $parentId,
         ]);
     }
 }

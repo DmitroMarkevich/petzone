@@ -32,10 +32,11 @@ class AdvertController extends Controller
     public function index(Request $request): Factory|View|Application
     {
         $userId = $request->user()->id;
-        $query = $request->input('query');
         $sort = $request->input('sort');
+        $query = $request->input('query');
+        $category = $request->input('category');
 
-        $adverts = $this->advertService->getAdverts($query, $userId, $sort);
+        $adverts = $this->advertService->getAdverts($query, $userId, $sort, $category);
         $adverts->getCollection()->transform(function ($advert) {
             $advert->in_wishlist = $advert->wishlists->isNotEmpty();
             return $advert;

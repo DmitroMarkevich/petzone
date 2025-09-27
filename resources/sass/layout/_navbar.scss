@@ -46,40 +46,56 @@ header {
 }
 
 .category-menu {
-    display: none;
     position: absolute;
+    font-family: variables.$font-family-alt;
     background: variables.$light-background;
+    border: 1px solid #ddd;
     width: 230px;
     top: 55px;
     left: 0;
     z-index: 100;
 
-    li {
-        cursor: pointer;
+    .category-item {
         padding: 8px 16px;
+        cursor: pointer;
 
         &:hover {
             background-color: variables.$orange;
+        }
+
+        .subcategory-list {
+            position: absolute;
+            background: variables.$light-background;
+            border: 1px solid #ddd;
+            left: 100%;
+
+            li {
+                padding: 8px 16px;
+                white-space: nowrap;
+
+                &:hover {
+                    background-color: variables.$orange;
+                }
+            }
         }
     }
 
     a {
         @include mixins.flex-center-vertical;
         @include mixins.font-style(18px, variables.$carbon);
-        font-family: variables.$font-family-alt;
+        justify-content: space-between;
+        width: 100%;
         gap: 10px;
 
-        &::after {
+        &.has-children::after {
+            display: inline-block;
             @include mixins.size(24px);
             content: '';
             background-image: url('/public/images/greater-than.svg');
-            margin-left: auto;
+            background-repeat: no-repeat;
+            background-position: center;
         }
     }
-}
-
-.category-menu.active {
-    display: block;
 }
 
 .search-btn {
@@ -133,9 +149,8 @@ header {
     padding: 0;
 
     span {
+        @include mixins.size(100%, 3px);
         display: block;
-        height: 3px;
-        width: 100%;
         background-color: variables.$carbon;
         border-radius: 2px;
     }
@@ -151,7 +166,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
 

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\DTO\AdvertData;
 use App\Models\Advert\Advert;
+use App\Models\Advert\Category;
 use App\Enum\AdvertSortOption;
 use App\Traits\FileUploadTrait;
 use Illuminate\Support\Collection;
@@ -26,19 +27,40 @@ class AdvertService
         ?string $query = null,
         ?string $userId = null,
         ?string $sort = null,
+        ?string $category = null,
         int $perPage = 10
     ): LengthAwarePaginator {
         $builder = $query ? Advert::search($query) : Advert::query();
+
+        if ($category) {
+            $categoryModel = Category::where('slug', $category)->first();
+
+            if ($categoryModel) {
+                if ($categoryModel->children()->exists()) {
+                    $ids = $categoryModel->children()->pluck('id')->toArray();
+                    $ids[] = $categoryModel->id;
+
+                    $builder->whereIn('category_id', $ids);
+                } else {
+                    $builder->where('category_id', $categoryModel->id);
+                }
+            }
+        }
 
         $sortOption = AdvertSortOption::tryFromRequest($sort);
 
         if ($sortOption) {
             $builder = $sortOption->apply($builder);
-        } elseif (!$query) {
+        } elseif (!$query && !$category) {
             $builder = $builder->inRandomOrder();
         }
 
-        $paginator = $builder->paginate($perPage);
+        $paginator = $builder->paginate($perPage)->appends([
+            'query'    => $query,
+            'sort'     => $sort,
+            'category' => $category,
+        ]);
+
         $paginator->getCollection()->load([
             'images' => fn($q) => $q->where('main_image', true),
             'wishlists' => fn($q) => $q->when($userId, fn($q) => $q->where('user_id', $userId)),
