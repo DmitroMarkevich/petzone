@@ -12,15 +12,32 @@ class CategoryFactory extends Factory
 {
     public function definition(): array
     {
-        return [];
+        return [
+            'id'         => Str::uuid()->toString(),
+            'name'       => $this->faker->word(),
+            'slug'       => $this->faker->slug(),
+            'parent_id'  => null,
+            'position'   => 0,
+        ];
     }
 
-    public function withData(string $name, ?string $parentId = null): static
+    public function withParent(string $parentId, int $position = 0): static
     {
         return $this->state(fn () => [
-            'name' => $name,
-            'slug' => Str::slug($name),
+            'id'        => Str::uuid()->toString(),
             'parent_id' => $parentId,
+            'position'  => $position,
+        ]);
+    }
+
+    public function withData(array $data, ?string $parentId = null, int $position = 0): static
+    {
+        return $this->state(fn () => [
+            'id'         => Str::uuid()->toString(),
+            'parent_id'  => $parentId,
+            'name'       => $data['name'],
+            'slug'       => $data['slug'],
+            'position'   => $position,
         ]);
     }
 }

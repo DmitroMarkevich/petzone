@@ -47,53 +47,87 @@ header {
 
 .category-menu {
     position: absolute;
+    top: 55px;
+    left: 0;
     font-family: variables.$font-family-alt;
     background: variables.$light-background;
     border: 1px solid #ddd;
-    width: 230px;
-    top: 55px;
-    left: 0;
     z-index: 100;
 
     .category-item {
+        position: relative;
         padding: 8px 16px;
-        cursor: pointer;
 
         &:hover {
             background-color: variables.$orange;
         }
 
-        .subcategory-list {
-            position: absolute;
-            background: variables.$light-background;
-            border: 1px solid #ddd;
-            left: 100%;
+        > a {
+            @include mixins.flex-center-vertical;
+            @include mixins.font-style(18px, variables.$carbon);
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
 
-            li {
-                padding: 8px 16px;
-                white-space: nowrap;
-
-                &:hover {
-                    background-color: variables.$orange;
-                }
+            &.has-children::after {
+                @include mixins.size(20px);
+                content: '';
+                background-image: url('/public/images/greater-than.svg');
+                background-repeat: no-repeat;
+                background-position: center;
             }
         }
-    }
 
-    a {
-        @include mixins.flex-center-vertical;
-        @include mixins.font-style(18px, variables.$carbon);
-        justify-content: space-between;
-        width: 100%;
-        gap: 10px;
+        .mega-menu {
+            position: absolute;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: min-content;
+            top: 0;
+            left: 100%;
+            padding: 12px;
+            background: variables.$light-background;
+            border: 1px solid #ddd;
 
-        &.has-children::after {
-            display: inline-block;
-            @include mixins.size(24px);
-            content: '';
-            background-image: url('/public/images/greater-than.svg');
-            background-repeat: no-repeat;
-            background-position: center;
+            .mega-menu-with-children {
+                display: grid;
+                grid-auto-flow: column;
+                grid-auto-columns: min-content;
+                gap: 32px;
+            }
+
+            .mega-menu-no-children {
+                @include mixins.flex-column;
+                gap: 24px;
+
+                a { margin-bottom: 0 !important }
+            }
+
+            .mega-menu-col {
+                text-align: left;
+
+                > .subcategory-link {
+                    @include mixins.font-style(18px, variables.$blue, 400);
+                    display: inline-block;
+                    white-space: nowrap;
+                    margin-bottom: 16px;
+
+                    &:hover {
+                        color: variables.$orange;
+                    }
+                }
+            }
+
+            a.mega-link {
+                @include mixins.flex-column;
+                @include mixins.font-style(16px, variables.$carbon, 400);
+                margin-bottom: 8px;
+                text-align: left;
+
+                &:hover {
+                    color: variables.$orange;
+                }
+            }
         }
     }
 }
@@ -230,17 +264,12 @@ header {
         display: none !important;
     }
 
-    .logo {
-        z-index: 1;
-    }
-
     .search-btn-mobile {
         display: block;
         position: absolute;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        z-index: 2;
     }
 
     .mobile-footer {
@@ -252,16 +281,14 @@ header {
         bottom: 0;
         left: 0;
         z-index: 100;
-        font-weight: 500;
         font-family: variables.$font-family-alt;
         background: variables.$light-background;
 
         a {
             @include mixins.flex-column();
+            @include mixins.font-style(12px, variables.$carbon, 500);
             align-items: center;
             position: relative;
-            font-size: 12px;
-            color: variables.$carbon;
 
             .badge {
                 top: -5px;

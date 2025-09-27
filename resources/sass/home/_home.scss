@@ -67,6 +67,7 @@
 
 .section-title {
     @include mixins.font-style(36px, variables.$dark-graphite, 500);
+    margin-top: 0;
     margin-bottom: 30px;
 }
 
@@ -97,8 +98,7 @@
     width: 100px;
 }
 
-.category-item,
-.why-us-item {
+.category-item, .why-us-item {
     @include mixins.flex-grow-1;
     @include mixins.flex-center(column);
     @include mixins.font-style(24px, variables.$carbon, 500);
@@ -108,6 +108,11 @@
 
 .category-item a {
     color: variables.$carbon;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: variables.$orange;
+    }
 }
 
 .section-container {

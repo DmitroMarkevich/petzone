@@ -51,7 +51,7 @@ class Advert extends Model
     public function getMainImageAttribute(): string
     {
         return Cache::remember("advert_main_image:$this->id", 60, function () {
-            return image_url($this->images->first()?->image_path, 'images/default.png');
+            return image_url($this->images->first()?->image_path, 'images/advert/default.png');
         });
     }
 

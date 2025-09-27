@@ -21,57 +21,14 @@
                 <h2 class="section-title">Підберіть товари для вашого улюбленця</h2>
 
                 <div class="section-container categories">
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/dog.png') }}" alt="Собака" class="category-image">
-                            <h4 class="category-title">Для Собак</h4>
-                        </a>
-                    </div>
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/cat.png') }}" alt="Кіт" class="category-image">
-                            <h4 class="category-title">Для Котів</h4>
-                        </a>
-                    </div>
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/hamster.png') }}" alt="Гризун" class="category-image">
-                            <h4 class="category-title">Для Гризунів</h4>
-                        </a>
-                    </div>
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/parrot.png') }}" alt="Птах" class="category-image">
-                            <h4 class="category-title">Для Птахів</h4>
-                        </a>
-                    </div>
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/fish.png') }}" alt="Риба" class="category-image">
-                            <h4 class="category-title">Для Риб</h4>
-                        </a>
-                    </div>
-                    <div class="category-item">
-                        <a href="" class="category-item">
-                            <img src="{{ asset('images/home/reptile.png') }}" alt="Рептилія" class="category-image">
-                            <h4 class="category-title">Для Рептилій</h4>
-                        </a>
-                    </div>
-
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/medicinal.png') }}" alt="Загальні товари"
-                                 class="category-image">
-                            <h4 class="category-title">Загальні Товари</h4>
-                        </a>
-                    </div>
-
-                    <div class="category-item">
-                        <a href="">
-                            <img src="{{ asset('images/home/another.png') }}" alt="Інше" class="category-image">
-                            <h4 class="category-title">Інші Товари</h4>
-                        </a>
-                    </div>
+                    @foreach($categories as $category)
+                        <div class="category-item">
+                            <a href="{{ route('advert.index', ['category' => $category->slug]) }}">
+                                <img src="{{ asset('images/home/categories/' . $category->slug . '.png') }}" alt="{{ $category->name }}">
+                                <h4 class="category-title">{{ $category->name }}</h4>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </section>
 
@@ -141,7 +98,7 @@
 
                 <div class="section-container">
                     <div class="delivery-step-item">
-                        <img src="{{ asset('images/home/01.svg') }}" alt="">
+                        <img src="{{ asset('images/home/delivery/01.svg') }}" alt="">
                         <h4 class="delivery-step-title">Переглянь оголошення</h4>
                         <p class="delivery-step-description">
                             Знайди ідеальний продукт для свого вихованця, який відповідає всім твоїм потребам.
@@ -153,11 +110,11 @@
                         <p class="delivery-step-description">
                             Вибери зручний спосіб доставки: Нова Пошта або Укрпошта.
                         </p>
-                        <img src="{{ asset('images/home/02.svg') }}" alt="">
+                        <img src="{{ asset('images/home/delivery/02.svg') }}" alt="">
                     </div>
 
                     <div class="delivery-step-item">
-                        <img src="{{ asset('images/home/03.svg') }}" alt="">
+                        <img src="{{ asset('images/home/delivery/03.svg') }}" alt="">
                         <h4 class="delivery-step-title">Відстежуй своє замовлення</h4>
                         <p class="delivery-step-description">
                             Отримай номер для відстеження та контролюй кожен крок процесу доставки.
@@ -169,7 +126,7 @@
                         <p class="delivery-step-description">
                             Забери замовлення на пошті, оглянь та оплати при отриманні.
                         </p>
-                        <img src="{{ asset('images/home/04.svg') }}" alt="">
+                        <img src="{{ asset('images/home/delivery/04.svg') }}" alt="">
                     </div>
                 </div>
             </section>
@@ -179,27 +136,27 @@
 
                 <div class="section-container">
                     <div class="why-us-item">
-                        <img src="{{ asset('images/home/quality.png') }}" alt="Продукти високої якості">
+                        <img src="{{ asset('images/home/why-us/quality.png') }}" alt="Продукти високої якості">
                         <h4 class="why-us-title">Продукти високої якості</h4>
                     </div>
 
                     <div class="why-us-item">
-                        <img src="{{ asset('images/home/sellers.png') }}" alt="Прямий зв'язок з продавцями">
+                        <img src="{{ asset('images/home/why-us/sellers.png') }}" alt="Прямий зв'язок з продавцями">
                         <h4 class="why-us-title">Прямий зв'язок з продавцями</h4>
                     </div>
 
                     <div class="why-us-item">
-                        <img src="{{ asset('images/home/choice.png') }}" alt="Широкий вибір">
+                        <img src="{{ asset('images/home/why-us/choice.png') }}" alt="Широкий вибір">
                         <h4 class="why-us-title">Широкий вибір</h4>
                     </div>
 
                     <div class="why-us-item">
-                        <img src="{{ asset('images/home/delivery.png') }}" alt="Гнучкі варіанти доставки">
+                        <img src="{{ asset('images/home/why-us/delivery.png') }}" alt="Гнучкі варіанти доставки">
                         <h4 class="why-us-title">Гнучкі варіанти доставки</h4>
                     </div>
 
                     <div class="why-us-item">
-                        <img src="{{ asset('images/home/reviews.png') }}" alt="Відгуки та рейтинги">
+                        <img src="{{ asset('images/home/why-us/reviews.png') }}" alt="Відгуки та рейтинги">
                         <h4 class="why-us-title">Відгуки та рейтинги</h4>
                     </div>
                 </div>
@@ -213,10 +170,6 @@
             justify-content: space-between;
             align-items: center;
             gap: 20px;
-        }
-
-        .section-title {
-            margin: 0;
         }
 
         .scroll-buttons {

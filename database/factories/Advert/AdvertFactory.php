@@ -2,10 +2,9 @@
 
 namespace Database\Factories\Advert;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\Advert\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Advert\Advert>
@@ -43,13 +42,5 @@ class AdvertFactory extends Factory
             'price_changed_at' => $priceChangedAt,
             'is_active' => $this->faker->boolean(90),
         ];
-    }
-
-    public function configure(): AdvertFactory|Factory
-    {
-        return $this->afterCreating(function ($advert) {
-            $testImageUrl = 'advert/9f95c0d0-f084-4f15-a378-ad95094abe37/qfkaJpt9Gm4giWoFbli4CB55YJ795CDJFVq8jgLe.jpg';
-            $advert->images()->create(['image_path' => $testImageUrl, 'main_image' => true]);
-        });
     }
 }

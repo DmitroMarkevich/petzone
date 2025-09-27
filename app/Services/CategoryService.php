@@ -16,10 +16,17 @@ class CategoryService
         $this->cacheService = $cacheService;
     }
 
+    public function getParents(): Collection
+    {
+        return $this->cacheService->remember('categories_menu', function () {
+            return Category::whereNull('parent_id')->orderBy('position')->get();
+        });
+    }
+
     public function getTree(): Collection
     {
         return $this->cacheService->remember('categories_menu', function () {
-            return $this->buildTree(Category::orderBy('name')->get());
+            return $this->buildTree(Category::orderBy('position')->get());
         }, $this->cacheTtl);
     }
 

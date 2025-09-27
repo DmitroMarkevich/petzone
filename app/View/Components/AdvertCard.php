@@ -14,6 +14,7 @@ class AdvertCard extends Component
     public string $heartIcon;
     public bool $isInWishlist;
     public bool $small;
+    public string $imageUrl;
 
     /**
      * Create a new component instance.
@@ -27,10 +28,15 @@ class AdvertCard extends Component
         $whole = floor($rating);
         $this->starsToShow = (int) ($rating - $whole) > 0.6 ? $whole + 1 : $whole;
 
+
         $this->isInWishlist = $this->advert->in_wishlist;
         $this->heartIcon = $this->isInWishlist
             ? asset('images/heart-filled.svg')
             : asset('images/heart.svg');
+
+        $this->imageUrl = $this->advert->mainImage
+            ? $this->advert->mainImage
+            : asset('images/advert-default.jpg');
     }
 
     /**
@@ -44,6 +50,7 @@ class AdvertCard extends Component
             'starsToShow' => $this->starsToShow,
             'isInWishlist' => $this->isInWishlist,
             'small' => $this->small,
+            'imageUrl'     => $this->imageUrl,
         ]);
     }
 }

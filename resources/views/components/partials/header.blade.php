@@ -18,42 +18,7 @@
 
         <form action="{{ route('advert.index') }}" method="GET">
             <div class="input-group">
-                <div
-                    class="category-wrapper"
-                    x-data="{ categoryOpen: false, closeTimeout: null }"
-                    @mouseenter="clearTimeout(closeTimeout); categoryOpen = true"
-                    @mouseleave="closeTimeout = setTimeout(() => categoryOpen = false, 150)"
-                >
-                    <button class="category-btn" type="button" aria-label="Категорії">
-                        <img src="{{ asset('images/header/category.svg') }}" alt="Категорії">Категорії
-                    </button>
-
-                    <div class="category-menu" x-show="categoryOpen" x-transition x-cloak>
-                        <ul class="category-list">
-                            @foreach ($headerCategories as $parent)
-                                <li class="category-item" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                                    <a href="{{ route('advert.index', ['category' => $parent->slug]) }}"
-                                       class="{{ $parent->children->count() ? 'has-children' : '' }}">
-                                        {{ $parent->name }}
-                                    </a>
-
-                                    @if($parent->children->isNotEmpty())
-                                        <ul class="subcategory-list" x-show="open" x-transition x-cloak>
-                                            @foreach ($parent->children as $child)
-                                                <li>
-                                                    <a href="{{ route('advert.index', ['category' => $child->slug]) }}"
-                                                       class="{{ $child->children->count() ? 'has-children' : '' }}">
-                                                        {{ $child->name }}
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
+                <x-partials.category-menu :header-categories="$headerCategories" />
 
                 <input class="search-input" type="search" name="query" placeholder="Я шукаю..."
                        aria-label="Search" value="{{ request('query') }}">

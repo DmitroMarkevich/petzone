@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Services\AdvertService;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
@@ -11,10 +12,12 @@ use Illuminate\Foundation\Application;
 class HomeController
 {
     private AdvertService $advertService;
+    private CategoryService $categoryService;
 
-    public function __construct(AdvertService $advertService)
+    public function __construct(AdvertService $advertService, CategoryService $categoryService)
     {
         $this->advertService = $advertService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -41,6 +44,8 @@ class HomeController
             });
         }
 
-        return view('home', compact('adverts'));
+        $categories = $this->categoryService->getParents();
+
+        return view('home', compact(['adverts', 'categories']));
     }
 }
