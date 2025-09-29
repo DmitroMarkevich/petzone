@@ -3,7 +3,7 @@
 @section('title', 'Результати пошуку')
 
 @section('app-content')
-    <div class="page-container" style="margin-top: 40px">
+    <div class="page-container search-page">
         <div class="breadcrumb">
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/left-arrow.svg') }}" alt="Back">
@@ -11,17 +11,17 @@
             <span>Dogs / Food / Vitamins</span>
         </div>
 
-        <div style="display: flex; gap: 50px">
+        <div class="search-layout">
             <div>
                 <div class="form-row">
                     <h3>Фільтрувати</h3>
-                    <button style="color: #797677">Очистити все</button>
+                    <button class="filter-reset">Очистити все</button>
                 </div>
 
                 <div class="filters-list">
                     <div class="filter-group">
                         <label for="category">Категорія</label>
-                        <select id="category">
+                        <select id="category" class="filter-select">
                             <option>Грумінг</option>
                             <option>Ветеринар</option>
                             <option>Дресирування</option>
@@ -33,27 +33,16 @@
                     <div class="filter-group">
                         <label>Ціна</label>
                         <div class="form-row">
-                            <input type="number" min="0" placeholder="від" id="price-min">
-                            <input type="number" min="0" placeholder="до" id="price-max">
+                            <input type="number" min="0" placeholder="від" id="price-min" class="filter-input">
+                            <input type="number" min="0" placeholder="до" id="price-max" class="filter-input">
                         </div>
-                        <input type="range" min="0" max="10000" step="10" id="price-range">
+                        <input type="range" min="0" max="10000" step="10" id="price-range" class="filter-range">
                     </div>
 
                     <div class="filter-group">
                         <label>Локація
-                            <input type="text" placeholder="Місто / Район">
+                            <input type="text" placeholder="Місто / Район" class="filter-input">
                         </label>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="animal-type">Вид тварини</label>
-                        <select id="animal-type">
-                            <option>Собаки</option>
-                            <option>Коти</option>
-                            <option>Гризуни</option>
-                            <option>Птахи</option>
-                            <option>Рептилії</option>
-                        </select>
                     </div>
                 </div>
             </div>
@@ -63,7 +52,7 @@
                     <p>{{ __('common.nothing_found') }}</p>
                 </div>
             @else
-                <div style="display: flex; flex-direction: column; gap: 30px; width: 100%">
+                <div class="results-section">
                     <div class="form-row">
                         <p>Всього ~{{ $adverts->total() }} результатів</p>
 
@@ -90,21 +79,3 @@
         </div>
     </div>
 @endsection
-
-<style>
-    .filters-list {
-        width: 300px;
-        padding: 20px;
-        border-radius: 16px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    select, input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #E6E1E2;
-        border-radius: 5px;
-        font-size: 14px;
-    }
-
-</style>

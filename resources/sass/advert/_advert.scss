@@ -283,6 +283,37 @@
     margin-top: 10px;
 }
 
+.search-layout {
+    display: flex;
+    gap: 50px;
+}
+
+.filters-list {
+    width: 300px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-select,
+.filter-input,
+.filter-range {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #E6E1E2;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.filter-reset {
+    color: #797677;
+}
+
+.results-section {
+    @include mixins.flex-column;
+    gap: 30px;
+}
+
 @media (max-width: 768px) {
     .advert-main, .advert-extra {
         grid-template-columns: 1fr;
