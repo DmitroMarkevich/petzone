@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Advert;
 
 use App\DTO\AdvertData;
+use App\DTO\AdvertFilter;
 use App\Models\Advert\Advert;
 use App\Services\AdvertService;
 use App\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdvertRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\AdvertFilterRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -29,14 +30,11 @@ class AdvertController extends Controller
     /**
      * Displays a list of adverts with optional search query and sorting.
      */
-    public function index(Request $request): Factory|View|Application
+    public function index(AdvertFilterRequest $request): Factory|View|Application
     {
-        $userId = $request->user()->id;
-        $sort = $request->input('sort');
-        $query = $request->input('query');
-        $category = $request->input('category');
+        $dto = AdvertFilter::fromRequest($request->validated());
 
-        $adverts = $this->advertService->getAdverts($query, $userId, $sort, $category);
+        $adverts = $this->advertService->getAdverts($dto);
         $adverts->getCollection()->transform(function ($advert) {
             $advert->in_wishlist = $advert->wishlists->isNotEmpty();
             return $advert;

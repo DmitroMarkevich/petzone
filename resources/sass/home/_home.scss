@@ -46,8 +46,7 @@
 }
 
 // ===== CONTENT =====
-.content-sections,
-.content-section {
+.content-sections, .content-section {
     @include mixins.flex-column;
 }
 
@@ -58,6 +57,17 @@
 
 .content-section {
     gap: 24px;
+
+    .form-row {
+        @include mixins.flex-center-vertical;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .scroll-buttons {
+        @include mixins.flex-center-vertical;
+        gap: 10px;
+    }
 }
 
 .section-container {

@@ -2,8 +2,8 @@
 
 namespace App\Services\Profile;
 
+use App\Enum\Advert\AdvertSortOption;
 use App\Models\User;
-use App\Enum\AdvertSortOption;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class WishlistService

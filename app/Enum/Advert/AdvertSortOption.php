@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enum;
+namespace App\Enum\Advert;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -12,7 +12,6 @@ enum AdvertSortOption: string
     case PriceDesc = 'price-desc';
     case DateAsc = 'date-asc';
 
-    // Builder|Relation because this method works with Builder or with Relation. Both can use orderBy.
     public function apply(Builder|Relation $query): Relation|Builder
     {
         return match ($this) {
@@ -23,8 +22,8 @@ enum AdvertSortOption: string
         };
     }
 
-    public static function tryFromRequest(?string $sort): ?self
+    public static function tryFromRequest(?string $value): ?self
     {
-        return self::tryFrom($sort);
+        return self::tryFrom($value);
     }
 }

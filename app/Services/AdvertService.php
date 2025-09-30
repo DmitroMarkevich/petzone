@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Models\User;
 use App\DTO\AdvertData;
+use App\DTO\AdvertFilter;
 use App\Models\Advert\Advert;
-use App\Models\Advert\Category;
-use App\Enum\AdvertSortOption;
 use App\Traits\FileUploadTrait;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+
 class AdvertService
 {
     use FileUploadTrait;
@@ -23,47 +23,24 @@ class AdvertService
         $this->cacheService = $cacheService;
     }
 
-    public function getAdverts(
-        ?string $query = null,
-        ?string $userId = null,
-        ?string $sort = null,
-        ?string $category = null,
-        int $perPage = 10
-    ): LengthAwarePaginator {
-        $builder = $query ? Advert::search($query) : Advert::query();
-
-        if ($category) {
-            $categoryModel = Category::where('slug', $category)->first();
-
-            if ($categoryModel) {
-                if ($categoryModel->children()->exists()) {
-                    $ids = $categoryModel->children()->pluck('id')->toArray();
-                    $ids[] = $categoryModel->id;
-
-                    $builder->whereIn('category_id', $ids);
-                } else {
-                    $builder->where('category_id', $categoryModel->id);
-                }
-            }
-        }
-
-        $sortOption = AdvertSortOption::tryFromRequest($sort);
-
-        if ($sortOption) {
-            $builder = $sortOption->apply($builder);
-        } elseif (!$query && !$category) {
-            $builder = $builder->inRandomOrder();
-        }
-
-        $paginator = $builder->paginate($perPage)->appends([
-            'query'    => $query,
-            'sort'     => $sort,
-            'category' => $category,
-        ]);
+    public function getAdverts(AdvertFilter $filter): LengthAwarePaginator
+    {
+        $paginator = Advert::query()
+            ->filterQuery($filter->query)
+            ->filterCategory($filter->category)
+            ->filter($filter->filter)
+            ->filterSort($filter->sort, $filter->query, $filter->category)
+            ->withMainImage()
+            ->paginate($filter->perPage)
+            ->appends([
+                'query'    => $filter->query,
+                'sort'     => $filter->sort,
+                'filter'   => $filter->filter,
+                'category' => $filter->category,
+            ]);
 
         $paginator->getCollection()->load([
-            'images' => fn($q) => $q->where('main_image', true),
-            'wishlists' => fn($q) => $q->when($userId, fn($q) => $q->where('user_id', $userId)),
+            'wishlists' => fn($q) => $q->when($filter->userId, fn($q) => $q->where('user_id', $filter->userId)),
         ]);
 
         return $paginator;
@@ -121,7 +98,7 @@ class AdvertService
 
     public function getPopularAdverts(int $limit = 10): Collection
     {
-        return $this->cacheService->remember("fresh:$limit", fn() =>
+        return $this->cacheService->remember("popular:$limit", fn() =>
             $this->advertBaseQuery()
                 ->withCount('wishlists')
                 ->orderByDesc('wishlists_count')
@@ -132,7 +109,7 @@ class AdvertService
 
     public function getDiscountedAdverts(int $limit = 5): Collection
     {
-        return $this->cacheService->remember("fresh:$limit", fn() =>
+        return $this->cacheService->remember("discounted:$limit", fn() =>
             $this->advertBaseQuery()
                 ->whereColumn('previous_price', '>', 'price')
                 ->limit($limit)

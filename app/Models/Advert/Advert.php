@@ -5,6 +5,8 @@ namespace App\Models\Advert;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Enum\Advert\AdvertSortOption;
+use App\Enum\Advert\AdvertFilterOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -45,26 +47,6 @@ class Advert extends Model
     }
 
     /**
-     * Accessor for the main image of the advert.
-     * Returns the path to the first main image, or a default if none exists.
-     */
-    public function getMainImageAttribute(): string
-    {
-        return Cache::remember("advert_main_image:$this->id", 60, function () {
-            return image_url($this->images->first()?->image_path, 'images/advert/default.png');
-        });
-    }
-
-    /**
-     * Scope to eager load only the main image of the advert.
-     * Usage: Advert::withMainImage()->get();
-     */
-    public function scopeWithMainImage(Builder $query): Builder
-    {
-        return $query->with(['images' => fn($q) => $q->where('main_image', true)]);
-    }
-
-    /**
      * Get the category associated with the advert.
      */
     public function category(): BelongsTo
@@ -100,6 +82,73 @@ class Advert extends Model
         }
 
         return Carbon::parse($this->price_changed_at)->gt(now()->subWeeks(3));
+    }
+
+    /**
+     * Accessor for the main image of the advert.
+     * Returns the path to the first main image, or a default if none exists.
+     */
+    public function getMainImageAttribute(): string
+    {
+        return Cache::remember("advert_main_image:$this->id", 60, function () {
+            return image_url($this->images->first()?->image_path, 'images/advert/default.png');
+        });
+    }
+
+    /**
+     * Scope to eager load only the main image of the advert.
+     * Usage: Advert::withMainImage()->get();
+     */
+    public function scopeWithMainImage(Builder $query): Builder
+    {
+        return $query->with(['images' => fn($q) => $q->where('main_image', true)]);
+    }
+
+    public function scopeFilterQuery(Builder $query, ?string $search): Builder
+    {
+        if (!$search) return $query;
+
+        return $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', "%$search%")
+                ->orWhere('description', 'like', "%$search%");
+        });
+    }
+
+    public function scopeFilterCategory(Builder $query, ?string $slug): Builder
+    {
+        if (!$slug) return $query;
+
+        $category = Category::where('slug', $slug)->first();
+
+        if (!$category) return $query;
+
+        $ids = $category->children()->exists()
+            ? $category->children()->pluck('id')->push($category->id)
+            : [$category->id];
+
+        return $query->whereIn('category_id', $ids);
+    }
+
+    public function scopeFilterSort(Builder $query, ?string $sort, ?string $search = null, ?string $category = null): Builder
+    {
+        $sortOption = AdvertSortOption::tryFromRequest($sort);
+
+        if ($sortOption) {
+            return $sortOption->apply($query);
+        }
+
+        if (!$search && !$category) {
+            return $query->inRandomOrder();
+        }
+
+        return $query;
+    }
+
+    public function scopeFilter(Builder $query, ?string $filter): Builder
+    {
+        $filterOption = AdvertFilterOption::tryFromRequest($filter);
+
+        return $filterOption ? $filterOption->apply($query) : $query;
     }
 
     public function toSearchableArray(): array

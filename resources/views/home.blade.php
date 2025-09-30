@@ -65,7 +65,7 @@
                 <div class="form-row">
                     <h2 class="section-title">Акційні товари</h2>
 
-                    <a href="" class="view-all-button">Дивитись усе
+                    <a href="{{ route('advert.index', ['filter' => 'discounted']) }}" class="view-all-button">Дивитись усе
                         <img src="{{ asset('images/greater-than.svg') }}" alt=">">
                     </a>
                 </div>
@@ -81,7 +81,7 @@
                 <div class="form-row">
                     <h2 class="section-title">Свіжі пропозиції</h2>
 
-                    <a href="" class="view-all-button">Дивитись усе
+                    <a href="{{ route('advert.index', ['filter' => 'fresh']) }}" class="view-all-button">Дивитись усе
                         <img src="{{ asset('images/greater-than.svg') }}" alt=">">
                     </a>
                 </div>
@@ -163,21 +163,6 @@
             </section>
         </div>
     </div>
-
-    <style>
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .scroll-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-    </style>
 @endsection
 
 <script>
