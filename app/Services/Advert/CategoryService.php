@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Advert;
 
 use App\Models\Advert\Category;
+use App\Services\CacheService;
 use Illuminate\Support\Collection;
 
 class CategoryService

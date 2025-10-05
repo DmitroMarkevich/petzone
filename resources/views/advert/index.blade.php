@@ -52,28 +52,29 @@
                     <p>{{ __('common.nothing_found') }}</p>
                 </div>
             @else
-                <div class="results-section">
-                    <div class="form-row">
-                        <p>Всього ~{{ $adverts->total() }} результатів</p>
+                <div style="width: 100%">
+                    <div class="results-section">
+                        <div class="form-row">
+                            <p>Всього ~{{ $adverts->total() }} результатів</p>
 
-                        <x-ui.sort-options :options="[
-                                    'relevance' => 'За релевантністю',
-                                    'price-asc' => 'Від дешевих до дорогих',
-                                    'price-desc' => 'Від дорогих до дешевих',
-                                    'date-asc' => 'Новинки'
-                                ]" :selected="request('sort')"
-                        />
+                            <x-ui.sort-options :options="[
+                                'relevance' => 'За релевантністю',
+                                'price-asc' => 'Від дешевих до дорогих',
+                                'price-desc'=> 'Від дорогих до дешевих',
+                                'date-asc'  => 'Новинки'
+                            ]" :selected="request('sort') ?? 'relevance'" />
+                        </div>
+
+                        <div class="advert-grid">
+                            @foreach($adverts as $advert)
+                                <x-advert-card :advert="$advert"/>
+                            @endforeach
+                        </div>
+
+                        @if($adverts->hasPages())
+                            {{ $adverts->appends(request()->except('page'))->links() }}
+                        @endif
                     </div>
-
-                    <div class="advert-grid">
-                        @foreach($adverts as $advert)
-                            <x-advert-card :advert="$advert"/>
-                        @endforeach
-                    </div>
-
-                    @if($adverts->hasPages())
-                        {{ $adverts->links() }}
-                    @endif
                 </div>
             @endif
         </div>

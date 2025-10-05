@@ -36,22 +36,24 @@ services:
             timeout: 5s
             retries: 5
 
-    meilisearch:
-        image: getmeili/meilisearch:latest
-        container_name: petzone_meilisearch
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+        container_name: petzone_elasticsearch
         restart: unless-stopped
         environment:
-            MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+            - discovery.type=single-node
+            - xpack.security.enabled=false
+            - ES_JAVA_OPTS=-Xms512m -Xmx512m
         ports:
-            - "7700:7700"
+            - "9200:9200"
         volumes:
-            - meili_data:/meili_data
+            - esdata:/usr/share/elasticsearch/data
         networks:
             - laravel
         healthcheck:
-            test: [ "CMD", "curl", "-f", "http://localhost:7700/health" ]
+            test: [ "CMD-SHELL", "curl -s http://localhost:9200/_cluster/health || exit 1" ]
             interval: 10s
-            timeout: 5s
+            timeout: 10s
             retries: 5
 
     app:
@@ -106,7 +108,7 @@ volumes:
     vendor:
     storage:
     redisdata:
-    meili_data:
+    esdata:
     etc-letsencrypt:
 
 networks:

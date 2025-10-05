@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Advert;
 use App\DTO\AdvertData;
 use App\DTO\AdvertFilter;
 use App\Models\Advert\Advert;
-use App\Services\AdvertService;
-use App\Services\CategoryService;
-use App\Http\Controllers\Controller;
+use App\Services\Advert\AdvertService;
+use App\Services\Advert\CategoryService;
 use App\Http\Requests\StoreAdvertRequest;
 use App\Http\Requests\AdvertFilterRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class AdvertController extends Controller
@@ -50,7 +50,8 @@ class AdvertController extends Controller
      */
     public function create(): Factory|View|Application
     {
-        $categories = $this->categoryService->getAll();
+        // $categories = $this->categoryService->getAll();
+        $categories = [];
 
         return view('advert.create', compact('categories'));
     }
@@ -100,7 +101,8 @@ class AdvertController extends Controller
 
         $this->authorize('update', $advert);
 
-        $categories = $this->categoryService->getAll();
+        // $categories = $this->categoryService->getAll();
+        $categories = [];
 
         return view('advert.edit', compact('advert', 'categories'));
     }

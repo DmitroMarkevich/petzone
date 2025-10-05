@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Stripe;
 
 use App\Enum\OrderStatus;
 use App\Models\Order\Order;
 use Stripe\Event;
-use Stripe\Webhook;
 use Stripe\Exception\SignatureVerificationException;
+use Stripe\Webhook;
 
 class StripeWebhookService
 {

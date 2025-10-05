@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Services\AdvertService;
-use App\Services\CategoryService;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
+use App\Services\Advert\AdvertService;
+use App\Services\Advert\CategoryService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 
 class HomeController
 {

@@ -22,7 +22,7 @@ class AdvertFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sort' => ['nullable', 'in:price-asc,price-desc,rating,newest'],
+            'sort' => ['nullable', 'in:relevance,price-asc,price-desc,date-asc'],
             'query' => ['nullable', 'string', 'max:255'],
             'category' => ['nullable', 'string', 'max:255'],
             'filter' => ['nullable', 'in:discounted,fresh'],

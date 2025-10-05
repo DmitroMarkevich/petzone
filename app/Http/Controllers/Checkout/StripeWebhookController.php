@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Checkout;
 
 use App\Http\Controllers\Controller;
-use App\Services\StripeWebhookService;
-use UnexpectedValueException;
+use App\Services\Stripe\StripeWebhookService;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Stripe\Exception\SignatureVerificationException;
+use UnexpectedValueException;
 
 class StripeWebhookController extends Controller
 {

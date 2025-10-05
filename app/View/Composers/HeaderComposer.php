@@ -2,9 +2,9 @@
 
 namespace App\View\Composers;
 
-use App\Services\CategoryService;
-use Illuminate\View\View;
+use App\Services\Advert\CategoryService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class HeaderComposer
 {

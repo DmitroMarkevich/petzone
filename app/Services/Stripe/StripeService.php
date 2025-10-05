@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Stripe;
 
-use App\Models\Order\Order;
 use App\Models\Advert\Advert;
-use Stripe\Stripe;
+use App\Models\Order\Order;
 use Stripe\Checkout\Session as StripeSession;
+use Stripe\Stripe;
 
 class StripeService
 {
