@@ -289,15 +289,22 @@
 }
 
 .filters-list {
+    @include mixins.flex-column;
+    gap: 20px;
     width: 300px;
     padding: 20px;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: variables.$font-family-alt;
+}
+
+.filter-group {
+    @include mixins.flex-column;
+    gap: 8px;
 }
 
 .filter-select,
-.filter-input,
-.filter-range {
+.filter-input {
     width: 100%;
     padding: 8px;
     border: 1px solid #E6E1E2;
@@ -312,6 +319,30 @@
 .results-section {
     @include mixins.flex-column;
     gap: 30px;
+}
+
+.slider-wrapper {
+    position: relative;
+    height: 8px;
+    background: #eee;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.slider-range {
+    position: absolute;
+    background: variables.$orange;
+    height: 100%;
+}
+
+.slider-thumb {
+    @include mixins.size(20px);
+    position: absolute;
+    top: -6px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: variables.$orange;
+    transform: translateX(-50%);
 }
 
 @media (max-width: 768px) {

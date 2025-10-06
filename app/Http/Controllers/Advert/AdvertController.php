@@ -40,7 +40,10 @@ class AdvertController extends Controller
             return $advert;
         });
 
-        return view('advert.index', compact('adverts'));
+        // todo: the max price shouldn't be returned for all adverts
+        $maxPrice = Advert::max('price');
+
+        return view('advert.index', compact('adverts', 'maxPrice'));
     }
 
     /**

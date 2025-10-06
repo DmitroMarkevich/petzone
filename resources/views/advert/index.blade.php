@@ -12,57 +12,48 @@
         </div>
 
         <div class="search-layout">
-            <div>
-                <div class="form-row">
-                    <h3>Фільтрувати</h3>
-                    <button class="filter-reset">Очистити все</button>
-                </div>
+            <form id="filter-form" method="GET" action="{{ route('advert.index') }}">
+                @foreach(request()->except(['page', 'price_min', 'price_max', 'category', 'location']) as $key => $value)
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
 
                 <div class="filters-list">
-                    <div class="filter-group">
-                        <label for="category">Категорія</label>
-                        <select id="category" class="filter-select">
-                            <option>Грумінг</option>
-                            <option>Ветеринар</option>
-                            <option>Дресирування</option>
-                            <option>Готель для тварин</option>
-                            <option>Вигул</option>
+                    <div class="form-row">
+                        <h3>Фільтрувати</h3>
+                        <button type="button" class="filter-reset">Очистити все</button>
+                    </div>
+
+                    <x-ui.filter-group label="Категорія">
+                        <select name="category" class="filter-select">
+                            <option value="">Всі категорії</option>
                         </select>
-                    </div>
+                    </x-ui.filter-group>
 
-                    <div class="filter-group">
-                        <label>Ціна</label>
-                        <div class="form-row">
-                            <input type="number" min="0" placeholder="від" id="price-min" class="filter-input">
-                            <input type="number" min="0" placeholder="до" id="price-max" class="filter-input">
-                        </div>
-                        <input type="range" min="0" max="10000" step="10" id="price-range" class="filter-range">
-                    </div>
+                    <x-ui.price-slider :max="$maxPrice"/>
 
-                    <div class="filter-group">
-                        <label>Локація
-                            <input type="text" placeholder="Місто / Район" class="filter-input">
-                        </label>
-                    </div>
+                    <x-ui.filter-group label="Локація">
+                        <input type="text" name="location" value="{{ request('location') }}" placeholder="Місто" class="filter-input">
+                    </x-ui.filter-group>
+
+                    <button type="submit" class="modal-search-btn">Пошук</button>
                 </div>
-            </div>
+            </form>
 
-            @if($adverts->isEmpty())
-                <div class="no-results" style="flex: 1; width: 100%">
-                    <p>{{ __('common.nothing_found') }}</p>
-                </div>
-            @else
-                <div style="width: 100%">
+            <div style="width: 100%">
+                @if($adverts->isEmpty())
+                    <div class="no-results" style="flex: 1; width: 100%">
+                        <p>{{ __('common.nothing_found') }}</p>
+                    </div>
+                @else
                     <div class="results-section">
                         <div class="form-row">
                             <p>Всього ~{{ $adverts->total() }} результатів</p>
-
                             <x-ui.sort-options :options="[
                                 'relevance' => 'За релевантністю',
                                 'price-asc' => 'Від дешевих до дорогих',
                                 'price-desc'=> 'Від дорогих до дешевих',
                                 'date-asc'  => 'Новинки'
-                            ]" :selected="request('sort') ?? 'relevance'" />
+                            ]" :selected="request('sort') ?? 'relevance'"/>
                         </div>
 
                         <div class="advert-grid">
@@ -75,8 +66,76 @@
                             {{ $adverts->appends(request()->except('page'))->links() }}
                         @endif
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('filter-form');
+
+            form.addEventListener('submit', () => {
+                form.querySelectorAll('input, select').forEach(input => {
+                    if (!input.value.trim()) input.removeAttribute('name');
+                });
+            });
+
+            document.querySelector('.filter-reset').addEventListener('click', () => {
+                form.reset();
+                form.submit();
+            });
+        });
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('rangeSlider', ({ min, max, priceMin, priceMax }) => ({
+                min, max,
+                priceMin, priceMax,
+                percentMin: 0,
+                percentMax: 100,
+                minGap: 100,
+
+                init() {
+                    this.updatePercents();
+                },
+
+                updatePercents() {
+                    const range = this.max - this.min;
+                    this.percentMin = Math.max(0, Math.min(100, ((this.priceMin - this.min) / range) * 100));
+                    this.percentMax = Math.max(0, Math.min(100, ((this.priceMax - this.min) / range) * 100));
+                },
+
+                startDrag(handle, event) {
+                    const slider = event.target.closest('.slider-wrapper');
+
+                    const onMove = e => {
+                        const rect = slider.getBoundingClientRect();
+                        let percent = ((e.clientX - rect.left) / rect.width) * 100;
+                        percent = Math.max(0, Math.min(100, percent));
+                        const value = this.min + ((this.max - this.min) * percent / 100);
+
+                        if (handle === 'min') {
+                            if (value >= this.priceMax - this.minGap) return;
+                            this.priceMin = Math.round(value);
+                        } else {
+                            if (value <= this.priceMin + this.minGap) return;
+                            this.priceMax = Math.round(value);
+                        }
+                        this.updatePercents();
+                    };
+
+                    const stopDrag = () => {
+                        window.removeEventListener('mousemove', onMove);
+                        window.removeEventListener('mouseup', stopDrag);
+                    };
+
+                    window.addEventListener('mousemove', onMove);
+                    window.addEventListener('mouseup', stopDrag);
+                }
+            }));
+        });
+    </script>
+@endpush
+

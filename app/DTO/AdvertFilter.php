@@ -2,7 +2,6 @@
 
 namespace App\DTO;
 
-use App\Http\Requests\AdvertFilterRequest;
 use Spatie\LaravelData\Data;
 
 class AdvertFilter extends Data
@@ -13,6 +12,8 @@ class AdvertFilter extends Data
         public ?string $query,
         public ?string $category,
         public ?string $filter,
+        public ?float $price_min = null,
+        public ?float $price_max = null,
         public int $perPage = 10,
     ) {}
 
@@ -24,6 +25,8 @@ class AdvertFilter extends Data
             query: $validated['query'] ?? null,
             category: $validated['category'] ?? null,
             filter: $validated['filter'] ?? null,
+            price_min: $validated['price_min'] ?? null,
+            price_max: $validated['price_max'] ?? null,
             perPage: $validated['perPage'] ?? 10,
         );
     }

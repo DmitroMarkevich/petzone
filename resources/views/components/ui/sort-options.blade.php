@@ -12,8 +12,8 @@
           }
       }"
       x-ref="sortForm"
-      id="sort-form">
-
+      id="sort-form"
+>
     <label for="sort-options"></label>
     <select name="sort" class="sort-options" id="sort-options" x-model="sortValue" @change="submitForm()">
         @foreach($options as $value => $text)
@@ -27,7 +27,3 @@
         <input type="hidden" name="{{ $key }}" value="{{ $value }}">
     @endforeach
 </form>
-
-<style>
-
-</style>

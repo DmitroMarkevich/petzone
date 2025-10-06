@@ -154,8 +154,8 @@ return [
         'index-settings' => [
             'adverts' => [
                 'searchableAttributes' => ['title', 'description'],
-                'filterableAttributes' => ['user_id', 'status', 'category_id', 'has_discount'],
                 'sortableAttributes' => ['price', 'created_at'],
+                'filterableAttributes' => ['user_id', 'status', 'category_id', 'has_discount', 'price'],
                 'rankingRules' => ['sort', 'words', 'typo', 'proximity', 'attribute', 'exactness'],
             ],
         ],

@@ -26,6 +26,8 @@ class AdvertFilterRequest extends FormRequest
             'query' => ['nullable', 'string', 'max:255'],
             'category' => ['nullable', 'string', 'max:255'],
             'filter' => ['nullable', 'in:discounted,fresh'],
+            'price_min'  => ['nullable', 'numeric', 'min:0'],
+            'price_max'  => ['nullable', 'numeric', 'min:0'],
         ];
     }
 }
