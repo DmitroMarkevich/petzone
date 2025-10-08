@@ -53,8 +53,7 @@ class AdvertController extends Controller
      */
     public function create(): Factory|View|Application
     {
-        // $categories = $this->categoryService->getAll();
-        $categories = [];
+        $categories = $this->categoryService->getParents();
 
         return view('advert.create', compact('categories'));
     }
@@ -66,12 +65,6 @@ class AdvertController extends Controller
     {
         $dto = AdvertData::from($request->except('images'));
         $images = $request->file('images', []);
-
-        if ($request->input('action') === 'preview') {
-            $advert = new Advert($dto->toModelAttributes());
-
-            return view('advert.preview', compact('advert', 'images'));
-        }
 
         $this->advertService->createAdvert($dto, $request->user(), $images);
 
@@ -104,8 +97,7 @@ class AdvertController extends Controller
 
         $this->authorize('update', $advert);
 
-        // $categories = $this->categoryService->getAll();
-        $categories = [];
+        $categories = $this->categoryService->getParents();
 
         return view('advert.edit', compact('advert', 'categories'));
     }
@@ -118,16 +110,26 @@ class AdvertController extends Controller
         $this->authorize('update', $advert);
 
         $dto = AdvertData::from($request->validated());
-
-        if ($request->input('action') === 'preview') {
-            $advert = new Advert($dto->toModelAttributes());
-
-            return view('advert.preview', compact('advert'));
-        }
-
         $this->advertService->updateAdvert($advert, $dto);
 
         return redirect()->route('profile.advert');
+    }
+
+    public function preview(StoreAdvertRequest $request): View
+    {
+        $dto = AdvertData::from($request->except('images'));
+        $advert = new Advert($dto->toModelAttributes());
+
+        $images = $request->file('images', []);
+        $previewImages = collect($images)->map(function ($file) {
+            return [
+                'name' => $file->getClientOriginalName(),
+                'data_url' => 'data:' . $file->getMimeType() . ';base64,'
+                    . base64_encode(file_get_contents($file->getRealPath())),
+            ];
+        })->toArray();
+
+        return view('advert.preview', compact('advert', 'previewImages'));
     }
 
     /**

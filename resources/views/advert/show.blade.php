@@ -88,62 +88,13 @@
 
         <div class="advert-extra">
             <div class="seller-card" x-data="{ showPhone: false, showEmail: false }">
-                <div class="seller-header">
-                    <img src="{{ image_url($advert->user->image_path, 'images/default-avatar.png') }}"
-                         class="seller-avatar" alt="Seller Avatar">
-                    <div>
-                        <a href="#" class="seller-name">
-                            {{ $advert->user->first_name }} {{ $advert->user->last_name }}
-                        </a>
-                        <p class="seller-date">Posted: {{ $advert->created_at->format('d/m/Y H:i') }}</p>
-                    </div>
-                </div>
-
-                <div x-data="{ modalOpen: false, modalContent: '', copied: false }">
-                    @if($advert->user->phone)
-                        <button class="seller-btn" @click="modalContent = '{{ $advert->user->phone }}'; modalOpen = true">
-                            Переглянути номер телефону
-                        </button>
-                    @endif
-
-                    <button class="seller-btn" @click="modalContent = '{{ $advert->user->email }}'; modalOpen = true">
-                        Показати електрону пошту
-                    </button>
-
-                    <div x-show="modalOpen" x-transition class="mobile-search-modal" @click.outside="modalOpen = false" x-cloak>
-                        <div class="modal-content">
-                            <input type="text" x-model="modalContent" class="modal-input" readonly autofocus>
-                            <button type="button" class="modal-search-btn"
-                                    @click="navigator.clipboard.writeText(modalContent); copied = true; setTimeout(() => copied = false, 2000)">
-                                Скопіювати
-                            </button>
-                            <button @click="modalOpen = false" class="modal-close-btn">&times;</button>
-                            <div x-show="copied" class="copy-success-message"> Текст успішно скопійовано!</div>
-                        </div>
-                    </div>
-                </div>
+                <x-advert.sections.seller-header
+                    :seller="$advert->user"
+                    :created_at="$advert->created_at->format('d/m/Y H:i')"
+                />
+                <x-advert.sections.contact-modal :seller="$advert->user" />
             </div>
-
-            <div class="delivery-card">
-                <h3 class="advert-subtitle">Delivery methods</h3>
-
-                <div class="delivery-item">
-                    <div class="delivery-content">
-                        <span class="delivery-subtitle"># todo</span>
-                    </div>
-                </div>
-
-                <div class="delivery-item complaint">
-                    <div class="delivery-icon">
-                        <img src="{{ asset('images/warning.svg') }}" alt="Warning">
-                    </div>
-
-                    <div class="form-row">
-                        <span class="delivery-title">Поскаржитись на товар</span>
-                        <span>arrow</span>
-                    </div>
-                </div>
-            </div>
+            <x-advert.sections.delivery-card/>
         </div>
 
         @if(!empty($relatedAdverts) && $relatedAdverts->isNotEmpty())
