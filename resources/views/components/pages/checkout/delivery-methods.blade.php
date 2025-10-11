@@ -66,12 +66,16 @@
             <ul class="dropdown-panel"
                 x-show="deliveryServices.meest.dropdownVisible && deliveryServices.meest.filteredBranches.length > 0">
                 <template x-for="(branch, index) in deliveryServices.meest.filteredBranches" :key="index">
-                    <li class="dropdown-item"
-                        @click.prevent="selectBranch('meest', branch)"
+                    <li class="dropdown-item" @click.prevent="selectBranch('meest', branch)"
                         x-text="branch.ShortAddress || branch.Description || branch"></li>
                 </template>
             </ul>
         </div>
+    </label>
+
+    <label for="SELF_PICKUP" class="delivery-method">
+        <input type="radio" id="SELF_PICKUP" name="delivery_method" value="SELF_PICKUP">
+        {{ __('delivery.SELF_PICKUP') }}
     </label>
 
     <input type="hidden" name="warehouse_ref" x-model="warehouse_ref">
