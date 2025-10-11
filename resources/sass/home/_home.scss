@@ -58,10 +58,8 @@
 .content-section {
     gap: 24px;
 
-    .form-row {
-        @include mixins.flex-center-vertical;
-        justify-content: space-between;
-        gap: 20px;
+    .form-row > * {
+        margin: 0;
     }
 
     .scroll-buttons {
