@@ -9,12 +9,12 @@
     .seller-avatar {
         @include mixins.size(100px);
     }
-}
 
-.profile-name {
-    margin: 0;
-    font-size: 20px;
-    font-family: variables.$font-family;
+    .profile-name {
+        margin: 0;
+        font-size: 20px;
+        font-family: variables.$font-family;
+    }
 }
 
 .profile-meta {
