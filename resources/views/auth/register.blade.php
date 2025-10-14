@@ -3,7 +3,7 @@
 @section('title', 'Зареєструватися')
 
 @section('auth-content')
-    <div class="auth-content" x-data="registrationForm()" x-init="init()">
+    <div class="auth-content" x-data="registrationForm()">
         <div class="auth-header">
             <h2 class="auth-heading">{{ __('auth.register.heading') }}</h2>
             <p class="auth-subheading">{{ __('auth.register.subheading') }}</p>
@@ -15,9 +15,10 @@
             <div class="step" x-show="step === 1" x-cloak>
                 <div class="form-group">
                     <x-form.input type="email" name="email" x-ref="email"
-                                  label="{{ __('auth.register.email') }}" placeholder="Email"
-                                  data-validation="email"
-                                  @input="validateStepOne()"/>
+                        label="{{ __('auth.register.email') }}" placeholder="Email"
+                        data-validation="email"
+                        @input="validateStepOne()"
+                    />
 
                     <x-form.input type="password" name="password" x-ref="password"
                                   label="{{ __('auth.register.password') }}" placeholder="********"
@@ -54,13 +55,13 @@
 
                 <div class="form-group">
                     <x-form.input type="text" name="first_name" label="{{ __('auth.register.first_name') }}"
-                                  placeholder="{{ __('auth.register.first_name_placeholder') }}"/>
+                                  placeholder="{{ __('auth.register.first_name_placeholder') }}" maxlength="50"/>
 
                     <x-form.input type="text" name="last_name" label="{{ __('auth.register.last_name') }}"
-                                  placeholder="{{ __('auth.register.last_name_placeholder') }}"/>
+                                  placeholder="{{ __('auth.register.last_name_placeholder') }}" maxlength="50"/>
 
                     <x-form.input type="tel" name="phone_number" label="{{ __('auth.register.phone_number') }}"
-                                  placeholder="{{ __('auth.register.phone_number_placeholder') }}"/>
+                                  placeholder="{{ __('auth.register.phone_number_placeholder') }}" maxlength="20"/>
                 </div>
 
                 <button type="submit" class="button submit">{{ __('auth.register.confirm_button') }}</button>
