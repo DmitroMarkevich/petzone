@@ -12,14 +12,4 @@ class AdvertData extends Data
         public float $price,
         public string $category_id,
     ) {}
-
-    public function toModelAttributes(): array
-    {
-        return [
-            'title'            => $this->title,
-            'description'      => $this->description,
-            'price'            => $this->price,
-            'category_id'      => $this->category_id,
-        ];
-    }
 }

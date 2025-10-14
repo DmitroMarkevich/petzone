@@ -43,13 +43,8 @@ class AdvertService
     public function createAdvert(AdvertData $data, User $user, array $images = []): Advert
     {
         return DB::transaction(function () use ($data, $user, $images) {
-            $advert = Advert::create([
-                ...$data->toModelAttributes(),
-                'owner_id' => $user->id
-            ]);
-
+            $advert = Advert::create([...$data->toArray(), 'owner_id' => $user->id]);
             $this->attachImagesToAdvert($advert, $images);
-
             return $advert;
         });
     }
@@ -66,7 +61,7 @@ class AdvertService
 
     public function updateAdvert(Advert $advert, AdvertData $dto): bool
     {
-        $attributes = $dto->toModelAttributes();
+        $attributes = $dto->toArray();
 
         if ($dto->price < $advert->price) {
             $attributes['previous_price'] = $advert->price;
