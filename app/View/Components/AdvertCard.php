@@ -29,7 +29,7 @@ class AdvertCard extends Component
         $this->starsToShow = (int) ($rating - $whole) > 0.6 ? $whole + 1 : $whole;
 
 
-        $this->isInWishlist = $this->advert->in_wishlist;
+        $this->isInWishlist = (bool) ($advert->in_wishlist ?? false);
         $this->heartIcon = $this->isInWishlist
             ? asset('images/heart-filled.svg')
             : asset('images/heart.svg');

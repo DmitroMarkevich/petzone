@@ -1,0 +1,99 @@
+@use '../mixins';
+@use '../variables';
+
+.seller-profile {
+    max-width: 58%;
+    margin: 40px auto;
+    font-family: variables.$font-family-alt;
+
+    .seller-avatar {
+        @include mixins.size(100px);
+    }
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 20px;
+    font-family: variables.$font-family;
+}
+
+.profile-meta {
+    @include mixins.flex-column;
+    @include mixins.font-style(14px, variables.$muted-gray);
+    margin-top: 4px;
+}
+
+.adverts-section-content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+    gap: 40px;
+}
+
+.share-btn {
+    padding: 0;
+    margin-top: 4px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: variables.$blue;
+    cursor: pointer;
+    transition: text-decoration-thickness 0.3s ease, text-underline-offset 0.3s ease;
+
+    &:hover {
+        text-underline-offset: 6px;
+        text-decoration-thickness: 2px;
+    }
+}
+
+.section-divider {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid variables.$light-gray;
+}
+
+.total-count {
+    @include mixins.font-style(14px, variables.$carbon);
+}
+
+.controls {
+    @include mixins.flex-center-vertical;
+    gap: 10px;
+
+    .view-toggle {
+        display: flex;
+        gap: 5px;
+    }
+}
+
+.adverts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+    height: 42px;
+
+    .search-input {
+        border: 1px solid #797677;
+        border-radius: 6px;
+        height: 100%;
+        box-sizing: border-box;
+    }
+}
+
+.search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    height: 24px;
+
+    img {
+        height: 100%;
+    }
+}

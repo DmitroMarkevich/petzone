@@ -12,7 +12,6 @@
         </h3>
 
         <div class="advert-main">
-            <!-- === ГАЛЕРЕЯ === -->
             <div class="advert-gallery">
                 <div class="advert-slider">
                     <div class="scroll-buttons">
@@ -47,7 +46,6 @@
                 </div>
             </div>
 
-            <!-- === ІНФОРМАЦІЯ ПРО ОГОЛОШЕННЯ === -->
             <div class="advert-info">
                 <div class="form-row">
                     <x-advert-rating :rating="0"/>
@@ -80,7 +78,6 @@
             </div>
         </div>
 
-        <!-- === ДОДАТКОВІ КАРТКИ === -->
         <div class="advert-extra">
             <div class="seller-card" x-data="{ showPhone: false, showEmail: false }">
                 <x-advert.sections.seller-header

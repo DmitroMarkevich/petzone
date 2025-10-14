@@ -1,0 +1,16 @@
+@use '../mixins';
+@use '../variables';
+
+.sort-options {
+    @include mixins.font-style(14px, variables.$carbon, 400);
+    font-family: variables.$font-family-alt;
+    appearance: none;
+    padding: 12px 32px 12px 18px;
+    border-radius: 6px;
+    border: 1px solid variables.$muted-gray;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 5"%3E%3Cpath fill="none" stroke="%23797677" stroke-width="1.2" d="M0 0l5 5 5-5" /%3E%3C/svg%3E');
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+}

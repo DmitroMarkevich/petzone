@@ -9,6 +9,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
+    require __DIR__.'/groups/user.php';
     require __DIR__.'/groups/adverts.php';
     require __DIR__.'/groups/address.php';
     require __DIR__.'/groups/profile.php';
