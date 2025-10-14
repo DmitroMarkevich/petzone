@@ -32,7 +32,7 @@ class SearchBuilder
         $sortMap = [
             'price-asc' => ['price', 'asc'],
             'price-desc' => ['price', 'desc'],
-            'date-asc' => ['created_at', 'desc'],
+            'date-asc' => ['created_at', 'asc'],
         ];
 
         if (isset($sortMap[$sort])) {
