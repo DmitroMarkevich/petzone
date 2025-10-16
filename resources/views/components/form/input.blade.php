@@ -1,30 +1,51 @@
-@props(['type' => 'text','name', 'label', 'placeholder' => '', 'value' => old($name)])
+@props([
+    'type' => 'text',
+    'name',
+    'label',
+    'placeholder' => '',
+    'value' => null,
+])
 
-<div>
+@php
+    $value = $value ?? old($name);
+@endphp
+
+<div class="form-group">
     @if($label)
-        <label for="{{ $name }}">{{ $label }}</label>
+        <label for="{{ $name }}" style="margin-bottom: 0; display: block;">
+            {{ $label }}
+        </label>
     @endif
 
-    <div class="input-wrapper">
+    <div x-data="{ showPassword: false }" class="input-wrapper">
         <input
             id="{{ $name }}"
-            type="{{ $type }}"
+            :type="showPassword ? 'text' : '{{ $type }}'"
             name="{{ $name }}"
             value="{{ $value }}"
             class="input-field {{ $errors->has($name) ? 'invalid' : '' }}"
             {{ $attributes->merge(['required']) }}
             placeholder="{{ $placeholder }}"
-            data-validation="{{ $type }}"
         >
 
         @if ($type === 'password')
-            <button type="button" class="toggle-visibility">
-                <img id="eye-icon" src="{{ asset('images/auth/eye-closed.svg') }}" alt="Toggle">
+            <button
+                type="button"
+                @click="showPassword = !showPassword"
+                class="toggle-visibility"
+                aria-label="Показати/Приховати пароль"
+            >
+                <img
+                    :src="showPassword
+                        ? '{{ asset('images/auth/eye-open.svg') }}'
+                        : '{{ asset('images/auth/eye-closed.svg') }}'"
+                    alt="Toggle visibility"
+                >
             </button>
         @endif
-
-        @error($name)
-        <span class="error-message">*{{ $message }}</span>
-        @enderror
     </div>
+
+    @error($name)
+    <span class="error-message">*{{ $message }}</span>
+    @enderror
 </div>
