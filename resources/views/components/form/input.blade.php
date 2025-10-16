@@ -1,23 +1,11 @@
-@props([
-    'type' => 'text',
-    'name',
-    'label',
-    'placeholder' => '',
-    'value' => null,
-])
+@props(['type' => 'text','name', 'label', 'placeholder' => '', 'value' => old($name)])
 
-@php
-    $value = $value ?? old($name);
-@endphp
-
-<div class="form-group">
+<div>
     @if($label)
-        <label for="{{ $name }}" style="margin-bottom: 0; display: block;">
-            {{ $label }}
-        </label>
+        <label for="{{ $name }}">{{ $label }}</label>
     @endif
 
-    <div x-data="{ showPassword: false }" class="input-wrapper">
+    <div class="input-wrapper" x-data="{ showPassword: false }">
         <input
             id="{{ $name }}"
             :type="showPassword ? 'text' : '{{ $type }}'"
@@ -26,6 +14,7 @@
             class="input-field {{ $errors->has($name) ? 'invalid' : '' }}"
             {{ $attributes->merge(['required']) }}
             placeholder="{{ $placeholder }}"
+            data-validation="{{ $type }}"
         >
 
         @if ($type === 'password')
@@ -36,16 +25,17 @@
                 aria-label="Показати/Приховати пароль"
             >
                 <img
+                    src="{{ asset('images/auth/eye-closed.svg') }}"
                     :src="showPassword
                         ? '{{ asset('images/auth/eye-open.svg') }}'
                         : '{{ asset('images/auth/eye-closed.svg') }}'"
-                    alt="Toggle visibility"
+                    alt=""
                 >
             </button>
         @endif
-    </div>
 
-    @error($name)
-    <span class="error-message">*{{ $message }}</span>
-    @enderror
+        @error($name)
+        <span class="error-message">*{{ $message }}</span>
+        @enderror
+    </div>
 </div>
