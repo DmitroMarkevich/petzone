@@ -77,8 +77,7 @@
 }
 
 .navbar-logo {
-    width: 230px;
-    height: auto;
+    @include mixins.size(230px, auto);
 }
 
 .slider-frame {
