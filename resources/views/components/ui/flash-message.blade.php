@@ -7,6 +7,11 @@
             'iconFill' => 'green',
             'iconPath' => 'M9 16.17L4.83 12l-1.42 1.41L9 19l12-12-1.41-1.42z',
         ],
+        'warning' => [
+            'title' => 'Попередження!',
+            'iconFill' => '#FF9B0A',
+            'iconPath' => 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z',
+        ],
         'error' => [
             'title' => 'Помилка!',
             'iconFill' => 'red',
@@ -18,7 +23,7 @@
 
 <div
     x-data="{ show: true }"
-    x-init="setTimeout(() => show = false, 2000)"
+    x-init="setTimeout(() => show = false, 3000)"
     x-show="show"
     x-transition:leave="transition ease-in duration-400"
     x-transition:leave-start="opacity-100"

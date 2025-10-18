@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Advert\Advert;
 use App\Models\Order\Order;
+use App\Models\Advert\Advert;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -98,5 +98,13 @@ class User extends Authenticatable
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function hasCompletedProfile(): bool
+    {
+        return !empty($this->first_name)
+            && !empty($this->last_name)
+            && !empty($this->phone_number)
+            && !empty($this->address->city_ref);
     }
 }

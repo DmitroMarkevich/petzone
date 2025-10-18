@@ -71,7 +71,7 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('profile.index')
-            ->with('error', 'Аватар вже відсутній');
+            ->with('warning', 'Аватар вже відсутній');
     }
 
     public function adverts(Request $request): Factory|View|Application

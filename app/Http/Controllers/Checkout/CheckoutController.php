@@ -50,6 +50,10 @@ class CheckoutController extends Controller
      */
     public function select(Request $request): RedirectResponse
     {
+        if (!auth()->user()->hasCompletedProfile()) {
+            return back()->with('warning', 'Будь ласка, заповніть профіль і адресу перед замовленням.');
+        }
+
         $advertId = $request->input('advert_id');
         $advert = Advert::findOrFail($advertId);
 

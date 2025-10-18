@@ -24,12 +24,29 @@
     }
 }
 
+.flash-message {
+    @include mixins.flex-center(column);
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    z-index: 1000;
+}
+
 .flash-message--success {
     @extend %flash-message-base;
     background-color: #C6F7E0;
 
     .icon {
         @include mixins.size(40px, 30px);
+    }
+}
+
+.flash-message--warning {
+    @extend %flash-message-base;
+    background-color: #ffd800;
+
+    .icon {
+        @include mixins.size(50px, 40px);
     }
 }
 

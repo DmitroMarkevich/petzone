@@ -118,7 +118,7 @@ class AdvertController extends Controller
     public function preview(StoreAdvertRequest $request): View
     {
         $dto = AdvertData::from($request->except('images'));
-        $advert = new Advert($dto->toModelAttributes());
+        $advert = new Advert($dto->toArray());
 
         $images = $request->file('images', []);
         $previewImages = collect($images)->map(function ($file) {
