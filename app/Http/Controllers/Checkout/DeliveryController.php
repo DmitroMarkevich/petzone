@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Checkout;
 
-use App\Http\Controllers\Controller;
+use App\Services\CacheService;
 use App\Services\Delivery\Factory\DeliveryServiceFactory;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
-    protected DeliveryServiceFactory $deliveryServiceFactory;
+    private CacheService $cacheService;
+    private DeliveryServiceFactory $deliveryServiceFactory;
 
-    public function __construct(DeliveryServiceFactory $deliveryServiceFactory)
+    public function __construct(DeliveryServiceFactory $deliveryServiceFactory, CacheService $cacheService)
     {
+        $this->cacheService = $cacheService;
         $this->deliveryServiceFactory = $deliveryServiceFactory;
     }
 
@@ -21,7 +24,7 @@ class DeliveryController extends Controller
      */
     public function getWarehouses(Request $request): JsonResponse
     {
-        $city = $request->user()?->address?->city_ref;
+        $cityRef = $request->user()?->address?->city_ref;
         $deliveryMethod = $request->query('delivery_method');
 
         $service = $this->deliveryServiceFactory->getService($deliveryMethod);
@@ -30,7 +33,12 @@ class DeliveryController extends Controller
             return response()->json(['error' => 'Unsupported delivery method'], 400);
         }
 
-        $warehouses = $service->getWarehouses($city);
+        $cacheKey = sprintf('warehouses_%s_%s', $deliveryMethod, $cityRef);
+        $warehouses = $this->cacheService->remember(
+            $cacheKey,
+            fn() => $service->getWarehouses($cityRef),
+            ttl: 360
+        );
 
         return response()->json($warehouses);
     }
